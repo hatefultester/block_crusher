@@ -1,4 +1,4 @@
-import 'package:block_crusher/src/game/widgets/game_screen.dart';
+import 'package:block_crusher/src/depricated_game/widgets/game_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

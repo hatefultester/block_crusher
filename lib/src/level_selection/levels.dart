@@ -4,6 +4,12 @@
 
 const gameLevels = [
   GameLevel(number: 1, difficulty: 1),
+  GameLevel(number: 2, difficulty: 3),
+  GameLevel(number: 3, difficulty: 7),
+  GameLevel(number: 4, difficulty: 15),
+  GameLevel(number: 5, difficulty: 31),
+  GameLevel(number: 6, difficulty: 63),
+  GameLevel(number: 7, difficulty: 126),
 
   // GameLevel(
   //   number: 1,

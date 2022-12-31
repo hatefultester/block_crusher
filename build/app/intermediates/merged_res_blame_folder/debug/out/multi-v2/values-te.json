@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/matejgrohmann/Development/bc/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-te/values-te.xml",
+            "outputFile": "/Users/matejgrohmann/Development/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-te/values-te.xml",
             "map": [
                 {
                     "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/6b0daa5fb4c2eb7e8b55778df9b972f6/transformed/jetified-play-services-basement-18.1.0/res/values-te/values.xml",

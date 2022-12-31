@@ -4,7 +4,9 @@
 
 import 'dart:async';
 
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
@@ -12,7 +14,8 @@ import 'package:provider/provider.dart';
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
-import '../game_internals/level_state.dart';
+import 'game_controller.dart';
+import 'level_state.dart';
 import '../games_services/games_services.dart';
 import '../games_services/score.dart';
 import '../in_app_purchase/in_app_purchase.dart';
@@ -44,25 +47,30 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
-
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LevelState(
-            goal: widget.level.difficulty,
-            onWin: _playerWon,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => LevelState(
+              goal: widget.level.difficulty,
+              onWin: _playerWon,
+            ),
           ),
-        ),
-      ],
-      child: IgnorePointer(
-        ignoring: _duringCelebration,
-        child: Scaffold(
-          backgroundColor: palette.backgroundPlaySession,
-          body: Stack(
-            children: [
-              _oldGameWidget(),
-              _celebrationWidget(),
-            ],
+        ],
+        child: IgnorePointer(
+          ignoring: _duringCelebration,
+          child: Scaffold(
+            backgroundColor: palette.backgroundPlaySession,
+            body: Stack(
+              children: [
+                const MyGameWidget(),
+                //  _oldGameWidget(),
+                _celebrationWidget(),
+              ],
+            ),
           ),
         ),
       ),
@@ -184,5 +192,123 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     if (!mounted) return;
 
     GoRouter.of(context).go('/play/won', extra: {'score': score});
+  }
+}
+
+class MyGameWidget extends StatelessWidget {
+  const MyGameWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    GameController.to.context = context;
+
+    return _myGameLayer();
+  }
+
+  _myGameLayer() {
+    GameController.to.gameIsRunning.value = true;
+
+    return Stack(
+      children: [
+        _flameLayer(),
+        _appLayer(),
+      ],
+    );
+  }
+
+  _flameLayer() {
+    return GetBuilder<GameController>(builder: (controller) {
+      return GameWidget(game: controller.game);
+    });
+  }
+
+  _appLayer() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [_scoreContainer(), _playButton()],
+    );
+  }
+
+  _playButton() {
+    return Obx(
+      () => GameController.to.gameIsRunning.value
+          ? const SizedBox.shrink()
+          : InkWell(
+              onTap: () => {GameController.to.startGame()},
+              child: Container(
+                color: Colors.red,
+                width: 200,
+                height: 50,
+                child: const Center(
+                  child: Text('Play', style: TextStyle(fontSize: 20)),
+                ),
+              ),
+            ),
+    );
+  }
+
+  _scoreContainer() {
+    return Container(
+      width: 200,
+      height: 100,
+      decoration: const BoxDecoration(color: Colors.blue),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Text('LIVES : ', style: TextStyle(fontSize: 20)),
+              Obx(
+                () {
+                  return Text(
+                    GameController.to.lives.value.toString(),
+                    style: const TextStyle(fontSize: 20),
+                  );
+                },
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text('SCORE : ', style: TextStyle(fontSize: 20)),
+              Consumer<LevelState>(
+                builder: (context, levelState, child) => Obx(
+                  () {
+                    levelState.setProgress(GameController.to.gameScore.value);
+                    levelState.evaluate();
+
+                    return Text(GameController.to.gameScore.value.toString(),
+                        style: const TextStyle(fontSize: 20));
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text('LEVEL : ', style: TextStyle(fontSize: 20)),
+              Obx(
+                () {
+                  return Text(
+                      GameController.to.blockFallSpeed.value.toInt().toString(),
+                      style: const TextStyle(fontSize: 20));
+                },
+              ),
+            ],
+          ),
+          const Spacer(),
+          Row(
+            children: [
+              const Text('BEST : ', style: TextStyle(fontSize: 20)),
+              Obx(
+                () {
+                  return Text(GameController.to.bestScore.value.toString(),
+                      style: const TextStyle(fontSize: 20));
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/matejgrohmann/Development/bc/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "/Users/matejgrohmann/Development/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
                     "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/3cbb354f323f5886034735a27ff919b9/transformed/jetified-play-services-auth-20.2.0/res/values-watch-v20/values.xml",

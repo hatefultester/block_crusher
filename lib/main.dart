@@ -20,6 +20,7 @@ import 'src/ads/ads_controller.dart';
 import 'src/app_lifecycle/app_lifecycle.dart';
 import 'src/audio/audio_controller.dart';
 import 'src/crashlytics/crashlytics.dart';
+import 'src/play_session/game_controller.dart';
 import 'src/games_services/games_services.dart';
 import 'src/games_services/score.dart';
 import 'src/in_app_purchase/in_app_purchase.dart';
@@ -76,6 +77,8 @@ void guardedMain() {
   });
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  Get.put(GameController(), permanent: true);
 
   _log.info('Going full screen');
   SystemChrome.setEnabledSystemUIMode(

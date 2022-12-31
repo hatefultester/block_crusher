@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/matejgrohmann/Development/bc/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-ne/values-ne.xml",
+            "outputFile": "/Users/matejgrohmann/Development/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-ne/values-ne.xml",
             "map": [
                 {
                     "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/05304738454a7c6fee076a188df4c25d/transformed/browser-1.4.0/res/values-ne/values-ne.xml",

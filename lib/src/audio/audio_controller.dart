@@ -15,7 +15,7 @@ import 'songs.dart';
 import 'sounds.dart';
 
 /// Allows playing music and sound. A facade to `package:audioplayers`.
-class AudioController extends GetxService {
+class AudioController {
   static final _log = Logger('AudioController');
 
   final AudioPlayer _musicPlayer;

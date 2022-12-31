@@ -13,8 +13,8 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->/Users/matejgrohmann/Development/bc/block_crusher/android/app/src/debug/AndroidManifest.xml:7:5-66
-15-->/Users/matejgrohmann/Development/bc/block_crusher/android/app/src/debug/AndroidManifest.xml:7:22-64
+15-->/Users/matejgrohmann/Development/block_crusher/android/app/src/debug/AndroidManifest.xml:7:5-66
+15-->/Users/matejgrohmann/Development/block_crusher/android/app/src/debug/AndroidManifest.xml:7:22-64
 16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 16-->[com.google.firebase:firebase-installations:17.1.0] /Users/matejgrohmann/.gradle/caches/transforms-3/cf2530c0f139726a53229b3fb2b93ae8/transformed/jetified-firebase-installations-17.1.0/AndroidManifest.xml:9:5-79
 16-->[com.google.firebase:firebase-installations:17.1.0] /Users/matejgrohmann/.gradle/caches/transforms-3/cf2530c0f139726a53229b3fb2b93ae8/transformed/jetified-firebase-installations-17.1.0/AndroidManifest.xml:9:22-76
@@ -123,25 +123,25 @@
 97            android:value="2" />
 98
 99        <service
-99-->[:firebase_crashlytics] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+99-->[:firebase_crashlytics] /Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
 100            android:name="com.google.firebase.components.ComponentDiscoveryService"
-100-->[:firebase_crashlytics] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
+100-->[:firebase_crashlytics] /Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
 101            android:directBootAware="true"
 101-->[com.google.firebase:firebase-common:20.2.0] /Users/matejgrohmann/.gradle/caches/transforms-3/be4e127f5c507aa2bbff88d15520e5ed/transformed/jetified-firebase-common-20.2.0/AndroidManifest.xml:34:13-43
 102            android:exported="false" >
 102-->[com.google.firebase:firebase-crashlytics:18.3.2] /Users/matejgrohmann/.gradle/caches/transforms-3/8be92742d18408c2e5ff77db8dd25414/transformed/jetified-firebase-crashlytics-18.3.2/AndroidManifest.xml:16:13-37
 103            <meta-data
-103-->[:firebase_crashlytics] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+103-->[:firebase_crashlytics] /Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 104                android:name="com.google.firebase.components:io.flutter.plugins.firebase.crashlytics.FlutterFirebaseAppRegistrar"
-104-->[:firebase_crashlytics] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-130
+104-->[:firebase_crashlytics] /Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-130
 105                android:value="com.google.firebase.components.ComponentRegistrar" />
-105-->[:firebase_crashlytics] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+105-->[:firebase_crashlytics] /Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 106            <meta-data
-106-->[:firebase_core] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+106-->[:firebase_core] /Users/matejgrohmann/Development/block_crusher/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 107                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
-107-->[:firebase_core] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+107-->[:firebase_core] /Users/matejgrohmann/Development/block_crusher/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
 108                android:value="com.google.firebase.components.ComponentRegistrar" />
-108-->[:firebase_core] /Users/matejgrohmann/Development/bc/block_crusher/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+108-->[:firebase_core] /Users/matejgrohmann/Development/block_crusher/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 109            <meta-data
 109-->[com.google.firebase:firebase-crashlytics:18.3.2] /Users/matejgrohmann/.gradle/caches/transforms-3/8be92742d18408c2e5ff77db8dd25414/transformed/jetified-firebase-crashlytics-18.3.2/AndroidManifest.xml:17:13-19:85
 110                android:name="com.google.firebase.components:com.google.firebase.crashlytics.CrashlyticsRegistrar"
@@ -157,11 +157,11 @@
 115        </service>
 116
 117        <meta-data
-117-->[:google_mobile_ads] /Users/matejgrohmann/Development/bc/block_crusher/build/google_mobile_ads/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-14:36
+117-->[:google_mobile_ads] /Users/matejgrohmann/Development/block_crusher/build/google_mobile_ads/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-14:36
 118            android:name="io.flutter.embedded_views_preview"
-118-->[:google_mobile_ads] /Users/matejgrohmann/Development/bc/block_crusher/build/google_mobile_ads/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-61
+118-->[:google_mobile_ads] /Users/matejgrohmann/Development/block_crusher/build/google_mobile_ads/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-61
 119            android:value="true" />
-119-->[:google_mobile_ads] /Users/matejgrohmann/Development/bc/block_crusher/build/google_mobile_ads/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-33
+119-->[:google_mobile_ads] /Users/matejgrohmann/Development/block_crusher/build/google_mobile_ads/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-33
 120
 121        <uses-library
 121-->[androidx.window:window:1.0.0-beta04] /Users/matejgrohmann/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40

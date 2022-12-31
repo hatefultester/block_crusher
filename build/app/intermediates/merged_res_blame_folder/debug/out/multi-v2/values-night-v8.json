@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/matejgrohmann/Development/bc/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "/Users/matejgrohmann/Development/block_crusher/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/matejgrohmann/Development/bc/block_crusher/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/matejgrohmann/Development/block_crusher/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
