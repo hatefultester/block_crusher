@@ -4,9 +4,9 @@
 
 import 'dart:async';
 
+import 'package:block_crusher/src/play_session/flame_part/game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
-import 'game_controller.dart';
 import 'level_state.dart';
 import '../games_services/games_services.dart';
 import '../games_services/score.dart';
@@ -42,6 +41,8 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   bool _duringCelebration = false;
 
+  late BlockCrusherGame _blockCrusherGame;
+
   late DateTime _startOfPlay;
 
   @override
@@ -56,6 +57,8 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
           ChangeNotifierProvider(
             create: (context) => LevelState(
               goal: widget.level.difficulty,
+              maxLives: widget.level.lives,
+              onDie: _playerDie,
               onWin: _playerWon,
             ),
           ),
@@ -66,8 +69,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
             backgroundColor: palette.backgroundPlaySession,
             body: Stack(
               children: [
-                const MyGameWidget(),
-                //  _oldGameWidget(),
+                _gameWidget(),
                 _celebrationWidget(),
               ],
             ),
@@ -77,48 +79,10 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     );
   }
 
-  _oldGameWidget() {
-    return Center(
-      // This is the entirety of the "game".
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: InkResponse(
-              onTap: () => GoRouter.of(context).push('/settings'),
-              child: Image.asset(
-                'assets/images/settings.png',
-                semanticLabel: 'Settings',
-              ),
-            ),
-          ),
-          const Spacer(),
-          Text('Drag the slider to ${widget.level.difficulty}%'
-              ' or above!'),
-          Consumer<LevelState>(
-            builder: (context, levelState, child) => Slider(
-              label: 'Level Progress',
-              autofocus: true,
-              value: levelState.progress / 100,
-              onChanged: (value) =>
-                  levelState.setProgress((value * 100).round()),
-              onChangeEnd: (value) => levelState.evaluate(),
-            ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => GoRouter.of(context).go('/play'),
-                child: const Text('Back'),
-              ),
-            ),
-          ),
-        ],
-      ),
+  _gameWidget() {
+    return Consumer<LevelState>(
+      builder: (context, levelState, child) =>
+          GameWidget(game: _blockCrusherGame.set(context, levelState)),
     );
   }
 
@@ -139,6 +103,8 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   void initState() {
     super.initState();
 
+    _blockCrusherGame = BlockCrusherGame();
+
     _startOfPlay = DateTime.now();
 
     // Preload ad for the win screen.
@@ -148,6 +114,12 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       final adsController = context.read<AdsController?>();
       adsController?.preloadAd();
     }
+  }
+
+  Future<void> _playerDie() async {
+    // TODO
+
+    _playerWon();
   }
 
   Future<void> _playerWon() async {
@@ -195,120 +167,168 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 }
 
-class MyGameWidget extends StatelessWidget {
-  const MyGameWidget({super.key});
+// class MyGameWidget extends StatelessWidget {
+//   const MyGameWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    GameController.to.context = context;
+//   @override
+//   Widget build(BuildContext context) {
+//     GameController.to.context = context;
 
-    return _myGameLayer();
-  }
+//     return _myGameLayer();
+//   }
 
-  _myGameLayer() {
-    GameController.to.gameIsRunning.value = true;
+//   _myGameLayer() {
+//     GameController.to.gameIsRunning.value = true;
 
-    return Stack(
-      children: [
-        _flameLayer(),
-        _appLayer(),
-      ],
-    );
-  }
+//     return Stack(
+//       children: [
+//         _flameLayer(),
+//         _appLayer(),
+//       ],
+//     );
+//   }
 
-  _flameLayer() {
-    return GetBuilder<GameController>(builder: (controller) {
-      return GameWidget(game: controller.game);
-    });
-  }
+//   _flameLayer() {
+//     return GetBuilder<GameController>(builder: (controller) {
+//       return GameWidget(game: controller.game);
+//     });
+//   }
 
-  _appLayer() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [_scoreContainer(), _playButton()],
-    );
-  }
+//   _appLayer() {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.end,
+//       children: [_scoreContainer(), _playButton()],
+//     );
+//   }
 
-  _playButton() {
-    return Obx(
-      () => GameController.to.gameIsRunning.value
-          ? const SizedBox.shrink()
-          : InkWell(
-              onTap: () => {GameController.to.startGame()},
-              child: Container(
-                color: Colors.red,
-                width: 200,
-                height: 50,
-                child: const Center(
-                  child: Text('Play', style: TextStyle(fontSize: 20)),
-                ),
-              ),
-            ),
-    );
-  }
+//   _playButton() {
+//     return Obx(
+//       () => GameController.to.gameIsRunning.value
+//           ? const SizedBox.shrink()
+//           : InkWell(
+//               onTap: () => {GameController.to.startGame()},
+//               child: Container(
+//                 color: Colors.red,
+//                 width: 200,
+//                 height: 50,
+//                 child: const Center(
+//                   child: Text('Play', style: TextStyle(fontSize: 20)),
+//                 ),
+//               ),
+//             ),
+//     );
+//   }
 
-  _scoreContainer() {
-    return Container(
-      width: 200,
-      height: 100,
-      decoration: const BoxDecoration(color: Colors.blue),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const Text('LIVES : ', style: TextStyle(fontSize: 20)),
-              Obx(
-                () {
-                  return Text(
-                    GameController.to.lives.value.toString(),
-                    style: const TextStyle(fontSize: 20),
-                  );
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Text('SCORE : ', style: TextStyle(fontSize: 20)),
-              Consumer<LevelState>(
-                builder: (context, levelState, child) => Obx(
-                  () {
-                    levelState.setProgress(GameController.to.gameScore.value);
-                    levelState.evaluate();
+  
+// }
 
-                    return Text(GameController.to.gameScore.value.toString(),
-                        style: const TextStyle(fontSize: 20));
-                  },
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Text('LEVEL : ', style: TextStyle(fontSize: 20)),
-              Obx(
-                () {
-                  return Text(
-                      GameController.to.blockFallSpeed.value.toInt().toString(),
-                      style: const TextStyle(fontSize: 20));
-                },
-              ),
-            ],
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              const Text('BEST : ', style: TextStyle(fontSize: 20)),
-              Obx(
-                () {
-                  return Text(GameController.to.bestScore.value.toString(),
-                      style: const TextStyle(fontSize: 20));
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+
+//  _oldGameWidget() {
+//     return Center(
+//       // This is the entirety of the "game".
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           Align(
+//             alignment: Alignment.centerRight,
+//             child: InkResponse(
+//               onTap: () => GoRouter.of(context).push('/settings'),
+//               child: Image.asset(
+//                 'assets/images/settings.png',
+//                 semanticLabel: 'Settings',
+//               ),
+//             ),
+//           ),
+//           const Spacer(),
+//           Text('Drag the slider to ${widget.level.difficulty}%'
+//               ' or above!'),
+//           Consumer<LevelState>(
+//             builder: (context, levelState, child) => Slider(
+//               label: 'Level Progress',
+//               autofocus: true,
+//               value: levelState.score / 100,
+//               onChanged: (value) =>
+//                   levelState.setProgress((value * 100).round()),
+//               onChangeEnd: (value) => levelState.evaluate(),
+//             ),
+//           ),
+//           const Spacer(),
+//           Padding(
+//             padding: const EdgeInsets.all(8.0),
+//             child: SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: () => GoRouter.of(context).go('/play'),
+//                 child: const Text('Back'),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+// _scoreContainer() {
+//     return Container(
+//       width: 200,
+//       height: 100,
+//       decoration: const BoxDecoration(color: Colors.blue),
+//       child: Column(
+//         children: [
+//           Row(
+//             children: [
+//               const Text('LIVES : ', style: TextStyle(fontSize: 20)),
+//               Obx(
+//                 () {
+//                   return Text(
+//                     GameController.to.lives.value.toString(),
+//                     style: const TextStyle(fontSize: 20),
+//                   );
+//                 },
+//               ),
+//             ],
+//           ),
+//           Row(
+//             children: [
+//               const Text('SCORE : ', style: TextStyle(fontSize: 20)),
+//               Consumer<LevelState>(
+//                 builder: (context, levelState, child) => Obx(
+//                   () {
+//                     levelState.setProgress(GameController.to.gameScore.value);
+//                     levelState.evaluate();
+
+//                     return Text(GameController.to.gameScore.value.toString(),
+//                         style: const TextStyle(fontSize: 20));
+//                   },
+//                 ),
+//               ),
+//             ],
+//           ),
+//           Row(
+//             children: [
+//               const Text('LEVEL : ', style: TextStyle(fontSize: 20)),
+//               Obx(
+//                 () {
+//                   return Text(
+//                       GameController.to.blockFallSpeed.value.toInt().toString(),
+//                       style: const TextStyle(fontSize: 20));
+//                 },
+//               ),
+//             ],
+//           ),
+//           const Spacer(),
+//           Row(
+//             children: [
+//               const Text('BEST : ', style: TextStyle(fontSize: 20)),
+//               Obx(
+//                 () {
+//                   return Text(GameController.to.bestScore.value.toString(),
+//                       style: const TextStyle(fontSize: 20));
+//                 },
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }

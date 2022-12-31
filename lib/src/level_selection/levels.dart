@@ -37,6 +37,8 @@ class GameLevel {
 
   final int difficulty;
 
+  final int lives = 1;
+
   /// The achievement to unlock when the level is finished, if any.
   final String? achievementIdIOS;
 

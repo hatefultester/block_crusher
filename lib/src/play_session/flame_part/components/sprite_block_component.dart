@@ -51,17 +51,12 @@ class SpriteBlockComponent extends SpriteComponent
   @override
   update(double dt) {
     super.update(dt);
-
-    if (GameController.to.gameIsRunning.value == false) {
-      y += 15;
-    }
-
     if (!isDragging && !tapped) {
-      y += GameController.to.blockFallSpeed.value;
+      y += gameRef.blockFallSpeed;
     }
 
     if (y > gameRef.size.y) {
-      GameController.to.blockRemoved();
+      gameRef.blockRemoved();
       removeFromParent();
     }
   }
@@ -99,14 +94,7 @@ class SpriteBlockComponent extends SpriteComponent
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is SpriteBlockComponent) {
-      switch (GameController.to.gameMode) {
-        case GameMode.dumb:
-        case GameMode.colorful:
-          return;
-        case GameMode.spriteColorful:
-          _colorfulCollisionStartMethod(other);
-          break;
-      }
+      _colorfulCollisionStartMethod(other);
     }
   }
 
@@ -115,7 +103,7 @@ class SpriteBlockComponent extends SpriteComponent
       other.removeFromParent();
       level++;
       _sprite();
-      GameController.to.collisionDetected();
+      gameRef.collisionDetected();
     }
   }
 
@@ -123,7 +111,7 @@ class SpriteBlockComponent extends SpriteComponent
     if (y > 5) {
       other.removeFromParent();
       removeFromParent();
-      GameController.to.collisionDetected();
+      gameRef.collisionDetected();
     }
   }
 

@@ -78,8 +78,6 @@ void guardedMain() {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  Get.put(GameController(), permanent: true);
-
   _log.info('Going full screen');
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.edgeToEdge,
