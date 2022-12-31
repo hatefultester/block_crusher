@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_res/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_res/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_res/release/layout-v21/notification_action.xml",
+        "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Users/matejgrohmann/Development/block_crusher/build/firebase_crashlytics/intermediates/merged_res/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/matejgrohmann/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout-v21/notification_template_custom_big.xml"
+    }
+]

@@ -4,12 +4,20 @@
 
 const gameLevels = [
   GameLevel(number: 1, difficulty: 1),
-  GameLevel(number: 2, difficulty: 3),
-  GameLevel(number: 3, difficulty: 7),
-  GameLevel(number: 4, difficulty: 15),
-  GameLevel(number: 5, difficulty: 31),
-  GameLevel(number: 6, difficulty: 63),
-  GameLevel(number: 7, difficulty: 126),
+  GameLevel(number: 2, difficulty: 2),
+  GameLevel(number: 3, difficulty: 3),
+  GameLevel(number: 4, difficulty: 4),
+  GameLevel(number: 5, difficulty: 5),
+  GameLevel(number: 6, difficulty: 6),
+  GameLevel(number: 7, difficulty: 7),
+  GameLevel(number: 8, difficulty: 8),
+  GameLevel(number: 9, difficulty: 9),
+  GameLevel(number: 10, difficulty: 10),
+  GameLevel(number: 11, difficulty: 11),
+  GameLevel(number: 12, difficulty: 12),
+  GameLevel(number: 13, difficulty: 13),
+  GameLevel(number: 14, difficulty: 14),
+  GameLevel(number: 15, difficulty: 15),
 
   // GameLevel(
   //   number: 1,
@@ -37,7 +45,7 @@ class GameLevel {
 
   final int difficulty;
 
-  final int lives = 1;
+  final int lives = 1000;
 
   /// The achievement to unlock when the level is finished, if any.
   final String? achievementIdIOS;

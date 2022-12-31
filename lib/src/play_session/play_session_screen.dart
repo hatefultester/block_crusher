@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:block_crusher/src/play_session/flame_part/game.dart';
+import 'package:block_crusher/src/game_internals/game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
-import 'level_state.dart';
+import '../level_selection/level_state.dart';
 import '../games_services/games_services.dart';
 import '../games_services/score.dart';
 import '../in_app_purchase/in_app_purchase.dart';
