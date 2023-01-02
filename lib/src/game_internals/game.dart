@@ -1,3 +1,4 @@
+import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/level_selection/level_state.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -18,23 +19,26 @@ class BlockCrusherGame extends FlameGame
 
   final double defaultBlockFallSpeed = 1.0;
   final int defaultTickSpeed = 150;
-  final int defaultGameScore = 0;
-  final int defaultLives = 10;
 
-  double blockFallSpeed = 1.0;
-  int tickSpeed = 150;
-  int gameScore = 0;
-  int lives = 10;
-  int bestScore = 0;
+  late double blockFallSpeed;
+  late int tickSpeed;
 
   bool loading = true;
 
-  late Timer timer;
+  late a.Timer timer;
   late BlockCrusherGame game;
 
-  int tickCounter = 0;
+  late int tickCounter;
+  late int generatedCounter;
 
   BlockCrusherGame();
+
+  _setVars() {
+    blockFallSpeed = defaultBlockFallSpeed;
+    tickSpeed = defaultTickSpeed;
+    tickCounter = 0;
+    generatedCounter = 0;
+  }
 
   late SpriteBlockComponent initialBlock;
 
@@ -48,6 +52,8 @@ class BlockCrusherGame extends FlameGame
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+
+    _setVars();
 
     await add(
       SpriteComponent(
@@ -80,22 +86,24 @@ class BlockCrusherGame extends FlameGame
   }
 
   _startTimer() async {
-    a.Timer timer = a.Timer.periodic(
-      const Duration(milliseconds: 20),
-      (timer) async {
+    print('Starting timer');
+    timer = a.Timer.periodic(const Duration(milliseconds: 20), (timer) async {
+      if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
         tickCounter++;
         if (tickCounter == tickSpeed) {
           tickCounter = 0;
+          generatedCounter++;
           _addNewBlock();
         }
-      },
-    );
+      }
+    });
   }
 
   _addNewBlock() async {
     await add(SpriteBlockComponent());
 
-    if (state.goal > 5) {
+    if (generatedCounter == 2) {
+      generatedCounter = 0;
       await add(SpriteBlockComponent.oppositeDirection());
     }
   }
@@ -111,5 +119,20 @@ class BlockCrusherGame extends FlameGame
   _increaseGameSpeed() {
     // if (tickSpeed > 100) tickSpeed -= 15;
     // if (tickSpeed > 50) tickSpeed -= 10;
+  }
+
+  restartGame() async {
+    timer.cancel();
+    final allPositionComponents = children.query<SpriteBlockComponent>();
+
+    removeAll(allPositionComponents);
+
+    _setVars();
+    state.reset();
+
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+
+    await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
+    _startTimer();
   }
 }

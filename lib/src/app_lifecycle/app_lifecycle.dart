@@ -9,17 +9,19 @@ import 'package:provider/provider.dart';
 class AppLifecycleObserver extends StatefulWidget {
   final Widget child;
 
+  static AppLifecycleState appState = AppLifecycleState.inactive;
+
   const AppLifecycleObserver({required this.child, super.key});
 
   @override
-  State<AppLifecycleObserver> createState() => _AppLifecycleObserverState();
+  State<AppLifecycleObserver> createState() => AppLifecycleObserverState();
 }
 
-class _AppLifecycleObserverState extends State<AppLifecycleObserver>
+class AppLifecycleObserverState extends State<AppLifecycleObserver>
     with WidgetsBindingObserver {
   static final _log = Logger('AppLifecycleObserver');
 
-  final ValueNotifier<AppLifecycleState> lifecycleListenable =
+  static final ValueNotifier<AppLifecycleState> lifecycleListenable =
       ValueNotifier(AppLifecycleState.inactive);
 
   @override
@@ -46,6 +48,7 @@ class _AppLifecycleObserverState extends State<AppLifecycleObserver>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     _log.info(() => 'didChangeAppLifecycleState: $state');
     lifecycleListenable.value = state;
+    AppLifecycleObserver.appState = state;
   }
 
   @override

@@ -43,16 +43,15 @@ class LevelSelectionScreen extends StatelessWidget {
                 children: [
                   for (final level in gameLevels)
                     ListTile(
-                      enabled: playerProgress.highestLevelReached >=
-                          level.number - 1,
+                      enabled:
+                          playerProgress.highestLevelReached >= level.level - 1,
                       onTap: () {
                         final audioController = context.read<AudioController>();
                         audioController.playSfx(SfxType.buttonTap);
-                        GoRouter.of(context)
-                            .go('/play/session/${level.number}');
+                        GoRouter.of(context).go('/play/session/${level.level}');
                       },
-                      leading: Text(level.number.toString()),
-                      title: Text('Level #${level.number}'),
+                      leading: Text(level.level.toString()),
+                      title: Text('Level #${level.level}'),
                     )
                 ],
               ),
@@ -69,3 +68,60 @@ class LevelSelectionScreen extends StatelessWidget {
     );
   }
 }
+
+
+/*
+class LevelSelectionScreen extends StatelessWidget {
+  const LevelSelectionScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.watch<Palette>();
+    final playerProgress = context.watch<PlayerProgress>();
+
+    return Scaffold(
+      backgroundColor: palette.backgroundLevelSelection,
+      body: ResponsiveScreen(
+        squarishMainArea: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: Center(
+                child: Text(
+                  'Select level',
+                  style:
+                      TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
+                ),
+              ),
+            ),
+            const SizedBox(height: 50),
+            Expanded(
+              child: ListView(
+                children: [
+                  for (final level in gameLevels)
+                    ListTile(
+                      enabled:
+                          playerProgress.highestLevelReached >= level.level - 1,
+                      onTap: () {
+                        final audioController = context.read<AudioController>();
+                        audioController.playSfx(SfxType.buttonTap);
+                        GoRouter.of(context).go('/play/session/${level.level}');
+                      },
+                      leading: Text(level.level.toString()),
+                      title: Text('Level #${level.level}'),
+                    )
+                ],
+              ),
+            ),
+          ],
+        ),
+        rectangularMenuArea: ElevatedButton(
+          onPressed: () {
+            GoRouter.of(context).go('/');
+          },
+          child: const Text('Back'),
+        ),
+      ),
+    );
+  }
+  */

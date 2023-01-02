@@ -3,21 +3,25 @@
 // BSD-style license that can be found in the LICENSE file.
 
 const gameLevels = [
-  GameLevel(number: 1, difficulty: 1),
-  GameLevel(number: 2, difficulty: 2),
-  GameLevel(number: 3, difficulty: 3),
-  GameLevel(number: 4, difficulty: 4),
-  GameLevel(number: 5, difficulty: 5),
-  GameLevel(number: 6, difficulty: 6),
-  GameLevel(number: 7, difficulty: 7),
-  GameLevel(number: 8, difficulty: 8),
-  GameLevel(number: 9, difficulty: 9),
-  GameLevel(number: 10, difficulty: 10),
-  GameLevel(number: 11, difficulty: 11),
-  GameLevel(number: 12, difficulty: 12),
-  GameLevel(number: 13, difficulty: 13),
-  GameLevel(number: 14, difficulty: 14),
-  GameLevel(number: 15, difficulty: 15),
+  GameLevel(level: 1, levelDifficulty: LevelDifficulty.learning),
+  GameLevel(level: 2, levelDifficulty: LevelDifficulty.learning),
+  GameLevel(level: 3, levelDifficulty: LevelDifficulty.learning),
+
+  GameLevel(level: 4, levelDifficulty: LevelDifficulty.beginner),
+  GameLevel(level: 5, levelDifficulty: LevelDifficulty.beginner),
+  GameLevel(level: 6, levelDifficulty: LevelDifficulty.beginner),
+
+  GameLevel(level: 7, levelDifficulty: LevelDifficulty.intermediate),
+  GameLevel(level: 8, levelDifficulty: LevelDifficulty.intermediate),
+  GameLevel(level: 9, levelDifficulty: LevelDifficulty.intermediate),
+
+  GameLevel(level: 10, levelDifficulty: LevelDifficulty.master),
+  GameLevel(level: 11, levelDifficulty: LevelDifficulty.master),
+  GameLevel(level: 12, levelDifficulty: LevelDifficulty.master),
+
+  GameLevel(level: 13, levelDifficulty: LevelDifficulty.jedi),
+  GameLevel(level: 14, levelDifficulty: LevelDifficulty.jedi),
+  GameLevel(level: 15, levelDifficulty: LevelDifficulty.jedi),
 
   // GameLevel(
   //   number: 1,
@@ -40,10 +44,18 @@ const gameLevels = [
   // ),
 ];
 
-class GameLevel {
-  final int number;
+enum LevelDifficulty {
+  learning,
+  beginner,
+  intermediate,
+  master,
+  jedi;
+}
 
-  final int difficulty;
+class GameLevel {
+  final LevelDifficulty levelDifficulty;
+
+  final int level;
 
   final int lives = 1000;
 
@@ -55,8 +67,8 @@ class GameLevel {
   bool get awardsAchievement => achievementIdAndroid != null;
 
   const GameLevel({
-    required this.number,
-    required this.difficulty,
+    required this.levelDifficulty,
+    required this.level,
     this.achievementIdIOS,
     this.achievementIdAndroid,
   }) : assert(

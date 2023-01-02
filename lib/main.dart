@@ -78,11 +78,6 @@ void guardedMain() {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  _log.info('Going full screen');
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.edgeToEdge,
-  );
-
   // TODO: When ready, uncomment the following lines to enable integrations.
   //       Read the README for more info on each integration.
 
@@ -112,13 +107,21 @@ void guardedMain() {
   //   inAppPurchaseController.restorePurchases();
   // }
 
-  runApp(
-    MyApp(
-      settingsPersistence: LocalStorageSettingsPersistence(),
-      playerProgressPersistence: LocalStoragePlayerProgressPersistence(),
-      inAppPurchaseController: inAppPurchaseController,
-      adsController: null,
-      gamesServicesController: gamesServicesController,
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(systemNavigationBarColor: Colors.transparent));
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky).then(
+    (_) => runApp(
+      MyApp(
+        settingsPersistence: LocalStorageSettingsPersistence(),
+        playerProgressPersistence: LocalStoragePlayerProgressPersistence(),
+        inAppPurchaseController: inAppPurchaseController,
+        adsController: null,
+        gamesServicesController: gamesServicesController,
+      ),
     ),
   );
 }
@@ -145,8 +148,8 @@ class MyApp extends StatelessWidget {
                     path: 'session/:level',
                     pageBuilder: (context, state) {
                       final levelNumber = int.parse(state.params['level']!);
-                      final level = gameLevels
-                          .singleWhere((e) => e.number == levelNumber);
+                      final level =
+                          gameLevels.singleWhere((e) => e.level == levelNumber);
                       return buildMyTransition<void>(
                         child: PlaySessionScreen(
                           level,
@@ -247,7 +250,10 @@ class MyApp extends StatelessWidget {
 
           return GetMaterialApp.router(
             title: 'Block crusher',
-            theme: ThemeData.from(
+            debugShowCheckedModeBanner: false,
+            debugShowMaterialGrid: false,
+            showSemanticsDebugger: false,
+            theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
                 seedColor: palette.darkPen,
                 background: palette.backgroundMain,
@@ -255,6 +261,20 @@ class MyApp extends StatelessWidget {
               textTheme: TextTheme(
                 bodyMedium: TextStyle(
                   color: palette.ink,
+                  fontFamily: 'Quikhand',
+                ),
+              ),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: const BorderSide(color: Colors.black, width: 0.1),
+                  ),
+                  backgroundColor: Colors.redAccent.shade100,
+                  foregroundColor: Colors.black,
+                  fixedSize: const Size(220, 60),
+                  textStyle:
+                      const TextStyle(fontFamily: 'Quikhand', fontSize: 25),
                 ),
               ),
             ),

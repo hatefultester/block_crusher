@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
+import '../game_internals/components/sprite_block_component.dart';
 import '../level_selection/level_state.dart';
 import '../games_services/games_services.dart';
 import '../games_services/score.dart';
@@ -56,7 +57,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         providers: [
           ChangeNotifierProvider(
             create: (context) => LevelState(
-              goal: widget.level.difficulty,
+              goal: widget.level.level,
               maxLives: widget.level.lives,
               onDie: _playerDie,
               onWin: _playerWon,
@@ -70,6 +71,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
             body: Stack(
               children: [
                 _gameWidget(),
+                _appLayer(),
                 _celebrationWidget(),
               ],
             ),
@@ -77,6 +79,90 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         ),
       ),
     );
+  }
+
+  _appLayer() {
+    return Column(
+      children: [_topAppLayer(), const Spacer(), _bottomAppLayer()],
+    );
+  }
+
+  _topAppLayer() {
+    return Container(
+      decoration: const BoxDecoration(color: Colors.black),
+      height: 60,
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: (() => {
+                  GoRouter.of(context).go('/play'),
+                }),
+          ),
+          const Spacer(),
+          _imageWidget(),
+          const Spacer(),
+          Text(
+            'L e v e l   ${widget.level.level.toString()}',
+            style: const TextStyle(
+              fontSize: 35,
+              color: Colors.white,
+            ),
+          ),
+          const Spacer(),
+          _imageWidget(),
+          const Spacer(),
+          IconButton(
+            icon: const Icon(
+              Icons.refresh,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: (() => {
+                  _blockCrusherGame.restartGame(),
+                  setState(
+                    () {
+                      _startOfPlay = DateTime.now();
+                    },
+                  ),
+                }),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _imageWidget() {
+    return Container(
+      height: 60,
+      padding: const EdgeInsets.all(10),
+      child: Image.asset(
+          'assets/images/${imageSource[widget.level.level]['source']}'),
+    );
+  }
+
+  _bottomAppLayer() {
+    return Container(
+        decoration: const BoxDecoration(color: Colors.black),
+        height: 60,
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Consumer<LevelState>(
+              builder: (context, levelState, child) => Text(
+                levelState.lives.toString(),
+              ),
+            ),
+            TimerWidget(_startOfPlay)
+          ],
+        ));
   }
 
   _gameWidget() {
@@ -123,16 +209,16 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   Future<void> _playerWon() async {
-    _log.info('Level ${widget.level.number} won');
+    _log.info('Level ${widget.level.level} won');
 
     final score = Score(
-      widget.level.number,
-      widget.level.difficulty,
+      widget.level.level,
+      widget.level.level,
       DateTime.now().difference(_startOfPlay),
     );
 
     final playerProgress = context.read<PlayerProgress>();
-    playerProgress.setLevelReached(widget.level.number);
+    playerProgress.setLevelReached(widget.level.level);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);
@@ -164,6 +250,51 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     if (!mounted) return;
 
     GoRouter.of(context).go('/play/won', extra: {'score': score});
+  }
+}
+
+class TimerWidget extends StatefulWidget {
+  final DateTime startTime;
+
+  const TimerWidget(this.startTime, {super.key});
+
+  @override
+  State<TimerWidget> createState() => _TimerWidgetState();
+}
+
+class _TimerWidgetState extends State<TimerWidget> {
+  String time = '0';
+
+  Timer? timeDilationTimer;
+
+  _TimerWidgetState() {
+    setTimer();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 100,
+        padding: const EdgeInsets.all(8),
+        child: Text(
+          time,
+          style: const TextStyle(fontSize: 25, color: Colors.white),
+          textAlign: TextAlign.center,
+        ));
+  }
+
+  setTimer() {
+    timeDilationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        time = DateTime.now().difference(widget.startTime).toFormattedString();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    timeDilationTimer?.cancel();
+    super.dispose();
   }
 }
 

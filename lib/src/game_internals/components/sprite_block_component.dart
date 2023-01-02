@@ -9,6 +9,18 @@ import '../game.dart';
 
 enum Direction { fall, raise }
 
+List<Map<String, dynamic>> imageSource = [
+  {'source': '1_1000x880.png', 'size': Vector2(10, 8.8)},
+  {'source': '2_1000x880.png', 'size': Vector2(10, 8.8)},
+  {'source': '3_500x1000.png', 'size': Vector2(5, 10)},
+  {'source': '4_500x1000.png', 'size': Vector2(5, 10)},
+  {'source': '5_1000x1000.png', 'size': Vector2(10, 10)},
+  {'source': '6_1000x1000.png', 'size': Vector2(10, 10)},
+  {'source': '7_1000x750.png', 'size': Vector2(10, 7.5)},
+  {'source': '8_1000x750.png', 'size': Vector2(10, 7.5)},
+  {'source': '9_1000x1140.png', 'size': Vector2(10, 11.4)},
+];
+
 class SpriteBlockComponent extends SpriteComponent
     with HasGameRef<BlockCrusherGame>, CollisionCallbacks, Draggable, Tappable {
   Vector2? dragDeltaPosition;
@@ -19,18 +31,6 @@ class SpriteBlockComponent extends SpriteComponent
   int level = 0;
 
   Direction direction = Direction.fall;
-
-  List<Map<String, dynamic>> imageSource = [
-    {'source': '1_1000x880.png', 'size': Vector2(10, 8.8)},
-    {'source': '2_1000x880.png', 'size': Vector2(10, 8.8)},
-    {'source': '3_500x1000.png', 'size': Vector2(5, 10)},
-    {'source': '4_500x1000.png', 'size': Vector2(5, 10)},
-    {'source': '5_1000x1000.png', 'size': Vector2(10, 10)},
-    {'source': '6_1000x1000.png', 'size': Vector2(10, 10)},
-    {'source': '7_1000x750.png', 'size': Vector2(10, 7.5)},
-    {'source': '8_1000x750.png', 'size': Vector2(10, 7.5)},
-    {'source': '9_1000x1140.png', 'size': Vector2(10, 11.4)},
-  ];
 
   SpriteBlockComponent();
 

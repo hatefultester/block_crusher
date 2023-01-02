@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 /// An extremely silly example of a game state.
 ///
@@ -25,6 +26,12 @@ class LevelState extends ChangeNotifier {
   int _level = 0;
   int get level => _level;
 
+  void reset() {
+    _score = 0;
+    _level = 0;
+    _lives = maxLives;
+  }
+
   LevelState(
       {required this.onWin,
       required this.onDie,
@@ -35,6 +42,11 @@ class LevelState extends ChangeNotifier {
 
   void setLevel(int value) {
     _level = value;
+    notifyListeners();
+  }
+
+  void increaseScore(int value) {
+    _score += value;
     notifyListeners();
   }
 
