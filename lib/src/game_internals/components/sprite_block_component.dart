@@ -1,13 +1,12 @@
 import 'dart:math';
 
-import 'package:block_crusher/depricated/game_controller.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 import '../game.dart';
 
-enum Direction { fall, raise }
+enum Direction { down, up, left, right }
 
 List<Map<String, dynamic>> imageSource = [
   {'source': '1_1000x880.png', 'size': Vector2(10, 8.8)},
@@ -28,17 +27,15 @@ class SpriteBlockComponent extends SpriteComponent
 
   final double _scale = 7.0;
 
+  double extraspeed = 0;
+
   int level = 0;
 
-  Direction direction = Direction.fall;
+  Direction direction = Direction.down;
 
   SpriteBlockComponent();
-
   SpriteBlockComponent.withLevelSet(this.level);
-
-  SpriteBlockComponent.oppositeDirection() {
-    direction = Direction.raise;
-  }
+  SpriteBlockComponent.withDirection(this.direction);
 
   _sprite() async {
     if (level < imageSource.length) {
@@ -56,13 +53,32 @@ class SpriteBlockComponent extends SpriteComponent
     await _sprite();
 
     int xMax = (gameRef.size.x - size.x).toInt();
+    int yMax = (gameRef.size.y - size.y).toInt();
 
     switch (direction) {
-      case Direction.fall:
-        position = Vector2((Random().nextInt(xMax) + 0), 0);
+      case Direction.down:
+        position = Vector2(
+          (Random().nextInt(xMax) + 0),
+          0,
+        );
         break;
-      case Direction.raise:
-        position = Vector2((Random().nextInt(xMax) + 0), gameRef.size.y);
+      case Direction.up:
+        position = Vector2(
+          (Random().nextInt(xMax) + 0),
+          gameRef.size.y,
+        );
+        break;
+      case Direction.left:
+        position = Vector2(
+          gameRef.size.x - 30,
+          (Random().nextInt(yMax) + 0),
+        );
+        break;
+      case Direction.right:
+        position = Vector2(
+          0 + 30,
+          (Random().nextInt(yMax) + 0),
+        );
         break;
     }
 
@@ -79,24 +95,42 @@ class SpriteBlockComponent extends SpriteComponent
     super.update(dt);
     if (!isDragging && !tapped) {
       switch (direction) {
-        case Direction.fall:
-          y += gameRef.blockFallSpeed;
+        case Direction.down:
+          y += gameRef.blockFallSpeed + extraspeed;
           break;
-        case Direction.raise:
-          y -= gameRef.blockFallSpeed;
+        case Direction.up:
+          y -= gameRef.blockFallSpeed + extraspeed;
+          break;
+        case Direction.left:
+          x -= gameRef.blockFallSpeed + extraspeed;
+          break;
+        case Direction.right:
+          x += gameRef.blockFallSpeed + extraspeed;
           break;
       }
     }
 
     switch (direction) {
-      case Direction.fall:
+      case Direction.down:
         if (y > gameRef.size.y) {
           gameRef.blockRemoved();
           removeFromParent();
         }
         break;
-      case Direction.raise:
+      case Direction.up:
         if (y < 0) {
+          gameRef.blockRemoved();
+          removeFromParent();
+        }
+        break;
+      case Direction.left:
+        if (x < 0) {
+          gameRef.blockRemoved();
+          removeFromParent();
+        }
+        break;
+      case Direction.right:
+        if (x > gameRef.size.x) {
           gameRef.blockRemoved();
           removeFromParent();
         }
@@ -137,19 +171,13 @@ class SpriteBlockComponent extends SpriteComponent
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is SpriteBlockComponent) {
-      _colorfulCollisionStartMethod(other);
-    }
-  }
-
-  _colorfulCollisionStartMethod(SpriteBlockComponent other) {
-    if (y > 5 && isDragging && other.level == level) {
-      other.removeFromParent();
-      level++;
-      _sprite();
-      if (direction == Direction.raise) {
-        direction == Direction.fall;
+      if (y > 5 && isDragging && other.level == level) {
+        other.removeFromParent();
+        level++;
+        _sprite();
+        direction = Direction.down;
+        gameRef.collisionDetected(level);
       }
-      gameRef.collisionDetected(level);
     }
   }
 
