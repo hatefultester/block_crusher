@@ -168,7 +168,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   _gameWidget() {
     return Consumer<LevelState>(
       builder: (context, levelState, child) =>
-          GameWidget(game: _blockCrusherGame.set(context, levelState)),
+          GameWidget(game: _blockCrusherGame.setGame(context, levelState)),
     );
   }
 
@@ -189,7 +189,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   void initState() {
     super.initState();
 
-    _blockCrusherGame = BlockCrusherGame();
+    _blockCrusherGame = BlockCrusherGame(widget.level.levelDifficulty);
 
     _startOfPlay = DateTime.now();
 

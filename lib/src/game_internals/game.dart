@@ -1,59 +1,73 @@
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
+import 'package:block_crusher/src/game_internals/components/enemy_component.dart';
 import 'package:block_crusher/src/level_selection/level_state.dart';
+import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
 
-import 'dart:async' as a;
+import 'dart:async' as DartAsync;
 
 import 'components/sprite_block_component.dart';
 
+const double defaultBlockFallSpeed = 0.7;
+const double advancedBlockFallSpeed = 0.9;
+const double jediBlockFallSpeed = 1.2;
+const int defaultTickSpeed = 150;
+
 class BlockCrusherGame extends FlameGame
     with HasCollisionDetection, HasDraggables, HasTappables {
+  final Logger _log = Logger('BlockCrusherGame');
+  final LevelDifficulty difficulty;
+
   late BuildContext context;
   late LevelState state;
 
-  final double defaultBlockFallSpeed = 1.0;
-  final int defaultTickSpeed = 150;
+  DartAsync.Timer? _timer;
 
-  late double blockFallSpeed;
-  late int tickSpeed;
+  late int _tickCounter;
+  late double _blockFallSpeed;
 
-  bool loading = true;
+  double get blockFallSpeed => _blockFallSpeed;
 
-  late a.Timer timer;
-  late BlockCrusherGame game;
+  late int _tickSpeed;
+  late int _generatedCounter;
 
-  late int tickCounter;
-  late int generatedCounter;
+  BlockCrusherGame(this.difficulty);
 
-  BlockCrusherGame();
-
-  _setVars() {
-    blockFallSpeed = defaultBlockFallSpeed;
-    tickSpeed = defaultTickSpeed;
-    tickCounter = 0;
-    generatedCounter = 0;
-  }
-
-  late SpriteBlockComponent initialBlock;
-
-  BlockCrusherGame set(BuildContext context, LevelState state) {
+  BlockCrusherGame setGame(BuildContext context, LevelState state) {
     this.context = context;
     this.state = state;
 
     return this;
   }
 
+  _setVariables() {
+    if (difficulty.atLeast(LevelDifficulty.intermediate)) {
+      if (difficulty.atLeast(LevelDifficulty.jedi)) {
+        _blockFallSpeed = jediBlockFallSpeed;
+      } else {
+        _blockFallSpeed = advancedBlockFallSpeed;
+      }
+    } else {
+      _blockFallSpeed = defaultBlockFallSpeed;
+    }
+
+    _tickSpeed = defaultTickSpeed;
+    _tickCounter = 0;
+    _generatedCounter = 0;
+  }
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    _setVars();
+    _setVariables();
 
     await add(
       SpriteComponent(
@@ -64,19 +78,22 @@ class BlockCrusherGame extends FlameGame
 
     await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
 
-    _startTimer();
+    if (_timer == null) {
+      _startTimer();
+    }
   }
 
   void collisionDetected(int level) {
     final audioController = context.read<AudioController>();
     audioController.playSfx(SfxType.wssh);
 
-    _scoreIncrease();
-    _levelIncrease(level);
-  }
-
-  _scoreIncrease() {
     state.setProgress(state.score + 1);
+
+    if (level > state.level) {
+      _increaseGameSpeed();
+      state.setLevel(level);
+    }
+
     state.evaluate();
   }
 
@@ -86,34 +103,40 @@ class BlockCrusherGame extends FlameGame
   }
 
   _startTimer() async {
-    print('Starting timer');
-    timer = a.Timer.periodic(const Duration(milliseconds: 20), (timer) async {
+    _log.info('Starting timer');
+    _timer = DartAsync.Timer.periodic(const Duration(milliseconds: 15),
+        (timer) async {
       if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
-        tickCounter++;
-        if (tickCounter == tickSpeed) {
-          tickCounter = 0;
-          generatedCounter++;
-          _addNewBlock();
+        _tickCounter++;
+        if (_tickCounter == _tickSpeed) {
+          _tickCounter = 0;
+          _generatedCounter++;
+
+          await add(SpriteBlockComponent());
+
+          if (_generatedCounter % 4 == 0 &&
+              difficulty.atLeast(LevelDifficulty.intermediate)) {
+            await add(EnemyComponent.randomDirection(
+                !difficulty.atLeast(LevelDifficulty.master)));
+          }
+
+          if ((difficulty.atLeast(LevelDifficulty.beginner) &&
+                  _generatedCounter.floor().isEven) ||
+              difficulty.atLeast(LevelDifficulty.intermediate)) {
+            await add(SpriteBlockComponent.withDirection(Direction.up));
+          }
+
+          if (difficulty.atLeast(LevelDifficulty.master) &&
+              _generatedCounter.floor().isEven) {
+            await add(SpriteBlockComponent.withDirection(Direction.left));
+          }
+          if (difficulty.atLeast(LevelDifficulty.master) &&
+              _generatedCounter.floor().isOdd) {
+            await add(SpriteBlockComponent.withDirection(Direction.right));
+          }
         }
       }
     });
-  }
-
-  _addNewBlock() async {
-    await add(SpriteBlockComponent());
-
-    if (generatedCounter == 2) {
-      generatedCounter = 0;
-      await add(SpriteBlockComponent.oppositeDirection());
-    }
-  }
-
-  _levelIncrease(int level) {
-    if (level > state.level) {
-      _increaseGameSpeed();
-      state.setLevel(level);
-      state.evaluate();
-    }
   }
 
   _increaseGameSpeed() {
@@ -122,17 +145,18 @@ class BlockCrusherGame extends FlameGame
   }
 
   restartGame() async {
-    timer.cancel();
-    final allPositionComponents = children.query<SpriteBlockComponent>();
+    _timer?.cancel();
 
+    final allPositionComponents = children.query<SpriteBlockComponent>();
     removeAll(allPositionComponents);
 
-    _setVars();
+    _setVariables();
     state.reset();
 
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
     await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
+
     _startTimer();
   }
 }

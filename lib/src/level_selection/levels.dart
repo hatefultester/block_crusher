@@ -50,6 +50,26 @@ enum LevelDifficulty {
   intermediate,
   master,
   jedi;
+
+  bool atLeast(LevelDifficulty difficulty) {
+    switch (difficulty) {
+      case LevelDifficulty.learning:
+        return false;
+      case LevelDifficulty.beginner:
+        return this == LevelDifficulty.jedi ||
+            this == LevelDifficulty.master ||
+            this == LevelDifficulty.intermediate ||
+            this == LevelDifficulty.beginner;
+      case LevelDifficulty.intermediate:
+        return this == LevelDifficulty.jedi ||
+            this == LevelDifficulty.master ||
+            this == LevelDifficulty.intermediate;
+      case LevelDifficulty.master:
+        return this == LevelDifficulty.jedi || this == LevelDifficulty.master;
+      case LevelDifficulty.jedi:
+        return this == LevelDifficulty.jedi;
+    }
+  }
 }
 
 class GameLevel {
