@@ -1,4 +1,4 @@
-#Sat Dec 31 21:56:30 CET 2022
+#Wed Jan 04 12:13:23 CET 2023
 base.0=/Users/matejgrohmann/Development/block_crusher/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

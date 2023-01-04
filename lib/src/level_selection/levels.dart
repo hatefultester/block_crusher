@@ -2,7 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:block_crusher/src/level_selection/level_state.dart';
+
 const gameLevels = [
+  // GameLevel(
+  //     level: 0,
+  //     levelDifficulty: LevelDifficulty.learning,
+  //     levelType: LevelType.continuous),
+
   GameLevel(level: 1, levelDifficulty: LevelDifficulty.learning),
   GameLevel(level: 2, levelDifficulty: LevelDifficulty.learning),
   GameLevel(level: 3, levelDifficulty: LevelDifficulty.learning),
@@ -72,12 +79,19 @@ enum LevelDifficulty {
   }
 }
 
+enum LevelType {
+  continuous,
+  skill,
+}
+
 class GameLevel {
   final LevelDifficulty levelDifficulty;
 
+  final LevelType levelType;
+
   final int level;
 
-  final int lives = 1000;
+  int get lives => levelType == LevelType.continuous ? 5 : 1000;
 
   /// The achievement to unlock when the level is finished, if any.
   final String? achievementIdIOS;
@@ -91,6 +105,7 @@ class GameLevel {
     required this.level,
     this.achievementIdIOS,
     this.achievementIdAndroid,
+    this.levelType = LevelType.skill,
   }) : assert(
             (achievementIdAndroid != null && achievementIdIOS != null) ||
                 (achievementIdAndroid == null && achievementIdIOS == null),

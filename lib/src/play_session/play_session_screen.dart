@@ -3,7 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
+import 'package:block_crusher/src/game_internals/characters.dart';
 import 'package:block_crusher/src/game_internals/game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +59,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         providers: [
           ChangeNotifierProvider(
             create: (context) => LevelState(
+              levelType: widget.level.levelType,
               goal: widget.level.level,
               maxLives: widget.level.lives,
               onDie: _playerDie,
@@ -88,7 +91,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   _topAppLayer() {
-    return Container(
+    Widget content = Container(
       decoration: const BoxDecoration(color: Colors.black),
       height: 60,
       width: double.infinity,
@@ -136,15 +139,41 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         ],
       ),
     );
+
+    if (Platform.isIOS) {
+      return Row(
+        children: [
+          Container(
+            color: Colors.black,
+            height: 40,
+          ),
+          content
+        ],
+      );
+    } else {
+      return content;
+    }
   }
 
   _imageWidget() {
-    return Container(
-      height: 60,
-      padding: const EdgeInsets.all(10),
-      child: Image.asset(
-          'assets/images/${imageSource[widget.level.level]['source']}'),
-    );
+    if (widget.level.levelType == LevelType.skill) {
+      return Container(
+        height: 60,
+        padding: const EdgeInsets.all(10),
+        child: Image.asset(
+            'assets/images/${imageSource[widget.level.level]['source']}'),
+      );
+    }
+
+    if (widget.level.levelType == LevelType.continuous) {
+      return Consumer<LevelState>(
+          builder: (context, levelState, child) => Container(
+                height: 60,
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(
+                    'assets/images/${imageSource[levelState.level]['source']}'),
+              ));
+    }
   }
 
   _bottomAppLayer() {

@@ -2,16 +2,19 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// An extremely silly example of a game state.
 ///
 /// Tracks only a single variable, [score], and calls [onWin] when
-/// the value of [score] reaches [goal].
+/// the value of [score] reaches [getGoal].
 class LevelState extends ChangeNotifier {
   final VoidCallback onWin;
   final VoidCallback onDie;
+
+  final LevelType levelType;
 
   final int goal;
 
@@ -35,6 +38,7 @@ class LevelState extends ChangeNotifier {
   LevelState(
       {required this.onWin,
       required this.onDie,
+      required this.levelType,
       this.goal = 100,
       this.maxLives = 10}) {
     _lives = maxLives;
@@ -61,11 +65,13 @@ class LevelState extends ChangeNotifier {
   }
 
   void evaluate() {
-    if (_level >= goal) {
-      onWin();
-    }
-    if (_lives <= 0) {
-      onDie();
+    if (!(levelType == LevelType.continuous)) {
+      if (_level >= goal) {
+        onWin();
+      }
+      if (_lives <= 0) {
+        onDie();
+      }
     }
   }
 }

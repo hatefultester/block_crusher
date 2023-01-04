@@ -33,6 +33,7 @@ dependencies:
   games_services: ^3.0.0  # Achievements and leaderboards
   google_mobile_ads: ^2.0.1  # Ads
   in_app_purchase: ^3.0.1  # In-app purchases
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +46,8 @@ flutter:
   assets:
      - assets/
      - assets/images/
+     - assets/images/characters_skill_game/
+     - assets/images/backgrounds/
      - assets/music/
      - assets/sfx/
 

@@ -23,10 +23,12 @@ List<String> soundTypeToFilename(SfxType type) {
       ];
     case SfxType.buttonTap:
       return const [
-        'k1.mp3',
-        'k2.mp3',
-        'p1.mp3',
-        'p2.mp3',
+        // 'knock1.mp3'
+        'knock.m4a'
+        // 'k1.mp3',
+        // 'k2.mp3',
+        // 'p1.mp3',
+        // 'p2.mp3',
       ];
     case SfxType.congrats:
       return const [

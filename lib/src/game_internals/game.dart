@@ -71,15 +71,21 @@ class BlockCrusherGame extends FlameGame
 
     await add(
       SpriteComponent(
-        sprite: await loadSprite('background.png'),
+        sprite: await loadSprite('backgrounds/background.png'),
         size: Vector2(size.x, size.y),
       ),
     );
 
-    await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
+    await addDefaultBlock();
 
     if (_timer == null) {
       _startTimer();
+    }
+  }
+
+  addDefaultBlock() async {
+    if (state.goal - 1 > 0) {
+      await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
     }
   }
 
@@ -155,7 +161,7 @@ class BlockCrusherGame extends FlameGame
 
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
-    await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
+    await addDefaultBlock();
 
     _startTimer();
   }
