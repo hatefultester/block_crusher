@@ -2,14 +2,17 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/game_internals/characters.dart';
-import 'package:block_crusher/src/game_internals/components/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
+import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -139,15 +142,147 @@ class LevelSelectionScreen extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    topAppLayer() {
+      Widget content = Container(
+        decoration: const BoxDecoration(color: Colors.black),
+        height: 60,
+        width: double.infinity,
+        child: Stack(
+          children: [
+            SizedBox(
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: (() => {
+                          Navigator.pop(context),
+                        }),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
+            const Center(
+              child: Text(
+                'L E V E L S',
+                style: TextStyle(fontSize: 35, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      );
+
+      if (Platform.isIOS) {
+        return Column(
+          children: [
+            Container(
+              color: Colors.black,
+              height: 40,
+            ),
+            content
+          ],
+        );
+      } else {
+        return content;
+      }
+    }
+
     background() {
       return GameWidget(game: game);
     }
 
+    miniBox(int levelId, int gameId) {
+      return InkWell(
+        onTap: () =>
+            {GoRouter.of(context).go('/play/session/${levelId}/${gameId}')},
+        child: SizedBox(
+          width: double.infinity,
+          height: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Text('CoinPicker'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    bonusLevelsDialog(int levelId) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25),
+                gradient: LinearGradient(
+                    colors: [Colors.white, Colors.yellow.shade200],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+              ),
+              margin: const EdgeInsets.symmetric(vertical: 150, horizontal: 50),
+              width: double.infinity,
+              height: double.infinity,
+              child: Material(
+                child: Column(children: [
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Bonus Games',
+                        style: TextStyle(
+                            fontFamily: 'Quikhand',
+                            color: Colors.black,
+                            fontSize: 35,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.black26,
+                            decorationStyle: TextDecorationStyle.wavy),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          miniBox(levelId, 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20, bottom: 20),
+                        child: ElevatedButton(
+                          child: const Text('Close'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      )),
+                ]),
+              ),
+            ),
+          );
+        },
+      );
+    }
+
     box(int levelId) {
       final level = gameLevels[levelId];
-      final bool enabled = highestScore >= level.level - 1;
+      final bool enabled = highestScore >= level.levelId - 1;
 
-      final bool won = highestScore > level.level - 1;
+      final bool won = highestScore > level.levelId - 1;
 
       final audioController = context.read<AudioController>();
 
@@ -177,7 +312,7 @@ class LevelSelectionScreen extends StatelessWidget {
           width: boxSize,
           height: boxSize,
           child: Image.asset(
-              'assets/images/${imageSource[level.level]['source']}'));
+              'assets/images/${imageSource[level.levelId]['source']}'));
       if (enabled) {
         return Material(
           color: const Color.fromRGBO(255, 255, 255, 1),
@@ -188,7 +323,14 @@ class LevelSelectionScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   onTap: () async {
                     audioController.playSfx(SfxType.buttonTap);
-                    GoRouter.of(context).go('/play/session/${level.level}');
+
+                    // todo tohle kdyz ten level vyhraje...
+                    if (false) {
+                      // bonusLevelsDialog(levelId);
+                    } else {
+                      GoRouter.of(context)
+                          .go('/play/session/${level.levelId}/0');
+                    }
                   },
                   child: child),
               won
@@ -669,6 +811,7 @@ class LevelSelectionScreen extends StatelessWidget {
         children: [
           background(),
           levelsPageView(),
+          topAppLayer(),
           infoBox(),
         ],
       ),
@@ -702,19 +845,15 @@ class LevelSelectionBackground extends FlameGame {
 
   _startTimer() async {
     int counter = 0;
-    _timer = DartAsync.Timer.periodic(const Duration(milliseconds: 60),
+    _timer = DartAsync.Timer.periodic(const Duration(milliseconds: 500),
         (timer) async {
       if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
         counter++;
-        if (counter.isOdd) {
-          await add(MiniSpriteComponent(Direction.down));
-        } else {
-          await add(MiniSpriteComponent(Direction.up));
-        }
-      }
-
-      if (counter >= 20) {
-        _timer.cancel();
+        await add(MiniSpriteComponent());
+        await Future.delayed(Duration(milliseconds: 100));
+        await add(MiniSpriteComponent());
+        await Future.delayed(Duration(milliseconds: 250));
+        await add(MiniSpriteComponent());
       }
     });
   }
@@ -723,14 +862,6 @@ class LevelSelectionBackground extends FlameGame {
 class MapSpriteComponent extends SpriteComponent
     with HasGameRef<LevelSelectionBackground> {
   @override
-  List<String> maps = [
-    'backgrounds/background.png',
-    'backgrounds/majak.png',
-    'backgrounds/background_1-3.png',
-    'backgrounds/majak.png',
-    'backgrounds/background_1-3.png',
-  ];
-
   final int initialMap;
 
   MapSpriteComponent(this.initialMap);
@@ -763,36 +894,39 @@ class MapSpriteComponent extends SpriteComponent
 
 class MiniSpriteComponent extends SpriteComponent
     with HasGameRef<LevelSelectionBackground> {
-  final double _scale = 4;
+  final double _scale = 6;
 
-  final Direction direction;
-
-  MiniSpriteComponent(this.direction);
+  MiniSpriteComponent();
 
   @override
   DartAsync.Future<void>? onLoad() async {
     await super.onLoad();
 
-    int xMax = (gameRef.size.x - size.x).toInt();
+    int xMax = (gameRef.size.x - size.x - 250).toInt();
+    int yMax = (gameRef.size.y).toInt();
 
-    switch (direction) {
-      case Direction.down:
-        position = Vector2(
-          (Random().nextInt(xMax) + 0),
-          (Random().nextInt(gameRef.size.y.toInt()) + 1),
-        );
-        break;
-      case Direction.up:
-        position = Vector2(
-          (Random().nextInt(xMax) + 0),
-          (Random().nextInt(gameRef.size.y.toInt()) + 1),
-        );
-        break;
+    position = Vector2(
+      (Random().nextInt(xMax) + 100),
+      (Random().nextInt(yMax) + 0),
+    );
 
-      default:
-        return;
-    }
     await _sprite();
+    await Future.delayed(const Duration(milliseconds: 300));
+    final effect = OpacityEffect.to(
+      0.1,
+      EffectController(duration: 1.5),
+      onComplete: (() {
+        removeFromParent();
+      }),
+    );
+    final sizeEffect =
+        ScaleEffect.by(Vector2(1.2, 1.2), EffectController(duration: 1.5));
+    final randomNum = Random().nextInt(10);
+    final rotationEffect = RotateEffect.by(
+        randomNum.isEven ? tau / 4 : -tau / 4, EffectController(duration: 1.5));
+    await add(sizeEffect);
+    await add(rotationEffect);
+    await add(effect);
   }
 
   _sprite() async {
@@ -801,14 +935,4 @@ class MiniSpriteComponent extends SpriteComponent
   }
 
   double increasment = 1;
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-    y += increasment;
-
-    if (y > gameRef.size.y || y < 0) {
-      increasment = -1 * increasment;
-    }
-  }
 }

@@ -28,10 +28,10 @@ class Palette {
   Color get redPen => const Color(0xFFd10841);
   Color get inkFullOpacity => const Color(0xff352b42);
   Color get ink => const Color(0xee352b42);
-  Color get backgroundMain => Color.fromARGB(255, 255, 255, 255);
-  Color get backgroundLevelSelection => const Color(0xffa2dcc7);
-  Color get backgroundPlaySession => const Color(0xffffebb5);
-  Color get background4 => const Color(0xffffd7ff);
+  Color get backgroundMain => Colors.black;
+  Color get backgroundLevelSelection => Colors.black;
+  Color get backgroundPlaySession => Colors.black;
+  Color get background4 => Colors.black;
   Color get backgroundSettings => const Color(0xffbfc8e3);
   Color get trueWhite => const Color(0xffffffff);
 }

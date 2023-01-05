@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 ///
 /// Tracks only a single variable, [score], and calls [onWin] when
 /// the value of [score] reaches [getGoal].
-class LevelState extends ChangeNotifier {
+class CollectorGameLevelState extends ChangeNotifier {
   final VoidCallback onWin;
   final VoidCallback onDie;
 
@@ -35,7 +35,7 @@ class LevelState extends ChangeNotifier {
     _lives = maxLives;
   }
 
-  LevelState(
+  CollectorGameLevelState(
       {required this.onWin,
       required this.onDie,
       required this.levelType,
@@ -65,7 +65,7 @@ class LevelState extends ChangeNotifier {
   }
 
   void evaluate() {
-    if (!(levelType == LevelType.continuous)) {
+    if (!(levelType == LevelType.coinPicker)) {
       if (_level >= goal) {
         onWin();
       }

@@ -91,12 +91,20 @@ class _MyRevealState extends State<_MyReveal> {
             ),
           ),
           child: Container(
-            color: widget.color,
-          ),
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(colors: [
+            Colors.black,
+            Colors.black,
+            Colors.black,
+            Colors.black,
+            Colors.black87,
+            Colors.black45,
+            Colors.transparent
+          ], begin: Alignment.topLeft, end: Alignment.bottomRight))),
         ),
         AnimatedOpacity(
           opacity: _finished ? 1 : 0,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 800),
           child: widget.child,
         ),
       ],

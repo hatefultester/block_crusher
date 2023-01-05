@@ -154,9 +154,17 @@
       jars="/Users/matejgrohmann/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.7.10/1ef73fee66f45d52c67e2aca12fd945dbe0659bf/kotlin-stdlib-jdk7-1.7.10.jar"
       resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"/>
   <library
+      name="io.flutter:armeabi_v7a_release:1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99@jar"
+      jars="/Users/matejgrohmann/.gradle/caches/modules-2/files-2.1/io.flutter/armeabi_v7a_release/1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99/122dadd89b184d69d6febfeab459b0c6a3463a80/armeabi_v7a_release-1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99.jar"
+      resolved="io.flutter:armeabi_v7a_release:1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99"/>
+  <library
       name="io.flutter:arm64_v8a_release:1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99@jar"
       jars="/Users/matejgrohmann/.gradle/caches/modules-2/files-2.1/io.flutter/arm64_v8a_release/1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99/5ebb5d2bc5f016a1270c551ff368bf15f1734391/arm64_v8a_release-1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99.jar"
       resolved="io.flutter:arm64_v8a_release:1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99"/>
+  <library
+      name="io.flutter:x86_64_release:1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99@jar"
+      jars="/Users/matejgrohmann/.gradle/caches/modules-2/files-2.1/io.flutter/x86_64_release/1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99/78df1a4384012b746ff89025431be961787544db/x86_64_release-1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99.jar"
+      resolved="io.flutter:x86_64_release:1.0.0-8f2221fbef28b478debb78dd233f5250b220ca99"/>
   <library
       name="androidx.lifecycle:lifecycle-common-java8:2.2.0@jar"
       jars="/Users/matejgrohmann/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common-java8/2.2.0/cd3478503da69b1a7e0319bd2d1389943db9b364/lifecycle-common-java8-2.2.0.jar"

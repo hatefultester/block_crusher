@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:block_crusher/src/game_internals/components/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';

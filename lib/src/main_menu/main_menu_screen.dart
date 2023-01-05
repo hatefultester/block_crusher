@@ -3,6 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:animated_background/animated_background.dart';
+import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
+import 'package:block_crusher/src/game_internals/maps.dart';
+import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +18,8 @@ import '../games_services/games_services.dart';
 import '../settings/settings.dart';
 import '../style/palette.dart';
 import '../style/responsive_screen.dart';
+
+import 'dart:async' as DartAsync;
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({super.key});
@@ -25,7 +32,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
     with SingleTickerProviderStateMixin {
   final ParticleOptions _particles = const ParticleOptions(
     image: Image(
-      image: AssetImage('assets/images/5_1000x1000.png'),
+      image: AssetImage('assets/images/characters_skill_game/5_1000x1000.png'),
       width: 50,
       height: 100,
     ),
@@ -52,28 +59,25 @@ class _MainMenuScreenState extends State<MainMenuScreen>
     mainArea() {
       return Center(
         child: Transform.rotate(
-          angle: -0.05,
-          child: Text(
-            'Erratic connector'.toUpperCase(),
-            style: const TextStyle(fontSize: 45, color: Colors.black),
-          ),
-        ),
-      );
-    }
-
-    muteMusic() {
-      return Align(
-        alignment: Alignment.topRight,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: ValueListenableBuilder<bool>(
-            valueListenable: settingsController.muted,
-            builder: (context, muted, child) {
-              return IconButton(
-                onPressed: () => settingsController.toggleMuted(),
-                icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
-              );
-            },
+          angle: -0.45,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [Colors.black, Colors.transparent],
+              ),
+            ),
+            child: Text(
+              'Erratic connector'.toUpperCase(),
+              style: const TextStyle(
+                fontSize: 45,
+                color: Colors.white,
+              ),
+              textWidthBasis: TextWidthBasis.longestLine,
+            ),
           ),
         ),
       );
@@ -132,8 +136,21 @@ class _MainMenuScreenState extends State<MainMenuScreen>
             },
             child: Center(child: Text('s e t t i n g s'.toUpperCase())),
           ),
-          const SizedBox(
-            height: 50,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ValueListenableBuilder<bool>(
+                valueListenable: settingsController.muted,
+                builder: (context, muted, child) {
+                  return IconButton(
+                    onPressed: () => settingsController.toggleMuted(),
+                    icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
+                    iconSize: 30,
+                    color: Colors.white,
+                  );
+                },
+              ),
+            ),
           ),
         ],
       );
@@ -143,6 +160,18 @@ class _MainMenuScreenState extends State<MainMenuScreen>
       return Container(
         width: double.infinity,
         height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Colors.red,
+            Colors.red.shade300,
+            Colors.yellow,
+            Colors.lime,
+            Colors.orange,
+            Colors.green,
+            Colors.blue,
+            Colors.white
+          ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+        ),
       );
     }
 
@@ -150,17 +179,13 @@ class _MainMenuScreenState extends State<MainMenuScreen>
       backgroundColor: palette.backgroundMain,
       body: Stack(
         children: [
-          gradientWidget(),
-          AnimatedBackground(
-            behaviour: RandomParticleBehaviour(options: _particles),
-            vsync: tickerProvider,
-            child: ResponsiveScreen(
-              mainAreaProminence: 0.35,
-              squarishMainArea: mainArea(),
-              rectangularMenuArea: menuArea(),
-            ),
+          GameWidget(game: MainBackgroundGame()),
+          //gradientWidget(),
+          ResponsiveScreen(
+            mainAreaProminence: 0.35,
+            squarishMainArea: mainArea(),
+            rectangularMenuArea: menuArea(),
           ),
-          muteMusic(),
         ],
       ),
     );
@@ -179,6 +204,72 @@ class _MainMenuScreenState extends State<MainMenuScreen>
         );
       },
     );
+  }
+}
+
+class MainBackgroundGame extends FlameGame {
+  late DartAsync.Timer _timer;
+
+  int _counter = 0;
+
+  final MapSpriteComponent map = MapSpriteComponent(0);
+
+  @override
+  Future<void>? onLoad() async {
+    await super.onLoad();
+
+    _startTimer();
+
+    await add(map);
+  }
+
+  _startTimer() async {
+    _timer =
+        DartAsync.Timer.periodic(const Duration(seconds: 7), (timer) async {
+      if (_counter == 2) {
+        _counter = 0;
+      } else {
+        _counter++;
+      }
+      if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
+        map.changeBackground(_counter);
+      }
+    });
+  }
+}
+
+class MapSpriteComponent extends SpriteComponent
+    with HasGameRef<MainBackgroundGame> {
+  @override
+  final int initialMap;
+
+  MapSpriteComponent(this.initialMap);
+
+  @override
+  DartAsync.Future<void>? onLoad() async {
+    await super.onLoad();
+
+    sprite = await gameRef.loadSprite(maps[initialMap]);
+    size = Vector2(gameRef.size.x, gameRef.size.y);
+  }
+
+  changeBackground(int a) async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    final effect = OpacityEffect.to(
+      0,
+      EffectController(duration: 2),
+    );
+    final oppacityBack = OpacityEffect.to(
+      1,
+      EffectController(duration: 1),
+    );
+
+    await add(effect);
+
+    await Future.delayed(const Duration(seconds: 2));
+    sprite = await gameRef.loadSprite(maps[a]);
+    await add(oppacityBack);
+    await Future.delayed(const Duration(seconds: 1));
   }
 }
 

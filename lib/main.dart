@@ -145,11 +145,17 @@ class MyApp extends StatelessWidget {
                     ),
                 routes: [
                   GoRoute(
-                    path: 'session/:level',
+                    path: 'session/:level/:sublevel',
                     pageBuilder: (context, state) {
                       final levelNumber = int.parse(state.params['level']!);
-                      final level =
-                          gameLevels.singleWhere((e) => e.level == levelNumber);
+                      final subLevel = int.parse(state.params['sublevel']!);
+
+                      final level = subLevel == 0
+                          ? gameLevels
+                              .singleWhere((e) => e.levelId == levelNumber)
+                          : bonusLevels[levelNumber - 1]
+                              .singleWhere((e) => e.miniGameId == subLevel);
+
                       return buildMyTransition<void>(
                         child: PlaySessionScreen(
                           level,
@@ -267,14 +273,16 @@ class MyApp extends StatelessWidget {
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    side: const BorderSide(color: Colors.black, width: 0.1),
+                    borderRadius: BorderRadius.circular(30),
+                    side: const BorderSide(color: Colors.transparent),
                   ),
-                  backgroundColor: Colors.redAccent.shade100,
-                  foregroundColor: Colors.black,
-                  fixedSize: const Size(220, 60),
-                  textStyle:
-                      const TextStyle(fontFamily: 'Quikhand', fontSize: 25),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  fixedSize: const Size(300, 60),
+                  textStyle: const TextStyle(
+                      fontFamily: 'Quikhand',
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),

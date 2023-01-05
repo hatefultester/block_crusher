@@ -5,6 +5,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 /// Shows a confetti (celebratory) animation: paper snippings falling down.
@@ -19,10 +20,13 @@ import 'package:flutter/widgets.dart';
 /// https://codepen.io/iprodev/pen/azpWBr
 class Confetti extends StatefulWidget {
   static const _defaultColors = [
-    Color(0xffd10841),
-    Color(0xff1d75fb),
-    Color(0xff0050bc),
-    Color(0xffa2dcc7),
+    // Color(0xffd10841),
+    // Color(0xff1d75fb),
+    // Color(0xff0050bc),
+    // Color(0xffa2dcc7),
+    Colors.black,
+    Colors.yellow,
+    Colors.white
   ];
 
   final bool isStopped;
@@ -42,7 +46,7 @@ class Confetti extends StatefulWidget {
 class ConfettiPainter extends CustomPainter {
   final defaultPaint = Paint();
 
-  final int snippingsCount = 200;
+  final int snippingsCount = 500;
 
   late final List<_PaperSnipping> _snippings;
 
@@ -76,7 +80,7 @@ class ConfettiPainter extends CustomPainter {
       if (didResize) {
         snipping.updateBounds(size);
       }
-      snipping.update(dt.inMilliseconds / 1000);
+      snipping.update(dt.inMilliseconds / 500);
       snipping.draw(canvas);
     }
 
@@ -160,7 +164,7 @@ class _PaperSnipping {
 
   double cosA = 1.0;
 
-  final double size = 7.0;
+  final double size = 5.0;
 
   final double oscillationSpeed = 0.5 + _random.nextDouble() * 1.5;
 

@@ -1,6 +1,6 @@
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
-import 'package:block_crusher/src/game_internals/components/enemy_component.dart';
-import 'package:block_crusher/src/level_selection/level_state.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/enemy_component.dart';
+import 'package:block_crusher/src/level_selection/level_states/collector_game_level_state.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
-import '../audio/audio_controller.dart';
-import '../audio/sounds.dart';
+import '../../audio/audio_controller.dart';
+import '../../audio/sounds.dart';
 
 import 'dart:async' as DartAsync;
 
@@ -26,7 +26,7 @@ class BlockCrusherGame extends FlameGame
   final LevelDifficulty difficulty;
 
   late BuildContext context;
-  late LevelState state;
+  late CollectorGameLevelState state;
 
   DartAsync.Timer? _timer;
 
@@ -40,7 +40,8 @@ class BlockCrusherGame extends FlameGame
 
   BlockCrusherGame(this.difficulty);
 
-  BlockCrusherGame setGame(BuildContext context, LevelState state) {
+  BlockCrusherGame setGame(
+      BuildContext context, CollectorGameLevelState state) {
     this.context = context;
     this.state = state;
 

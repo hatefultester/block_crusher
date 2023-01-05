@@ -8,7 +8,8 @@ const Set<Song> songs = {
   // Song('Mr_Smith-Azul.mp3', 'Azul', artist: 'Mr Smith'),
   // Song('Mr_Smith-Sonorus.mp3', 'Sonorus', artist: 'Mr Smith'),
   // Song('Mr_Smith-Sunday_Solitude.mp3', 'SundaySolitude', artist: 'Mr Smith'),
-  Song('enemy.mp3', 'Enemy', artist: 'Imagine Dragons X JID')
+  // Song('enemy.mp3', 'Enemy', artist: 'Imagine Dragons X JID')
+  // Song('backgroundsong.mp3', 'Background song', artist: 'Lea'),
 };
 
 class Song {

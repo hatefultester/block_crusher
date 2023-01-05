@@ -12,14 +12,20 @@ List<String> soundTypeToFilename(SfxType type) {
       ];
     case SfxType.wssh:
       return const [
-        'wssh1.mp3',
-        'wssh2.mp3',
-        'dsht1.mp3',
-        'ws1.mp3',
-        'spsh1.mp3',
-        'hh1.mp3',
-        'hh2.mp3',
-        'kss1.mp3',
+        'lea/collect1.mp3',
+        'lea/collect1.mp3',
+        'lea/collect1.mp3',
+        'lea/collect1.mp3',
+
+        'lea/collect_new_best.mp3',
+        // 'wssh1.mp3',
+        // 'wssh2.mp3',
+        // 'dsht1.mp3',
+        // 'ws1.mp3',
+        // 'spsh1.mp3',
+        // 'hh1.mp3',
+        // 'hh2.mp3',
+        // 'kss1.mp3',
       ];
     case SfxType.buttonTap:
       return const [
@@ -31,11 +37,7 @@ List<String> soundTypeToFilename(SfxType type) {
         // 'p2.mp3',
       ];
     case SfxType.congrats:
-      return const [
-        'yay1.mp3',
-        'wehee1.mp3',
-        'oo1.mp3',
-      ];
+      return const ['lea/sound4.mp3'];
     case SfxType.erase:
       return const [
         'fwfwfwfwfw1.mp3',
@@ -54,7 +56,7 @@ double soundTypeToVolume(SfxType type) {
     case SfxType.huhsh:
       return 0.4;
     case SfxType.wssh:
-      return 0.2;
+      return 1.0;
     case SfxType.buttonTap:
     case SfxType.congrats:
     case SfxType.erase:

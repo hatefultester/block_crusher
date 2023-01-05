@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:block_crusher/src/game_internals/characters.dart';
-import 'package:block_crusher/src/game_internals/game.dart';
+import 'package:block_crusher/src/game_internals/collector_game/game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,8 +16,8 @@ import 'package:provider/provider.dart';
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
-import '../game_internals/components/sprite_block_component.dart';
-import '../level_selection/level_state.dart';
+import '../game_internals/collector_game/components/sprite_block_component.dart';
+import '../level_selection/level_states/collector_game_level_state.dart';
 import '../games_services/games_services.dart';
 import '../games_services/score.dart';
 import '../in_app_purchase/in_app_purchase.dart';
@@ -58,9 +58,9 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => LevelState(
+            create: (context) => CollectorGameLevelState(
               levelType: widget.level.levelType,
-              goal: widget.level.level,
+              goal: widget.level.levelId,
               maxLives: widget.level.lives,
               onDie: _playerDie,
               onWin: _playerWon,
@@ -112,7 +112,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
           _imageWidget(),
           const Spacer(),
           Text(
-            'L e v e l   ${widget.level.level.toString()}',
+            'L e v e l   ${widget.level.levelId.toString()}',
             style: const TextStyle(
               fontSize: 35,
               color: Colors.white,
@@ -156,17 +156,17 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   _imageWidget() {
-    if (widget.level.levelType == LevelType.skill) {
+    if (widget.level.levelType == LevelType.collector) {
       return Container(
         height: 60,
         padding: const EdgeInsets.all(10),
         child: Image.asset(
-            'assets/images/${imageSource[widget.level.level]['source']}'),
+            'assets/images/${imageSource[widget.level.levelId]['source']}'),
       );
     }
 
-    if (widget.level.levelType == LevelType.continuous) {
-      return Consumer<LevelState>(
+    if (widget.level.levelType == LevelType.coinPicker) {
+      return Consumer<CollectorGameLevelState>(
           builder: (context, levelState, child) => Container(
                 height: 60,
                 padding: const EdgeInsets.all(10),
@@ -184,7 +184,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Consumer<LevelState>(
+            Consumer<CollectorGameLevelState>(
               builder: (context, levelState, child) => Text(
                 levelState.lives.toString(),
               ),
@@ -195,7 +195,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   _gameWidget() {
-    return Consumer<LevelState>(
+    return Consumer<CollectorGameLevelState>(
       builder: (context, levelState, child) =>
           GameWidget(game: _blockCrusherGame.setGame(context, levelState)),
     );
@@ -238,16 +238,16 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   Future<void> _playerWon() async {
-    _log.info('Level ${widget.level.level} won');
+    _log.info('Level ${widget.level.levelId} won');
 
     final score = Score(
-      widget.level.level,
-      widget.level.level,
+      widget.level.levelId,
+      widget.level.levelId,
       DateTime.now().difference(_startOfPlay),
     );
 
     final playerProgress = context.read<PlayerProgress>();
-    playerProgress.setLevelReached(widget.level.level);
+    playerProgress.setLevelReached(widget.level.levelId);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);
@@ -256,7 +256,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     setState(() {
       _duringCelebration = true;
     });
-
+    await Future<void>.delayed(Duration(milliseconds: 200));
     final audioController = context.read<AudioController>();
     audioController.playSfx(SfxType.congrats);
 

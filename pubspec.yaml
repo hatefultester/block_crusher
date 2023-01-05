@@ -50,6 +50,8 @@ flutter:
      - assets/images/backgrounds/
      - assets/music/
      - assets/sfx/
+     - assets/sfx/lea/
+     
 
 
   fonts:
