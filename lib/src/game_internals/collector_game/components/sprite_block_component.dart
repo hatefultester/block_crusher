@@ -1,9 +1,12 @@
 import 'dart:math';
 
-import 'package:block_crusher/src/game_internals/characters.dart';
+import 'package:block_crusher/src/level_selection/levels.dart';
+import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+
+import 'package:flame_forge2d/flame_forge2d.dart';
 
 import '../game.dart';
 
@@ -18,18 +21,21 @@ class SpriteBlockComponent extends SpriteComponent
 
   double extraspeed = 0;
 
-  int level = 0;
+  final LevelDifficulty difficulty;
+
+  int characterId = 0;
 
   Direction direction = Direction.down;
 
-  SpriteBlockComponent();
-  SpriteBlockComponent.withLevelSet(this.level);
-  SpriteBlockComponent.withDirection(this.direction);
+  SpriteBlockComponent(this.difficulty);
+  SpriteBlockComponent.withLevelSet(this.characterId, this.difficulty);
+  SpriteBlockComponent.withDirection(this.direction, this.difficulty);
 
   _sprite() async {
-    if (level < imageSource.length) {
-      sprite = await gameRef.loadSprite(imageSource[level]['source']);
-      size = imageSource[level]['size'] * _scale;
+    if (imageSource[difficulty.index][characterId]['source'] != null) {
+      sprite = await gameRef
+          .loadSprite(imageSource[difficulty.index][characterId]['source']);
+      size = imageSource[difficulty.index][characterId]['size'] * _scale;
     }
   }
 
@@ -39,8 +45,9 @@ class SpriteBlockComponent extends SpriteComponent
   Future<void> onLoad() async {
     super.onLoad();
 
-    await _sprite();
-
+    sprite = await gameRef
+        .loadSprite(imageSource[difficulty.index][characterId]['source']);
+    size = imageSource[difficulty.index][characterId]['size'] * _scale;
     int xMax = (gameRef.size.x - size.x).toInt();
     int yMax = (gameRef.size.y - size.y).toInt();
 
@@ -75,7 +82,7 @@ class SpriteBlockComponent extends SpriteComponent
   }
 
   Future<void> setLevel(int level) async {
-    this.level = level;
+    this.characterId = level;
     await _sprite();
   }
 
@@ -160,13 +167,26 @@ class SpriteBlockComponent extends SpriteComponent
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is SpriteBlockComponent) {
-      if (y > 5 && isDragging && other.level == level) {
-        other.removeFromParent();
-        level++;
-        _sprite();
-        direction = Direction.down;
-        gameRef.collisionDetected(level);
+      if (y > 5 && isDragging) {
+        if (other.characterId == characterId) {
+          other.removeFromParent();
+          characterId++;
+          _sprite();
+          direction = Direction.down;
+          gameRef.collisionDetected(characterId);
+        }
+        if (other.characterId != characterId) {
+          //   other.startDragging();
+        }
       }
+    }
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    super.onCollisionEnd(other);
+    if (other is SpriteBlockComponent) {
+      if (other.characterId != characterId) {}
     }
   }
 

@@ -1,9 +1,13 @@
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/enemy_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/hoomy_weapon_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/shark_enemy_component.dart';
 import 'package:block_crusher/src/level_selection/level_states/collector_game_level_state.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
+import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +24,12 @@ const double advancedBlockFallSpeed = 0.9;
 const double jediBlockFallSpeed = 1.2;
 const int defaultTickSpeed = 150;
 
+enum GameMode {
+  classic,
+  hoomy,
+  sharks,
+}
+
 class BlockCrusherGame extends FlameGame
     with HasCollisionDetection, HasDraggables, HasTappables {
   final Logger _log = Logger('BlockCrusherGame');
@@ -35,10 +45,14 @@ class BlockCrusherGame extends FlameGame
 
   double get blockFallSpeed => _blockFallSpeed;
 
+  GameMode gameMode = GameMode.classic;
+
   late int _tickSpeed;
   late int _generatedCounter;
 
-  BlockCrusherGame(this.difficulty);
+  late EnemyHoomyComponent enemyHoomik;
+
+  BlockCrusherGame(this.difficulty) : super();
 
   BlockCrusherGame setGame(
       BuildContext context, CollectorGameLevelState state) {
@@ -49,7 +63,7 @@ class BlockCrusherGame extends FlameGame
   }
 
   _setVariables() {
-    if (difficulty.atLeast(LevelDifficulty.intermediate)) {
+    if (difficulty.atLeast(LevelDifficulty.seaLand)) {
       if (difficulty.atLeast(LevelDifficulty.jedi)) {
         _blockFallSpeed = jediBlockFallSpeed;
       } else {
@@ -57,6 +71,14 @@ class BlockCrusherGame extends FlameGame
       }
     } else {
       _blockFallSpeed = defaultBlockFallSpeed;
+    }
+
+    if (gameMode == GameMode.hoomy) {
+      _blockFallSpeed = defaultBlockFallSpeed + 0.2;
+    }
+
+    if (gameMode == GameMode.sharks) {
+      _blockFallSpeed = defaultBlockFallSpeed + 0.3;
     }
 
     _tickSpeed = defaultTickSpeed;
@@ -68,14 +90,43 @@ class BlockCrusherGame extends FlameGame
   Future<void> onLoad() async {
     await super.onLoad();
 
+    String mapPath;
+
+    switch (difficulty) {
+      case LevelDifficulty.soomyLand:
+        mapPath = gameMaps['brick']!;
+        break;
+      case LevelDifficulty.hoomyLand:
+        gameMode = GameMode.hoomy;
+        mapPath = gameMaps['hoomy']!;
+        break;
+      case LevelDifficulty.seaLand:
+        gameMode = GameMode.sharks;
+        mapPath = gameMaps['water']!;
+        break;
+      case LevelDifficulty.master:
+        mapPath = gameMaps['palm']!;
+        break;
+      case LevelDifficulty.jedi:
+        mapPath = gameMaps['blue']!;
+        break;
+    }
+
     _setVariables();
 
     await add(
       SpriteComponent(
-        sprite: await loadSprite('backgrounds/background.png'),
+        sprite: await loadSprite(mapPath),
         size: Vector2(size.x, size.y),
       ),
     );
+
+    if (gameMode == GameMode.hoomy) {
+      enemyHoomik = EnemyHoomyComponent();
+      await add(enemyHoomik);
+    }
+
+    //debugCheating();
 
     await addDefaultBlock();
 
@@ -84,9 +135,19 @@ class BlockCrusherGame extends FlameGame
     }
   }
 
+  debugCheating() async {
+    await add(
+        SpriteBlockComponent.withLevelSet(state.characterId - 1, difficulty));
+    await add(
+        SpriteBlockComponent.withLevelSet(state.characterId - 1, difficulty));
+  }
+
   addDefaultBlock() async {
-    if (state.goal - 1 > 0) {
-      await add(SpriteBlockComponent.withLevelSet(state.goal - 1));
+    if (difficulty == LevelDifficulty.soomyLand) {
+      if (state.goal - 1 > 0) {
+        await add(SpriteBlockComponent.withLevelSet(
+            state.characterId - 1, difficulty));
+      }
     }
   }
 
@@ -119,27 +180,37 @@ class BlockCrusherGame extends FlameGame
           _tickCounter = 0;
           _generatedCounter++;
 
-          await add(SpriteBlockComponent());
+          await add(SpriteBlockComponent(difficulty));
 
-          if (_generatedCounter % 4 == 0 &&
-              difficulty.atLeast(LevelDifficulty.intermediate)) {
+          if (_generatedCounter % 2 == 0 && gameMode == GameMode.hoomy) {
+            await add(HoomyWeaponComponent());
+          }
+          if (_generatedCounter % 2 == 0 && gameMode == GameMode.sharks) {
+            await add(SharkEnemyComponent());
+          }
+
+          if (_generatedCounter % 2 == 0 &&
+              difficulty.atLeast(LevelDifficulty.seaLand)) {
             await add(EnemyComponent.randomDirection(
                 !difficulty.atLeast(LevelDifficulty.master)));
           }
 
-          if ((difficulty.atLeast(LevelDifficulty.beginner) &&
+          if ((difficulty.atLeast(LevelDifficulty.hoomyLand) &&
                   _generatedCounter.floor().isEven) ||
-              difficulty.atLeast(LevelDifficulty.intermediate)) {
-            await add(SpriteBlockComponent.withDirection(Direction.up));
+              difficulty.atLeast(LevelDifficulty.seaLand)) {
+            await add(
+                SpriteBlockComponent.withDirection(Direction.up, difficulty));
           }
 
           if (difficulty.atLeast(LevelDifficulty.master) &&
               _generatedCounter.floor().isEven) {
-            await add(SpriteBlockComponent.withDirection(Direction.left));
+            await add(
+                SpriteBlockComponent.withDirection(Direction.left, difficulty));
           }
           if (difficulty.atLeast(LevelDifficulty.master) &&
               _generatedCounter.floor().isOdd) {
-            await add(SpriteBlockComponent.withDirection(Direction.right));
+            await add(SpriteBlockComponent.withDirection(
+                Direction.right, difficulty));
           }
         }
       }

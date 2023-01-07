@@ -16,6 +16,8 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   final LevelType levelType;
 
+  final int characterId;
+
   final int goal;
 
   final int maxLives;
@@ -37,6 +39,7 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   CollectorGameLevelState(
       {required this.onWin,
+      required this.characterId,
       required this.onDie,
       required this.levelType,
       this.goal = 100,

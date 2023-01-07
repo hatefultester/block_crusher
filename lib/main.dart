@@ -20,25 +20,24 @@ import 'src/ads/ads_controller.dart';
 import 'src/app_lifecycle/app_lifecycle.dart';
 import 'src/audio/audio_controller.dart';
 import 'src/crashlytics/crashlytics.dart';
-import 'depricated/game_controller.dart';
 import 'src/games_services/games_services.dart';
 import 'src/games_services/score.dart';
 import 'src/in_app_purchase/in_app_purchase.dart';
-import 'src/level_selection/level_selection_screen.dart';
+import 'src/screens/level_selection_screen.dart';
 import 'src/level_selection/levels.dart';
-import 'src/main_menu/main_menu_screen.dart';
-import 'src/play_session/play_session_screen.dart';
+import 'src/screens/main_menu_screen.dart';
+import 'src/screens/play_session_screen.dart';
 import 'src/player_progress/persistence/local_storage_player_progress_persistence.dart';
 import 'src/player_progress/persistence/player_progress_persistence.dart';
 import 'src/player_progress/player_progress.dart';
 import 'src/settings/persistence/local_storage_settings_persistence.dart';
 import 'src/settings/persistence/settings_persistence.dart';
 import 'src/settings/settings.dart';
-import 'src/settings/settings_screen.dart';
+import 'src/screens/settings_screen.dart';
 import 'src/style/my_transition.dart';
 import 'src/style/palette.dart';
 import 'src/style/snack_bar.dart';
-import 'src/win_game/win_game_screen.dart';
+import 'src/screens/win_game_screen.dart';
 
 Future<void> main() async {
   // To enable Firebase Crashlytics, uncomment the following lines and
@@ -148,6 +147,7 @@ class MyApp extends StatelessWidget {
                     path: 'session/:level/:sublevel',
                     pageBuilder: (context, state) {
                       final levelNumber = int.parse(state.params['level']!);
+
                       final subLevel = int.parse(state.params['sublevel']!);
 
                       final level = subLevel == 0
@@ -276,7 +276,7 @@ class MyApp extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                     side: const BorderSide(color: Colors.transparent),
                   ),
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.black.withOpacity(0.5),
                   foregroundColor: Colors.white,
                   fixedSize: const Size(300, 60),
                   textStyle: const TextStyle(

@@ -188,6 +188,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flame_forge2d",
+      "rootUri": "file:///Users/matejgrohmann/.pub-cache/hosted/pub.dartlang.org/flame_forge2d-0.12.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/matejgrohmann/development/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -216,6 +222,12 @@
       "rootUri": "file:///Users/matejgrohmann/development/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "forge2d",
+      "rootUri": "file:///Users/matejgrohmann/.pub-cache/hosted/pub.dartlang.org/forge2d-0.11.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "games_services",
@@ -596,7 +608,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-01-04T16:39:18.958485Z",
+  "generated": "2023-01-06T22:02:16.258352Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }

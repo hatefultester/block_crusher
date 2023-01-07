@@ -34,6 +34,7 @@ dependencies:
   google_mobile_ads: ^2.0.1  # Ads
   in_app_purchase: ^3.0.1  # In-app purchases
   dotted_border: ^2.0.0+3
+  flame_forge2d: ^0.12.4
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +48,33 @@ flutter:
      - assets/
      - assets/images/
      - assets/images/characters_skill_game/
+     - assets/images/characters/
+     - assets/images/characters/300x280/
+     - assets/images/characters/500x210/
+     - assets/images/characters/700x525/
+     - assets/images/characters/1000x480/
+     - assets/images/characters/1000x600/
+     - assets/images/characters/1000x900/
+     - assets/images/characters/bots/
+     - assets/images/characters/bots/1000x666/
+     - assets/images/characters/bots/1000x1000/
+     - assets/images/characters/bots/1000x1500/
+     - assets/images/characters/fish/
+     - assets/images/characters/fish/1000x666/
+     - assets/images/characters/fish/1000x1000/
+     - assets/images/characters/fish/1000x1500/
+     - assets/images/characters/hoomy/
+     - assets/images/characters/hoomy/1000x666/
+     - assets/images/characters/hoomy/1000x1000/
+     - assets/images/characters/hoomy/1000x1500/
+     - assets/images/characters/hoomy_with_weapon/
+     - assets/images/characters/hoomy_with_weapon/1000x666/
+     - assets/images/characters/hoomy_with_weapon/1000x1000/
+     - assets/images/characters/hoomy_with_weapon/1000x1500/
+     - assets/images/characters/object/
+     - assets/images/characters/object/1000x666/
+     - assets/images/characters/object/1000x1000/
+     - assets/images/characters/object/1000x1500/
      - assets/images/backgrounds/
      - assets/music/
      - assets/sfx/
