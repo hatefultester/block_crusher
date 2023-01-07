@@ -87,7 +87,7 @@ class EnemyComponent extends SpriteComponent
 
     await add(CircleHitbox()..shouldFillParent);
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     final effect = RotateEffect.to(
       tau,
       EffectController(duration: 1.5),
@@ -96,7 +96,7 @@ class EnemyComponent extends SpriteComponent
     await add(effect);
 
     if (shouldDisappear) {
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       final effect = OpacityEffect.to(0.3, EffectController(duration: 1.5),
           onComplete: (() {
         removeFromParent();

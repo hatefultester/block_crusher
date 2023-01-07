@@ -132,34 +132,124 @@ List<dynamic> imageSource = [
     /// sea Level
     /// sea level charaktery :D
     {
-      'source': 'characters_skill_game/9_1000x800.png',
-      'size': Vector2(10 * 1.15, 8 * 1.15),
+      'source': 'characters/fish/1500x500_poter.png',
+      'size': Vector2(15, 5),
     },
     {
       'source': 'characters/fish/1000x666/fish_hoomy.png',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
-
-    {
-      'source': 'characters/fish/1000x666/fish_hoomy_2.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
-    },
-
     {
       'source': 'characters/fish/1000x1000/symmetric_rick_fish.png',
       'size': Vector2(10 * 1.3, 10 * 1.3),
     },
     {
-      'source': 'characters/fish/1000x666/fish_hoomy_3.png',
+      'source': 'characters/fish/1000x666/fish_hoomy_2.png',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
-      'source': 'characters/fish/1000x1000/symmetric_rick_fish_2.png',
-      'size': Vector2(10 * 1.3, 10 * 1.3),
+      'source': 'characters/fish/1000x700_blue_fish.png',
+      'size': Vector2(10 * 1.2, 7 * 1.2),
     },
     {
-      'source': 'characters/fish/1000x666/fish_hoomy_4.png',
+      'source': 'characters/fish/1000x933_red_fish.png',
+      'size': Vector2(10 * 1.2, 9.33 * 1.2),
+    },
+    {
+      'source': 'characters/fish/1300x928_octopus.png',
+      'size': Vector2(13, 9.28),
+    },
+  ],
+  [
+    /// CITY WORLD LEVEL
+    /// city level charaktery :D
+
+    /// free characters
+
+    {
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+
+    /// 6 level characters
+    ///
+
+    {
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
+    {
+      'source': 'food/300x250/cheese.png',
+      'size': Vector2(9 * 1.3, 7.5 * 1.3),
+    },
+    {
+      'source': 'food/300x215/tofu.png',
+      'size': Vector2(9 * 1.5, 6.45 * 1.5),
+    },
+    {
+      'source': 'food/300x120/candy.png',
+      'size': Vector2(3 * 3 * 1.3, 1.2 * 3 * 1.3),
+    },
+    {
+      'source': 'food/300x275/mufin.png',
+      'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
+    },
+    {
+      'source': 'food/300x215/hamburger.png',
+      'size': Vector2(9 * 1.5, 6.45 * 1.5),
+    },
+  ],
+  [
+    /// BLUE WORLD LEVEL
+    /// BLUE level charaktery :D
+
+    /// free characters
+    {
+      'source': 'characters_skill_game/7_1000x750.png',
+      'size': Vector2(10 * 1.2, 7.5 * 1.2),
+    },
+    {
+      'source': 'characters_skill_game/8_1000x750.png',
+      'size': Vector2(10 * 1.2, 7.5 * 1.2),
+    },
+    {
+      'source': 'characters_skill_game/9_1000x800.png',
+      'size': Vector2(10 * 1.2, 8 * 1.2),
+    },
+
+    /// 6 level characters
+    ///
+    {
+      'source': 'characters_skill_game/3_500x1000.png',
+      'size': Vector2(5 * 1.3, 10 * 1.3),
+    },
+    {
+      'source': 'characters_skill_game/4_500x1000.png',
+      'size': Vector2(5 * 1.4, 10 * 1.4),
+    },
+    {
+      'source': 'characters_skill_game/5_1000x1000.png',
+      'size': Vector2(10 * 1.2, 10 * 1.2),
+    },
+    {
+      'source': 'characters_skill_game/6_1000x1000.png',
+      'size': Vector2(10 * 1.2, 10 * 1.2),
+    },
+    {
+      'source': 'characters_skill_game/12_1000x820.png',
+      'size': Vector2(10 * 1.2, 8.2 * 1.2),
+    },
+    {
+      'source': 'characters/object/1000x666/friendly_cloud.png',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
-  ]
+  ],
 ];

@@ -2,10 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:block_crusher/src/level_selection/level_states/collector_game_level_state.dart';
-
 const gameLevels = [
-  /// learning levels
+  /// SOOMY LEVELS
+  /// BRICK WALL
+  ///
   GameLevel(
       levelId: 1, characterId: 1, levelDifficulty: LevelDifficulty.soomyLand),
   GameLevel(
@@ -19,7 +19,9 @@ const gameLevels = [
   GameLevel(
       levelId: 6, characterId: 6, levelDifficulty: LevelDifficulty.soomyLand),
 
-  /// begginner levels
+  /// HOOMY LAND LEVELS
+  /// RED BACKGROUND
+  ///
   GameLevel(
       levelId: 7, characterId: 1, levelDifficulty: LevelDifficulty.hoomyLand),
   GameLevel(
@@ -33,7 +35,9 @@ const gameLevels = [
   GameLevel(
       levelId: 12, characterId: 6, levelDifficulty: LevelDifficulty.hoomyLand),
 
-  /// ttt
+  /// SEA LEVELS
+  /// SEA CHARACTERS
+  ///
   GameLevel(
       levelId: 13, characterId: 1, levelDifficulty: LevelDifficulty.seaLand),
   GameLevel(
@@ -46,14 +50,46 @@ const gameLevels = [
       levelId: 17, characterId: 5, levelDifficulty: LevelDifficulty.seaLand),
   GameLevel(
       levelId: 18, characterId: 6, levelDifficulty: LevelDifficulty.seaLand),
+
+  /// CITY LEVEL
+  /// CITY CHARACTERS
+  ///
+  GameLevel(
+      levelId: 19, characterId: 3, levelDifficulty: LevelDifficulty.cityLand),
+  GameLevel(
+      levelId: 20, characterId: 4, levelDifficulty: LevelDifficulty.cityLand),
+  GameLevel(
+      levelId: 21, characterId: 5, levelDifficulty: LevelDifficulty.cityLand),
+  GameLevel(
+      levelId: 22, characterId: 6, levelDifficulty: LevelDifficulty.cityLand),
+  GameLevel(
+      levelId: 23, characterId: 7, levelDifficulty: LevelDifficulty.cityLand),
+  GameLevel(
+      levelId: 24, characterId: 8, levelDifficulty: LevelDifficulty.cityLand),
+
+  /// BLUE LEVEL
+  /// BLUE CHARACTERS
+  ///
+  GameLevel(
+      levelId: 25, characterId: 3, levelDifficulty: LevelDifficulty.blueWorld),
+  GameLevel(
+      levelId: 26, characterId: 4, levelDifficulty: LevelDifficulty.blueWorld),
+  GameLevel(
+      levelId: 27, characterId: 5, levelDifficulty: LevelDifficulty.blueWorld),
+  GameLevel(
+      levelId: 28, characterId: 6, levelDifficulty: LevelDifficulty.blueWorld),
+  GameLevel(
+      levelId: 29, characterId: 7, levelDifficulty: LevelDifficulty.blueWorld),
+  GameLevel(
+      levelId: 30, characterId: 8, levelDifficulty: LevelDifficulty.blueWorld),
 ];
 
 enum LevelDifficulty {
   soomyLand,
   hoomyLand,
   seaLand,
-  master,
-  jedi;
+  cityLand,
+  blueWorld;
 
   bool atLeast(LevelDifficulty difficulty) {
     return false;
@@ -87,9 +123,9 @@ enum LevelDifficulty {
             return 0;
           case LevelDifficulty.seaLand:
             return 50;
-          case LevelDifficulty.master:
+          case LevelDifficulty.cityLand:
             return 100;
-          case LevelDifficulty.jedi:
+          case LevelDifficulty.blueWorld:
             return 200;
         }
       default:

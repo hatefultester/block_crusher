@@ -31,10 +31,15 @@ class CollectorGameLevelState extends ChangeNotifier {
   int _level = 0;
   int get level => _level;
 
+  bool _playerDied = false;
+  bool _gameWon = false;
+
   void reset() {
     _score = 0;
     _level = 0;
     _lives = maxLives;
+    _playerDied = false;
+    _gameWon = false;
   }
 
   CollectorGameLevelState(
@@ -69,11 +74,13 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   void evaluate() {
     if (!(levelType == LevelType.coinPicker)) {
-      if (_level >= goal) {
+      if (_level >= goal && !_playerDied && !_gameWon) {
         onWin();
+        _gameWon = true;
       }
-      if (_lives <= 0) {
+      if (_lives <= 0 && !_playerDied && !_gameWon) {
         onDie();
+        _playerDied = true;
       }
     }
   }

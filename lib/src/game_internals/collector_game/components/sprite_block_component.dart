@@ -6,8 +6,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
-import 'package:flame_forge2d/flame_forge2d.dart';
-
 import '../game.dart';
 
 enum Direction { down, up, left, right }
@@ -81,8 +79,8 @@ class SpriteBlockComponent extends SpriteComponent
     await add(CircleHitbox()..shouldFillParent);
   }
 
-  Future<void> setLevel(int level) async {
-    this.characterId = level;
+  Future<void> setLevel(int id) async {
+    characterId = id;
     await _sprite();
   }
 

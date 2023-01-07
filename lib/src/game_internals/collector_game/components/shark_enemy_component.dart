@@ -4,7 +4,6 @@ import 'package:block_crusher/src/game_internals/collector_game/components/sprit
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/geometry.dart';
 
 import '../game.dart';
 
@@ -22,10 +21,6 @@ class SharkEnemyComponent extends SpriteComponent
 
   SharkEnemyComponent();
 
-  _sprite() async {
-    sprite = await gameRef.loadSprite('asterisks.png');
-  }
-
   bool tapped = false;
 
   @override
@@ -35,7 +30,6 @@ class SharkEnemyComponent extends SpriteComponent
     Vector2 finalDirection;
 
     int xMax = (gameRef.size.x - size.x).toInt();
-    int yMax = (gameRef.size.y - size.y).toInt();
 
     double yPosition = 350 + Random().nextInt(350) + 10;
 

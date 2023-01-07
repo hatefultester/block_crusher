@@ -47,6 +47,18 @@ flutter:
   assets:
      - assets/
      - assets/images/
+     - assets/images/food/
+     - assets/images/food/100x215/
+     - assets/images/food/100x250/
+     - assets/images/food/150x275/
+     - assets/images/food/200x250/
+     - assets/images/food/200x285/
+     - assets/images/food/300x120/
+     - assets/images/food/300x150/
+     - assets/images/food/300x215/
+     - assets/images/food/300x250/
+     - assets/images/food/300x275/
+     - assets/images/food/300x300/
      - assets/images/characters_skill_game/
      - assets/images/characters/
      - assets/images/characters/300x280/

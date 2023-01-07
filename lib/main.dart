@@ -125,8 +125,6 @@ void guardedMain() {
   );
 }
 
-Logger _log = Logger('main.dart');
-
 class MyApp extends StatelessWidget {
   static final _router = GoRouter(
     routes: [

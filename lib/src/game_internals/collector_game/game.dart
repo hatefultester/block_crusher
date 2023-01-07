@@ -7,7 +7,6 @@ import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flame_forge2d/flame_forge2d.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +14,7 @@ import 'package:provider/provider.dart';
 import '../../audio/audio_controller.dart';
 import '../../audio/sounds.dart';
 
-import 'dart:async' as DartAsync;
+import 'dart:async' as dart_async;
 
 import 'components/sprite_block_component.dart';
 
@@ -38,7 +37,7 @@ class BlockCrusherGame extends FlameGame
   late BuildContext context;
   late CollectorGameLevelState state;
 
-  DartAsync.Timer? _timer;
+  dart_async.Timer? _timer;
 
   late int _tickCounter;
   late double _blockFallSpeed;
@@ -64,7 +63,7 @@ class BlockCrusherGame extends FlameGame
 
   _setVariables() {
     if (difficulty.atLeast(LevelDifficulty.seaLand)) {
-      if (difficulty.atLeast(LevelDifficulty.jedi)) {
+      if (difficulty.atLeast(LevelDifficulty.blueWorld)) {
         _blockFallSpeed = jediBlockFallSpeed;
       } else {
         _blockFallSpeed = advancedBlockFallSpeed;
@@ -104,10 +103,10 @@ class BlockCrusherGame extends FlameGame
         gameMode = GameMode.sharks;
         mapPath = gameMaps['water']!;
         break;
-      case LevelDifficulty.master:
-        mapPath = gameMaps['palm']!;
+      case LevelDifficulty.cityLand:
+        mapPath = gameMaps['city']!;
         break;
-      case LevelDifficulty.jedi:
+      case LevelDifficulty.blueWorld:
         mapPath = gameMaps['blue']!;
         break;
     }
@@ -172,7 +171,7 @@ class BlockCrusherGame extends FlameGame
 
   _startTimer() async {
     _log.info('Starting timer');
-    _timer = DartAsync.Timer.periodic(const Duration(milliseconds: 15),
+    _timer = dart_async.Timer.periodic(const Duration(milliseconds: 15),
         (timer) async {
       if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
         _tickCounter++;
@@ -192,7 +191,7 @@ class BlockCrusherGame extends FlameGame
           if (_generatedCounter % 2 == 0 &&
               difficulty.atLeast(LevelDifficulty.seaLand)) {
             await add(EnemyComponent.randomDirection(
-                !difficulty.atLeast(LevelDifficulty.master)));
+                !difficulty.atLeast(LevelDifficulty.cityLand)));
           }
 
           if ((difficulty.atLeast(LevelDifficulty.hoomyLand) &&
@@ -202,12 +201,12 @@ class BlockCrusherGame extends FlameGame
                 SpriteBlockComponent.withDirection(Direction.up, difficulty));
           }
 
-          if (difficulty.atLeast(LevelDifficulty.master) &&
+          if (difficulty.atLeast(LevelDifficulty.cityLand) &&
               _generatedCounter.floor().isEven) {
             await add(
                 SpriteBlockComponent.withDirection(Direction.left, difficulty));
           }
-          if (difficulty.atLeast(LevelDifficulty.master) &&
+          if (difficulty.atLeast(LevelDifficulty.cityLand) &&
               _generatedCounter.floor().isOdd) {
             await add(SpriteBlockComponent.withDirection(
                 Direction.right, difficulty));

@@ -4,7 +4,6 @@ import 'package:block_crusher/src/game_internals/collector_game/components/sprit
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/geometry.dart';
 
 import '../game.dart';
 
@@ -48,7 +47,6 @@ class HoomyWeaponComponent extends SpriteComponent
     Vector2 finalDirection;
 
     int xMax = (gameRef.size.x - size.x).toInt();
-    int yMax = (gameRef.size.y - size.y).toInt();
 
     if (Random().nextInt(10).isEven) {
       direction = Direction.left;
@@ -87,53 +85,6 @@ class HoomyWeaponComponent extends SpriteComponent
     );
 
     await add(effect);
-  }
-
-  @override
-  update(double dt) {
-    super.update(dt);
-
-    // switch (direction) {
-    //   case Direction.down:
-    //     y += gameRef.blockFallSpeed + extraspeed;
-    //     break;
-    //   case Direction.up:
-    //     y -= gameRef.blockFallSpeed + extraspeed;
-    //     break;
-    //   case Direction.left:
-    //     x -= gameRef.blockFallSpeed + extraspeed;
-    //     break;
-    //   case Direction.right:
-    //     x += gameRef.blockFallSpeed + extraspeed;
-    //     break;
-    // }
-
-    // switch (direction) {
-    //   case Direction.down:
-    //     if (y > gameRef.size.y) {
-    //       gameRef.blockRemoved();
-    //       removeFromParent();
-    //     }
-    //     break;
-    //   case Direction.up:
-    //     if (y < 0) {
-    //       gameRef.blockRemoved();
-    //       removeFromParent();
-    //     }
-    //     break;
-    //   case Direction.left:
-    //     if (x < 0) {
-    //       gameRef.blockRemoved();
-    //       removeFromParent();
-    //     }
-    //     break;
-    //   case Direction.right:
-    //     if (x > gameRef.size.x) {
-    //       gameRef.blockRemoved();
-    //       removeFromParent();
-    //     }
-    //     break;
-    // }
   }
 
   @override

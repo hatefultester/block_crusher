@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:animated_background/animated_background.dart';
-import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -19,7 +17,7 @@ import '../settings/settings.dart';
 import '../style/palette.dart';
 import '../style/responsive_screen.dart';
 
-import 'dart:async' as DartAsync;
+import 'dart:async' as dart_async;
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({super.key});
@@ -30,23 +28,6 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen>
     with SingleTickerProviderStateMixin {
-  final ParticleOptions _particles = const ParticleOptions(
-    image: Image(
-      image: AssetImage('assets/images/characters_skill_game/5_1000x1000.png'),
-      width: 50,
-      height: 100,
-    ),
-    spawnOpacity: 0.0,
-    opacityChangeRate: 0.25,
-    minOpacity: 0.3,
-    maxOpacity: 0.4,
-    particleCount: 10,
-    spawnMaxRadius: 20.0,
-    spawnMaxSpeed: 15.0,
-    spawnMinSpeed: 10,
-    spawnMinRadius: 10.0,
-  );
-
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
@@ -54,17 +35,15 @@ class _MainMenuScreenState extends State<MainMenuScreen>
     final settingsController = context.watch<SettingsController>();
     final audioController = context.watch<AudioController>();
 
-    TickerProvider tickerProvider = this;
-
     mainArea() {
       return Center(
         child: Transform.rotate(
           angle: -0.45,
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [Colors.black, Colors.transparent],
@@ -156,6 +135,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
       );
     }
 
+    // ignore: unused_element
     gradientWidget() {
       return Container(
         width: double.infinity,
@@ -208,9 +188,9 @@ class _MainMenuScreenState extends State<MainMenuScreen>
 }
 
 class MainBackgroundGame extends FlameGame {
-  late DartAsync.Timer _timer;
+  //late dart_async.Timer _timer;
 
-  int _counter = 0;
+  //int _counter = 0;
 
   final MapSpriteComponent map = MapSpriteComponent(0);
 
@@ -224,17 +204,17 @@ class MainBackgroundGame extends FlameGame {
   }
 
   _startTimer() async {
-    _timer =
-        DartAsync.Timer.periodic(const Duration(seconds: 7), (timer) async {
-      if (_counter == 4) {
-        _counter = 0;
-      } else {
-        _counter++;
-      }
-      if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
-        map.changeBackground(_counter);
-      }
-    });
+    // _timer =
+    //     dart_async.Timer.periodic(const Duration(seconds: 7), (timer) async {
+    //   if (_counter == 4) {
+    //     _counter = 0;
+    //   } else {
+    //     _counter++;
+    //   }
+    //   if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
+    //     map.changeBackground(_counter);
+    //   }
+    // });
   }
 }
 
@@ -245,7 +225,7 @@ class MapSpriteComponent extends SpriteComponent
   MapSpriteComponent(this.initialMap);
 
   @override
-  DartAsync.Future<void>? onLoad() async {
+  dart_async.Future<void>? onLoad() async {
     await super.onLoad();
 
     sprite = await gameRef.loadSprite(maps[initialMap]);

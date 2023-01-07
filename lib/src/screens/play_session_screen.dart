@@ -16,8 +16,6 @@ import 'package:provider/provider.dart';
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
-import '../game_internals/collector_game/components/sprite_block_component.dart';
-import '../game_internals/collector_game/gravity_version_game.dart';
 import '../level_selection/level_states/collector_game_level_state.dart';
 import '../games_services/games_services.dart';
 import '../games_services/score.dart';
@@ -258,11 +256,13 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     setState(() {
       _duringCelebration = true;
     });
-    await Future<void>.delayed(Duration(milliseconds: 200));
+
+    final gamesServicesController = context.read<GamesServicesController?>();
+
+    await Future<void>.delayed(const Duration(milliseconds: 200));
     final audioController = context.read<AudioController>();
     audioController.playSfx(SfxType.congrats);
 
-    final gamesServicesController = context.read<GamesServicesController?>();
     if (gamesServicesController != null) {
       // Award achievement.
       if (widget.level.awardsAchievement) {

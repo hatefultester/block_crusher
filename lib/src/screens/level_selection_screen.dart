@@ -5,7 +5,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
 import 'package:block_crusher/src/utils/maps.dart';
@@ -21,40 +20,45 @@ import 'package:provider/provider.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
 import '../player_progress/player_progress.dart';
-import '../style/palette.dart';
 import '../level_selection/levels.dart';
 
-import 'dart:async' as DartAsync;
+import 'dart:async' as dart_async;
+
+const ColorFilter greyscale = ColorFilter.matrix(<double>[
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+]);
+
+double boxSize = 120;
+double padding = 15;
+
+double bottomsheetHeight = 60;
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool jumperDone = false;
-
-    const ColorFilter greyscale = ColorFilter.matrix(<double>[
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0.2126,
-      0.7152,
-      0.0722,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
-    ]);
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
 
     final playerProgress = context.watch<PlayerProgress>();
 
@@ -65,10 +69,13 @@ class LevelSelectionScreen extends StatelessWidget {
     final LevelSelectionBackground game =
         LevelSelectionBackground(initialPage.toInt());
 
-    double boxSize = 120;
-    double padding = 15;
+    bool jumperDone = false;
 
-    line(Direction direction, int lineId) {
+    ///
+    /// SINGLE LINE WIDGET FOR BUILDING ROAD'S
+    ///
+
+    line(Direction direction, int lineId, int offset) {
       final lineColor = playerProgress.highestLevelReached > lineId
           ? Colors.yellow.shade600
           : playerProgress.highestLevelReached == lineId
@@ -102,7 +109,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 width: 4,
               ),
               SizedBox(
-                height: boxSize / 2,
+                height: boxSize / 2 + offset,
               )
             ],
           ),
@@ -115,7 +122,7 @@ class LevelSelectionScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: boxSize / 2,
+                height: boxSize / 2 + offset,
               ),
               Container(
                 decoration: borderDecoration,
@@ -140,7 +147,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 width: lineThickness,
               ),
             ),
-            SizedBox(width: (boxSize / 2 + padding))
+            SizedBox(width: (boxSize / 2 + padding) + offset)
           ],
         );
       }
@@ -148,7 +155,7 @@ class LevelSelectionScreen extends StatelessWidget {
       if (direction == Direction.left) {
         return Row(
           children: [
-            SizedBox(width: (boxSize / 2 + padding)),
+            SizedBox(width: (boxSize / 2 + padding) + offset),
             Transform.rotate(
               angle: -0.05,
               child: Container(
@@ -165,6 +172,9 @@ class LevelSelectionScreen extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
+    ///
+    /// TOP APP LAYER WIDGET
+    ///
     topAppLayer() {
       Widget content = Container(
         decoration: const BoxDecoration(color: Colors.black),
@@ -216,29 +226,37 @@ class LevelSelectionScreen extends StatelessWidget {
       }
     }
 
-    background() {
+    ///
+    /// GAME WIDGET
+    ///
+    gameWidget() {
       return GameWidget(game: game);
     }
 
+    ///
+    /// MINI BOX AND DIALOG FOR FUTURE IMPROVMENT MAYBE :Shrug: ?
+    ///
     miniBox(int levelId, int gameId) {
       return InkWell(
         onTap: () =>
-            {GoRouter.of(context).go('/play/session/${levelId}/${gameId}')},
+            {GoRouter.of(context).go('/play/session/$levelId/$gameId')},
         child: SizedBox(
           width: double.infinity,
           height: 100,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                child: Text('CoinPicker'),
-              ),
+            children: const [
+              Text('CoinPicker'),
             ],
           ),
         ),
       );
     }
 
+    ///
+    /// BONUS LEVELS DIALOG
+    ///
+    // ignore: unused_element
     bonusLevelsDialog(int levelId) {
       showDialog(
         context: context,
@@ -301,6 +319,9 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
+    ///
+    /// BOX WIDGET
+    ///
     box(int levelId) {
       final level = gameLevels[levelId];
       final bool enabled = highestScore >= level.levelId - 1;
@@ -349,13 +370,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   onTap: () async {
                     audioController.playSfx(SfxType.buttonTap);
 
-                    // todo tohle kdyz ten level vyhraje...
-                    if (false) {
-                      // bonusLevelsDialog(levelId);
-                    } else {
-                      GoRouter.of(context)
-                          .go('/play/session/${level.levelId}/0');
-                    }
+                    GoRouter.of(context).go('/play/session/${level.levelId}/0');
                   },
                   child: child),
               won
@@ -384,8 +399,11 @@ class LevelSelectionScreen extends StatelessWidget {
       }
     }
 
+    /// SOOMY PAGE
+    /// PAGE1
+    ///
     soomyPage() {
-      return Container(
+      return SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Column(
@@ -399,7 +417,7 @@ class LevelSelectionScreen extends StatelessWidget {
                       child: Column(
                     children: [
                       for (int i = 0; i < 30; i++)
-                        i.isEven ? const Spacer() : line(Direction.left, 0),
+                        i.isEven ? const Spacer() : line(Direction.left, 0, 0),
                     ],
                   )),
                   SizedBox(
@@ -416,7 +434,9 @@ class LevelSelectionScreen extends StatelessWidget {
                         ),
                         box(0),
                         for (int i = 0; i < 30; i++)
-                          i.isEven ? const Spacer() : line(Direction.down, 1),
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.down, 1, 0),
                         box(1),
                         SizedBox(
                           width: padding,
@@ -428,16 +448,14 @@ class LevelSelectionScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Column(//mainAxisAlignment: MainAxisAlignment.start,
-                  //crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
+              child: Column(children: [
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       for (int i = 0; i < 26; i++)
-                        i.isEven ? const Spacer() : line(Direction.right, 2),
+                        i.isEven ? const Spacer() : line(Direction.right, 2, 0),
                     ],
                   ),
                 ),
@@ -454,7 +472,7 @@ class LevelSelectionScreen extends StatelessWidget {
                       SizedBox(width: padding + 15),
                       box(3),
                       for (int i = 0; i < 30; i++)
-                        i.isEven ? const Spacer() : line(Direction.up, 3),
+                        i.isEven ? const Spacer() : line(Direction.up, 3, 0),
                       box(2),
                       SizedBox(
                         width: padding + 10,
@@ -466,7 +484,7 @@ class LevelSelectionScreen extends StatelessWidget {
                     child: Column(
                   children: [
                     for (int i = 0; i < 25; i++)
-                      i.isEven ? const Spacer() : line(Direction.left, 4),
+                      i.isEven ? const Spacer() : line(Direction.left, 4, 0),
                   ],
                 ))
               ]),
@@ -500,7 +518,7 @@ class LevelSelectionScreen extends StatelessWidget {
                                   for (int i = 0; i < 35; i++)
                                     i.isEven
                                         ? const Spacer()
-                                        : line(Direction.up, 5),
+                                        : line(Direction.up, 5, 0),
                                   box(5),
                                 ],
                               ),
@@ -518,13 +536,11 @@ class LevelSelectionScreen extends StatelessWidget {
                                     for (int i = 0; i < 10; i++)
                                       i.isEven
                                           ? const Spacer()
-                                          : line(Direction.up, 6),
+                                          : line(Direction.up, 6, 0),
                                   ],
                                 ),
                               )),
                         ),
-                        // for (int i = 0; i < 20; i++)
-                        //   i.isEven ? const Spacer() : line(Direction.up, 6),
                       ],
                     ),
                   ),
@@ -536,6 +552,9 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
+    /// HOOMY PAGE
+    /// PAGE2
+    ///
     hoomyPage() {
       return SizedBox(
         width: double.infinity,
@@ -562,10 +581,14 @@ class LevelSelectionScreen extends StatelessWidget {
                         SizedBox(width: padding + 20),
                         box(10),
                         for (int i = 0; i < 30; i++)
-                          i.isEven ? const Spacer() : line(Direction.down, 11),
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.down, 11, 0),
                         box(11),
                         for (int i = 0; i < 15; i++)
-                          i.isEven ? const Spacer() : line(Direction.down, 12),
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.down, 12, 0),
                       ],
                     ),
                   ),
@@ -584,7 +607,7 @@ class LevelSelectionScreen extends StatelessWidget {
                           for (int i = 0; i < 30; i++)
                             i.isEven
                                 ? const Spacer()
-                                : line(Direction.left, 10),
+                                : line(Direction.left, 10, 0),
                         ]),
                   ),
                   SizedBox(
@@ -600,7 +623,7 @@ class LevelSelectionScreen extends StatelessWidget {
                         SizedBox(width: padding + 15),
                         box(8),
                         for (int i = 0; i < 30; i++)
-                          i.isEven ? const Spacer() : line(Direction.up, 9),
+                          i.isEven ? const Spacer() : line(Direction.up, 9, 0),
                         box(9),
                         SizedBox(
                           width: padding + 10,
@@ -614,7 +637,9 @@ class LevelSelectionScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           for (int i = 0; i < 30; i++)
-                            i.isEven ? const Spacer() : line(Direction.left, 8),
+                            i.isEven
+                                ? const Spacer()
+                                : line(Direction.left, 8, 0),
                         ]),
                   ),
                 ],
@@ -633,9 +658,9 @@ class LevelSelectionScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         const Spacer(),
-                        line(Direction.up, 6),
+                        line(Direction.up, 6, 0),
                         const Spacer(),
-                        line(Direction.up, 6),
+                        line(Direction.up, 6, 0),
                       ],
                     ),
                   ),
@@ -654,7 +679,7 @@ class LevelSelectionScreen extends StatelessWidget {
                               for (int i = 0; i < 35; i++)
                                 i.isEven
                                     ? const Spacer()
-                                    : line(Direction.up, 7),
+                                    : line(Direction.up, 7, 0),
                               box(7),
                             ],
                           ),
@@ -671,6 +696,9 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
+    /// SEA PAGE
+    /// PAGE3
+    ///
     seaPage() {
       return SizedBox(
         width: double.infinity,
@@ -696,9 +724,9 @@ class LevelSelectionScreen extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              line(Direction.down, 12),
+                              line(Direction.down, 12, 0),
                               const Spacer(),
-                              line(Direction.down, 12),
+                              line(Direction.down, 12, 0),
                               const Spacer()
                             ],
                           ),
@@ -721,7 +749,9 @@ class LevelSelectionScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         for (int i = 0; i < 10; i++)
-                          i.isEven ? const Spacer() : line(Direction.left, 13),
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.left, 13, 0),
                       ],
                     ),
                   ),
@@ -743,7 +773,9 @@ class LevelSelectionScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         for (int i = 0; i < 10; i++)
-                          i.isEven ? const Spacer() : line(Direction.left, 14),
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.left, 14, 0),
                       ],
                     ),
                   ),
@@ -758,7 +790,7 @@ class LevelSelectionScreen extends StatelessWidget {
                         ),
                         box(14),
                         for (int i = 0; i < 30; i++)
-                          i.isEven ? const Spacer() : line(Direction.up, 17),
+                          i.isEven ? const Spacer() : line(Direction.up, 17, 0),
                         box(17),
                         SizedBox(
                           height: boxSize,
@@ -768,7 +800,7 @@ class LevelSelectionScreen extends StatelessWidget {
                               for (int i = 0; i < 20; i++)
                                 i.isEven
                                     ? const Spacer()
-                                    : line(Direction.up, 18),
+                                    : line(Direction.up, 18, 0),
                             ],
                           ),
                         ),
@@ -779,7 +811,9 @@ class LevelSelectionScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         for (int i = 0; i < 10; i++)
-                          i.isEven ? const Spacer() : line(Direction.left, 15),
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.left, 15, 0),
                       ],
                     ),
                   ),
@@ -806,14 +840,14 @@ class LevelSelectionScreen extends StatelessWidget {
                           child: SizedBox(
                             height: boxSize,
                             child: Transform.translate(
-                              offset: Offset(-40, 120),
+                              offset: const Offset(-40, 120),
                               child: Transform.rotate(
                                 angle: 0.8,
                                 child: Row(children: [
                                   for (int i = 0; i < 30; i++)
                                     i.isEven
                                         ? const Spacer()
-                                        : line(Direction.up, 16),
+                                        : line(Direction.up, 16, 0),
                                   box(16),
                                   SizedBox(width: padding + boxSize / 2),
                                 ]),
@@ -832,83 +866,197 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
-    advancedPage() {
+    /// CITY PAGE
+    /// PAGE4
+    ///
+    cityPage() {
       return SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 2,
+              flex: 6,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   SizedBox(
                     height: boxSize,
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            width: padding,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Spacer(),
+                        box(23),
+                        SizedBox(
+                          width: padding + 150,
+                          height: boxSize,
+                          child: Row(
+                            children: [
+                              for (int i = 0; i < 30; i++)
+                                i.isEven
+                                    ? const Spacer()
+                                    : line(Direction.up, 24, 0),
+                            ],
                           ),
-                          box(10),
-                          for (int i = 0; i < 30; i++)
-                            i.isEven
-                                ? const Spacer()
-                                : line(Direction.down, 11),
-                          box(11),
-                          SizedBox(
-                            width: padding,
-                            height: boxSize,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                const Spacer(),
-                                line(Direction.down, 12),
-                                const Spacer(),
-                                line(Direction.down, 12),
-                              ],
-                            ),
-                          ),
-                        ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: 9,
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    for (int i = 0; i < 30; i++)
-                      i.isEven ? const Spacer() : line(Direction.left, 10),
-                  ]),
-            ),
-            Expanded(
-              flex: 3,
-              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  SizedBox(
-                    width: padding,
-                    height: boxSize,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
+                  Expanded(
+                    child: Column(
                       children: [
-                        const Spacer(),
-                        line(Direction.up, 9),
-                        const Spacer(),
-                        line(Direction.up, 9),
+                        for (int i = 0; i < 10; i++)
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.right, 23, 130),
                       ],
                     ),
                   ),
-                  box(9),
+                  SizedBox(
+                    height: playerProgress.highestLevelReached == 22
+                        ? boxSize
+                        : boxSize - 20,
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        box(22),
+                        SizedBox(
+                          width: padding + 130,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        for (int i = 0; i < 10; i++)
+                          i.isEven
+                              ? const Spacer()
+                              : line(Direction.right, 22, 100),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: playerProgress.highestLevelReached == 13
+                        ? boxSize
+                        : boxSize - 20,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: padding,
+                          height: boxSize,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              line(Direction.down, 18, 0),
+                              const Spacer(),
+                              line(Direction.down, 18, 0),
+                              const Spacer()
+                            ],
+                          ),
+                        ),
+                        box(18),
+                        const Spacer(),
+                        box(21),
+                        SizedBox(
+                          height: boxSize,
+                          width: padding + 80,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            for (int i = 0; i < 10; i++)
+                              i.isEven
+                                  ? const Spacer()
+                                  : line(Direction.left, 19, 0),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            for (int i = 0; i < 10; i++)
+                              i.isEven
+                                  ? const Spacer()
+                                  : line(Direction.right, 21, 50),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 9,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Column(
+                          children: [
+                            for (int i = 0; i < 30; i++)
+                              i.isEven
+                                  ? const Spacer()
+                                  : line(Direction.left, 19, 0),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            for (int i = 0; i < 30; i++)
+                              i.isEven
+                                  ? const Spacer()
+                                  : line(Direction.right, 21, 50),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: playerProgress.highestLevelReached == 15
+                        ? boxSize
+                        : boxSize - 20,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: padding),
+                        box(19),
+                        Expanded(
+                          child: SizedBox(
+                            height: boxSize,
+                            child: Row(children: [
+                              for (int i = 0; i < 30; i++)
+                                i.isEven
+                                    ? const Spacer()
+                                    : line(Direction.up, 20, 0),
+                              box(20),
+                              SizedBox(width: padding + 30),
+                            ]),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: bottomsheetHeight + 5 * padding),
                 ],
               ),
             ),
@@ -917,7 +1065,10 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
-    jediPage() {
+    /// PURPLE WORLD PAGE
+    /// PAGE5
+    ///
+    purpleWorldPage() {
       return SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -941,9 +1092,9 @@ class LevelSelectionScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               const Spacer(),
-                              line(Direction.down, 12),
+                              line(Direction.down, 12, 0),
                               const Spacer(),
-                              line(Direction.down, 12),
+                              line(Direction.down, 12, 0),
                             ],
                           ),
                         ),
@@ -959,7 +1110,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   for (int i = 0; i < 60; i++)
-                    i.isEven ? const Spacer() : line(Direction.left, 13),
+                    i.isEven ? const Spacer() : line(Direction.left, 13, 0),
                 ],
               ),
             ),
@@ -977,7 +1128,7 @@ class LevelSelectionScreen extends StatelessWidget {
                         child: box(13),
                       ),
                       for (int i = 0; i < 30; i++)
-                        i.isEven ? const Spacer() : line(Direction.up, 14),
+                        i.isEven ? const Spacer() : line(Direction.up, 14, 0),
                       Transform.rotate(
                         angle: -0.45,
                         child: box(14),
@@ -995,6 +1146,9 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
+    /// PAGE JUMPER
+    /// method for jumping to last selected level
+    ///
     pageJumper(int page, PageController controller) async {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         game.map.jumperLoaded = true;
@@ -1007,6 +1161,9 @@ class LevelSelectionScreen extends StatelessWidget {
       });
     }
 
+    /// LEVELS PAGE VIEW
+    /// returns page view with all level types
+    ///
     levelsPageView() {
       final initPage = playerProgress.highestLevelReached ~/ 6;
 
@@ -1026,17 +1183,20 @@ class LevelSelectionScreen extends StatelessWidget {
           soomyPage(),
           hoomyPage(),
           seaPage(),
-          advancedPage(),
-          jediPage(),
+          cityPage(),
+          purpleWorldPage(),
         ],
       );
     }
 
-    infoBox() {
+    /// BOTTOM WIDGET PART
+    /// HAS STATISTICS, IS BOTTOMSHEET
+    ///
+    bottomWidget() {
       return Align(
         alignment: Alignment.bottomLeft,
         child: Container(
-            height: 60,
+            height: bottomsheetHeight,
             color: Colors.black,
             width: double.infinity,
             child: Row(
@@ -1073,27 +1233,31 @@ class LevelSelectionScreen extends StatelessWidget {
       );
     }
 
+    /// return method
     return Scaffold(
       body: Stack(
         children: [
-          background(),
+          gameWidget(),
           levelsPageView(),
           topAppLayer(),
-          infoBox(),
+          bottomWidget(),
         ],
       ),
     );
   }
 }
 
+//// GAME ON THE BACKGROUND, SIMPLE JUST IMAGES
+///
+///
+
 class LevelSelectionBackground extends FlameGame {
-  late DartAsync.Timer _timer;
+  //late DartAsync.Timer _timer;
 
   final int initialPage;
   late MapSpriteComponent map;
 
   LevelSelectionBackground(this.initialPage) {
-    print(' initial page $initialPage ');
     map = MapSpriteComponent(initialPage);
   }
 
@@ -1109,7 +1273,7 @@ class LevelSelectionBackground extends FlameGame {
   }
 
   _startTimer() async {
-    int counter = 0;
+    //int counter = 0;
     // _timer = DartAsync.Timer.periodic(const Duration(milliseconds: 500),
     //     (timer) async {
     //   if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
@@ -1126,7 +1290,6 @@ class LevelSelectionBackground extends FlameGame {
 
 class MapSpriteComponent extends SpriteComponent
     with HasGameRef<LevelSelectionBackground> {
-  @override
   final int initialMap;
 
   bool jumperLoaded = false;
@@ -1136,12 +1299,10 @@ class MapSpriteComponent extends SpriteComponent
   MapSpriteComponent(this.initialMap);
 
   @override
-  DartAsync.Future<void>? onLoad() async {
+  dart_async.Future<void>? onLoad() async {
     await super.onLoad();
 
-    print('loading background: id $initialMap');
-
-    sprite = await gameRef.loadSprite(maps[initialMap]);
+    sprite = await gameRef.loadSprite(pageViewMaps[initialMap]);
     size = Vector2(gameRef.size.x, gameRef.size.y);
   }
 
@@ -1156,17 +1317,14 @@ class MapSpriteComponent extends SpriteComponent
     //   EffectController(duration: 0.4),
     // );
     // await add(effect);
-    print('calling change background: id $a');
 
-    if (selectedMap == maps[a] && jumperLoaded) {
+    if (selectedMap == pageViewMaps[a] && jumperLoaded) {
       return;
     }
 
-    print('success change background: id $a');
+    selectedMap == pageViewMaps[a];
 
-    selectedMap == maps[a];
-
-    sprite = await gameRef.loadSprite(maps[a]);
+    sprite = await gameRef.loadSprite(pageViewMaps[a]);
     // await add(oppacityBack);
   }
 }
@@ -1178,7 +1336,7 @@ class MiniSpriteComponent extends SpriteComponent
   MiniSpriteComponent();
 
   @override
-  DartAsync.Future<void>? onLoad() async {
+  dart_async.Future<void>? onLoad() async {
     await super.onLoad();
 
     int xMax = (gameRef.size.x - size.x - 250).toInt();

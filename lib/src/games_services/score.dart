@@ -47,7 +47,7 @@ class Score {
   String toString() => 'Score<$score,$formattedTime,$level>';
 }
 
-extension formattedTime on Duration {
+extension TimeFormaterOnDuration on Duration {
   String toFormattedString() {
     final buf = StringBuffer();
     if (inHours > 0) {

@@ -6,7 +6,6 @@ import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// Shows a confetti (celebratory) animation: paper snippings falling down.
 ///

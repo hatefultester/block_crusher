@@ -7,7 +7,6 @@ import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 
 import '../settings/settings.dart';
