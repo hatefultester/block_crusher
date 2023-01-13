@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:block_crusher/src/game_internals/collector_game/components/tray_component.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/collisions.dart';
@@ -30,10 +31,20 @@ class SpriteBlockComponent extends SpriteComponent
   SpriteBlockComponent.withDirection(this.direction, this.difficulty);
 
   _sprite() async {
-    if (imageSource[difficulty.index][characterId]['source'] != null) {
-      sprite = await gameRef
-          .loadSprite(imageSource[difficulty.index][characterId]['source']);
-      size = imageSource[difficulty.index][characterId]['size'] * _scale;
+    if (gameRef.gameMode != GameMode.cityFood) {
+      if (imageSource[difficulty.index][characterId]['source'] != null) {
+        sprite = await gameRef
+            .loadSprite(imageSource[difficulty.index][characterId]['source']);
+        size = imageSource[difficulty.index][characterId]['size'] * _scale;
+      }
+    }
+
+    if (gameRef.gameMode == GameMode.cityFood) {
+      if (cityFoods[difficulty.index][characterId]['source'] != null) {
+        sprite = await gameRef
+            .loadSprite(cityFoods[gameRef.foodIndex][characterId]['source']);
+        size = cityFoods[gameRef.foodIndex][characterId]['size'] * _scale;
+      }
     }
   }
 
@@ -43,9 +54,10 @@ class SpriteBlockComponent extends SpriteComponent
   Future<void> onLoad() async {
     super.onLoad();
 
-    sprite = await gameRef
-        .loadSprite(imageSource[difficulty.index][characterId]['source']);
-    size = imageSource[difficulty.index][characterId]['size'] * _scale;
+    // sprite = await gameRef
+    //     .loadSprite(imageSource[difficulty.index][characterId]['source']);
+    // size = imageSource[difficulty.index][characterId]['size'] * _scale;
+    await _sprite();
     int xMax = (gameRef.size.x - size.x).toInt();
     int yMax = (gameRef.size.y - size.y).toInt();
 

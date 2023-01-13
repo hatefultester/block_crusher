@@ -1,7 +1,9 @@
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/enemy_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/eye_enemy_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/hoomy_weapon_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/shark_enemy_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/components/tray_component.dart';
 import 'package:block_crusher/src/level_selection/level_states/collector_game_level_state.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/maps.dart';
@@ -27,6 +29,7 @@ enum GameMode {
   classic,
   hoomy,
   sharks,
+  cityFood,
 }
 
 class BlockCrusherGame extends FlameGame
@@ -49,6 +52,8 @@ class BlockCrusherGame extends FlameGame
   late int _tickSpeed;
   late int _generatedCounter;
 
+  late int foodIndex;
+
   late EnemyHoomyComponent enemyHoomik;
 
   BlockCrusherGame(this.difficulty) : super();
@@ -57,6 +62,7 @@ class BlockCrusherGame extends FlameGame
       BuildContext context, CollectorGameLevelState state) {
     this.context = context;
     this.state = state;
+    foodIndex = state.characterId;
 
     return this;
   }
@@ -104,6 +110,7 @@ class BlockCrusherGame extends FlameGame
         mapPath = gameMaps['water']!;
         break;
       case LevelDifficulty.cityLand:
+        gameMode = GameMode.cityFood;
         mapPath = gameMaps['city']!;
         break;
       case LevelDifficulty.blueWorld:
@@ -123,6 +130,10 @@ class BlockCrusherGame extends FlameGame
     if (gameMode == GameMode.hoomy) {
       enemyHoomik = EnemyHoomyComponent();
       await add(enemyHoomik);
+    }
+
+    if (gameMode == GameMode.cityFood) {
+      await add(TrayComponent());
     }
 
     //debugCheating();
@@ -156,11 +167,16 @@ class BlockCrusherGame extends FlameGame
 
     state.setProgress(state.score + 1);
 
-    if (level > state.level) {
+    if (level > state.level && gameMode != GameMode.cityFood) {
       _increaseGameSpeed();
       state.setLevel(level);
     }
 
+    state.evaluate();
+  }
+
+  collectedToTray(int level) {
+    state.collect(level);
     state.evaluate();
   }
 
@@ -188,29 +204,33 @@ class BlockCrusherGame extends FlameGame
             await add(SharkEnemyComponent());
           }
 
-          if (_generatedCounter % 2 == 0 &&
-              difficulty.atLeast(LevelDifficulty.seaLand)) {
-            await add(EnemyComponent.randomDirection(
-                !difficulty.atLeast(LevelDifficulty.cityLand)));
+          if (_generatedCounter % 2 == 0 && gameMode == GameMode.cityFood) {
+            await add(EyeEnemyComponent());
           }
 
-          if ((difficulty.atLeast(LevelDifficulty.hoomyLand) &&
-                  _generatedCounter.floor().isEven) ||
-              difficulty.atLeast(LevelDifficulty.seaLand)) {
-            await add(
-                SpriteBlockComponent.withDirection(Direction.up, difficulty));
-          }
+          // if (_generatedCounter % 2 == 0 &&
+          //     difficulty.atLeast(LevelDifficulty.seaLand)) {
+          //   await add(EnemyComponent.randomDirection(
+          //       !difficulty.atLeast(LevelDifficulty.cityLand)));
+          // }
 
-          if (difficulty.atLeast(LevelDifficulty.cityLand) &&
-              _generatedCounter.floor().isEven) {
-            await add(
-                SpriteBlockComponent.withDirection(Direction.left, difficulty));
-          }
-          if (difficulty.atLeast(LevelDifficulty.cityLand) &&
-              _generatedCounter.floor().isOdd) {
-            await add(SpriteBlockComponent.withDirection(
-                Direction.right, difficulty));
-          }
+          // if ((difficulty.atLeast(LevelDifficulty.hoomyLand) &&
+          //         _generatedCounter.floor().isEven) ||
+          //     difficulty.atLeast(LevelDifficulty.seaLand)) {
+          //   await add(
+          //       SpriteBlockComponent.withDirection(Direction.up, difficulty));
+          // }
+
+          // if (difficulty.atLeast(LevelDifficulty.cityLand) &&
+          //     _generatedCounter.floor().isEven) {
+          //   await add(
+          //       SpriteBlockComponent.withDirection(Direction.left, difficulty));
+          // }
+          // if (difficulty.atLeast(LevelDifficulty.cityLand) &&
+          //     _generatedCounter.floor().isOdd) {
+          //   await add(SpriteBlockComponent.withDirection(
+          //       Direction.right, difficulty));
+          // }
         }
       }
     });

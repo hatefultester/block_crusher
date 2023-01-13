@@ -164,24 +164,12 @@ List<dynamic> imageSource = [
     /// CITY WORLD LEVEL
     /// city level charaktery :D
 
-    /// free characters
-
-    {
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-
     /// 6 level characters
     ///
-
+    {
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
     {
       'source': 'food/300x150/butter.png',
       'size': Vector2(9 * 1.3, 4.5 * 1.3),
@@ -252,4 +240,164 @@ List<dynamic> imageSource = [
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
   ],
+];
+
+List cityFoods = [
+  /// LEVEL 1
+  [
+    {
+      'goal': 4,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 1,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 1,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+    {
+      'goal': 1,
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
+  ],
+
+  /// LEVEL 2
+  [
+    {
+      'goal': 5,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
+  ],
+
+  /// LEVEL 1
+  [
+    {
+      'goal': 5,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
+  ],
+
+  /// LEVEL 3
+  [
+    {
+      'goal': 5,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
+  ],
+
+  /// LEVEL 4
+  [
+    {
+      'goal': 5,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x150/butter.png',
+      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+    },
+  ],
+
+  /// LEVEL 5
+  [
+    {
+      'goal': 5,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+  ],
+
+  /// LEVEL 6
+  [
+    {
+      'goal': 5,
+      'source': 'food/150x275/carrot.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
+    },
+    {
+      'goal': 5,
+      'source': 'food/300x300/tomato.png',
+      'size': Vector2(9 * 1.3, 9 * 1.3),
+    },
+  ]
 ];

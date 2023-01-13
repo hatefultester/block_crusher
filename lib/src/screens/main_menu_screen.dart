@@ -50,9 +50,9 @@ class _MainMenuScreenState extends State<MainMenuScreen>
               ),
             ),
             child: Text(
-              'Erratic connector'.toUpperCase(),
+              'Skoro nic tu neni, verze pro inspiraci'.toUpperCase(),
               style: const TextStyle(
-                fontSize: 45,
+                fontSize: 20,
                 color: Colors.white,
               ),
               textWidthBasis: TextWidthBasis.longestLine,
@@ -95,7 +95,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ElevatedButton(
+        ElevatedButton(
             onPressed: () {
               audioController.playSfx(SfxType.buttonTap);
               GoRouter.of(context).go('/play');

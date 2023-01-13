@@ -55,17 +55,17 @@ const gameLevels = [
   /// CITY CHARACTERS
   ///
   GameLevel(
-      levelId: 19, characterId: 3, levelDifficulty: LevelDifficulty.cityLand),
+      levelId: 19, characterId: 1, levelDifficulty: LevelDifficulty.cityLand),
   GameLevel(
-      levelId: 20, characterId: 4, levelDifficulty: LevelDifficulty.cityLand),
+      levelId: 20, characterId: 2, levelDifficulty: LevelDifficulty.cityLand),
   GameLevel(
-      levelId: 21, characterId: 5, levelDifficulty: LevelDifficulty.cityLand),
+      levelId: 21, characterId: 3, levelDifficulty: LevelDifficulty.cityLand),
   GameLevel(
-      levelId: 22, characterId: 6, levelDifficulty: LevelDifficulty.cityLand),
+      levelId: 22, characterId: 4, levelDifficulty: LevelDifficulty.cityLand),
   GameLevel(
-      levelId: 23, characterId: 7, levelDifficulty: LevelDifficulty.cityLand),
+      levelId: 23, characterId: 5, levelDifficulty: LevelDifficulty.cityLand),
   GameLevel(
-      levelId: 24, characterId: 8, levelDifficulty: LevelDifficulty.cityLand),
+      levelId: 24, characterId: 6, levelDifficulty: LevelDifficulty.cityLand),
 
   /// BLUE LEVEL
   /// BLUE CHARACTERS

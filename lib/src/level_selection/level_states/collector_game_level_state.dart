@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:block_crusher/src/level_selection/levels.dart';
+import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +35,8 @@ class CollectorGameLevelState extends ChangeNotifier {
   bool _playerDied = false;
   bool _gameWon = false;
 
+  List<int> _items = [0, 0, 0, 0];
+
   void reset() {
     _score = 0;
     _level = 0;
@@ -50,6 +53,12 @@ class CollectorGameLevelState extends ChangeNotifier {
       this.goal = 100,
       this.maxLives = 10}) {
     _lives = maxLives;
+  }
+
+  void collect(int id) {
+    _items[id]++;
+    print('hej sezral neco');
+    notifyListeners();
   }
 
   void setLevel(int value) {
@@ -72,8 +81,21 @@ class CollectorGameLevelState extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool _collected() {
+    if (_playerDied || _gameWon) return false;
+
+    bool collected = true;
+
+    for (int i = 0; i < _items.length; i++) {
+      print(' i position $i : ${_items[i]}');
+      if (_items[i] < cityFoods[characterId - 1][i]['goal']) collected = false;
+    }
+
+    return collected;
+  }
+
   void evaluate() {
-    if (!(levelType == LevelType.coinPicker)) {
+    if (levelType == LevelType.collector) {
       if (_level >= goal && !_playerDied && !_gameWon) {
         onWin();
         _gameWon = true;
@@ -82,6 +104,10 @@ class CollectorGameLevelState extends ChangeNotifier {
         onDie();
         _playerDied = true;
       }
+    }
+    if (_collected()) {
+      onWin();
+      _gameWon = true;
     }
   }
 }

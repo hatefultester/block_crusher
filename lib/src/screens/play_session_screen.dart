@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
@@ -105,6 +106,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
               size: 30,
             ),
             onPressed: (() => {
+              kDebugMode ? _playerWon() : 
                   GoRouter.of(context).go('/play'),
                 }),
           ),
