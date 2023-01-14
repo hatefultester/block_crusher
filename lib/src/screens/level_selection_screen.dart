@@ -887,22 +887,7 @@ class LevelSelectionScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Spacer(),
-                        box(23),
-                        SizedBox(
-                          width: padding + 150,
-                          height: boxSize,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < 30; i++)
-                                i.isEven
-                                    ? const Spacer()
-                                    : line(Direction.up, 24, 0),
-                            ],
-                          ),
-                        ),
-                      ],
+                      children: [],
                     ),
                   ),
                 ],
@@ -916,12 +901,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Column(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.right, 23, 130),
-                      ],
+                      children: [],
                     ),
                   ),
                   SizedBox(
@@ -934,6 +914,14 @@ class LevelSelectionScreen extends StatelessWidget {
                         box(22),
                         SizedBox(
                           width: padding + 130,
+                          child: Row(
+                            children: [
+                              for (int i = 0; i < 20; i++)
+                                i.isEven
+                                    ? const Spacer()
+                                    : line(Direction.up, 22, 0),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -957,14 +945,12 @@ class LevelSelectionScreen extends StatelessWidget {
                         SizedBox(
                           width: padding,
                           height: boxSize,
-                          child: 
-                          
-                          Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               line(Direction.up, 18, 0),
                               const Spacer(),
-                              line(Direction.up, 18,0),
+                              line(Direction.up, 18, 0),
                               const Spacer()
                             ],
                           ),

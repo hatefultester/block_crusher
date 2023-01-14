@@ -171,28 +171,28 @@ List<dynamic> imageSource = [
       'size': Vector2(9 * 1.3, 4.5 * 1.3),
     },
     {
-      'source': 'food/300x150/butter.png',
-      'size': Vector2(9 * 1.3, 4.5 * 1.3),
+      'goal': 5,
+      'source': 'food/150x275/pear.png',
+      'size': Vector2(1.5 * 4, 2.75 * 4),
     },
     {
-      'source': 'food/300x250/cheese.png',
-      'size': Vector2(9 * 1.3, 7.5 * 1.3),
+      'goal': 2,
+      'source': 'food/100x215/milk.png',
+      'size': Vector2(3 * 1.5, 6.45 * 1.5),
     },
     {
-      'source': 'food/300x215/tofu.png',
-      'size': Vector2(9 * 1.5, 6.45 * 1.5),
-    },
-    {
-      'source': 'food/300x120/candy.png',
-      'size': Vector2(3 * 3 * 1.3, 1.2 * 3 * 1.3),
-    },
-    {
+      'goal': 8,
       'source': 'food/300x275/mufin.png',
       'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
     {
+      'goal': 8,
       'source': 'food/300x215/hamburger.png',
-      'size': Vector2(9 * 1.5, 6.45 * 1.5),
+      'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
+    },
+    {
+      'source': 'food/300x250/chinese_soup.png',
+      'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
   ],
   [
@@ -244,160 +244,147 @@ List<dynamic> imageSource = [
 
 List cityFoods = [
   /// LEVEL 1
-  [
-    {
-      'goal': 4,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 1,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 1,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-    {
-      'goal': 1,
-      'source': 'food/300x150/butter.png',
-      'size': Vector2(9 * 1.3, 4.5 * 1.3),
-    },
-  ],
+  {
+    'debug': 'tohle je level 1',
+    'sum': 2,
+    'characters': [
+      {
+        'goal': 7,
+        'source': 'food/150x275/carrot.png',
+        'size': Vector2(1.5 * 4, 2.75 * 4),
+      },
+      {
+        'goal': 5,
+        'source': 'food/150x275/pear.png',
+        'size': Vector2(1.5 * 4, 2.75 * 4),
+      },
+      {
+        'goal': 3,
+        'source': 'food/300x300/tomato.png',
+        'size': Vector2(9 * 1.3, 9 * 1.3),
+      },
+      // {
+      //   'goal': 1,
+      //   'source': 'food/300x150/butter.png',
+      //   'size': Vector2(9 * 1.3, 4.5 * 1.3),
+      // },
+    ],
+  },
 
   /// LEVEL 2
-  [
-    {
-      'goal': 5,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x150/butter.png',
-      'size': Vector2(9 * 1.3, 4.5 * 1.3),
-    },
-  ],
-
-  /// LEVEL 1
-  [
-    {
-      'goal': 5,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x150/butter.png',
-      'size': Vector2(9 * 1.3, 4.5 * 1.3),
-    },
-  ],
+  {
+    'debug': 'tohle je level 2',
+    'sum': 3,
+    'characters': [
+      {
+        'goal': 8,
+        'source': 'food/300x150/butter.png',
+        'size': Vector2(9 * 1.3, 4.5 * 1.3),
+      },
+      {
+        'goal': 5,
+        'source': 'food/300x250/cheese.png',
+        'size': Vector2(9 * 1.3, 7.5 * 1.3),
+      },
+      {
+        'goal': 3,
+        'source': 'food/300x215/tofu.png',
+        'size': Vector2(9 * 1.5, 6.45 * 1.5),
+      },
+      {
+        'goal': 2,
+        'source': 'food/100x215/milk.png',
+        'size': Vector2(3 * 1.5, 6.45 * 1.5),
+      },
+    ],
+  },
 
   /// LEVEL 3
-  [
-    {
-      'goal': 5,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x150/butter.png',
-      'size': Vector2(9 * 1.3, 4.5 * 1.3),
-    },
-  ],
+  {
+    'debug': 'tohle je level 3',
+    'sum': 3,
+    'characters': [
+      {
+        'goal': 10,
+        'source': 'food/300x120/candy.png',
+        'size': Vector2(3 * 3 * 1.3, 1.2 * 3 * 1.3),
+      },
+      {
+        'goal': 8,
+        'source': 'food/300x275/mufin.png',
+        'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
+      },
+      {
+        'goal': 6,
+        'source': 'food/200x285/ice_cream.png',
+        'size': Vector2(8 * 1.5, 2.85 * 4 * 1.5),
+      },
+      {
+        'goal': 4,
+        'source': 'food/300x300/lolipop.png',
+        'size': Vector2(9 * 1.5, 9 * 1.5),
+      },
+    ],
+  },
 
   /// LEVEL 4
-  [
-    {
-      'goal': 5,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x150/butter.png',
-      'size': Vector2(9 * 1.3, 4.5 * 1.3),
-    },
-  ],
+  {
+    'debug': 'tohle je level 4',
+    'sum': 3,
+    'characters': [
+      {
+        'goal': 10,
+        'source': 'food/200x250/fries.png',
+        'size': Vector2(2 * 3 * 1.3, 2.5 * 3 * 1.3),
+      },
+      {
+        'goal': 10,
+        'source': 'food/300x215/fried_egg.png',
+        'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
+      },
+      {
+        'goal': 8,
+        'source': 'food/300x215/hamburger.png',
+        'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
+      },
+      {
+        'goal': 5,
+        'source': 'food/300x250/steak.png',
+        'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
+      },
+    ],
+  },
 
   /// LEVEL 5
-  [
-    {
-      'goal': 5,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-  ],
-
-  /// LEVEL 6
-  [
-    {
-      'goal': 5,
-      'source': 'food/150x275/carrot.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/150x275/pear.png',
-      'size': Vector2(1.5 * 4, 2.75 * 4),
-    },
-    {
-      'goal': 5,
-      'source': 'food/300x300/tomato.png',
-      'size': Vector2(9 * 1.3, 9 * 1.3),
-    },
-  ]
+  {
+    'debug': 'tohle je level 5',
+    'sum': 4,
+    'characters': [
+      {
+        'goal': 12,
+        'source': 'food/300x200_granulka.png',
+        'size': Vector2(3 * 3 * 1.3, 2 * 3 * 1.3),
+      },
+      {
+        'goal': 7,
+        'source': 'food/300x300/cat_food.png',
+        'size': Vector2(3 * 3 * 1.3, 3 * 3 * 1.3),
+      },
+      {
+        'goal': 5,
+        'source': 'food/300x250/chinese_soup.png',
+        'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
+      },
+      {
+        'goal': 5,
+        'source': 'food/200x285/juice.png',
+        'size': Vector2(2 * 3 * 1.3, 2.85 * 3 * 1.3),
+      },
+      {
+        'goal': 3,
+        'source': 'food/300x250/coffee.png',
+        'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
+      },
+    ],
+  },
 ];

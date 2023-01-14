@@ -35,7 +35,9 @@ class CollectorGameLevelState extends ChangeNotifier {
   bool _playerDied = false;
   bool _gameWon = false;
 
-  List<int> _items = [0, 0, 0, 0];
+  List<int> _items = [];
+
+  List<int> get items => _items;
 
   void reset() {
     _score = 0;
@@ -53,11 +55,18 @@ class CollectorGameLevelState extends ChangeNotifier {
       this.goal = 100,
       this.maxLives = 10}) {
     _lives = maxLives;
+    _getGoalItems();
+    print(cityFoods[characterId - 1]['debug']);
+  }
+
+  _getGoalItems() {
+    for (var _ in cityFoods[characterId - 1]['characters']) {
+      _items.add(0);
+    }
   }
 
   void collect(int id) {
     _items[id]++;
-    print('hej sezral neco');
     notifyListeners();
   }
 
@@ -88,7 +97,8 @@ class CollectorGameLevelState extends ChangeNotifier {
 
     for (int i = 0; i < _items.length; i++) {
       print(' i position $i : ${_items[i]}');
-      if (_items[i] < cityFoods[characterId - 1][i]['goal']) collected = false;
+      if (_items[i] < cityFoods[characterId - 1]['characters'][i]['goal'])
+        collected = false;
     }
 
     return collected;

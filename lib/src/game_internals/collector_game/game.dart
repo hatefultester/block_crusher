@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/enemy_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/eye_enemy_component.dart';
@@ -53,6 +55,7 @@ class BlockCrusherGame extends FlameGame
   late int _generatedCounter;
 
   late int foodIndex;
+  late int maxCharacterIndex;
 
   late EnemyHoomyComponent enemyHoomik;
 
@@ -62,7 +65,9 @@ class BlockCrusherGame extends FlameGame
       BuildContext context, CollectorGameLevelState state) {
     this.context = context;
     this.state = state;
-    foodIndex = state.characterId;
+    foodIndex = state.characterId - 1;
+    maxCharacterIndex = state.items.length;
+    if (maxCharacterIndex > 2) maxCharacterIndex = 2;
 
     return this;
   }
@@ -186,6 +191,8 @@ class BlockCrusherGame extends FlameGame
   }
 
   _startTimer() async {
+    Random random = Random();
+
     _log.info('Starting timer');
     _timer = dart_async.Timer.periodic(const Duration(milliseconds: 15),
         (timer) async {
@@ -195,7 +202,19 @@ class BlockCrusherGame extends FlameGame
           _tickCounter = 0;
           _generatedCounter++;
 
-          await add(SpriteBlockComponent(difficulty));
+          if (gameMode != GameMode.cityFood) {
+            await add(SpriteBlockComponent(difficulty));
+          } else {
+            int generatedIndexNumber = random.nextInt(maxCharacterIndex);
+            if (generatedIndexNumber > 0) {
+              generatedIndexNumber = random.nextInt(maxCharacterIndex);
+              if (generatedIndexNumber > 1) {
+                generatedIndexNumber = random.nextInt(maxCharacterIndex);
+              }
+            }
+            await add(SpriteBlockComponent.withLevelSet(
+                generatedIndexNumber, difficulty));
+          }
 
           if (_generatedCounter % 2 == 0 && gameMode == GameMode.hoomy) {
             await add(HoomyWeaponComponent());

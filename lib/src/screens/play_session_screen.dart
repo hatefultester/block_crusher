@@ -106,8 +106,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
               size: 30,
             ),
             onPressed: (() => {
-              kDebugMode ? _playerWon() : 
-                  GoRouter.of(context).go('/play'),
+                  kDebugMode ? _playerWon() : GoRouter.of(context).go('/play'),
                 }),
           ),
           const Spacer(),
@@ -161,6 +160,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     if (widget.level.levelType == LevelType.collector) {
       return Container(
         height: 60,
+        width: 60,
         padding: const EdgeInsets.all(10),
         child: Image.asset(
             'assets/images/${imageSource[widget.level.levelDifficulty.index][widget.level.characterId]['source']}'),
@@ -179,6 +179,49 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   _bottomAppLayer() {
+    if (widget.level.levelDifficulty == LevelDifficulty.cityLand) {
+      return Container(
+        decoration: const BoxDecoration(color: Colors.black),
+        height: 60,
+        width: double.infinity,
+        child: Consumer<CollectorGameLevelState>(
+          builder: (context, levelState, child) => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (int i = 0; i < levelState.items.length; i++)
+                Row(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.all(10),
+                        width: levelState.items.length > 3 ? 40 : 50,
+                        height: levelState.items.length > 3 ? 40 : 50,
+                        child: Image.asset(
+                            'assets/images/${cityFoods[levelState.characterId - 1]['characters'][i]['source']}')),
+                    Container(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: levelState.items[i] >=
+                              cityFoods[levelState.characterId - 1]
+                                  ['characters'][i]['goal']
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: 25,
+                            )
+                          : Text(
+                              '${levelState.items[i].toString()} / ${cityFoods[levelState.characterId - 1]['characters'][i]['goal']}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize:
+                                      levelState.items.length > 3 ? 14 : 18)),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Container(
         decoration: const BoxDecoration(color: Colors.black),
         height: 60,
@@ -383,9 +426,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 //     );
 //   }
 
-  
 // }
-
 
 //  _oldGameWidget() {
 //     return Center(

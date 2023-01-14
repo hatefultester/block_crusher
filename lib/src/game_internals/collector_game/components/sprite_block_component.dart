@@ -24,6 +24,8 @@ class SpriteBlockComponent extends SpriteComponent
 
   int characterId = 0;
 
+  int tapCounter = 0;
+
   Direction direction = Direction.down;
 
   SpriteBlockComponent(this.difficulty);
@@ -32,7 +34,7 @@ class SpriteBlockComponent extends SpriteComponent
 
   _sprite() async {
     if (gameRef.gameMode != GameMode.cityFood) {
-      if (imageSource[difficulty.index][characterId]['source'] != null) {
+      if (imageSource[difficulty.index][characterId] != null) {
         sprite = await gameRef
             .loadSprite(imageSource[difficulty.index][characterId]['source']);
         size = imageSource[difficulty.index][characterId]['size'] * _scale;
@@ -40,10 +42,11 @@ class SpriteBlockComponent extends SpriteComponent
     }
 
     if (gameRef.gameMode == GameMode.cityFood) {
-      if (cityFoods[difficulty.index][characterId]['source'] != null) {
-        sprite = await gameRef
-            .loadSprite(cityFoods[gameRef.foodIndex][characterId]['source']);
-        size = cityFoods[gameRef.foodIndex][characterId]['size'] * _scale;
+      if (cityFoods[gameRef.foodIndex]['characters'][characterId] != null) {
+        sprite = await gameRef.loadSprite(
+            cityFoods[gameRef.foodIndex]['characters'][characterId]['source']);
+        size = cityFoods[gameRef.foodIndex]['characters'][characterId]['size'] *
+            _scale;
       }
     }
   }
@@ -147,6 +150,7 @@ class SpriteBlockComponent extends SpriteComponent
   @override
   bool onDragStart(DragStartInfo info) {
     dragDeltaPosition = info.eventPosition.game - position;
+    tapCounter = 0;
     return false;
   }
 
@@ -176,19 +180,19 @@ class SpriteBlockComponent extends SpriteComponent
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
 
+    if (y < 5 || !isDragging) return;
+
     if (other is SpriteBlockComponent) {
-      if (y > 5 && isDragging) {
-        if (other.characterId == characterId) {
-          other.removeFromParent();
-          characterId++;
-          _sprite();
-          direction = Direction.down;
-          gameRef.collisionDetected(characterId);
-        }
-        if (other.characterId != characterId) {
-          //   other.startDragging();
-        }
-      }
+      if (other.characterId != characterId) return;
+      if (characterId + 1 > cityFoods[gameRef.foodIndex]['sum']) return;
+      print('food sum is : ${cityFoods[gameRef.foodIndex]['sum']}');
+      characterId++;
+      _sprite();
+
+      other.removeFromParent();
+      direction = Direction.down;
+
+      gameRef.collisionDetected(characterId);
     }
   }
 
@@ -203,12 +207,24 @@ class SpriteBlockComponent extends SpriteComponent
   @override
   bool onTapDown(TapDownInfo info) {
     tapped = true;
+
+    if (gameRef.gameMode == GameMode.cityFood && (characterId > 0)) {
+      tapCounter++;
+      if (tapCounter >= 3) {
+        characterId--;
+        _sprite();
+        tapCounter = 0;
+      }
+      print(tapCounter.toString());
+    }
+
     return super.onTapDown(info);
   }
 
   @override
   bool onTapCancel() {
     tapped = false;
+
     return super.onTapCancel();
   }
 
