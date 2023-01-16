@@ -16,6 +16,7 @@ class CollectorGameLevelState extends ChangeNotifier {
   final VoidCallback onDie;
 
   final LevelType levelType;
+  final LevelDifficulty levelDifficulty;
 
   final int characterId;
 
@@ -52,14 +53,18 @@ class CollectorGameLevelState extends ChangeNotifier {
       required this.characterId,
       required this.onDie,
       required this.levelType,
+      required this.levelDifficulty,
       this.goal = 100,
       this.maxLives = 10}) {
     _lives = maxLives;
-    _getGoalItems();
-    print(cityFoods[characterId - 1]['debug']);
+    if (levelDifficulty == LevelDifficulty.cityLand) {
+      _getGoalItems();
+      print(cityFoods[characterId - 1]['debug']);
+    }
   }
 
   _getGoalItems() {
+    print('goalItems generated');
     for (var _ in cityFoods[characterId - 1]['characters']) {
       _items.add(0);
     }

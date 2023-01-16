@@ -259,7 +259,7 @@ List cityFoods = [
         'size': Vector2(1.5 * 4, 2.75 * 4),
       },
       {
-        'goal': 3,
+        'goal': 2,
         'source': 'food/300x300/tomato.png',
         'size': Vector2(9 * 1.3, 9 * 1.3),
       },
@@ -292,7 +292,7 @@ List cityFoods = [
         'size': Vector2(9 * 1.5, 6.45 * 1.5),
       },
       {
-        'goal': 2,
+        'goal': 1,
         'source': 'food/100x215/milk.png',
         'size': Vector2(3 * 1.5, 6.45 * 1.5),
       },
@@ -315,12 +315,12 @@ List cityFoods = [
         'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
       },
       {
-        'goal': 6,
+        'goal': 4,
         'source': 'food/200x285/ice_cream.png',
         'size': Vector2(8 * 1.5, 2.85 * 4 * 1.5),
       },
       {
-        'goal': 4,
+        'goal': 1,
         'source': 'food/300x300/lolipop.png',
         'size': Vector2(9 * 1.5, 9 * 1.5),
       },
@@ -338,17 +338,17 @@ List cityFoods = [
         'size': Vector2(2 * 3 * 1.3, 2.5 * 3 * 1.3),
       },
       {
-        'goal': 10,
+        'goal': 8,
         'source': 'food/300x215/fried_egg.png',
         'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
       },
       {
-        'goal': 8,
+        'goal': 4,
         'source': 'food/300x215/hamburger.png',
         'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
       },
       {
-        'goal': 5,
+        'goal': 1,
         'source': 'food/300x250/steak.png',
         'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
       },
@@ -366,22 +366,22 @@ List cityFoods = [
         'size': Vector2(3 * 3 * 1.3, 2 * 3 * 1.3),
       },
       {
-        'goal': 7,
+        'goal': 10,
         'source': 'food/300x300/cat_food.png',
         'size': Vector2(3 * 3 * 1.3, 3 * 3 * 1.3),
       },
       {
-        'goal': 5,
+        'goal': 4,
         'source': 'food/300x250/chinese_soup.png',
         'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
       },
       {
-        'goal': 5,
+        'goal': 2,
         'source': 'food/200x285/juice.png',
         'size': Vector2(2 * 3 * 1.3, 2.85 * 3 * 1.3),
       },
       {
-        'goal': 3,
+        'goal': 1,
         'source': 'food/300x250/coffee.png',
         'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
       },

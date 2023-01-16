@@ -64,10 +64,11 @@ class LevelSelectionScreen extends StatelessWidget {
 
     var highestScore = playerProgress.highestLevelReached;
 
-    var initialPage = playerProgress.highestLevelReached ~/ 6;
+    int initPage = playerProgress.highestLevelReached ~/ 6;
+    if (playerProgress.highestLevelReached == 23) initPage++;
 
     final LevelSelectionBackground game =
-        LevelSelectionBackground(initialPage.toInt());
+        LevelSelectionBackground(initPage.toInt());
 
     bool jumperDone = false;
 
@@ -399,740 +400,708 @@ class LevelSelectionScreen extends StatelessWidget {
       }
     }
 
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+
     /// SOOMY PAGE
     /// PAGE1
     ///
     soomyPage() {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      var soomyPageTopSectionFlex = 1;
+      var soomyPageMiddleSectionFlex = 1;
+      var soomyPageBottomSectionFlex = 1;
+
+      List<Widget> soomyPageTopSection = [
+        Expanded(
+            child: Column(
           children: [
-            Expanded(
-              child: Column(
-                children: [
-                  Expanded(
-                      child: Column(
-                    children: [
-                      for (int i = 0; i < 30; i++)
-                        i.isEven ? const Spacer() : line(Direction.left, 0, 0),
-                    ],
-                  )),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 0 ||
-                            playerProgress.highestLevelReached == 1
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: padding,
-                        ),
-                        box(0),
-                        for (int i = 0; i < 30; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.down, 1, 0),
-                        box(1),
-                        SizedBox(
-                          width: padding,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (int i = 0; i < 26; i++)
-                        i.isEven ? const Spacer() : line(Direction.right, 2, 0),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: playerProgress.highestLevelReached == 3 ||
-                          playerProgress.highestLevelReached == 2
-                      ? boxSize
-                      : boxSize - 20,
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(width: padding + 15),
-                      box(3),
-                      for (int i = 0; i < 30; i++)
-                        i.isEven ? const Spacer() : line(Direction.up, 3, 0),
-                      box(2),
-                      SizedBox(
-                        width: padding + 10,
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                    child: Column(
-                  children: [
-                    for (int i = 0; i < 25; i++)
-                      i.isEven ? const Spacer() : line(Direction.left, 4, 0),
-                  ],
-                ))
-              ]),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 4 ||
-                            playerProgress.highestLevelReached == 5
-                        ? boxSize
-                        : boxSize - 20,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: padding + 10,
-                        ),
-                        box(4),
-                        Expanded(
-                          child: Transform.translate(
-                            offset: const Offset(-5, -40),
-                            child: Transform.rotate(
-                              angle: -0.15,
-                              child: Row(
-                                children: [
-                                  for (int i = 0; i < 35; i++)
-                                    i.isEven
-                                        ? const Spacer()
-                                        : line(Direction.up, 5, 0),
-                                  box(5),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: padding + 10,
-                          child: Transform.translate(
-                              offset: Offset(-8, -boxSize / 2 - 10),
-                              child: Transform.rotate(
-                                angle: -0.2,
-                                child: Row(
-                                  children: [
-                                    for (int i = 0; i < 10; i++)
-                                      i.isEven
-                                          ? const Spacer()
-                                          : line(Direction.up, 6, 0),
-                                  ],
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            for (int i = 0; i < 30; i++)
+              i.isEven ? const Spacer() : line(Direction.left, 0, 0),
           ],
+        )),
+        SizedBox(
+          height: playerProgress.highestLevelReached == 0 ||
+                  playerProgress.highestLevelReached == 1
+              ? boxSize
+              : boxSize - 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: padding,
+              ),
+              box(0),
+              for (int i = 0; i < 30; i++)
+                i.isEven ? const Spacer() : line(Direction.down, 1, 0),
+              box(1),
+              SizedBox(
+                width: padding,
+              ),
+            ],
+          ),
         ),
-      );
+      ];
+
+      List<Widget> soomyPageMiddleSection = [
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (int i = 0; i < 26; i++)
+                i.isEven ? const Spacer() : line(Direction.right, 2, 0),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: playerProgress.highestLevelReached == 3 ||
+                  playerProgress.highestLevelReached == 2
+              ? boxSize
+              : boxSize - 20,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: padding + 15),
+              box(3),
+              for (int i = 0; i < 30; i++)
+                i.isEven ? const Spacer() : line(Direction.up, 3, 0),
+              box(2),
+              SizedBox(
+                width: padding + 10,
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              for (int i = 0; i < 25; i++)
+                i.isEven ? const Spacer() : line(Direction.left, 4, 0),
+            ],
+          ),
+        ),
+      ];
+
+      List<Widget> soomyPageBottomSection = [
+        SizedBox(
+          height: playerProgress.highestLevelReached == 4 ||
+                  playerProgress.highestLevelReached == 5
+              ? boxSize
+              : boxSize - 20,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: padding + 10,
+              ),
+              box(4),
+              Expanded(
+                child: Transform.translate(
+                  offset: const Offset(-5, -40),
+                  child: Transform.rotate(
+                    angle: -0.15,
+                    child: Row(
+                      children: [
+                        for (int i = 0; i < 35; i++)
+                          i.isEven ? const Spacer() : line(Direction.up, 5, 0),
+                        box(5),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: padding + 10,
+                child: Transform.translate(
+                    offset: Offset(-8, -boxSize / 2 - 10),
+                    child: Transform.rotate(
+                      angle: -0.2,
+                      child: Row(
+                        children: [
+                          for (int i = 0; i < 10; i++)
+                            i.isEven
+                                ? const Spacer()
+                                : line(Direction.up, 6, 0),
+                        ],
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ];
+
+      return LevelPage(
+          topSection: soomyPageTopSection,
+          middleSection: soomyPageMiddleSection,
+          bottomSection: soomyPageBottomSection,
+          topSectionFlex: soomyPageTopSectionFlex,
+          middleSectionFlex: soomyPageMiddleSectionFlex,
+          bottomSectionFlex: soomyPageBottomSectionFlex);
     }
+
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
 
     /// HOOMY PAGE
     /// PAGE2
     ///
     hoomyPage() {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 4 ||
-                            playerProgress.highestLevelReached == 5
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(width: padding + 20),
-                        box(10),
-                        for (int i = 0; i < 30; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.down, 11, 0),
-                        box(11),
-                        for (int i = 0; i < 15; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.down, 12, 0),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 4,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          for (int i = 0; i < 30; i++)
-                            i.isEven
-                                ? const Spacer()
-                                : line(Direction.left, 10, 0),
-                        ]),
-                  ),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 3 ||
-                            playerProgress.highestLevelReached == 2
-                        ? boxSize
-                        : boxSize - 20,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: padding + 15),
-                        box(8),
-                        for (int i = 0; i < 30; i++)
-                          i.isEven ? const Spacer() : line(Direction.up, 9, 0),
-                        box(9),
-                        SizedBox(
-                          width: padding + 10,
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          for (int i = 0; i < 30; i++)
-                            i.isEven
-                                ? const Spacer()
-                                : line(Direction.left, 8, 0),
-                        ]),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: padding,
-                    height: boxSize,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const Spacer(),
-                        line(Direction.up, 6, 0),
-                        const Spacer(),
-                        line(Direction.up, 6, 0),
-                      ],
-                    ),
-                  ),
-                  box(6),
-                  Expanded(
-                    child: Transform.translate(
-                      offset: const Offset(-10, -20),
-                      child: Transform.rotate(
-                        angle: -0.3,
-                        child: SizedBox(
-                          height: playerProgress.highestLevelReached == 7
-                              ? boxSize
-                              : boxSize - 20,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < 35; i++)
-                                i.isEven
-                                    ? const Spacer()
-                                    : line(Direction.up, 7, 0),
-                              box(7),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: padding),
-                ],
-              ),
-            ),
-          ],
+      var hoomyPageTopSectionFlex = 3;
+      var hoomyPageMiddleSectionFlex = 4;
+      var hoomyPageBottomSectionFlex = 5;
+
+      List<Widget> hoomyPageTopSection = [
+        SizedBox(
+          height: playerProgress.highestLevelReached == 4 ||
+                  playerProgress.highestLevelReached == 5
+              ? boxSize
+              : boxSize - 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(width: padding + 20),
+              box(10),
+              for (int i = 0; i < 30; i++)
+                i.isEven ? const Spacer() : line(Direction.down, 11, 0),
+              box(11),
+              for (int i = 0; i < 15; i++)
+                i.isEven ? const Spacer() : line(Direction.down, 12, 0),
+            ],
+          ),
         ),
-      );
+      ];
+
+      List<Widget> hoomyPageMiddleSection = [
+        Expanded(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (int i = 0; i < 30; i++)
+                  i.isEven ? const Spacer() : line(Direction.left, 10, 0),
+              ]),
+        ),
+        SizedBox(
+          height: playerProgress.highestLevelReached == 3 ||
+                  playerProgress.highestLevelReached == 2
+              ? boxSize
+              : boxSize - 20,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: padding + 15),
+              box(8),
+              for (int i = 0; i < 30; i++)
+                i.isEven ? const Spacer() : line(Direction.up, 9, 0),
+              box(9),
+              SizedBox(
+                width: padding + 10,
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (int i = 0; i < 30; i++)
+                  i.isEven ? const Spacer() : line(Direction.left, 8, 0),
+              ]),
+        ),
+      ];
+
+      List<Widget> hoomyPageBottomSection = [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: padding,
+              height: boxSize,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const Spacer(),
+                  line(Direction.up, 6, 0),
+                  const Spacer(),
+                  line(Direction.up, 6, 0),
+                ],
+              ),
+            ),
+            box(6),
+            Expanded(
+              child: Transform.translate(
+                offset: const Offset(-10, -20),
+                child: Transform.rotate(
+                  angle: -0.3,
+                  child: SizedBox(
+                    height: playerProgress.highestLevelReached == 7
+                        ? boxSize
+                        : boxSize - 20,
+                    child: Row(
+                      children: [
+                        for (int i = 0; i < 35; i++)
+                          i.isEven ? const Spacer() : line(Direction.up, 7, 0),
+                        box(7),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: padding),
+          ],
+        )
+      ];
+
+      return LevelPage(
+          topSection: hoomyPageTopSection,
+          middleSection: hoomyPageMiddleSection,
+          bottomSection: hoomyPageBottomSection,
+          topSectionFlex: hoomyPageTopSectionFlex,
+          middleSectionFlex: hoomyPageMiddleSectionFlex,
+          bottomSectionFlex: hoomyPageBottomSectionFlex);
     }
+
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
 
     /// SEA PAGE
     /// PAGE3
     ///
     seaPage() {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 6,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: boxSize,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: padding,
-                          height: boxSize,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              line(Direction.down, 12, 0),
-                              const Spacer(),
-                              line(Direction.down, 12, 0),
-                              const Spacer()
-                            ],
-                          ),
-                        ),
-                        box(12),
-                        const Spacer(),
-                      ],
-                    ),
-                  ),
-                ],
+      var seaPageTopSectionFlex = 6;
+      var seaPageMiddleSectionFlex = 9;
+      var seaPageBottomSectionFlex = 9;
+
+      List<Widget> seaPageTopSection = [
+        SizedBox(
+          height: boxSize,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: padding,
+                height: boxSize,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    line(Direction.down, 12, 0),
+                    const Spacer(),
+                    line(Direction.down, 12, 0),
+                    const Spacer()
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 9,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.left, 13, 0),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 13
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: padding + 15,
-                        ),
-                        box(13),
-                        const Spacer(),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.left, 14, 0),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 13
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: padding + 5,
-                        ),
-                        box(14),
-                        for (int i = 0; i < 30; i++)
-                          i.isEven ? const Spacer() : line(Direction.up, 17, 0),
-                        box(17),
-                        SizedBox(
-                          height: boxSize,
-                          width: padding + boxSize / 2 + 10,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < 20; i++)
-                                i.isEven
-                                    ? const Spacer()
-                                    : line(Direction.up, 18, 0),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.left, 15, 0),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 9,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 15
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: padding),
-                        box(15),
-                        Expanded(
-                          child: SizedBox(
-                            height: boxSize,
-                            child: Transform.translate(
-                              offset: const Offset(-40, 120),
-                              child: Transform.rotate(
-                                angle: 0.8,
-                                child: Row(children: [
-                                  for (int i = 0; i < 30; i++)
-                                    i.isEven
-                                        ? const Spacer()
-                                        : line(Direction.up, 16, 0),
-                                  box(16),
-                                  SizedBox(width: padding + boxSize / 2),
-                                ]),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+              box(12),
+              const Spacer(),
+            ],
+          ),
         ),
-      );
+      ];
+
+      List<Widget> seaPageMiddleSection = [
+        Expanded(
+          child: Column(
+            children: [
+              for (int i = 0; i < 10; i++)
+                i.isEven ? const Spacer() : line(Direction.left, 13, 0),
+            ],
+          ),
+        ),
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 13 ? boxSize : boxSize - 20,
+          child: Row(
+            children: [
+              SizedBox(
+                width: padding + 15,
+              ),
+              box(13),
+              const Spacer(),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              for (int i = 0; i < 10; i++)
+                i.isEven ? const Spacer() : line(Direction.left, 14, 0),
+            ],
+          ),
+        ),
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 13 ? boxSize : boxSize - 20,
+          child: Row(
+            children: [
+              SizedBox(
+                width: padding + 5,
+              ),
+              box(14),
+              for (int i = 0; i < 30; i++)
+                i.isEven ? const Spacer() : line(Direction.up, 17, 0),
+              box(17),
+              SizedBox(
+                height: boxSize,
+                width: padding + boxSize / 2 + 10,
+                child: Row(
+                  children: [
+                    for (int i = 0; i < 20; i++)
+                      i.isEven ? const Spacer() : line(Direction.up, 18, 0),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              for (int i = 0; i < 10; i++)
+                i.isEven ? const Spacer() : line(Direction.left, 15, 0),
+            ],
+          ),
+        ),
+      ];
+
+      List<Widget> seaPageBottomSection = [
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 15 ? boxSize : boxSize - 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: padding),
+              box(15),
+              Expanded(
+                child: SizedBox(
+                  height: boxSize,
+                  child: Transform.translate(
+                    offset: const Offset(-40, 120),
+                    child: Transform.rotate(
+                      angle: 0.8,
+                      child: Row(children: [
+                        for (int i = 0; i < 30; i++)
+                          i.isEven ? const Spacer() : line(Direction.up, 16, 0),
+                        box(16),
+                        SizedBox(width: padding + boxSize / 2),
+                      ]),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ];
+
+      return LevelPage(
+          topSection: seaPageTopSection,
+          middleSection: seaPageMiddleSection,
+          bottomSection: seaPageBottomSection,
+          topSectionFlex: seaPageTopSectionFlex,
+          middleSectionFlex: seaPageMiddleSectionFlex,
+          bottomSectionFlex: seaPageBottomSectionFlex);
     }
+
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
 
     /// CITY PAGE
     /// PAGE4
     ///
     cityPage() {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      var cityPageTopSectionFlex = 6;
+      var cityPageMiddleSectionFlex = 9;
+      var cityPageBottomSectionFlex = 9;
+
+      List<Widget> cityPageTopSection = [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              flex: 6,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+            box(22),
+            SizedBox(
+              width: padding + 150,
+              height: boxSize,
+              child: Row(
                 children: [
-                  SizedBox(
-                    height: boxSize,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 9,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [],
-                    ),
-                  ),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 22
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        box(22),
-                        SizedBox(
-                          width: padding + 130,
-                          child: Row(
-                            children: [
-                              for (int i = 0; i < 20; i++)
-                                i.isEven
-                                    ? const Spacer()
-                                    : line(Direction.up, 22, 0),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        for (int i = 0; i < 10; i++)
-                          i.isEven
-                              ? const Spacer()
-                              : line(Direction.right, 22, 100),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 13
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: padding,
-                          height: boxSize,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              line(Direction.up, 18, 0),
-                              const Spacer(),
-                              line(Direction.up, 18, 0),
-                              const Spacer()
-                            ],
-                          ),
-                        ),
-                        box(18),
-                        const Spacer(),
-                        box(21),
-                        SizedBox(
-                          height: boxSize,
-                          width: padding + 80,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Column(
-                          children: [
-                            for (int i = 0; i < 10; i++)
-                              i.isEven
-                                  ? const Spacer()
-                                  : line(Direction.left, 19, 0),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            for (int i = 0; i < 10; i++)
-                              i.isEven
-                                  ? const Spacer()
-                                  : line(Direction.right, 21, 50),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 9,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Column(
-                          children: [
-                            for (int i = 0; i < 30; i++)
-                              i.isEven
-                                  ? const Spacer()
-                                  : line(Direction.left, 19, 0),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            for (int i = 0; i < 30; i++)
-                              i.isEven
-                                  ? const Spacer()
-                                  : line(Direction.right, 21, 50),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: playerProgress.highestLevelReached == 15
-                        ? boxSize
-                        : boxSize - 20,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: padding),
-                        box(19),
-                        Expanded(
-                          child: SizedBox(
-                            height: boxSize,
-                            child: Row(children: [
-                              for (int i = 0; i < 30; i++)
-                                i.isEven
-                                    ? const Spacer()
-                                    : line(Direction.up, 20, 0),
-                              box(20),
-                              SizedBox(width: padding + 30),
-                            ]),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: bottomsheetHeight + 5 * padding),
+                  for (int i = 0; i < 20; i++)
+                    i.isEven ? const Spacer() : line(Direction.up, 22, 0),
                 ],
               ),
             ),
           ],
         ),
-      );
+      ];
+
+      List<Widget> cityPageMiddleSection = [
+        Expanded(
+          child: Column(
+            children: [
+              for (int i = 0; i < 20; i++)
+                i.isEven ? const Spacer() : line(Direction.right, 22, 100),
+            ],
+          ),
+        ),
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 13 ? boxSize : boxSize - 20,
+          child: Row(
+            children: [
+              const Spacer(),
+              box(21),
+              SizedBox(
+                height: boxSize,
+                width: padding + 120,
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: padding,
+                    height: boxSize,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        line(Direction.down, 18, 8),
+                        const Spacer(),
+                        line(Direction.down, 18, 6),
+                        const Spacer()
+                      ],
+                    ),
+                  ),
+                  box(18),
+                ],
+              ),
+              Column(
+                children: [
+                  for (int i = 0; i < 15; i++)
+                    i.isEven ? line(Direction.right, 21, 65) : const Spacer(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ];
+
+      List<Widget> cityPageBottomSection = [
+        Expanded(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  for (int i = 0; i < 15; i++)
+                    i.isEven ? const Spacer() : line(Direction.left, 19, 0),
+                ],
+              ),
+              Column(
+                children: [
+                  for (int i = 0; i < 15; i++)
+                    i.isEven ? const Spacer() : line(Direction.right, 21, 65),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 15 ? boxSize : boxSize - 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: padding),
+              box(19),
+              Expanded(
+                child: SizedBox(
+                  height: boxSize,
+                  child: Row(children: [
+                    for (int i = 0; i < 30; i++)
+                      i.isEven ? const Spacer() : line(Direction.up, 20, 0),
+                    box(20),
+                    SizedBox(width: padding + 40),
+                  ]),
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: bottomsheetHeight + 5 * padding),
+      ];
+
+      return LevelPage(
+          topSection: cityPageTopSection,
+          middleSection: cityPageMiddleSection,
+          bottomSection: cityPageBottomSection,
+          topSectionFlex: cityPageTopSectionFlex,
+          middleSectionFlex: cityPageMiddleSectionFlex,
+          bottomSectionFlex: cityPageBottomSectionFlex);
     }
+
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
 
     /// PURPLE WORLD PAGE
     /// PAGE5
     ///
-    purpleWorldPage() {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.end,
+    alianPage() {
+      var alianPageTopSectionFlex = 6;
+      var alianPageMiddleSectionFlex = 9;
+      var alianPageBottomSectionFlex = 9;
+
+      List<Widget> alianPageTopSection = [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
+            box(22),
+            SizedBox(
+              width: padding + 150,
+              height: boxSize,
+              child: Row(
                 children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: padding,
-                          height: boxSize,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const Spacer(),
-                              line(Direction.down, 12, 0),
-                              const Spacer(),
-                              line(Direction.down, 12, 0),
-                            ],
-                          ),
-                        ),
-                        box(12),
-                        const Spacer(),
-                      ]),
+                  for (int i = 0; i < 20; i++)
+                    i.isEven ? const Spacer() : line(Direction.up, 22, 0),
                 ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  for (int i = 0; i < 60; i++)
-                    i.isEven ? const Spacer() : line(Direction.left, 13, 0),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Transform.rotate(
-                angle: 0.45,
-                child: Container(
-                  margin: const EdgeInsets.only(right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Transform.rotate(
-                        angle: -0.45,
-                        child: box(13),
-                      ),
-                      for (int i = 0; i < 30; i++)
-                        i.isEven ? const Spacer() : line(Direction.up, 14, 0),
-                      Transform.rotate(
-                        angle: -0.45,
-                        child: box(14),
-                      ),
-                      SizedBox(
-                        width: padding,
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ),
           ],
         ),
-      );
+      ];
+
+      List<Widget> alianPageMiddleSection = [
+        Expanded(
+          child: Column(
+            children: [
+              for (int i = 0; i < 20; i++)
+                i.isEven ? const Spacer() : line(Direction.right, 22, 100),
+            ],
+          ),
+        ),
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 13 ? boxSize : boxSize - 20,
+          child: Row(
+            children: [
+              const Spacer(),
+              box(21),
+              SizedBox(
+                height: boxSize,
+                width: padding + 120,
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: padding,
+                    height: boxSize,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        line(Direction.down, 18, 8),
+                        const Spacer(),
+                        line(Direction.down, 18, 6),
+                        const Spacer()
+                      ],
+                    ),
+                  ),
+                  box(18),
+                ],
+              ),
+              Column(
+                children: [
+                  for (int i = 0; i < 15; i++)
+                    i.isEven ? line(Direction.right, 21, 65) : const Spacer(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ];
+
+      List<Widget> alianPageBottomSection = [
+        Expanded(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  for (int i = 0; i < 15; i++)
+                    i.isEven ? const Spacer() : line(Direction.left, 19, 0),
+                ],
+              ),
+              Column(
+                children: [
+                  for (int i = 0; i < 15; i++)
+                    i.isEven ? const Spacer() : line(Direction.right, 21, 65),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height:
+              playerProgress.highestLevelReached == 15 ? boxSize : boxSize - 20,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: padding),
+              box(19),
+              Expanded(
+                child: SizedBox(
+                  height: boxSize,
+                  child: Row(children: [
+                    for (int i = 0; i < 30; i++)
+                      i.isEven ? const Spacer() : line(Direction.up, 20, 0),
+                    box(20),
+                    SizedBox(width: padding + 40),
+                  ]),
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: bottomsheetHeight + 5 * padding),
+      ];
+
+      return LevelPage(
+          topSection: alianPageTopSection,
+          middleSection: alianPageMiddleSection,
+          bottomSection: alianPageBottomSection,
+          topSectionFlex: alianPageTopSectionFlex,
+          middleSectionFlex: alianPageMiddleSectionFlex,
+          bottomSectionFlex: alianPageBottomSectionFlex);
     }
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
+//*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*//
 
     /// PAGE JUMPER
     /// method for jumping to last selected level
@@ -1153,8 +1122,8 @@ class LevelSelectionScreen extends StatelessWidget {
     /// returns page view with all level types
     ///
     levelsPageView() {
-      final initPage = playerProgress.highestLevelReached ~/ 6;
-
+      int initPage = playerProgress.highestLevelReached ~/ 6;
+      if (playerProgress.highestLevelReached == 23) initPage++;
       final controller = PageController();
 
       pageJumper(initPage, controller);
@@ -1172,7 +1141,7 @@ class LevelSelectionScreen extends StatelessWidget {
           hoomyPage(),
           seaPage(),
           cityPage(),
-          purpleWorldPage(),
+          alianPage(),
         ],
       );
     }
@@ -1360,4 +1329,54 @@ class MiniSpriteComponent extends SpriteComponent
   }
 
   double increasment = 1;
+}
+
+class LevelPage extends StatelessWidget {
+  final List<Widget> topSection;
+  final List<Widget> middleSection;
+  final List<Widget> bottomSection;
+
+  final int topSectionFlex;
+  final int middleSectionFlex;
+  final int bottomSectionFlex;
+
+  const LevelPage(
+      {super.key,
+      required this.topSection,
+      required this.middleSection,
+      required this.bottomSection,
+      required this.topSectionFlex,
+      required this.middleSectionFlex,
+      required this.bottomSectionFlex});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            flex: topSectionFlex,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: topSection,
+            ),
+          ),
+          Expanded(
+            flex: middleSectionFlex,
+            child: Column(children: middleSection),
+          ),
+          Expanded(
+              flex: bottomSectionFlex,
+              child: Column(
+                children: bottomSection,
+              )),
+        ],
+      ),
+    );
+  }
 }

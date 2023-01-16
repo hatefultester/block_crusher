@@ -50,7 +50,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
               ),
             ),
             child: Text(
-              'Skoro nic tu neni, verze pro inspiraci'.toUpperCase(),
+              'hoomy hoo advantures'.toUpperCase(),
               style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
@@ -95,7 +95,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-        ElevatedButton(
+          ElevatedButton(
             onPressed: () {
               audioController.playSfx(SfxType.buttonTap);
               GoRouter.of(context).go('/play');
@@ -192,7 +192,7 @@ class MainBackgroundGame extends FlameGame {
 
   //int _counter = 0;
 
-  final MapSpriteComponent map = MapSpriteComponent(0);
+  final MapSpriteComponent map = MapSpriteComponent(7);
 
   @override
   Future<void>? onLoad() async {
@@ -228,7 +228,8 @@ class MapSpriteComponent extends SpriteComponent
   dart_async.Future<void>? onLoad() async {
     await super.onLoad();
 
-    sprite = await gameRef.loadSprite(maps[initialMap]);
+// natvrdo
+    sprite = await gameRef.loadSprite('backgrounds/sea_background.png');
     size = Vector2(gameRef.size.x, gameRef.size.y);
   }
 

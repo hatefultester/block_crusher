@@ -64,24 +64,30 @@ const gameLevels = [
       levelId: 22, characterId: 4, levelDifficulty: LevelDifficulty.cityLand),
   GameLevel(
       levelId: 23, characterId: 5, levelDifficulty: LevelDifficulty.cityLand),
-  GameLevel(
-      levelId: 24, characterId: 6, levelDifficulty: LevelDifficulty.cityLand),
 
-  /// BLUE LEVEL
-  /// BLUE CHARACTERS
+  /// ALIEN SHOOTER LEVEL
+  ///
   ///
   GameLevel(
-      levelId: 25, characterId: 3, levelDifficulty: LevelDifficulty.blueWorld),
-  GameLevel(
-      levelId: 26, characterId: 4, levelDifficulty: LevelDifficulty.blueWorld),
-  GameLevel(
-      levelId: 27, characterId: 5, levelDifficulty: LevelDifficulty.blueWorld),
-  GameLevel(
-      levelId: 28, characterId: 6, levelDifficulty: LevelDifficulty.blueWorld),
-  GameLevel(
-      levelId: 29, characterId: 7, levelDifficulty: LevelDifficulty.blueWorld),
-  GameLevel(
-      levelId: 30, characterId: 8, levelDifficulty: LevelDifficulty.blueWorld),
+      levelId: 24,
+      characterId: 1,
+      levelDifficulty: LevelDifficulty.alienShooter),
+
+  // /// BLUE LEVEL
+  // /// BLUE CHARACTERS
+  // ///
+  // GameLevel(
+  //     levelId: 24, characterId: 3, levelDifficulty: LevelDifficulty.blueWorld),
+  // GameLevel(
+  //     levelId: 25, characterId: 4, levelDifficulty: LevelDifficulty.blueWorld),
+  // GameLevel(
+  //     levelId: 26, characterId: 5, levelDifficulty: LevelDifficulty.blueWorld),
+  // GameLevel(
+  //     levelId: 27, characterId: 6, levelDifficulty: LevelDifficulty.blueWorld),
+  // GameLevel(
+  //     levelId: 28, characterId: 7, levelDifficulty: LevelDifficulty.blueWorld),
+  // GameLevel(
+  //     levelId: 29, characterId: 8, levelDifficulty: LevelDifficulty.blueWorld),
 ];
 
 enum LevelDifficulty {
@@ -89,6 +95,7 @@ enum LevelDifficulty {
   hoomyLand,
   seaLand,
   cityLand,
+  alienShooter,
   blueWorld;
 
   bool atLeast(LevelDifficulty difficulty) {
@@ -127,6 +134,8 @@ enum LevelDifficulty {
             return 100;
           case LevelDifficulty.blueWorld:
             return 200;
+          case LevelDifficulty.alienShooter:
+            return 100;
         }
       default:
         return 0;

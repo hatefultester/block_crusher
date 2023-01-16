@@ -60,6 +60,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
           ChangeNotifierProvider(
             create: (context) => CollectorGameLevelState(
               levelType: widget.level.levelType,
+              levelDifficulty: widget.level.levelDifficulty,
               goal: widget.level.characterId,
               maxLives: widget.level.lives,
               characterId: widget.level.characterId,

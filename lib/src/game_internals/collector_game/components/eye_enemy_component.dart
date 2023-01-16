@@ -5,7 +5,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/image_composition.dart';
-import 'package:flame/sprite.dart';
 
 import '../game.dart';
 
@@ -13,15 +12,27 @@ class EyeEnemyComponent extends SpriteAnimationComponent
     with HasGameRef<BlockCrusherGame>, CollisionCallbacks, Draggable, Tappable {
   Vector2? dragDeltaPosition;
 
-  final double _scale = 2.0;
+  double extraspeed = 3;
 
-  double extraspeed = Random().nextInt(5) + 0;
+  Random random = Random();
 
   bool shouldDisappear = true;
 
-  Direction direction = Direction.up;
+  Direction xDirection = Direction.left;
+
+  Direction yDirection = Direction.up;
+
+  double scaleFactor = 0.9;
+  double slowFactor = 1;
+
+  bool _setDirection = false;
 
   EyeEnemyComponent();
+
+  EyeEnemyComponent.withScaleAndDirection(
+      this.yDirection, this.xDirection, this.scaleFactor, this.slowFactor) {
+    _setDirection = true;
+  }
 
   bool tapped = false;
 
@@ -29,35 +40,41 @@ class EyeEnemyComponent extends SpriteAnimationComponent
   Future<void> onLoad() async {
     super.onLoad();
 
-    Vector2 finalDirection;
-
-    int xMax = (gameRef.size.x - size.x).toInt();
-
     double yPosition = 350 + Random().nextInt(350) + 10;
 
-    
+    final Image spriteImage =
+        await gameRef.images.load('enemy/eye_enemy_spritesheet.png');
 
-    final Image spriteImage = await gameRef.images.load('enemy/eye_enemy_spritesheet.png');
-    animation = SpriteAnimation.fromFrameData(spriteImage,  SpriteAnimationData.sequenced(amount: 2,  stepTime: 0.1, textureSize: Vector2(100,65)));
-size = Vector2(100, 65) ;
-
-    if (Random().nextInt(10).isEven) {
-      direction = Direction.left;
-
-      finalDirection =
-          Vector2(0 - size.x, yPosition + Random().nextInt(20) - 15);
-    } else {
-      direction = Direction.right;
-      finalDirection = Vector2(xMax + 0, yPosition + Random().nextInt(20) - 15);
-    }
-    position = Vector2(
-      direction == Direction.left ? gameRef.size.x : 0 - size.x / 2,
-      yPosition,
+    animation = SpriteAnimation.fromFrameData(
+      spriteImage,
+      SpriteAnimationData.sequenced(
+        amount: 2,
+        stepTime: 0.2,
+        textureSize: Vector2(100, 65),
+      ),
     );
 
+    size = Vector2(100 * scaleFactor, 65 * scaleFactor);
+
+    if (!_setDirection) {
+      if (random.nextBool()) {
+        yDirection = Direction.down;
+      }
+
+      if (random.nextBool()) {
+        xDirection = Direction.left;
+      } else {
+        xDirection = Direction.right;
+      }
+    }
+
+    position = Vector2(
+      xDirection == Direction.left ? gameRef.size.x : 0 - size.x / 2,
+      yPosition,
+    );
     await add(CircleHitbox()..shouldFillParent);
 
-    throwMe(finalDirection);
+    // throwMe(finalDirection);
   }
 
   throwMe(Vector2 finalDirection) async {
@@ -81,46 +98,60 @@ size = Vector2(100, 65) ;
   update(double dt) {
     super.update(dt);
 
-    switch (direction) {
-      case Direction.down:
-        y += gameRef.blockFallSpeed + extraspeed;
-        break;
-      case Direction.up:
-        y -= gameRef.blockFallSpeed + extraspeed;
-        break;
+    int acceleration = random.nextInt(3);
+
+    switch (xDirection) {
       case Direction.left:
-        x -= gameRef.blockFallSpeed + extraspeed;
+        x -= (gameRef.blockFallSpeed / 2 + extraspeed + acceleration) *
+            slowFactor;
         break;
       case Direction.right:
-        x += gameRef.blockFallSpeed + extraspeed;
+        x += (gameRef.blockFallSpeed / 2 + extraspeed + acceleration) *
+            slowFactor;
         break;
+      default:
+        return;
+    }
+    switch (yDirection) {
+      case Direction.down:
+        y += (gameRef.blockFallSpeed / 2 + extraspeed / 2 + acceleration) *
+            slowFactor;
+        break;
+      case Direction.up:
+        y -= (gameRef.blockFallSpeed / 2 + extraspeed + acceleration) *
+            slowFactor;
+        break;
+      default:
+        return;
     }
 
-    switch (direction) {
+    switch (yDirection) {
       case Direction.down:
-        if (y > gameRef.size.y) {
-          gameRef.blockRemoved();
-          removeFromParent();
+        if (y > gameRef.size.y - size.y - 40) {
+          yDirection = Direction.up;
         }
         break;
       case Direction.up:
-        if (y < 0) {
-          gameRef.blockRemoved();
-          removeFromParent();
+        if (y < 50) {
+          yDirection = Direction.down;
         }
         break;
+      default:
+        return;
+    }
+    switch (xDirection) {
       case Direction.left:
         if (x < 0) {
-          gameRef.blockRemoved();
-          removeFromParent();
+          xDirection = Direction.right;
         }
         break;
       case Direction.right:
-        if (x > gameRef.size.x) {
-          gameRef.blockRemoved();
-          removeFromParent();
+        if (x > gameRef.size.x - size.x) {
+          xDirection = Direction.left;
         }
         break;
+      default:
+        return;
     }
   }
 

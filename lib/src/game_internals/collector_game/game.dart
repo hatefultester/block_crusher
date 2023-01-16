@@ -67,6 +67,7 @@ class BlockCrusherGame extends FlameGame
     this.state = state;
     foodIndex = state.characterId - 1;
     maxCharacterIndex = state.items.length;
+    print('items lenght ${state.items.length.toString()}');
     if (maxCharacterIndex > 2) maxCharacterIndex = 2;
 
     return this;
@@ -83,6 +84,8 @@ class BlockCrusherGame extends FlameGame
       _blockFallSpeed = defaultBlockFallSpeed;
     }
 
+    _tickSpeed = defaultTickSpeed;
+
     if (gameMode == GameMode.hoomy) {
       _blockFallSpeed = defaultBlockFallSpeed + 0.2;
     }
@@ -91,7 +94,10 @@ class BlockCrusherGame extends FlameGame
       _blockFallSpeed = defaultBlockFallSpeed + 0.3;
     }
 
-    _tickSpeed = defaultTickSpeed;
+    if (gameMode == GameMode.cityFood) {
+      _blockFallSpeed = defaultBlockFallSpeed + 0.4;
+      _tickCounter = defaultTickSpeed - 20;
+    }
     _tickCounter = 0;
     _generatedCounter = 0;
   }
@@ -121,6 +127,9 @@ class BlockCrusherGame extends FlameGame
       case LevelDifficulty.blueWorld:
         mapPath = gameMaps['blue']!;
         break;
+      case LevelDifficulty.alienShooter:
+        mapPath = gameMaps['mimon']!;
+        break;
     }
 
     _setVariables();
@@ -139,6 +148,23 @@ class BlockCrusherGame extends FlameGame
 
     if (gameMode == GameMode.cityFood) {
       await add(TrayComponent());
+    }
+
+    if (gameMode == GameMode.cityFood) {
+      if (state.characterId > 3) {
+        await add(
+          EyeEnemyComponent.withScaleAndDirection(
+              Direction.up, Direction.left, 0.7, 0.65),
+        );
+        await add(
+          EyeEnemyComponent.withScaleAndDirection(
+              Direction.down, Direction.right, 0.65, 0.7),
+        );
+      } else {
+        await add(
+          EyeEnemyComponent(),
+        );
+      }
     }
 
     //debugCheating();
@@ -205,7 +231,13 @@ class BlockCrusherGame extends FlameGame
           if (gameMode != GameMode.cityFood) {
             await add(SpriteBlockComponent(difficulty));
           } else {
-            int generatedIndexNumber = random.nextInt(maxCharacterIndex);
+            int generatedIndexNumber;
+            if (maxCharacterIndex != 0) {
+              generatedIndexNumber = random.nextInt(maxCharacterIndex);
+            } else {
+              generatedIndexNumber = 0;
+            }
+            print('debug gen: $generatedIndexNumber');
             if (generatedIndexNumber > 0) {
               generatedIndexNumber = random.nextInt(maxCharacterIndex);
               if (generatedIndexNumber > 1) {
@@ -221,10 +253,6 @@ class BlockCrusherGame extends FlameGame
           }
           if (_generatedCounter % 2 == 0 && gameMode == GameMode.sharks) {
             await add(SharkEnemyComponent());
-          }
-
-          if (_generatedCounter % 2 == 0 && gameMode == GameMode.cityFood) {
-            await add(EyeEnemyComponent());
           }
 
           // if (_generatedCounter % 2 == 0 &&

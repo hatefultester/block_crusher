@@ -24,7 +24,7 @@ const List<String> pageViewMaps = [
   'backgrounds/city_world_background.png',
 
   /// blue
-  'backgrounds/blue_background.png',
+  'backgrounds/mimon_background.png',
 
   /// purple
   'backgrounds/purple_background.png',
@@ -45,4 +45,5 @@ const Map<String, String> gameMaps = {
   'hoomy': 'backgrounds/red_without_hoomy_background.png',
   'water': 'backgrounds/water_world_background.png',
   'city': 'backgrounds/city_world_background.png',
+  'mimon': 'backgroud/mimon_background.png',
 };
