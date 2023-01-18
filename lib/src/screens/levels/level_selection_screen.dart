@@ -3,54 +3,22 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:io';
-import 'dart:math';
-
+import 'package:block_crusher/src/screens/levels/level_selection_background.dart';
+import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
-import 'package:block_crusher/src/utils/maps.dart';
-import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
-import 'package:flame/geometry.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-import '../audio/audio_controller.dart';
-import '../audio/sounds.dart';
-import '../player_progress/player_progress.dart';
-import '../level_selection/levels.dart';
+import '../../audio/audio_controller.dart';
+import '../../audio/sounds.dart';
+import '../../player_progress/player_progress.dart';
+import '../../level_selection/levels.dart';
 
-import 'dart:async' as dart_async;
-
-const ColorFilter greyscale = ColorFilter.matrix(<double>[
-  0.2126,
-  0.7152,
-  0.0722,
-  0,
-  0,
-  0.2126,
-  0.7152,
-  0.0722,
-  0,
-  0,
-  0.2126,
-  0.7152,
-  0.0722,
-  0,
-  0,
-  0,
-  0,
-  0,
-  1,
-  0,
-]);
-
-double boxSize = 120;
-double padding = 15;
-
-double bottomsheetHeight = 60;
+import 'level_page.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({super.key});
@@ -1204,179 +1172,4 @@ class LevelSelectionScreen extends StatelessWidget {
   }
 }
 
-//// GAME ON THE BACKGROUND, SIMPLE JUST IMAGES
-///
-///
 
-class LevelSelectionBackground extends FlameGame {
-  //late DartAsync.Timer _timer;
-
-  final int initialPage;
-  late MapSpriteComponent map;
-
-  LevelSelectionBackground(this.initialPage) {
-    map = MapSpriteComponent(initialPage);
-  }
-
-  addMap() async {
-    await add(map);
-  }
-
-  @override
-  Future<void>? onLoad() async {
-    await super.onLoad();
-
-    _startTimer();
-  }
-
-  _startTimer() async {
-    //int counter = 0;
-    // _timer = DartAsync.Timer.periodic(const Duration(milliseconds: 500),
-    //     (timer) async {
-    //   if (!(AppLifecycleObserver.appState == AppLifecycleState.paused)) {
-    //     counter++;
-    //     await add(MiniSpriteComponent());
-    //     await Future.delayed(Duration(milliseconds: 100));
-    //     await add(MiniSpriteComponent());
-    //     await Future.delayed(Duration(milliseconds: 250));
-    //     await add(MiniSpriteComponent());
-    //   }
-    // });
-  }
-}
-
-class MapSpriteComponent extends SpriteComponent
-    with HasGameRef<LevelSelectionBackground> {
-  final int initialMap;
-
-  bool jumperLoaded = false;
-
-  String selectedMap = '';
-
-  MapSpriteComponent(this.initialMap);
-
-  @override
-  dart_async.Future<void>? onLoad() async {
-    await super.onLoad();
-
-    sprite = await gameRef.loadSprite(pageViewMaps[initialMap]);
-    size = Vector2(gameRef.size.x, gameRef.size.y);
-  }
-
-  changeBackground(int a) async {
-    // await Future.delayed(const Duration(milliseconds: 500));
-    // final effect = OpacityEffect.to(
-    //   0.1,
-    //   EffectController(duration: 0.7),
-    // );
-    // final oppacityBack = OpacityEffect.to(
-    //   1,
-    //   EffectController(duration: 0.4),
-    // );
-    // await add(effect);
-
-    if (selectedMap == pageViewMaps[a] && jumperLoaded) {
-      return;
-    }
-
-    selectedMap == pageViewMaps[a];
-
-    sprite = await gameRef.loadSprite(pageViewMaps[a]);
-    // await add(oppacityBack);
-  }
-}
-
-class MiniSpriteComponent extends SpriteComponent
-    with HasGameRef<LevelSelectionBackground> {
-  final double _scale = 6;
-
-  MiniSpriteComponent();
-
-  @override
-  dart_async.Future<void>? onLoad() async {
-    await super.onLoad();
-
-    int xMax = (gameRef.size.x - size.x - 250).toInt();
-    int yMax = (gameRef.size.y).toInt();
-
-    position = Vector2(
-      (Random().nextInt(xMax) + 100),
-      (Random().nextInt(yMax) + 0),
-    );
-
-    await _sprite();
-    await Future.delayed(const Duration(milliseconds: 300));
-    final effect = OpacityEffect.to(
-      0.1,
-      EffectController(duration: 1.5),
-      onComplete: (() {
-        removeFromParent();
-      }),
-    );
-    final sizeEffect =
-        ScaleEffect.by(Vector2(1.2, 1.2), EffectController(duration: 1.5));
-    final randomNum = Random().nextInt(10);
-    final rotationEffect = RotateEffect.by(
-        randomNum.isEven ? tau / 4 : -tau / 4, EffectController(duration: 1.5));
-    await add(sizeEffect);
-    await add(rotationEffect);
-    await add(effect);
-  }
-
-  _sprite() async {
-    sprite = await gameRef.loadSprite(imageSource[0]['source']);
-    size = imageSource[0]['size'] * _scale;
-  }
-
-  double increasment = 1;
-}
-
-class LevelPage extends StatelessWidget {
-  final List<Widget> topSection;
-  final List<Widget> middleSection;
-  final List<Widget> bottomSection;
-
-  final int topSectionFlex;
-  final int middleSectionFlex;
-  final int bottomSectionFlex;
-
-  const LevelPage(
-      {super.key,
-      required this.topSection,
-      required this.middleSection,
-      required this.bottomSection,
-      required this.topSectionFlex,
-      required this.middleSectionFlex,
-      required this.bottomSectionFlex});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            flex: topSectionFlex,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: topSection,
-            ),
-          ),
-          Expanded(
-            flex: middleSectionFlex,
-            child: Column(children: middleSection),
-          ),
-          Expanded(
-              flex: bottomSectionFlex,
-              child: Column(
-                children: bottomSection,
-              )),
-        ],
-      ),
-    );
-  }
-}

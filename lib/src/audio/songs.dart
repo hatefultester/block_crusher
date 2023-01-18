@@ -9,7 +9,11 @@ const Set<Song> songs = {
   // Song('Mr_Smith-Sonorus.mp3', 'Sonorus', artist: 'Mr Smith'),
   // Song('Mr_Smith-Sunday_Solitude.mp3', 'SundaySolitude', artist: 'Mr Smith'),
   // Song('enemy.mp3', 'Enemy', artist: 'Imagine Dragons X JID')
-  // Song('backgroundsong.mp3', 'Background song', artist: 'Lea'),
+  //Song('backgroundsong.mp3', 'Background song', artist: 'Lea'),
+};
+
+const Set<Song> themeSongs = {
+  Song('theme1.mp3', 'Theme song 1', artist: 'Lexa'),
 };
 
 class Song {

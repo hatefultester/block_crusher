@@ -36,10 +36,16 @@ class PlayerProgress extends ChangeNotifier {
 
   /// Resets the player's progress so it's like if they just started
   /// playing the game for the first time.
-  void reset() {
+  void reset() async {
     _highestLevelReached = 0;
     notifyListeners();
-    _store.saveHighestLevelReached(_highestLevelReached);
+    await _store.saveHighestLevelReached(_highestLevelReached);
+  }
+
+  void cheat() async {
+    _highestLevelReached = 23;
+    notifyListeners();
+    await _store.saveHighestLevelReached(_highestLevelReached);
   }
 
   /// Registers [level] as reached.

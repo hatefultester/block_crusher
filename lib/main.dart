@@ -7,6 +7,7 @@
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ import 'src/crashlytics/crashlytics.dart';
 import 'src/games_services/games_services.dart';
 import 'src/games_services/score.dart';
 import 'src/in_app_purchase/in_app_purchase.dart';
-import 'src/screens/level_selection_screen.dart';
+import 'src/screens/levels/level_selection_screen.dart';
 import 'src/level_selection/levels.dart';
 import 'src/screens/main_menu_screen.dart';
 import 'src/screens/play_session_screen.dart';
@@ -123,6 +124,26 @@ void guardedMain() {
       ),
     ),
   );
+
+  final AudioContext audioContext = AudioContext(
+    iOS: AudioContextIOS(
+      defaultToSpeaker: true,
+      category: AVAudioSessionCategory.playback,
+      options: [
+        AVAudioSessionOptions.defaultToSpeaker,
+        AVAudioSessionOptions.mixWithOthers,
+      ],
+    ),
+    android: AudioContextAndroid(
+      isSpeakerphoneOn: true,
+      stayAwake: true,
+      contentType: AndroidContentType.sonification,
+      usageType: AndroidUsageType.assistanceSonification,
+      audioFocus: AndroidAudioFocus.none,
+    ),
+  );
+
+  AudioPlayer.global.setGlobalAudioContext(audioContext);
 }
 
 class MyApp extends StatelessWidget {

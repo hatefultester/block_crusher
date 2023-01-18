@@ -207,6 +207,8 @@ class BlockCrusherGame extends FlameGame
   }
 
   collectedToTray(int level) {
+    final audioController = context.read<AudioController>();
+    audioController.playSfx(SfxType.kosik);
     state.collect(level);
     state.evaluate();
   }

@@ -26,6 +26,8 @@ class SpriteBlockComponent extends SpriteComponent
 
   int tapCounter = 0;
 
+  late GameMode gameMode;
+
   Direction direction = Direction.down;
 
   SpriteBlockComponent(this.difficulty);
@@ -56,6 +58,8 @@ class SpriteBlockComponent extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
+
+    gameMode = gameRef.gameMode;
 
     // sprite = await gameRef
     //     .loadSprite(imageSource[difficulty.index][characterId]['source']);
@@ -184,8 +188,12 @@ class SpriteBlockComponent extends SpriteComponent
 
     if (other is SpriteBlockComponent) {
       if (other.characterId != characterId) return;
-      if (characterId + 1 > cityFoods[gameRef.foodIndex]['sum']) return;
-      print('food sum is : ${cityFoods[gameRef.foodIndex]['sum']}');
+
+      if (gameMode == GameMode.cityFood) {
+        if (characterId + 1 > cityFoods[gameRef.foodIndex]['sum']) return;
+        print('food sum is : ${cityFoods[gameRef.foodIndex]['sum']}');
+      }
+
       characterId++;
       _sprite();
 

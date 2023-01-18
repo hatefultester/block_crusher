@@ -142,7 +142,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       ),
     );
 
-    if (Platform.isIOS) {
+    if (Platform.isIOS && false) {
       return Column(
         children: [
           Container(

@@ -97,6 +97,18 @@ class SettingsScreen extends StatelessWidget {
                       content: Text('Player progress has been reset.')),
                 );
               },
+            ),_SettingsLine(
+              'CHEAT',
+              const Icon(Icons.delete),
+              onSelected: () {
+                context.read<PlayerProgress>().cheat();
+
+                final messenger = ScaffoldMessenger.of(context);
+                messenger.showSnackBar(
+                  const SnackBar(
+                      content: Text('YOU CHEATED!')),
+                );
+              },
             ),
             _gap,
           ],

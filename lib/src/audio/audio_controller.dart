@@ -48,7 +48,7 @@ class AudioController {
         _sfxPlayers = Iterable.generate(
                 polyphony, (i) => AudioPlayer(playerId: 'sfxPlayer#$i'))
             .toList(growable: false),
-        _playlist = Queue.of(List<Song>.of(songs)..shuffle()) {
+        _playlist = Queue.of(List<Song>.of(themeSongs)..shuffle()) {
     _musicPlayer.onPlayerComplete.listen(_changeSong);
   }
 

@@ -6,6 +6,7 @@ import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 
 /// An extremely silly example of a game state.
 ///
@@ -57,6 +58,7 @@ class CollectorGameLevelState extends ChangeNotifier {
       this.goal = 100,
       this.maxLives = 10}) {
     _lives = maxLives;
+
     if (levelDifficulty == LevelDifficulty.cityLand) {
       _getGoalItems();
       print(cityFoods[characterId - 1]['debug']);
@@ -96,7 +98,8 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   bool _collected() {
-    if (_playerDied || _gameWon) return false;
+    if ((_playerDied || _gameWon)) return false;
+    if (levelDifficulty != LevelDifficulty.cityLand) return false;
 
     bool collected = true;
 
