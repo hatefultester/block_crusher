@@ -104,7 +104,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,
-              size: 30,
+              size: 25,
             ),
             onPressed: (() => {
                   kDebugMode ? _playerWon() : GoRouter.of(context).go('/play'),
@@ -116,7 +116,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
           Text(
             'L e v e l   ${widget.level.levelId.toString()}',
             style: const TextStyle(
-              fontSize: 35,
+              fontSize: 25,
               color: Colors.white,
             ),
           ),

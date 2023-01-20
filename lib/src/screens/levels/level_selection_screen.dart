@@ -147,12 +147,12 @@ class LevelSelectionScreen extends StatelessWidget {
     topAppLayer() {
       Widget content = Container(
         decoration: const BoxDecoration(color: Colors.black),
-        height: 60,
+        height: 50,
         width: double.infinity,
         child: Stack(
           children: [
             SizedBox(
-              height: 60,
+              height: 50,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -160,7 +160,7 @@ class LevelSelectionScreen extends StatelessWidget {
                     icon: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
-                      size: 30,
+                      size: 25,
                     ),
                     onPressed: (() => {
                           Navigator.pop(context),
@@ -173,14 +173,14 @@ class LevelSelectionScreen extends StatelessWidget {
             const Center(
               child: Text(
                 'L E V E L S',
-                style: TextStyle(fontSize: 35, color: Colors.white),
+                style: TextStyle(fontSize: 25, color: Colors.white),
               ),
             ),
           ],
         ),
       );
 
-      if (Platform.isIOS) {
+      if (Platform.isIOS && false) {
         return Column(
           children: [
             Container(
@@ -300,7 +300,7 @@ class LevelSelectionScreen extends StatelessWidget {
       final audioController = context.read<AudioController>();
 
       final Widget child = Container(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           gradient: won
               ? LinearGradient(
@@ -1171,5 +1171,3 @@ class LevelSelectionScreen extends StatelessWidget {
     );
   }
 }
-
-

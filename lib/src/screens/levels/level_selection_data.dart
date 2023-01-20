@@ -23,7 +23,7 @@ const ColorFilter greyscale = ColorFilter.matrix(<double>[
   0,
 ]);
 
-double boxSize = 120;
-double padding = 15;
+double boxSize = 100;
+double padding = 12;
 
 double bottomsheetHeight = 60;

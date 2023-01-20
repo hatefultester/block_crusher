@@ -143,7 +143,9 @@ void guardedMain() {
     ),
   );
 
+  if (TargetPlatform == TargetPlatform.iOS) {
   AudioPlayer.global.setGlobalAudioContext(audioContext);
+  }
 }
 
 class MyApp extends StatelessWidget {
