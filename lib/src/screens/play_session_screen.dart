@@ -11,6 +11,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
 
@@ -51,6 +52,11 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
+
+  //  var adsController = AdsController(MobileAds.instance);
+
+  //  adsController.preloadAd();
+
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -142,7 +148,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       ),
     );
 
-    if (Platform.isIOS && false) {
+    if (Platform.isIOS) {
       return Column(
         children: [
           Container(

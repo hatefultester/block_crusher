@@ -35,6 +35,7 @@ dependencies:
   in_app_purchase: ^3.0.1  # In-app purchases
   dotted_border: ^2.0.0+3
   flame_forge2d: ^0.12.4
+  firebase_remote_config: ^3.0.9
 
 dev_dependencies:
   flutter_test:

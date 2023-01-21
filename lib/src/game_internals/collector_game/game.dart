@@ -20,12 +20,8 @@ import '../../audio/sounds.dart';
 
 import 'dart:async' as dart_async;
 
+import '../../firebase/firebase.dart';
 import 'components/sprite_block_component.dart';
-
-const double defaultBlockFallSpeed = 0.7;
-const double advancedBlockFallSpeed = 0.9;
-const double jediBlockFallSpeed = 1.2;
-const int defaultTickSpeed = 150;
 
 enum GameMode {
   classic,
@@ -74,30 +70,21 @@ class BlockCrusherGame extends FlameGame
   }
 
   _setVariables() {
-    if (difficulty.atLeast(LevelDifficulty.seaLand)) {
-      if (difficulty.atLeast(LevelDifficulty.blueWorld)) {
-        _blockFallSpeed = jediBlockFallSpeed;
-      } else {
-        _blockFallSpeed = advancedBlockFallSpeed;
-      }
-    } else {
-      _blockFallSpeed = defaultBlockFallSpeed;
-    }
 
-    _tickSpeed = defaultTickSpeed;
+    _blockFallSpeed = FirebaseService.to.getDefaultBlockFallbackSpeed();
 
-    if (gameMode == GameMode.hoomy) {
-      _blockFallSpeed = defaultBlockFallSpeed + 0.2;
-    }
+
+    _tickSpeed = FirebaseService.to.getDefaultTickSpeed();
 
     if (gameMode == GameMode.sharks) {
-      _blockFallSpeed = defaultBlockFallSpeed + 0.3;
+      _blockFallSpeed += 0.3;
     }
 
     if (gameMode == GameMode.cityFood) {
-      _blockFallSpeed = defaultBlockFallSpeed + 0.4;
-      _tickCounter = defaultTickSpeed - 20;
+      _blockFallSpeed += 0.4;
+      _tickSpeed -= 20;
     }
+
     _tickCounter = 0;
     _generatedCounter = 0;
   }

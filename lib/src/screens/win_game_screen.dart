@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../ads/ads_controller.dart';
@@ -29,6 +30,12 @@ class WinGameScreen extends StatelessWidget {
     final palette = context.watch<Palette>();
 
     const gap = SizedBox(height: 10);
+
+    if(adsControllerAvailable) {
+     // var adsController = AdsController(MobileAds.instance);
+
+      //adsController.takePreloadedAd();
+    }
 
     return Scaffold(
       backgroundColor: palette.backgroundPlaySession,

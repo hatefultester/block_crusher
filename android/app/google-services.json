@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680436863703",
+    "project_id": "hoomy-hoo-adventure",
+    "storage_bucket": "hoomy-hoo-adventure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680436863703:android:fc8a15a010860dfc071692",
+        "android_client_info": {
+          "package_name": "com.scoor.hoomy_hoo_adventure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680436863703-l0de8sb2g3013dafi6662lgp1ggs0p5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZDEouBEqkIZgzprJ6I780Rwk2sBe7hSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680436863703-l0de8sb2g3013dafi6662lgp1ggs0p5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

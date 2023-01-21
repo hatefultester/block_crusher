@@ -7,16 +7,22 @@
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:block_crusher/src/firebase/firebase.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'src/ads/ads_controller.dart';
 import 'src/app_lifecycle/app_lifecycle.dart';
 import 'src/audio/audio_controller.dart';
@@ -46,17 +52,22 @@ Future<void> main() async {
   // See the 'Crashlytics' section of the main README.md file for details.
 
   FirebaseCrashlytics? crashlytics;
-  // if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
-  //   try {
-  //     WidgetsFlutterBinding.ensureInitialized();
-  //     await Firebase.initializeApp(
-  //       options: DefaultFirebaseOptions.currentPlatform,
-  //     );
-  //     crashlytics = FirebaseCrashlytics.instance;
-  //   } catch (e) {
-  //     debugPrint("Firebase couldn't be initialized: $e");
-  //   }
-  // }
+
+  if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+    try {
+      WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      crashlytics = FirebaseCrashlytics.instance;
+    } catch (e) {
+      debugPrint("Firebase couldn't be initialized: $e");
+    }
+  }
+
+
+  await Get.putAsync<FirebaseService>(() => FirebaseService().init(),
+      permanent: true);
 
   await guardWithCrashlytics(
     guardedMain,
@@ -81,14 +92,14 @@ void guardedMain() {
   // TODO: When ready, uncomment the following lines to enable integrations.
   //       Read the README for more info on each integration.
 
-  // AdsController? adsController;
-  // if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
-  //   /// Prepare the google_mobile_ads plugin so that the first ad loads
-  //   /// faster. This can be done later or with a delay if startup
-  //   /// experience suffers.
-  //   adsController = AdsController(MobileAds.instance);
-  //   adsController.initialize();
-  // }
+  AdsController? adsController;
+  if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+    /// Prepare the google_mobile_ads plugin so that the first ad loads
+    /// faster. This can be done later or with a delay if startup
+    /// experience suffers.
+    adsController = AdsController(MobileAds.instance);
+    adsController.initialize();
+  }
 
   GamesServicesController? gamesServicesController;
   // if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
@@ -125,6 +136,7 @@ void guardedMain() {
     ),
   );
 
+
   final AudioContext audioContext = AudioContext(
     iOS: AudioContextIOS(
       defaultToSpeaker: true,
@@ -143,7 +155,7 @@ void guardedMain() {
     ),
   );
 
-  if (TargetPlatform == TargetPlatform.iOS) {
+  if (Platform.isIOS) {
   AudioPlayer.global.setGlobalAudioContext(audioContext);
   }
 }

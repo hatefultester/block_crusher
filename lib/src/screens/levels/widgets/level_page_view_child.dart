@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LevelPage extends StatelessWidget {
+class LevelPageViewChild extends StatelessWidget {
   final List<Widget> topSection;
   final List<Widget> middleSection;
   final List<Widget> bottomSection;
@@ -9,14 +9,14 @@ class LevelPage extends StatelessWidget {
   final int middleSectionFlex;
   final int bottomSectionFlex;
 
-  const LevelPage(
+  const LevelPageViewChild(
       {super.key,
-        required this.topSection,
-        required this.middleSection,
-        required this.bottomSection,
-        required this.topSectionFlex,
-        required this.middleSectionFlex,
-        required this.bottomSectionFlex});
+        this.topSection =  const [SizedBox.shrink()],
+        this.middleSection = const [SizedBox.shrink()],
+        this.bottomSection =  const [SizedBox.shrink()],
+        this.topSectionFlex = 1,
+        this.middleSectionFlex = 1,
+        this.bottomSectionFlex = 1});
 
   @override
   Widget build(BuildContext context) {

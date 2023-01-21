@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-const ColorFilter greyscale = ColorFilter.matrix(<double>[
+const ColorFilter greyscaleMetrix = ColorFilter.matrix(<double>[
   0.2126,
   0.7152,
   0.0722,
@@ -23,7 +23,6 @@ const ColorFilter greyscale = ColorFilter.matrix(<double>[
   0,
 ]);
 
-double boxSize = 100;
-double padding = 12;
+double levelBoxSize = 100;
 
-double bottomsheetHeight = 60;
+double pageHorizontalPadding = 12;
