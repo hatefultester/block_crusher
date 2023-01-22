@@ -223,45 +223,87 @@ List<dynamic> imageSource = [
     /// BLUE level charaktery :D
 
     /// free characters
-    {
-      'source': 'characters_skill_game/7_1000x750.png',
-      'size': Vector2(10 * 1.2, 7.5 * 1.2),
-    },
-    {
-      'source': 'characters_skill_game/8_1000x750.png',
-      'size': Vector2(10 * 1.2, 7.5 * 1.2),
-    },
-    {
-      'source': 'characters_skill_game/9_1000x800.png',
-      'size': Vector2(10 * 1.2, 8 * 1.2),
-    },
 
-    /// LEVEL ALIEN CHARACETERS TODO
-    ///
     {
-      'source': 'characters_skill_game/3_500x1000.png',
-      'size': Vector2(5 * 1.3, 10 * 1.3),
+      'source': 'characters/aliens/1000x1068xwhite.png',
+      'size': Vector2(10, 10.68),
+      'isAnimated': false,
     },
     {
-      'source': 'characters_skill_game/4_500x1000.png',
-      'size': Vector2(5 * 1.4, 10 * 1.4),
+      'source': 'characters/aliens/1000x1246xblue.png',
+      'size': Vector2(10,12.46),
+      'isAnimated': false,
     },
     {
-      'source': 'characters_skill_game/5_1000x1000.png',
-      'size': Vector2(10 * 1.2, 10 * 1.2),
-    },
+    'source': 'characters/aliens/1000x1628xgreen.png',
+    'size': Vector2(10, 16.28),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x1408xred.png',
+    'size': Vector2(10,14.08),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x1400xblue.png',
+    'size': Vector2(10,14),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x974xyellow.png',
+    'size': Vector2(10,9.74),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x666xred.png',
+    'size': Vector2(10,6.66),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x600xorange.png',
+    'size': Vector2(10,6),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x681xyellow.png',
+    'size': Vector2(10,6.81),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x709xgreen.png',
+    'size': Vector2(10,7.09),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x1021xaqua.png',
+    'size': Vector2(10,10.21),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x981xcircles.png',
+    'size': Vector2(10,9.81),
+    'isAnimated': false,
+  },{
+    'source': 'characters/aliens/1000x830xmodra1.png',
+    'size': Vector2(10,8.3),
+    'isAnimated': true,
+    'animationAssets' : [{
+
+      'source': 'characters/aliens/1000x830xmodra1.png',
+      'size': Vector2(10,8.3),
+    }, {
+      'source': 'characters/aliens/1000x830xmodra2.png',
+      'size': Vector2(10,8.3),}]
+  },
     {
-      'source': 'characters_skill_game/6_1000x1000.png',
-      'size': Vector2(10 * 1.2, 10 * 1.2),
-    },
+      'source': 'characters/aliens/400x800xyellow2.png',
+      'size': Vector2(4 * 2, 8 * 2),
+      'isAnimated' : true,
+      'animationAssets' : [{
+        'source': 'characters/aliens/400x800xyellow2.png', 'size': Vector2(4 * 2, 8 * 2),}, {'source':'characters/aliens/400x800xyellow1.png', 'size': Vector2(6 * 2, 8 * 2),}]
+},
     {
-      'source': 'characters_skill_game/12_1000x820.png',
-      'size': Vector2(10 * 1.2, 8.2 * 1.2),
-    },
-    {
-      'source': 'characters/object/1000x666/friendly_cloud.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
-    },
+    'source': 'characters/aliens/965x550xchobotnice1.png',
+    'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+    'isAnimated' : true,
+    'animationAssets' : [
+    {'source': 'characters/aliens/965x550xchobotnice1.png',
+      'size': Vector2(8.45 * 1.5, 5.5 * 1.5),},
+      {'source': 'characters/aliens/965x550xchobotnice2.png',
+        'size': Vector2(9.65 * 1.5, 5.5 * 1.5),}
+    ],
+  },
   ],
 ];
 

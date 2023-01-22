@@ -40,6 +40,8 @@ class SettingsController {
     ]);
   }
 
+
+
   void setPlayerName(String name) {
     playerName.value = name;
     _persistence.savePlayerName(playerName.value);

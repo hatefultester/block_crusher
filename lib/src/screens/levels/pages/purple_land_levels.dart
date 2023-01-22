@@ -8,18 +8,18 @@ import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AlienLandLevels extends StatelessWidget {
-  final int alienPageTopSectionFlex = 5;
-  final int alienPageMiddleSectionFlex = 1;
-  final int alienPageBottomSectionFlex = 1;
+class PurpleLandLevels extends StatelessWidget {
+  final int purplePageTopSectionFlex = 5;
+  final int purplePageMiddleSectionFlex = 1;
+  final int purplePageBottomSectionFlex = 1;
 
-  const AlienLandLevels({Key? key}) : super(key: key);
+  const PurpleLandLevels({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final playerProgress = context.watch<PlayerProgress>();
 
-    List<Widget> alienPageTopSection = [
+    List<Widget> purplePageTopSection = [
       SizedBox(
         height: playerProgress.highestLevelReached == 4 ||
             playerProgress.highestLevelReached == 5
@@ -27,17 +27,20 @@ class AlienLandLevels extends StatelessWidget {
             : levelBoxSize - 20,
         child: Row(
           children: [
-            LineBuilder(width: pageHorizontalPadding + 50, expandable: false, direction: Direction.down, id: 25, count: 15),
-            const LevelBoxWidget(id: 25),
+            LineBuilder(width: pageHorizontalPadding + 50, expandable: false, direction: Direction.down, id: 23, count: 15),
+            const LevelBoxWidget(id: 23),
+            LineBuilder(width: pageHorizontalPadding + 125, direction: Direction.down, id: 24, count: 15),
+            const LevelBoxWidget(id: 24),
+            SizedBox(width:pageHorizontalPadding),
           ],
         ),
       ),
     ];
 
     return LevelPageViewChild(
-        topSection: alienPageTopSection,
-        topSectionFlex: alienPageTopSectionFlex,
-        middleSectionFlex: alienPageMiddleSectionFlex,
-        bottomSectionFlex: alienPageBottomSectionFlex);
+        topSection: purplePageTopSection,
+        topSectionFlex: purplePageTopSectionFlex,
+        middleSectionFlex: purplePageMiddleSectionFlex,
+        bottomSectionFlex: purplePageBottomSectionFlex);
   }
 }

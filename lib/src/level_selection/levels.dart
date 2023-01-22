@@ -73,6 +73,15 @@ const gameLevels = [
       characterId: 1,
       levelDifficulty: LevelDifficulty.purpleWorld),
 
+  GameLevel(
+    levelId: 25,
+    characterId: 2,
+    levelDifficulty: LevelDifficulty.purpleWorld),
+
+  GameLevel(
+      levelId: 26,
+      characterId: 1,
+      levelDifficulty: LevelDifficulty.alien),
   // /// BLUE LEVEL
   // /// BLUE CHARACTERS
   // ///
@@ -96,6 +105,7 @@ enum LevelDifficulty {
   seaLand,
   cityLand,
   purpleWorld,
+  alien,
   blueWorld;
 
   bool atLeast(LevelDifficulty difficulty) {
@@ -136,6 +146,9 @@ enum LevelDifficulty {
             return 200;
           case LevelDifficulty.purpleWorld:
             return 100;
+          case LevelDifficulty.alien:
+            return 0;
+            break;
         }
       default:
         return 0;
@@ -169,6 +182,11 @@ class GameLevel {
 
   final int? miniGameId;
 
+  final int coinCount;
+
+  final int price;
+  bool get openByDefault => price == 0 ? true : false;
+
   int get lives =>
       levelType.defaultLives() + levelDifficulty.additionalLives(levelType);
 
@@ -185,7 +203,9 @@ class GameLevel {
       this.achievementIdIOS,
       this.achievementIdAndroid,
       this.levelType = LevelType.collector,
-      this.miniGameId = 0})
+      this.miniGameId = 0,
+      this.coinCount = 50,
+      this.price = 0,})
       : assert(
             (achievementIdAndroid != null && achievementIdIOS != null) ||
                 (achievementIdAndroid == null && achievementIdIOS == null),

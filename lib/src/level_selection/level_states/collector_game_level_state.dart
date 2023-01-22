@@ -60,10 +60,16 @@ class CollectorGameLevelState extends ChangeNotifier {
     if (levelDifficulty == LevelDifficulty.cityLand) {
       _getGoalItems();
       debugPrint(cityFoods[characterId - 1]['debug']);
+      return;
     }
 
     if(levelDifficulty == LevelDifficulty.purpleWorld) {
       isWinningLevel = false;
+    return;
+    }
+    if(levelDifficulty == LevelDifficulty.alien) {
+      isWinningLevel = false;
+  return;
     }
   }
 

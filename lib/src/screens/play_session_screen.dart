@@ -299,6 +299,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
     final playerProgress = context.read<PlayerProgress>();
     playerProgress.setLevelReached(widget.level.levelId);
+    playerProgress.incrementCoinCount(widget.level.coinCount);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);

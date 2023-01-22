@@ -1,6 +1,7 @@
 
 
 import 'dart:io';
+import 'package:block_crusher/src/screens/levels/pages/alien_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/city_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/shark_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/soomy_land_levels.dart';
@@ -13,7 +14,7 @@ import 'package:provider/provider.dart';
 import '../../player_progress/player_progress.dart';
 import '../../level_selection/levels.dart';
 
-import 'pages/alien_land_levels.dart';
+import 'pages/purple_land_levels.dart';
 import 'pages/hoomy_land_levels.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
@@ -26,6 +27,7 @@ class LevelSelectionScreen extends StatelessWidget {
 
     int initPage = playerProgress.highestLevelReached ~/ 6;
     if (playerProgress.highestLevelReached == 23) initPage++;
+    if(playerProgress.highestLevelReached > 23) initPage = 5;
 
     final LevelSelectionBackground game =
         LevelSelectionBackground(initPage.toInt());
@@ -117,6 +119,7 @@ class LevelSelectionScreen extends StatelessWidget {
     levelsPageView() {
       int initPage = playerProgress.highestLevelReached ~/ 6;
       if (playerProgress.highestLevelReached == 23) initPage++;
+      if(playerProgress.highestLevelReached > 23) initPage = 5;
       final controller = PageController();
 
       pageJumper(initPage, controller);
@@ -134,6 +137,7 @@ class LevelSelectionScreen extends StatelessWidget {
           HoomyLandLevels(),
           SharkLandLevels(),
           CityLandLevels(),
+          PurpleLandLevels(),
           AlienLandLevels(),
         ],
       );
@@ -178,6 +182,7 @@ class LevelSelectionScreen extends StatelessWidget {
                     center: Text('${playerProgress.highestLevelReached} / ${gameLevels.length}'),
                   ),
                 ),
+                Text(playerProgress.coinCount.toString()),
               ],
             )),
       );

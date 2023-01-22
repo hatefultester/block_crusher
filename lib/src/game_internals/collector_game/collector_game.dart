@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
+import 'package:block_crusher/src/game_internals/collector_game/game_components/alien_world/alien_centered_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/city_land/eye_enemy_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/city_land/tray_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/hoomy_land/hoomy_weapon_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/purple_land/purple_centered_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/purple_land/purple_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/game_components/purple_math/purple_math_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/shark_land/shark_enemy_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/soomy_land/sprite_block_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
@@ -30,6 +32,7 @@ class BlockCrusherGame extends FlameGame
 
   final LevelDifficulty difficulty;
   GameMode gameMode = GameMode.classic;
+  late PurpleMode purpleMode;
 
   late BuildContext context;
   late CollectorGameLevelState state;
@@ -106,6 +109,18 @@ class BlockCrusherGame extends FlameGame
         generateCharacterFromLastLevel = false;
         _blockFallSpeed = FirebaseService.to.getPurpleBlockFallbackSpeed();
         _tickSpeed = FirebaseService.to.getPurpleTickSpeed();
+        if (state.characterId == 1) {
+          purpleMode = PurpleMode.trippie;
+        } else {
+          purpleMode = PurpleMode.counter;
+        }
+        break;
+      case GameMode.alien:
+        hasDifferentStartingBlock = false;
+        hasSpecialEvents = true;
+        generateCharacterFromLastLevel = false;
+        _blockFallSpeed = FirebaseService.to.getAlienBlockFallbackSpeed();
+        _tickSpeed = FirebaseService.to.getAlienTickSpeed();
         break;
     }
 
@@ -141,6 +156,10 @@ class BlockCrusherGame extends FlameGame
       case LevelDifficulty.purpleWorld:
         gameMode = GameMode.purpleWorld;
         mapPath = gameMaps['purple']!;
+        break;
+      case LevelDifficulty.alien:
+        gameMode = GameMode.alien;
+        mapPath = gameMaps['mimon']!;
         break;
     }
 
@@ -180,7 +199,13 @@ class BlockCrusherGame extends FlameGame
     }
 
     if(gameMode == GameMode.purpleWorld) {
-      await add(PurpleCenteredComponent());
+      if(purpleMode == PurpleMode.trippie) {
+        await add(PurpleCenteredComponent());
+      }
+    }
+
+    if(gameMode == GameMode.alien) {
+      await add(AlienCenteredComponent());
     }
 
     //debugCheating();
@@ -256,10 +281,17 @@ class BlockCrusherGame extends FlameGame
               _generatedIndexNumber(random), difficulty),);
         }
 
+
         if(gameMode == GameMode.purpleWorld) {
-          final PurpleWorldComponent newPurpleComponent = PurpleWorldComponent(_generatedIndexNumber(random));
-          await add(newPurpleComponent);
-          purpleWorldComponents.add(newPurpleComponent);
+          if (purpleMode == PurpleMode.trippie) {
+            final PurpleWorldComponent newPurpleComponent = PurpleWorldComponent(
+                _generatedIndexNumber(random));
+            await add(newPurpleComponent);
+            purpleWorldComponents.add(newPurpleComponent);
+          }
+          if (purpleMode == PurpleMode.counter) {
+            await add(PurpleMathComponent(_generatedIndexNumber(random)));
+          }
         }
       } else {
         await add(SpriteBlockComponent(difficulty));
@@ -297,7 +329,19 @@ class BlockCrusherGame extends FlameGame
     }
 
     if(gameMode == GameMode.purpleWorld) {
-      generatedIndexNumber = random.nextInt(4) + 1;
+      if(purpleMode == PurpleMode.trippie) {
+        generatedIndexNumber = random.nextInt(4) + 1;
+      }
+    if (purpleMode == PurpleMode.counter) {
+      generatedIndexNumber = random.nextInt(4);
+      if(generatedIndexNumber >= 2) {
+        if (random
+            .nextInt(10)
+            .isEven) {
+          generatedIndexNumber = random.nextInt(2);
+        }
+      }
+    }
     }
 
     return generatedIndexNumber;
@@ -325,7 +369,7 @@ class BlockCrusherGame extends FlameGame
   }
 
   splitPurpleComponent(PurpleWorldComponent component, NotifyingVector2 position) async {
-    print(component.lives);
+
     if(component.lives == 0) return;
 
     var purpleComponentCopy = PurpleWorldComponent.copyFrom(component, Vector2(position.x, position.y));

@@ -15,6 +15,7 @@ class PlayerProgress extends ChangeNotifier {
   final PlayerProgressPersistence _store;
 
   int _highestLevelReached = 0;
+  int _coinCount = 0;
 
   /// Creates an instance of [PlayerProgress] backed by an injected
   /// persistence [store].
@@ -22,15 +23,31 @@ class PlayerProgress extends ChangeNotifier {
 
   /// The highest level that the player has reached so far.
   int get highestLevelReached => _highestLevelReached;
+  int get coinCount => _coinCount;
 
   /// Fetches the latest data from the backing persistence store.
   Future<void> getLatestFromStore() async {
+    await _getLatestCoinCount();
+    await _getLatestHighestLevelReached();
+  }
+
+  Future<void> _getLatestHighestLevelReached() async {
     final level = await _store.getHighestLevelReached();
     if (level > _highestLevelReached) {
       _highestLevelReached = level;
       notifyListeners();
     } else if (level < _highestLevelReached) {
       await _store.saveHighestLevelReached(_highestLevelReached);
+    }
+  }
+
+  Future<void> _getLatestCoinCount() async {
+    final coinCount = await _store.getCoinCount();
+    if (coinCount > _coinCount) {
+      _coinCount = coinCount;
+      notifyListeners(); }
+    else if (coinCount < _coinCount) {
+      await _store.saveCoinCount(coinCount);
     }
   }
 
@@ -59,5 +76,14 @@ class PlayerProgress extends ChangeNotifier {
 
       unawaited(_store.saveHighestLevelReached(level));
     }
+  }
+
+  void incrementCoinCount(int value) {
+    _coinCount += value;
+
+      notifyListeners();
+
+      unawaited(_store.saveCoinCount(coinCount));
+
   }
 }
