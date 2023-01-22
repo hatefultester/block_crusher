@@ -6,12 +6,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:block_crusher/src/utils/characters.dart';
-import 'package:block_crusher/src/game_internals/collector_game/game.dart';
+import 'package:block_crusher/src/game_internals/collector_game/collector_game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
 

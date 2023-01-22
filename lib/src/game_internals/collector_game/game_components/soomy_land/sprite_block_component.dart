@@ -1,15 +1,14 @@
 import 'dart:math';
 
-import 'package:block_crusher/src/game_internals/collector_game/components/tray_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
-import '../game.dart';
+import '../../collector_game.dart';
 
-enum Direction { down, up, left, right }
 
 class SpriteBlockComponent extends SpriteComponent
     with HasGameRef<BlockCrusherGame>, CollisionCallbacks, Draggable, Tappable {
@@ -191,7 +190,7 @@ class SpriteBlockComponent extends SpriteComponent
 
       if (gameMode == GameMode.cityFood) {
         if (characterId + 1 > cityFoods[gameRef.foodIndex]['sum']) return;
-        print('food sum is : ${cityFoods[gameRef.foodIndex]['sum']}');
+        //print('food sum is : ${cityFoods[gameRef.foodIndex]['sum']}');
       }
 
       characterId++;
@@ -223,7 +222,7 @@ class SpriteBlockComponent extends SpriteComponent
         _sprite();
         tapCounter = 0;
       }
-      print(tapCounter.toString());
+      //print(tapCounter.toString());
     }
 
     return super.onTapDown(info);

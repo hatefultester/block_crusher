@@ -1,5 +1,5 @@
 // import 'package:block_crusher/src/play_session/game_controller.dart';
-// import 'package:flame/game.dart';
+// import 'package:flame/collector_game.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 

@@ -1,5 +1,7 @@
 import 'package:block_crusher/src/app_lifecycle/app_lifecycle.dart';
-import 'package:block_crusher/src/game_internals/collector_game/components/enemy_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/game_components/_depricated/enemy_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/game_components/soomy_land/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/level_selection/level_states/collector_game_level_state.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:flame/game.dart';
@@ -7,12 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
-import '../../audio/audio_controller.dart';
-import '../../audio/sounds.dart';
+import '../../../audio/audio_controller.dart';
+import '../../../audio/sounds.dart';
 
 import 'dart:async' as dart_async;
 
-import 'components/sprite_block_component.dart';
 
 const double defaultBlockFallSpeed = 0.7;
 const double advancedBlockFallSpeed = 0.9;

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-const ColorFilter greyscaleMetrix = ColorFilter.matrix(<double>[
+const ColorFilter greyscaleMatrix = ColorFilter.matrix(<double>[
   0.2126,
   0.7152,
   0.0722,

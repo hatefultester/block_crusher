@@ -3,9 +3,9 @@
 // import 'package:block_crusher/src/audio/audio_controller.dart';
 // import 'package:block_crusher/src/audio/sounds.dart';
 // import 'package:block_crusher/src/play_session/flame_part/components/block_component.dart';
-// import 'package:block_crusher/src/play_session/flame_part/game.dart';
+// import 'package:block_crusher/src/play_session/flame_part/collector_game.dart';
 // import 'package:block_crusher/src/play_session/flame_part/components/sprite_block_component.dart';
-// import 'package:flame/game.dart';
+// import 'package:flame/collector_game.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:logging/logging.dart';

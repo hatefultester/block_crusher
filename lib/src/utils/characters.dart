@@ -199,6 +199,29 @@ List<dynamic> imageSource = [
     /// BLUE WORLD LEVEL
     /// BLUE level charaktery :D
 
+
+    {
+      'source': 'points/1.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/2.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },{
+    'source': 'points/3.png',
+    'size': Vector2(10 * 1.2, 8.69 * 1.2),
+  },{
+    'source': 'points/4.png',
+    'size': Vector2(10 * 1.2, 8.69 * 1.2),
+  },{
+    'source': 'points/5.png',
+    'size': Vector2(10 * 1.2, 8.69 * 1.2),
+  },
+  ],
+  [
+    /// ALIEN
+    /// BLUE level charaktery :D
+
     /// free characters
     {
       'source': 'characters_skill_game/7_1000x750.png',
@@ -213,7 +236,7 @@ List<dynamic> imageSource = [
       'size': Vector2(10 * 1.2, 8 * 1.2),
     },
 
-    /// 6 level characters
+    /// LEVEL ALIEN CHARACETERS TODO
     ///
     {
       'source': 'characters_skill_game/3_500x1000.png',

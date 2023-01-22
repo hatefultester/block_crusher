@@ -88,7 +88,7 @@ class LevelBoxWidget extends StatelessWidget {
       );
     } else {
       return ColorFiltered(
-        colorFilter: greyscaleMetrix,
+        colorFilter: greyscaleMatrix,
         child: Material(
             color: Colors.grey,
             borderRadius: BorderRadius.circular(12),

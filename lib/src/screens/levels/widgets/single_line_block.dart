@@ -1,4 +1,4 @@
-import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:flutter/material.dart';

@@ -1,11 +1,12 @@
 import 'dart:math';
 
-import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/game_components/soomy_land/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 
-import '../game.dart';
+import '../../collector_game.dart';
 
 class EnemyHoomyComponent extends SpriteComponent
     with HasGameRef<BlockCrusherGame> {
@@ -62,7 +63,7 @@ class HoomyWeaponComponent extends SpriteComponent
       direction == Direction.left
           ? gameRef.size.x / 2 - 15
           : gameRef.size.x / 2,
-      gameRef.enemyHoomik.position.y,
+      gameRef.enemyHoomyComponent.position.y,
     );
 
     await add(CircleHitbox()..shouldFillParent);

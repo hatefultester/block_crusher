@@ -71,7 +71,7 @@ const gameLevels = [
   GameLevel(
       levelId: 24,
       characterId: 1,
-      levelDifficulty: LevelDifficulty.alienShooter),
+      levelDifficulty: LevelDifficulty.purpleWorld),
 
   // /// BLUE LEVEL
   // /// BLUE CHARACTERS
@@ -95,7 +95,7 @@ enum LevelDifficulty {
   hoomyLand,
   seaLand,
   cityLand,
-  alienShooter,
+  purpleWorld,
   blueWorld;
 
   bool atLeast(LevelDifficulty difficulty) {
@@ -134,7 +134,7 @@ enum LevelDifficulty {
             return 100;
           case LevelDifficulty.blueWorld:
             return 200;
-          case LevelDifficulty.alienShooter:
+          case LevelDifficulty.purpleWorld:
             return 100;
         }
       default:

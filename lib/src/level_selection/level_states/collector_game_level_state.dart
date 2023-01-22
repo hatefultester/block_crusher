@@ -1,12 +1,9 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
+
 
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 
 /// An extremely silly example of a game state.
 ///
@@ -37,9 +34,9 @@ class CollectorGameLevelState extends ChangeNotifier {
   bool _playerDied = false;
   bool _gameWon = false;
 
-  List<int> _items = [];
+  bool isWinningLevel;
 
-  List<int> get items => _items;
+  List<int> items = [];
 
   void reset() {
     _score = 0;
@@ -55,25 +52,30 @@ class CollectorGameLevelState extends ChangeNotifier {
       required this.onDie,
       required this.levelType,
       required this.levelDifficulty,
+        this.isWinningLevel = true,
       this.goal = 100,
       this.maxLives = 10}) {
     _lives = maxLives;
 
     if (levelDifficulty == LevelDifficulty.cityLand) {
       _getGoalItems();
-      print(cityFoods[characterId - 1]['debug']);
+      debugPrint(cityFoods[characterId - 1]['debug']);
+    }
+
+    if(levelDifficulty == LevelDifficulty.purpleWorld) {
+      isWinningLevel = false;
     }
   }
 
   _getGoalItems() {
-    print('goalItems generated');
+    debugPrint('goalItems generated');
     for (var _ in cityFoods[characterId - 1]['characters']) {
-      _items.add(0);
+      items.add(0);
     }
   }
 
   void collect(int id) {
-    _items[id]++;
+    items[id]++;
     notifyListeners();
   }
 
@@ -103,16 +105,19 @@ class CollectorGameLevelState extends ChangeNotifier {
 
     bool collected = true;
 
-    for (int i = 0; i < _items.length; i++) {
-      print(' i position $i : ${_items[i]}');
-      if (_items[i] < cityFoods[characterId - 1]['characters'][i]['goal'])
+    for (int i = 0; i < items.length; i++) {
+      debugPrint(' i position $i : ${items[i]}');
+      if (items[i] < cityFoods[characterId - 1]['characters'][i]['goal']) {
         collected = false;
+      }
     }
 
     return collected;
   }
 
   void evaluate() {
+    if(!isWinningLevel) return;
+
     if (levelType == LevelType.collector) {
       if (_level >= goal && !_playerDied && !_gameWon) {
         onWin();

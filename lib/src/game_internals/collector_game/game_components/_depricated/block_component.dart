@@ -6,7 +6,7 @@
 // import 'package:flame/events.dart';
 // import 'package:flame/palette.dart';
 
-// import '../game.dart';
+// import '../collector_game.dart';
 
 // class BlockComponent extends PolygonComponent
 //     with HasGameRef<BlockCrusherGame>, CollisionCallbacks, Draggable, Tappable {

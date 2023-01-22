@@ -1,4 +1,5 @@
-import 'package:block_crusher/src/game_internals/collector_game/components/sprite_block_component.dart';
+
+import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
@@ -38,6 +39,7 @@ class CityLandLevels extends StatelessWidget {
     List<Widget> cityPageMiddleSection = [
       const LineBuilder(
           direction: Direction.right, id: 22, offset: 100, count: 20),
+
       SizedBox(
         height: playerProgress.highestLevelReached == 13
             ? levelBoxSize
@@ -53,6 +55,7 @@ class CityLandLevels extends StatelessWidget {
           ],
         ),
       ),
+
       Expanded(
         child: Stack(
           children: [
@@ -74,6 +77,7 @@ class CityLandLevels extends StatelessWidget {
               ),
             ),
             const LineBuilder(
+              expandable: false,
               direction: Direction.right,
               count: 15,
               id: 21,
@@ -82,6 +86,7 @@ class CityLandLevels extends StatelessWidget {
           ],
         ),
       ),
+
     ];
 
     List<Widget> cityPageBottomSection = [
@@ -89,12 +94,15 @@ class CityLandLevels extends StatelessWidget {
         child: Stack(
           children: const [
             LineBuilder(
+              expandable: false,
               id: 19,
               direction: Direction.left,
               count: 15,
             ),
             LineBuilder(
-                id: 21, offset: 65, direction: Direction.right, count: 15),
+                id: 21,
+                expandable: false,
+                offset: 65, direction: Direction.right, count: 15),
           ],
         ),
       ),
