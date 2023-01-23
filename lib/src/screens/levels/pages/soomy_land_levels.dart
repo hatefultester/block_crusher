@@ -1,4 +1,3 @@
-
 import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
@@ -21,10 +20,9 @@ class SoomyLandLevels extends StatelessWidget {
 
     List<Widget> soomyPageTopSection = [
       const LineBuilder(id: 0, direction: Direction.left, count: 30),
-
       SizedBox(
         height: playerProgress.highestLevelReached == 0 ||
-            playerProgress.highestLevelReached == 1
+                playerProgress.highestLevelReached == 1
             ? levelBoxSize
             : levelBoxSize - 20,
         child: Row(
@@ -35,10 +33,14 @@ class SoomyLandLevels extends StatelessWidget {
               width: pageHorizontalPadding,
             ),
             const LevelBoxWidget(id: 0),
-const            LineBuilder(id: 1, count: 30, direction: Direction.down,),
+            const LineBuilder(
+              id: 1,
+              count: 30,
+              direction: Direction.down,
+            ),
             const LevelBoxWidget(id: 1),
             SizedBox(
-              width: pageHorizontalPadding,
+              width: pageHorizontalPadding + 20,
             ),
           ],
         ),
@@ -46,10 +48,14 @@ const            LineBuilder(id: 1, count: 30, direction: Direction.down,),
     ];
 
     List<Widget> soomyPageMiddleSection = [
-const      LineBuilder(direction:Direction.right, count: 26, id: 2,),
+      const LineBuilder(
+        direction: Direction.right,
+        count: 20,
+        id: 2,
+      ),
       SizedBox(
         height: playerProgress.highestLevelReached == 3 ||
-            playerProgress.highestLevelReached == 2
+                playerProgress.highestLevelReached == 2
             ? levelBoxSize
             : levelBoxSize - 20,
         width: double.infinity,
@@ -60,21 +66,20 @@ const      LineBuilder(direction:Direction.right, count: 26, id: 2,),
             SizedBox(width: pageHorizontalPadding + 15),
             const LevelBoxWidget(id: 3),
             const LineBuilder(id: 3, direction: Direction.up, count: 30),
-const LevelBoxWidget(id:2),
+            const LevelBoxWidget(id: 2),
             SizedBox(
               width: pageHorizontalPadding + 10,
             )
           ],
         ),
       ),
-      const LineBuilder(count: 25, direction: Direction.left, id: 4),
-
+      const LineBuilder(count: 20, direction: Direction.left, id: 4),
     ];
 
     List<Widget> soomyPageBottomSection = [
       SizedBox(
         height: playerProgress.highestLevelReached == 4 ||
-            playerProgress.highestLevelReached == 5
+                playerProgress.highestLevelReached == 5
             ? levelBoxSize
             : levelBoxSize - 20,
         width: double.infinity,
@@ -89,16 +94,19 @@ const LevelBoxWidget(id:2),
             Expanded(
               child: Row(
                 children: const [
-                  LineBuilder(count: 35, direction: Direction.up, id : 5),
+                  LineBuilder(count: 35, direction: Direction.up, id: 5),
                   LevelBoxWidget(id: 5),
                 ],
               ),
             ),
             LineBuilder(
               expandable: false,
-            height: double.infinity,
-              width: pageHorizontalPadding + 10,
-              direction: Direction.up, count:6, id: 6, offset: -20,
+              height: double.infinity,
+              width: pageHorizontalPadding + 25,
+              direction: Direction.up,
+              count: 6,
+              id: 6,
+              offset: -20,
             ),
           ],
         ),

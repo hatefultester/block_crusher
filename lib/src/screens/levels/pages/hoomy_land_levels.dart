@@ -31,16 +31,16 @@ class HoomyLandLevels extends StatelessWidget {
           children: [
             SizedBox(width: pageHorizontalPadding + 20),
             const LevelBoxWidget(id: 10),
-            const LineBuilder(direction: Direction.down, id: 11, count: 30),
+            const LineBuilder(direction: Direction.down, id: 11, count: 20),
             const LevelBoxWidget(id: 11),
-            const LineBuilder(direction: Direction.down, id: 12, count: 15),
+            const LineBuilder(direction: Direction.down, id: 12, count: 20),
           ],
         ),
       ),
     ];
 
     List<Widget> hoomyPageMiddleSection = [
-      const LineBuilder(direction: Direction.left, count:30, id:10),
+      const LineBuilder(direction: Direction.left, count:20, id:10),
       SizedBox(
         height: playerProgress.highestLevelReached == 3 ||
             playerProgress.highestLevelReached == 2
@@ -61,7 +61,7 @@ class HoomyLandLevels extends StatelessWidget {
           ],
         ),
       ),
-      const LineBuilder(id: 8, count: 30, direction: Direction.left),
+      const LineBuilder(id: 8, count: 20, direction: Direction.left),
     ];
 
     List<Widget> hoomyPageBottomSection = [
@@ -74,7 +74,7 @@ class HoomyLandLevels extends StatelessWidget {
             width: pageHorizontalPadding + 20,
             height: levelBoxSize,
             direction: Direction.up,
-            count:6,
+            count:7,
             id: 6,
           ),
           const LevelBoxWidget(id: 6),

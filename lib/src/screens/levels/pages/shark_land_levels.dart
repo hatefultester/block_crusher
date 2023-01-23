@@ -27,11 +27,11 @@ class SharkLandLevels extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             LineBuilder(
-              width: pageHorizontalPadding,
+              width: pageHorizontalPadding + 15,
               height: levelBoxSize,
               direction: Direction.down,
               expandable: false,
-              count: 4,
+              count: 5,
               id: 12,
             ),
             const LevelBoxWidget(id: 12),
@@ -43,7 +43,7 @@ class SharkLandLevels extends StatelessWidget {
 
     List<Widget> seaPageMiddleSection = [
 
-      const LineBuilder(direction: Direction.left, id: 13, count: 10),
+      const LineBuilder(direction: Direction.left, id: 13, count: 11),
 
       SizedBox(
         height:
@@ -58,7 +58,7 @@ class SharkLandLevels extends StatelessWidget {
           ],
         ),
       ),
-      const LineBuilder(direction: Direction.left, id:14, count:10),
+      const LineBuilder(direction: Direction.left, id:14, count:11),
       SizedBox(
         height:
         playerProgress.highestLevelReached == 13 ? levelBoxSize : levelBoxSize - 20,
@@ -74,12 +74,12 @@ class SharkLandLevels extends StatelessWidget {
               height: levelBoxSize,
               width: pageHorizontalPadding + levelBoxSize / 2 + 10,
               direction: Direction.up,
-              id:18, count: 20,
+              id:18, count: 15,
             ),
           ],
         ),
       ),
-      const LineBuilder(direction: Direction.left, count: 10, id: 15,),
+      const LineBuilder(direction: Direction.left, count: 11, id: 15,),
     ];
 
     List<Widget> seaPageBottomSection = [
@@ -96,9 +96,9 @@ class SharkLandLevels extends StatelessWidget {
               child: SizedBox(
                 height: levelBoxSize,
                 child: Row(children: [
-                  const LineBuilder(direction: Direction.up, count: 30, id: 16),
+                  LineBuilder(expandable: false, width: pageHorizontalPadding + levelBoxSize / 2 + 10,direction: Direction.up, count: 15, id: 16),
                   const LevelBoxWidget(id: 16),
-                  SizedBox(width: pageHorizontalPadding + levelBoxSize / 2),
+                  const Spacer(),
                 ]),
               ),
             )

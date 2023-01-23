@@ -33,7 +33,7 @@ import 'src/in_app_purchase/in_app_purchase.dart';
 import 'src/screens/levels/level_selection_screen.dart';
 import 'src/level_selection/levels.dart';
 import 'src/screens/main_menu_screen.dart';
-import 'src/screens/play_session_screen.dart';
+import 'src/screens/play_session/play_session_screen.dart';
 import 'src/player_progress/persistence/local_storage_player_progress_persistence.dart';
 import 'src/player_progress/persistence/player_progress_persistence.dart';
 import 'src/player_progress/player_progress.dart';
@@ -44,7 +44,7 @@ import 'src/screens/settings_screen.dart';
 import 'src/style/my_transition.dart';
 import 'src/style/palette.dart';
 import 'src/style/snack_bar.dart';
-import 'src/screens/win_game_screen.dart';
+import 'src/screens/winning_screen/win_game_screen.dart';
 
 Future<void> main() async {
   // To enable Firebase Crashlytics, uncomment the following lines and

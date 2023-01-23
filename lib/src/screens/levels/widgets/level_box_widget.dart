@@ -22,7 +22,11 @@ class LevelBoxWidget extends StatelessWidget {
     var highestScore = playerProgress.highestLevelReached;
 
     final level = gameLevels[id];
-    final bool enabled = highestScore >= level.levelId - 1;
+    bool enabled = highestScore >= level.levelId - 1;
+    if (highestScore == 23) {
+      enabled = true;
+    }
+
     final bool won = highestScore > level.levelId - 1;
 
 
@@ -47,7 +51,7 @@ class LevelBoxWidget extends StatelessWidget {
           color: won ? Colors.yellow.shade600 : Colors.black,
           width: won ? 3 : 2,
         ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(20),
       ),
       width: enabled && !won ? levelBoxSize : levelBoxSize - 20,
       height: enabled && !won ? levelBoxSize : levelBoxSize - 20,
@@ -58,32 +62,16 @@ class LevelBoxWidget extends StatelessWidget {
     if (enabled) {
       return Material(
         color: const Color.fromRGBO(255, 255, 255, 1),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(20),
         child: InkWell(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(20),
           onTap: () async {
             audioController.playSfx(SfxType.buttonTap);
 
             GoRouter.of(context).go('/play/session/${level.levelId}/0');
           },
           child: IgnorePointer(
-            child: Stack(
-              children: [
-                child,
-                won
-                    ? SizedBox(
-                    width: levelBoxSize - 20,
-                    height: levelBoxSize - 20,
-                    child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(Icons.check,
-                              color: Colors.yellow.shade800),
-                        )))
-                    : const SizedBox.shrink()
-              ],
-            ),
+            child: child,
           ),),
       );
     } else {

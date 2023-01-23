@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PurpleLandLevels extends StatelessWidget {
-  final int purplePageTopSectionFlex = 5;
+  final int purplePageTopSectionFlex = 1;
   final int purplePageMiddleSectionFlex = 1;
   final int purplePageBottomSectionFlex = 1;
 
@@ -20,21 +20,20 @@ class PurpleLandLevels extends StatelessWidget {
     final playerProgress = context.watch<PlayerProgress>();
 
     List<Widget> purplePageTopSection = [
+      const Spacer(),
       SizedBox(
-        height: playerProgress.highestLevelReached == 4 ||
-            playerProgress.highestLevelReached == 5
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height:  levelBoxSize - 20,
         child: Row(
           children: [
             LineBuilder(width: pageHorizontalPadding + 50, expandable: false, direction: Direction.down, id: 23, count: 15),
             const LevelBoxWidget(id: 23),
-            LineBuilder(width: pageHorizontalPadding + 125, direction: Direction.down, id: 24, count: 15),
+            LineBuilder(width: pageHorizontalPadding + 125, direction: Direction.down, id: 24, count: 21),
             const LevelBoxWidget(id: 24),
             SizedBox(width:pageHorizontalPadding),
           ],
         ),
       ),
+      const LineBuilder(direction: Direction.left, id: 25, count: 25, offset: 9,)
     ];
 
     return LevelPageViewChild(

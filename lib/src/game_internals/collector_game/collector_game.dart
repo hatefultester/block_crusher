@@ -11,7 +11,7 @@ import 'package:block_crusher/src/game_internals/collector_game/game_components/
 import 'package:block_crusher/src/game_internals/collector_game/game_components/shark_land/shark_enemy_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/game_components/soomy_land/sprite_block_component.dart';
 import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/level_selection/level_states/collector_game_level_state.dart';
+import 'package:block_crusher/src/level_selection/level_states/collector_game/collector_game_level_state.dart';
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
@@ -244,6 +244,9 @@ class BlockCrusherGame extends FlameGame
     if (level > state.level && gameMode != GameMode.cityFood) {
       _increaseGameSpeed();
       state.setLevel(level);
+      state.increaseCoinCount(10);
+    } else {
+      state.increaseCoinCount(5);
     }
 
     state.evaluate();

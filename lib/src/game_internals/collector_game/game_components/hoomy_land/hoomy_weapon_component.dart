@@ -95,6 +95,7 @@ class HoomyWeaponComponent extends SpriteComponent
 
     if (other is SpriteBlockComponent) {
       other.removeFromParent();
+      gameRef.blockRemoved();
     }
   }
 }

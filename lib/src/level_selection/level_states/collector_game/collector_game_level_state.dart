@@ -1,5 +1,4 @@
 
-
 import 'package:block_crusher/src/level_selection/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/foundation.dart';
@@ -34,6 +33,9 @@ class CollectorGameLevelState extends ChangeNotifier {
   bool _playerDied = false;
   bool _gameWon = false;
 
+  int _coinCount = 0;
+  int get coinCount => _coinCount;
+
   bool isWinningLevel;
 
   List<int> items = [];
@@ -41,7 +43,7 @@ class CollectorGameLevelState extends ChangeNotifier {
   void reset() {
     _score = 0;
     _level = 0;
-    _lives = maxLives;
+    _lives = 3;
     _playerDied = false;
     _gameWon = false;
   }
@@ -55,7 +57,7 @@ class CollectorGameLevelState extends ChangeNotifier {
         this.isWinningLevel = true,
       this.goal = 100,
       this.maxLives = 10}) {
-    _lives = maxLives;
+    _lives = 3;
 
     if (levelDifficulty == LevelDifficulty.cityLand) {
       _getGoalItems();
@@ -102,6 +104,11 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   void decreaseLife() {
     _lives--;
+    notifyListeners();
+  }
+
+  void increaseCoinCount(int value) {
+    _coinCount+= value;
     notifyListeners();
   }
 
