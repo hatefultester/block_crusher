@@ -2,12 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
+import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../in_app_purchase/in_app_purchase.dart';
-import '../player_progress/player_progress.dart';
 import '../style/palette.dart';
 import '../style/responsive_screen.dart';
 import '../settings/custom_name_dialog.dart';

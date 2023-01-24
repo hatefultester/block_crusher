@@ -1,4 +1,5 @@
-import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
+
+import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 

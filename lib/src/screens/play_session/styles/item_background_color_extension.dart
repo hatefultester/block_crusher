@@ -1,6 +1,5 @@
-import 'dart:ui';
 
-import 'package:block_crusher/src/level_selection/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
 import 'package:flutter/material.dart';
 
 extension ItemBackgroundColorIdentifier on LevelDifficulty {

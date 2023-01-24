@@ -1,7 +1,7 @@
 
 import 'dart:async';
 
-import 'package:block_crusher/src/games_services/score.dart';
+import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:flutter/material.dart';
 
 class TimerWidget extends StatefulWidget {

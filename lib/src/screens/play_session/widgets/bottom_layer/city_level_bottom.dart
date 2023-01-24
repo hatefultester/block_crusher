@@ -1,4 +1,5 @@
-import 'package:block_crusher/src/level_selection/level_states/collector_game/collector_game_level_state.dart';
+
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

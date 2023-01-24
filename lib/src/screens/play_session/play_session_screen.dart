@@ -3,27 +3,25 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
 
+import 'package:block_crusher/src/game_internals/games/collector_game/collector_game.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
+import 'package:block_crusher/src/google_play/games_services/games_services.dart';
+import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/city_level_bottom.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/default_bottom.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/top_layer/default_top.dart';
+import 'package:block_crusher/src/settings/audio/audio_controller.dart';
+import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/utils/characters.dart';
-import 'package:block_crusher/src/game_internals/collector_game/collector_game.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
 
-import '../../audio/audio_controller.dart';
-import '../../audio/sounds.dart';
-import '../../level_selection/level_states/collector_game/collector_game_level_state.dart';
-import '../../games_services/games_services.dart';
-import '../../games_services/score.dart';
-import '../../level_selection/levels.dart';
-import '../../player_progress/player_progress.dart';
 import '../../style/confetti.dart';
 import '../../style/palette.dart';
 

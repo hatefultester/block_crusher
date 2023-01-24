@@ -1,4 +1,4 @@
-import 'package:block_crusher/src/utils/characters.dart';
+
 import 'package:flutter/material.dart';
 
 class ImageWidget extends StatelessWidget {

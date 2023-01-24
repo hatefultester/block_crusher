@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/player_progress/player_progress.dart';
+import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,7 @@ class SingleLineBlock extends StatelessWidget {
   }
 
   _openLineColor() {
-    List<Color> openLineColors = [ Colors.white,  Colors.white38,  Colors.white60,  Colors.white70];
+    List<Color> openLineColors = [ Colors.white,];
     if (!hasRandomColor) {
       return openLineColors[0];
     } else {

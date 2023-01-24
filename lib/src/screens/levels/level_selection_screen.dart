@@ -1,6 +1,8 @@
 
 
 import 'dart:io';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/pages/alien_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/city_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/shark_land_levels.dart';
@@ -11,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-import '../../player_progress/player_progress.dart';
-import '../../level_selection/levels.dart';
 
 import 'pages/purple_land_levels.dart';
 import 'pages/hoomy_land_levels.dart';

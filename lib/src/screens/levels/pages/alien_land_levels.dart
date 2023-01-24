@@ -1,6 +1,6 @@
 
-import 'package:block_crusher/src/game_internals/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/player_progress/player_progress.dart';
+import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';

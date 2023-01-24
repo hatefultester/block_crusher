@@ -1,6 +1,7 @@
 
-import 'package:block_crusher/src/level_selection/level_states/collector_game/collector_game_level_state.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/parts/image_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,9 @@ class _CoinWalletWidgetState extends State<CoinWalletWidget> {
   Widget build(BuildContext context) {
     return Consumer<CollectorGameLevelState>(
         builder: (context, levelState, child) {
-      print('REBUILDING CONSUMER ON COIN COUNT BOTTOM WIDGET');
+      if (kDebugMode) {
+        print('REBUILDING CONSUMER ON COIN COUNT BOTTOM WIDGET');
+      }
       return
       Container(width: 100, height: 50, decoration: BoxDecoration(color: widget.backgroundColor, borderRadius: BorderRadius.circular(20),), padding: const EdgeInsets.all(6),
       child: Row(

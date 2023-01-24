@@ -1,8 +1,9 @@
-import 'package:block_crusher/src/audio/audio_controller.dart';
-import 'package:block_crusher/src/audio/sounds.dart';
-import 'package:block_crusher/src/level_selection/levels.dart';
-import 'package:block_crusher/src/player_progress/player_progress.dart';
+
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
+import 'package:block_crusher/src/settings/audio/audio_controller.dart';
+import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -79,7 +80,7 @@ class LevelBoxWidget extends StatelessWidget {
         colorFilter: greyscaleMatrix,
         child: Material(
             color: Colors.grey,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(20),
             child: child),
       );
     }

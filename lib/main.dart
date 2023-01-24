@@ -10,7 +10,18 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:block_crusher/src/firebase/firebase.dart';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/player_progress/persistence/local_storage_player_progress_persistence.dart';
+import 'package:block_crusher/src/game_internals/player_progress/persistence/player_progress_persistence.dart';
+import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
+import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
+import 'package:block_crusher/src/google_play/crashlytics/crashlytics.dart';
+import 'package:block_crusher/src/google_play/games_services/games_services.dart';
+import 'package:block_crusher/src/google_play/games_services/score.dart';
+import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
+import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
+import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -23,20 +34,9 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-import 'src/ads/ads_controller.dart';
-import 'src/app_lifecycle/app_lifecycle.dart';
-import 'src/audio/audio_controller.dart';
-import 'src/crashlytics/crashlytics.dart';
-import 'src/games_services/games_services.dart';
-import 'src/games_services/score.dart';
-import 'src/in_app_purchase/in_app_purchase.dart';
 import 'src/screens/levels/level_selection_screen.dart';
-import 'src/level_selection/levels.dart';
-import 'src/screens/main_menu_screen.dart';
+import 'src/screens/main_menu/main_menu_screen.dart';
 import 'src/screens/play_session/play_session_screen.dart';
-import 'src/player_progress/persistence/local_storage_player_progress_persistence.dart';
-import 'src/player_progress/persistence/player_progress_persistence.dart';
-import 'src/player_progress/player_progress.dart';
 import 'src/settings/persistence/local_storage_settings_persistence.dart';
 import 'src/settings/persistence/settings_persistence.dart';
 import 'src/settings/settings.dart';
@@ -66,7 +66,7 @@ Future<void> main() async {
   }
 
 
-  await Get.putAsync<FirebaseService>(() => FirebaseService().init(),
+  await Get.putAsync<RemoteConfigService>(() => RemoteConfigService().init(),
       permanent: true);
 
   await guardWithCrashlytics(
