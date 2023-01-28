@@ -12,4 +12,8 @@ static const String purpleTickSpeed = "collectorGamePurpleLandTickSpeed";
 static const String cityTickSpeed = "collectorGameCityLandTickSpeed";
 static const String hoomyTickSpeed = "collectorGameHoomyLandTickSpeed";
 static const String sharkTickSpeed = "collectorGameSharkTickSpeed";
+
+static const String cityLandCoinPrice = "collectorGameCityLandCoinPrice";
+static const String hoomyLandCoinPrice = "collectorGameHoomyCityLandCoinPrice";
+static const String seaLandCoinPrice = "collectorGameSeaCityLandCoinPrice";
 }

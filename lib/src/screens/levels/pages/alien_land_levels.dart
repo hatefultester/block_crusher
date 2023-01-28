@@ -1,5 +1,6 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
 import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
@@ -35,6 +36,8 @@ class AlienLandLevels extends StatelessWidget {
     ];
 
     return LevelPageViewChild(
+      pageTitle: 'Alien land',
+        levelDifficulty: LevelDifficulty.alien,
         topSection: alienPageTopSection,
         topSectionFlex: alienPageTopSectionFlex,
         middleSectionFlex: alienPageMiddleSectionFlex,

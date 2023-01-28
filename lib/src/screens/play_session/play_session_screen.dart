@@ -84,6 +84,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
               children: [
                 _gameWidget(),
                 _appLayer(),
+                _debugButton(),
                 _celebrationWidget(),
               ],
             ),
@@ -91,6 +92,11 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         ),
       ),
     );
+  }
+
+  _debugButton() {
+    return Align(alignment: Alignment(0,0), child:
+    ElevatedButton(onPressed: () { _playerWon(); }, child: Text('CHEAT')));
   }
 
   _appLayer() {

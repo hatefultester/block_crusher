@@ -36,4 +36,40 @@ class LocalStoragePlayerProgressPersistence extends PlayerProgressPersistence {
     final prefs = await instanceFuture;
     await prefs.setInt('highestLevelReached', level);
   }
+
+  @override
+  Future<bool> isCityLandOpen() async{
+    final prefs = await instanceFuture;
+    return prefs.getBool('cityLandLockedStatus') ?? false;
+  }
+
+  @override
+  Future<bool> isHoomyLandOpen() async{
+    final prefs = await instanceFuture;
+    return prefs.getBool('hoomyLandLockedStatus') ?? false;
+  }
+
+  @override
+  Future<bool> isSeaLandOpen() async{
+    final prefs = await instanceFuture;
+    return prefs.getBool('seaLandLockedStatus') ?? false;
+  }
+
+  @override
+  Future<void> saveCityLandLocked(bool value) async{
+    final prefs = await instanceFuture;
+    await prefs.setBool('cityLandLockedStatus', value);
+  }
+
+  @override
+  Future<void> saveHoomyLandLocked(bool value) async{
+    final prefs = await instanceFuture;
+    await prefs.setBool('hoomyLandLockedStatus', value);
+  }
+
+  @override
+  Future<void> saveSeaLandLocked(bool value) async {
+    final prefs = await instanceFuture;
+    await prefs.setBool('seaLandLockedStatus', value);
+  }
 }

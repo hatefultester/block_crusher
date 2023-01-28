@@ -11,6 +11,12 @@ class MemoryOnlyPlayerProgressPersistence implements PlayerProgressPersistence {
 
   int coinCount = 0;
 
+  bool hoomyLandUnlocked = false;
+
+  bool seaLandUnlocked = false;
+
+  bool cityLandUnlocked = false;
+
   @override
   Future<int> getHighestLevelReached() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -33,5 +39,41 @@ class MemoryOnlyPlayerProgressPersistence implements PlayerProgressPersistence {
   Future<void> saveHighestLevelReached(int level) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     this.level = level;
+  }
+
+  @override
+  Future<bool> isCityLandOpen() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return cityLandUnlocked;
+  }
+
+  @override
+  Future<bool> isHoomyLandOpen() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return hoomyLandUnlocked;
+  }
+
+  @override
+  Future<bool> isSeaLandOpen() async{
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return seaLandUnlocked;
+  }
+
+  @override
+  Future<void> saveCityLandLocked(bool value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    cityLandUnlocked = value;
+  }
+
+  @override
+  Future<void> saveHoomyLandLocked(bool value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    hoomyLandUnlocked = value;
+  }
+
+  @override
+  Future<void> saveSeaLandLocked(bool value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    seaLandUnlocked = value;
   }
 }

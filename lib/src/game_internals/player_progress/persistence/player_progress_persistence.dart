@@ -13,6 +13,13 @@ abstract class PlayerProgressPersistence {
 
   Future<int> getCoinCount();
 
-
   Future<void> saveCoinCount(int value);
+
+  Future<bool> isHoomyLandOpen();
+  Future<bool> isSeaLandOpen();
+  Future<bool> isCityLandOpen();
+
+  Future<void> saveHoomyLandLocked(bool value);
+  Future<void> saveSeaLandLocked(bool value);
+  Future<void> saveCityLandLocked(bool value);
 }

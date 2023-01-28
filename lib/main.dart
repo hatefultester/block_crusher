@@ -20,6 +20,7 @@ import 'package:block_crusher/src/google_play/games_services/games_services.dart
 import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -177,6 +178,16 @@ class MyApp extends StatelessWidget {
                     ),
                 routes: [
                   GoRoute(
+                    path:'profile',
+                    pageBuilder: (context, state) {
+                      return buildMyTransition(child: const ProfileScreen(), color: Colors.black);
+                    },
+                  ),GoRoute(
+                    path: 'settings',
+                    builder: (context, state) =>
+                    const SettingsScreen(key: Key('settings')),
+                  ),
+                  GoRoute(
                     path: 'session/:level/:sublevel',
                     pageBuilder: (context, state) {
                       final levelNumber = int.parse(state.params['level']!);
@@ -311,7 +322,7 @@ class MyApp extends StatelessWidget {
                   ),
                   backgroundColor: Colors.black.withOpacity(0.5),
                   foregroundColor: Colors.white,
-                  fixedSize: const Size(300, 60),
+                 // fixedSize: const Size(300, 60),
                   textStyle: const TextStyle(
                       fontFamily: 'Quikhand',
                       fontSize: 25,

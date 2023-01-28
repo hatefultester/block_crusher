@@ -19,7 +19,7 @@ class RemoteConfigService extends GetxService {
     RemoteConfigKey.alienFallbackSpeed : 1.2,
     RemoteConfigKey.purpleFallbackSpeed : 1.2,
     RemoteConfigKey.cityFallbackSpeed : 1.2,
-   RemoteConfigKey.hoomyFallbackSpeed : 1.3,
+    RemoteConfigKey.hoomyFallbackSpeed : 1.3,
     RemoteConfigKey.defaultTickSpeed : 150,
     RemoteConfigKey.alienTickSpeed : 120,
     RemoteConfigKey.purpleTickSpeed : 120,
@@ -27,6 +27,9 @@ class RemoteConfigService extends GetxService {
     RemoteConfigKey.hoomyTickSpeed : 130,
     RemoteConfigKey.sharkTickSpeed : 135,
     RemoteConfigKey.sharkFallbackSpeed : 1.3,
+    RemoteConfigKey.cityLandCoinPrice: 1000,
+    RemoteConfigKey.hoomyLandCoinPrice: 1500,
+    RemoteConfigKey.seaLandCoinPrice: 1200,
   };
 
   Future<RemoteConfigService> init() async {
@@ -59,6 +62,10 @@ class RemoteConfigService extends GetxService {
   int getCityTickSpeed() => _getInt(RemoteConfigKey.cityTickSpeed);
   int getHoomyTickSpeed() => _getInt(RemoteConfigKey.hoomyTickSpeed);
   int getSharkTickSpeed() => _getInt(RemoteConfigKey.sharkTickSpeed);
+
+  int getCityLandCoinPrice() => _getInt(RemoteConfigKey.cityLandCoinPrice);
+  int getSeaLandCoinPrice() => _getInt(RemoteConfigKey.seaLandCoinPrice);
+  int getHoomyLandCoinPrice() => _getInt(RemoteConfigKey.hoomyLandCoinPrice);
 
   _getInt(String key) {
     var result = remoteConfig.getInt(key);

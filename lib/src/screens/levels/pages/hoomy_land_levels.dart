@@ -1,5 +1,6 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
 import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
@@ -18,6 +19,8 @@ class HoomyLandLevels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final playerProgress = context.watch<PlayerProgress>();
+
+    final unlocked = playerProgress.hoomyLandOpen;
 
     List<Widget> hoomyPageTopSection = [
       SizedBox(
@@ -97,6 +100,8 @@ class HoomyLandLevels extends StatelessWidget {
     ];
 
     return LevelPageViewChild(
+        pageTitle: 'Hoomy World',
+        levelDifficulty: LevelDifficulty.hoomyLand,
         topSection: hoomyPageTopSection,
         middleSection: hoomyPageMiddleSection,
         bottomSection: hoomyPageBottomSection,

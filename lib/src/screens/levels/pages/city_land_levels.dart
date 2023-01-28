@@ -1,5 +1,6 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
@@ -80,6 +81,8 @@ class CityLandLevels extends StatelessWidget {
     ];
 
     return LevelPageViewChild(
+        pageTitle: 'City World',
+        levelDifficulty: LevelDifficulty.cityLand,
         topSection: cityPageTopSection,
         middleSection: cityPageMiddleSection,
         bottomSection: cityPageBottomSection,
