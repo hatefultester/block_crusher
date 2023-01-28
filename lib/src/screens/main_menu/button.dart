@@ -67,10 +67,10 @@ class _MovingButtonState extends State<MovingButton> {
     timer = Timer.periodic(Duration(milliseconds: widget.millisecondSpeed), (timer) {
       setState(() {
         if (yDirection == Direction.down) {
-          dy += 0.1;
+          dy += 0.05;
         }
         if (yDirection == Direction.up) {
-          dy -= 0.1;
+          dy -= 0.05;
         }
 
         if (dy > 10) {
@@ -82,10 +82,10 @@ class _MovingButtonState extends State<MovingButton> {
         }
 
         if (xDirection == Direction.left) {
-          dx += 0.08;
+          dx += 0.04;
         }
         if (xDirection == Direction.right) {
-          dx -= 0.08;
+          dx -= 0.04;
         }
 
         if (dy > 3) {

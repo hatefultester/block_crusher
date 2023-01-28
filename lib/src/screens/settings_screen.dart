@@ -30,10 +30,9 @@ class SettingsScreen extends StatelessWidget {
           children: [
             _gap,
             const Text(
-              'Settings',
+              'S e t t i n g s',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: 'Permanent Marker',
                 fontSize: 55,
                 height: 1,
               ),
@@ -90,12 +89,6 @@ class SettingsScreen extends StatelessWidget {
               const Icon(Icons.delete),
               onSelected: () {
                 context.read<PlayerProgress>().reset();
-
-                final messenger = ScaffoldMessenger.of(context);
-                messenger.showSnackBar(
-                  const SnackBar(
-                      content: Text('Player progress has been reset.')),
-                );
               },
             ),_SettingsLine(
               'CHEAT',
@@ -143,7 +136,6 @@ class _NameChangeLine extends StatelessWidget {
           children: [
             Text(title,
                 style: const TextStyle(
-                  fontFamily: 'Permanent Marker',
                   fontSize: 30,
                 )),
             const Spacer(),
@@ -152,7 +144,6 @@ class _NameChangeLine extends StatelessWidget {
               builder: (context, name, child) => Text(
                 '‘$name’',
                 style: const TextStyle(
-                  fontFamily: 'Permanent Marker',
                   fontSize: 30,
                 ),
               ),
@@ -185,7 +176,6 @@ class _SettingsLine extends StatelessWidget {
           children: [
             Text(title,
                 style: const TextStyle(
-                  fontFamily: 'Permanent Marker',
                   fontSize: 30,
                 )),
             const Spacer(),

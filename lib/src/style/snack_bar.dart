@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 void showSnackBar(String message) {
   final messenger = scaffoldMessengerKey.currentState;
   messenger?.showSnackBar(
-    SnackBar(content: Text(message)),
+    SnackBar(content: Text(message), duration: const Duration(seconds:1),),
   );
 }
 

@@ -199,7 +199,6 @@ List<dynamic> imageSource = [
     /// BLUE WORLD LEVEL
     /// BLUE level charaktery :D
 
-
     {
       'source': 'points/1.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
@@ -207,16 +206,19 @@ List<dynamic> imageSource = [
     {
       'source': 'points/2.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
-    },{
-    'source': 'points/3.png',
-    'size': Vector2(10 * 1.2, 8.69 * 1.2),
-  },{
-    'source': 'points/4.png',
-    'size': Vector2(10 * 1.2, 8.69 * 1.2),
-  },{
-    'source': 'points/5.png',
-    'size': Vector2(10 * 1.2, 8.69 * 1.2),
-  },
+    },
+    {
+      'source': 'points/3.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/4.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/5.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
   ],
   [
     /// ALIEN
@@ -225,85 +227,139 @@ List<dynamic> imageSource = [
     /// free characters
 
     {
-      'source': 'characters/aliens/1000x1068xwhite.png',
+      'source': 'characters/aliens/s/1_1000x1021xaqua.png',
+      'size': Vector2(10, 10.21),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/2_1000x1408xred.png',
+      'size': Vector2(10, 14.08),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/3_1000x918xcircles.png',
+      'size': Vector2(10, 9.18),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/4_845x550xchobotince1.png',
+      'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+      'isAnimated': true,
+      'animationAssets': [
+        {
+          'source': 'characters/aliens/s/4_845x550xchobotnice1.png',
+          'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+        },
+        {
+          'source': 'characters/aliens/s/4_965x550xchobotnice2.png',
+          'size': Vector2(9.65 * 1.5, 5.5 * 1.5),
+        },
+      ],
+    },
+
+    {
+      'source': 'characters/aliens/s/5_1000x709xgreen.png',
+      'size': Vector2(10, 7.09),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/6_400x800xyellow2.png',
+      'size': Vector2(4 * 1.4, 8 * 1.4),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/7_1000x1628xgreen.png',
+      'size': Vector2(10, 16.28),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/8_1000x830xmodra1.png',
+      'size': Vector2(10, 8.30),
+      'isAnimated': true,
+      'animationAssets': [
+        {
+          'source': 'characters/aliens/s/8_1000x830xmodra1.png',
+          'size': Vector2(10, 8.3),
+        },
+        {
+          'source': 'characters/aliens/s/8_1000x830xmodra2.png',
+          'size': Vector2(10, 8.3),
+        }
+      ]
+    },
+    {
+      'source': 'characters/aliens/s/9_1000x666xred.png',
+      'size': Vector2(10, 6.66),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/s/10_1000x1068xwhite.png',
       'size': Vector2(10, 10.68),
       'isAnimated': false,
     },
+
+///////////
+
     {
-      'source': 'characters/aliens/1000x1246xblue.png',
-      'size': Vector2(10,12.46),
+      'source': 'characters/aliens/1000x709xgreen.png',
+      'size': Vector2(10, 7.09),
       'isAnimated': false,
     },
     {
-    'source': 'characters/aliens/1000x1628xgreen.png',
-    'size': Vector2(10, 16.28),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x1408xred.png',
-    'size': Vector2(10,14.08),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x1400xblue.png',
-    'size': Vector2(10,14),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x974xyellow.png',
-    'size': Vector2(10,9.74),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x666xred.png',
-    'size': Vector2(10,6.66),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x600xorange.png',
-    'size': Vector2(10,6),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x681xyellow.png',
-    'size': Vector2(10,6.81),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x709xgreen.png',
-    'size': Vector2(10,7.09),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x1021xaqua.png',
-    'size': Vector2(10,10.21),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x981xcircles.png',
-    'size': Vector2(10,9.81),
-    'isAnimated': false,
-  },{
-    'source': 'characters/aliens/1000x830xmodra1.png',
-    'size': Vector2(10,8.3),
-    'isAnimated': true,
-    'animationAssets' : [{
-
+      'source': 'characters/aliens/1000x1021xaqua.png',
+      'size': Vector2(10, 10.21),
+      'isAnimated': false,
+    },
+    {
+      'source': 'characters/aliens/1000x981xcircles.png',
+      'size': Vector2(10, 9.81),
+      'isAnimated': false,
+    },
+    {
       'source': 'characters/aliens/1000x830xmodra1.png',
-      'size': Vector2(10,8.3),
-    }, {
-      'source': 'characters/aliens/1000x830xmodra2.png',
-      'size': Vector2(10,8.3),}]
-  },
+      'size': Vector2(10, 8.3),
+      'isAnimated': true,
+      'animationAssets': [
+        {
+          'source': 'characters/aliens/1000x830xmodra1.png',
+          'size': Vector2(10, 8.3),
+        },
+        {
+          'source': 'characters/aliens/1000x830xmodra2.png',
+          'size': Vector2(10, 8.3),
+        }
+      ]
+    },
     {
       'source': 'characters/aliens/400x800xyellow2.png',
       'size': Vector2(4 * 2, 8 * 2),
-      'isAnimated' : true,
-      'animationAssets' : [{
-        'source': 'characters/aliens/400x800xyellow2.png', 'size': Vector2(4 * 2, 8 * 2),}, {'source':'characters/aliens/400x800xyellow1.png', 'size': Vector2(6 * 2, 8 * 2),}]
-},
+      'isAnimated': true,
+      'animationAssets': [
+        {
+          'source': 'characters/aliens/400x800xyellow2.png',
+          'size': Vector2(4 * 2, 8 * 2),
+        },
+        {
+          'source': 'characters/aliens/400x800xyellow1.png',
+          'size': Vector2(6 * 2, 8 * 2),
+        }
+      ]
+    },
     {
-    'source': 'characters/aliens/965x550xchobotnice1.png',
-    'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
-    'isAnimated' : true,
-    'animationAssets' : [
-    {'source': 'characters/aliens/965x550xchobotnice1.png',
-      'size': Vector2(8.45 * 1.5, 5.5 * 1.5),},
-      {'source': 'characters/aliens/965x550xchobotnice2.png',
-        'size': Vector2(9.65 * 1.5, 5.5 * 1.5),}
-    ],
-  },
+      'source': 'characters/aliens/965x550xchobotnice1.png',
+      'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+      'isAnimated': true,
+      'animationAssets': [
+        {
+          'source': 'characters/aliens/965x550xchobotnice1.png',
+          'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+        },
+        {
+          'source': 'characters/aliens/965x550xchobotnice2.png',
+          'size': Vector2(9.65 * 1.5, 5.5 * 1.5),
+        }
+      ],
+    },
   ],
 ];
 

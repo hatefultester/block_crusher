@@ -7,6 +7,7 @@ import 'package:block_crusher/src/google_play/games_services/games_services.dart
 import 'package:block_crusher/src/screens/main_menu/button.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/style/snack_bar.dart';
 import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -39,27 +40,47 @@ class _MainMenuScreenState extends State<MainMenuScreen>
 
     mainArea() {
       return Center(
-        child: Transform.rotate(
-          angle: -0.45,
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              gradient: const LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Colors.black, Colors.transparent],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                gradient: const LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Colors.black, Colors.transparent],
+                ),
+              ),
+              child: Text(
+                'H o o m y   H o o'.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 32,
+                  color: Colors.white,
+                ),
+                textWidthBasis: TextWidthBasis.longestLine,
+              ),
+            ),Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                gradient: const LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Colors.black, Colors.transparent],
+                ),
+              ),
+              child: Text(
+                'A d v a n t u r e s'.toUpperCase(),
+                style: const TextStyle(
+                  fontSize: 38,
+                  color: Colors.white,
+                ),
+                textWidthBasis: TextWidthBasis.longestLine,
               ),
             ),
-            child: Text(
-              'Hoomy Hoo advantures'.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-              ),
-              textWidthBasis: TextWidthBasis.longestLine,
-            ),
-          ),
+          ],
         ),
       );
     }
@@ -71,13 +92,13 @@ class _MainMenuScreenState extends State<MainMenuScreen>
         children: [
 
 
-          MovingButton(title: 'p l a y', route : '/play', millisecondSpeed: 7, x: Direction.right),
+          const MovingButton(title: 'p l a y', route : '/play', millisecondSpeed: 7, x: Direction.right),
 
           const SizedBox(
             height: 20,
           ),
 
-          MovingButton(title: 's e t t i n g s', route : '/settings', millisecondSpeed: 13,),
+          const MovingButton(title: 's e t t i n g s', route : '/settings', millisecondSpeed: 13,),
 
           Center(
             child: Padding(
@@ -86,7 +107,9 @@ class _MainMenuScreenState extends State<MainMenuScreen>
                 valueListenable: settingsController.muted,
                 builder: (context, muted, child) {
                   return IconButton(
-                    onPressed: () => settingsController.toggleMuted(),
+                    onPressed: () => {settingsController.toggleMuted(),
+                    if (!muted) showSnackBar('Sounds muted') else showSnackBar('Sounds activated')
+                    },
                     icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
                     iconSize: 30,
                     color: Colors.white,
