@@ -1,11 +1,11 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
 import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,13 +18,13 @@ class SoomyLandLevels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerProgress = context.watch<PlayerProgress>();
+    final levelStatistics = context.watch<LevelStatistics>();
 
     List<Widget> soomyPageTopSection = [
       const LineBuilder(id: 0, direction: Direction.left, count: 30),
       SizedBox(
-        height: playerProgress.highestLevelReached == 0 ||
-                playerProgress.highestLevelReached == 1
+        height: levelStatistics.highestLevelReached == 0 ||
+                levelStatistics.highestLevelReached == 1
             ? levelBoxSize
             : levelBoxSize - 20,
         child: Row(
@@ -56,8 +56,8 @@ class SoomyLandLevels extends StatelessWidget {
         id: 2,
       ),
       SizedBox(
-        height: playerProgress.highestLevelReached == 3 ||
-                playerProgress.highestLevelReached == 2
+        height: levelStatistics.highestLevelReached == 3 ||
+                levelStatistics.highestLevelReached == 2
             ? levelBoxSize
             : levelBoxSize - 20,
         width: double.infinity,
@@ -80,8 +80,8 @@ class SoomyLandLevels extends StatelessWidget {
 
     List<Widget> soomyPageBottomSection = [
       SizedBox(
-        height: playerProgress.highestLevelReached == 4 ||
-                playerProgress.highestLevelReached == 5
+        height: levelStatistics.highestLevelReached == 4 ||
+                levelStatistics.highestLevelReached == 5
             ? levelBoxSize
             : levelBoxSize - 20,
         width: double.infinity,

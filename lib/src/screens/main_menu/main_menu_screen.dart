@@ -1,12 +1,7 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/google_play/games_services/games_services.dart';
 import 'package:block_crusher/src/screens/main_menu/background.dart';
 import 'package:block_crusher/src/screens/main_menu/button.dart';
-import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/style/snack_bar.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +11,6 @@ import '../../settings/settings.dart';
 import '../../style/palette.dart';
 import '../../style/responsive_screen.dart';
 
-import 'dart:async' as dart_async;
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({super.key});
@@ -30,9 +24,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
-    final gamesServicesController = context.watch<GamesServicesController?>();
     final settingsController = context.watch<SettingsController>();
-    final audioController = context.watch<AudioController>();
 
     mainArea() {
       return Center(

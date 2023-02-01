@@ -11,9 +11,6 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/persistence/local_storage_player_progress_persistence.dart';
-import 'package:block_crusher/src/game_internals/player_progress/persistence/player_progress_persistence.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
 import 'package:block_crusher/src/google_play/crashlytics/crashlytics.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
@@ -24,6 +21,21 @@ import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
+import 'package:block_crusher/src/storage/characters_unlock_status/persistence/local_storage_player_progress_persistence.dart';
+import 'package:block_crusher/src/storage/characters_unlock_status/persistence/player_progress_persistence.dart';
+import 'package:block_crusher/src/storage/characters_unlock_status/player_progress.dart';
+import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
+import 'package:block_crusher/src/storage/game_achievements/persistence/game_achievements_persistence.dart';
+import 'package:block_crusher/src/storage/game_achievements/persistence/local_storage_game_achievements_persistence.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
+import 'package:block_crusher/src/storage/level_statistics/persistence/level_statistics_persistence.dart';
+import 'package:block_crusher/src/storage/level_statistics/persistence/local_storage_level_statistics_persistence.dart';
+import 'package:block_crusher/src/storage/treasure_counts/persistence/local_storage_treasure_counter_persistence.dart';
+import 'package:block_crusher/src/storage/treasure_counts/persistence/treasure_counter_persistence.dart';
+import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/persistence/local_storage_world_unlock_manager_persistence.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/persistence/world_unlock_manager_persistence.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -130,7 +142,11 @@ void guardedMain() {
     (_) => runApp(
       MyApp(
         settingsPersistence: LocalStorageSettingsPersistence(),
-        playerProgressPersistence: LocalStoragePlayerProgressPersistence(),
+        worldUnlockManagerPersistence: LocalStorageWorldUnlockManagerPersistence(),
+        treasureCounterPersistence: LocalStorageTreasureCounterPersistence(),
+        levelStatisticsPersistence: LocalStorageLevelStatisticsPersistence(),
+        gameAchievementsPersistence: LocalStorageGameAchievementsPersistence(),
+        characterManagerPersistence: LocalStorageCharacterManagerPersistence(),
         inAppPurchaseController: inAppPurchaseController,
         adsController: null,
         gamesServicesController: gamesServicesController,
@@ -250,7 +266,15 @@ class MyApp extends StatelessWidget {
     ],
   );
 
-  final PlayerProgressPersistence playerProgressPersistence;
+  final CharacterManagerPersistence characterManagerPersistence;
+
+  final GameAchievementsPersistence gameAchievementsPersistence;
+
+  final LevelStatisticsPersistence levelStatisticsPersistence;
+
+  final TreasureCounterPersistence treasureCounterPersistence;
+
+  final WorldUnlockManagerPersistence worldUnlockManagerPersistence;
 
   final SettingsPersistence settingsPersistence;
 
@@ -261,12 +285,11 @@ class MyApp extends StatelessWidget {
   final AdsController? adsController;
 
   const MyApp({
-    required this.playerProgressPersistence,
     required this.settingsPersistence,
     required this.inAppPurchaseController,
     required this.adsController,
     required this.gamesServicesController,
-    super.key,
+    super.key, required this.characterManagerPersistence, required this.gameAchievementsPersistence, required this.levelStatisticsPersistence, required this.treasureCounterPersistence, required this.worldUnlockManagerPersistence,
   });
 
   @override
@@ -276,22 +299,55 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) {
-              var progress = PlayerProgress(playerProgressPersistence);
+              var progress = CharacterManager(characterManagerPersistence);
+              //progress.getLatestFromStore();
+              return progress;
+            },
+          ),
+          ChangeNotifierProvider(
+            create: (context) {
+              var progress = GameAchievements(gameAchievementsPersistence);
               progress.getLatestFromStore();
               return progress;
             },
           ),
+          ChangeNotifierProvider(
+            create: (context) {
+              var progress = LevelStatistics(levelStatisticsPersistence);
+              progress.getLatestFromStore();
+              return progress;
+            },
+          ),
+          ChangeNotifierProvider(
+            create: (context) {
+              var progress = TreasureCounter(treasureCounterPersistence);
+              progress.getLatestFromStore();
+              return progress;
+            },
+          ),
+          ChangeNotifierProvider(
+            create: (context) {
+              var progress = WorldUnlockManager(worldUnlockManagerPersistence);
+              progress.getLatestFromStore();
+              return progress;
+            },
+          ),
+
           Provider<GamesServicesController?>.value(
               value: gamesServicesController),
+
           Provider<AdsController?>.value(value: adsController),
+
           ChangeNotifierProvider<InAppPurchaseController?>.value(
               value: inAppPurchaseController),
+
           Provider<SettingsController>(
             lazy: false,
             create: (context) => SettingsController(
               persistence: settingsPersistence,
             )..loadStateFromPersistence(),
           ),
+
           ProxyProvider2<SettingsController, ValueNotifier<AppLifecycleState>,
               AudioController>(
             // Ensures that the AudioController is created on startup,

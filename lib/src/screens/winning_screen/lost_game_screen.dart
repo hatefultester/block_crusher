@@ -5,7 +5,6 @@
 import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
 import 'package:block_crusher/src/google_play/ads/banner_ad_widget.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
-import 'package:block_crusher/src/screens/winning_screen/animation_part.dart';
 import 'package:block_crusher/src/screens/winning_screen/background.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
@@ -15,7 +14,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../google_play/games_services/score.dart';
-import '../../style/palette.dart';
 import '../../style/responsive_screen.dart';
 
 class LostGameScreen extends StatelessWidget {
@@ -31,7 +29,6 @@ class LostGameScreen extends StatelessWidget {
     final adsControllerAvailable = context.watch<AdsController?>() != null;
     final adsRemoved =
         context.watch<InAppPurchaseController?>()?.adRemoval.active ?? false;
-    final palette = context.watch<Palette>();
 
     const gap = SizedBox(height: 10);
 

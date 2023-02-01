@@ -1,9 +1,9 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
 
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
+import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
+import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +88,10 @@ class SettingsScreen extends StatelessWidget {
               'Reset progress',
               const Icon(Icons.delete),
               onSelected: () {
-                context.read<PlayerProgress>().reset();
+                context.read<TreasureCounter>().reset();
+                context.read<LevelStatistics>().reset();
+                context.read<GameAchievements>().reset();
+                context.read<WorldUnlockManager>().reset();
 
                 final messenger = ScaffoldMessenger.of(context);
                 messenger.showSnackBar(
@@ -99,7 +102,10 @@ class SettingsScreen extends StatelessWidget {
               'CHEAT',
               const Icon(Icons.delete),
               onSelected: () {
-                context.read<PlayerProgress>().cheat();
+                context.read<TreasureCounter>().cheat();
+                context.read<LevelStatistics>().cheat();
+                context.read<WorldUnlockManager>().cheat();
+                context.read<GameAchievements>().cheat();
 
                 final messenger = ScaffoldMessenger.of(context);
                 messenger.showSnackBar(
@@ -171,7 +177,7 @@ class _SettingsLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 75,
       child: InkResponse(
         highlightShape: BoxShape.rectangle,

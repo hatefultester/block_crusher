@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,19 +55,19 @@ class SingleLineBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerProgress = context.watch<PlayerProgress>();
+    final levelStatistics = context.watch<LevelStatistics>();
 
-      final lineColor = playerProgress.highestLevelReached > id
+      final lineColor = levelStatistics.highestLevelReached > id
           ? _finishedLineColor()
-          : playerProgress.highestLevelReached == id
+          : levelStatistics.highestLevelReached == id
           ? _openLineColor()
           : _closedLineColor();
 
       final borderColor = _lineBorderColor;
 
-      final double lineThickness = playerProgress.highestLevelReached > id
+      final double lineThickness = levelStatistics.highestLevelReached > id
           ? _finishedLineThickness
-          : playerProgress.highestLevelReached == id
+          : levelStatistics.highestLevelReached == id
           ? _openLineThickness
           : _closedLineThickness;
 

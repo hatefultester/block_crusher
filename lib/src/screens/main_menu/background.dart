@@ -1,12 +1,7 @@
 
-import 'package:block_crusher/src/settings/audio/sounds.dart';
-import 'package:block_crusher/src/style/snack_bar.dart';
-import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import 'dart:async' as dart_async;
 

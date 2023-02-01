@@ -1,11 +1,11 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
 import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,8 @@ class SharkLandLevels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerProgress = context.watch<PlayerProgress>();
+    final levelStatistics = context.watch<LevelStatistics>();
+
     List<Widget> seaPageTopSection = [
       SizedBox(
         height: levelBoxSize,
@@ -48,7 +49,7 @@ class SharkLandLevels extends StatelessWidget {
 
       SizedBox(
         height:
-        playerProgress.highestLevelReached == 13 ? levelBoxSize : levelBoxSize - 20,
+        levelStatistics.highestLevelReached == 13 ? levelBoxSize : levelBoxSize - 20,
         child: Row(
           children: [
             SizedBox(
@@ -62,7 +63,7 @@ class SharkLandLevels extends StatelessWidget {
       const LineBuilder(direction: Direction.left, id:14, count:11),
       SizedBox(
         height:
-        playerProgress.highestLevelReached == 13 ? levelBoxSize : levelBoxSize - 20,
+        levelStatistics.highestLevelReached == 13 ? levelBoxSize : levelBoxSize - 20,
         child: Row(
           children: [
             SizedBox(
@@ -86,7 +87,7 @@ class SharkLandLevels extends StatelessWidget {
     List<Widget> seaPageBottomSection = [
       SizedBox(
         height:
-        playerProgress.highestLevelReached == 15 ? levelBoxSize : levelBoxSize - 20,
+        levelStatistics.highestLevelReached == 15 ? levelBoxSize : levelBoxSize - 20,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

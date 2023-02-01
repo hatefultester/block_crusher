@@ -1,49 +1,12 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
 
-import 'player_progress_persistence.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/persistence/world_unlock_manager_persistence.dart';
 
-/// An in-memory implementation of [PlayerProgressPersistence].
-/// Useful for testing.
-class MemoryOnlyPlayerProgressPersistence implements PlayerProgressPersistence {
-  int level = 0;
-
-  int coinCount = 0;
-
+class MemoryOnlyWorldUnlockManagerPersistence implements WorldUnlockManagerPersistence {
   bool hoomyLandUnlocked = false;
-
   bool seaLandUnlocked = false;
-
   bool cityLandUnlocked = false;
-
   bool alienLandUnlocked = false;
-
   bool purpleLandUnlocked = false;
-
-  @override
-  Future<int> getHighestLevelReached() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-    return level;
-  }
-
-  @override
-  Future<void> saveCoinCount(int value) async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-    coinCount = value;
-  }
-
-  @override
-  Future<int> getCoinCount() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-    return coinCount;
-  }
-
-  @override
-  Future<void> saveHighestLevelReached(int level) async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-    this.level = level;
-  }
 
   @override
   Future<bool> isCityLandOpen() async {

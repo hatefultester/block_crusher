@@ -34,12 +34,12 @@ class _MovingButtonState extends State<MovingButton> {
   @override
   Widget build(BuildContext context) {
     final audioController = context.read<AudioController>();
-    final double _dx = dx;
-    final double _dy = dy;
+    final double dx = this.dx;
+    final double dy = this.dy;
 
 
     return Transform.translate(
-      offset: Offset(_dx, _dy),
+      offset: Offset(dx, dy ),
       child: SizedBox(
         width: 220,
         height: 75,

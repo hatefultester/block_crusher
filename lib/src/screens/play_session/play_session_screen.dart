@@ -7,7 +7,6 @@ import 'dart:async';
 import 'package:block_crusher/src/game_internals/games/collector_game/collector_game.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
 import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
@@ -16,6 +15,8 @@ import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/defa
 import 'package:block_crusher/src/screens/play_session/widgets/top_layer/default_top.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
+import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -98,9 +99,6 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   _debugButton() {
     return const SizedBox.shrink();
-
-    return Align(alignment: Alignment.bottomLeft, child:
-    ElevatedButton(onPressed: () { _playerWon(); }, child: const Text('CHEAT')));
   }
 
   _appLayer() {
@@ -187,8 +185,8 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       DateTime.now().difference(_startOfPlay),
     );
     final audioController = context.read<AudioController>();
-    final playerProgress = context.read<PlayerProgress>();
-    playerProgress
+    final treasureCounter = context.read<TreasureCounter>();
+    treasureCounter
       .incrementCoinCount(widget.level.coinCount);
 
     // Let the player see the game just after winning for a bit.
@@ -217,10 +215,12 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
       DateTime.now().difference(_startOfPlay),
     );
     final audioController = context.read<AudioController>();
-    final playerProgress = context.read<PlayerProgress>();
-    playerProgress
-      ..setLevelReached(widget.level.levelId)
-    ..incrementCoinCount(widget.level.coinCount);
+
+    final levelStatistics = context.read<LevelStatistics>();
+    levelStatistics.setLevelReached(widget.level.levelId);
+
+    final treasureCounter = context.read<TreasureCounter>();
+    treasureCounter.incrementCoinCount(widget.level.coinCount);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);

@@ -9,10 +9,6 @@ class LostBackground extends FlameGame {
     ),);
   }
 
-  @override
-  void onRemove() {
-    super.onRemove();
-  }
 }
 
 class WinBackground extends FlameGame {

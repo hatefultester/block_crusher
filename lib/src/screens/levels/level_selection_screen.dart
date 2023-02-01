@@ -1,14 +1,11 @@
-import 'dart:io';
 
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/pages/alien_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/city_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/purple_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/shark_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/soomy_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_selection_background.dart';
-import 'package:block_crusher/src/settings/audio/audio_controller.dart';
-import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,14 +17,13 @@ class LevelSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerProgress = context.watch<PlayerProgress>();
-    final audioController = context.read<AudioController>();
+    final levelStatistics = context.watch<LevelStatistics>();
 
-    int initPage = playerProgress.highestLevelReached ~/ 6;
+    int initPage = levelStatistics.highestLevelReached ~/ 6;
 
-    if (playerProgress.highestLevelReached == 23) initPage++;
+    if (levelStatistics.highestLevelReached == 23) initPage++;
 
-    if (playerProgress.highestLevelReached > 23) initPage = 5;
+    if (levelStatistics.highestLevelReached > 23) initPage = 5;
 
     final LevelSelectionBackground game =
         LevelSelectionBackground(initPage.toInt());

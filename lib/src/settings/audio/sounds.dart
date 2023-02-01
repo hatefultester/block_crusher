@@ -59,7 +59,6 @@ List<String> soundTypeToFilename(SfxType type) {
       return const [
         'lea/lose.mp3',
       ];
-      break;
   }
 }
 

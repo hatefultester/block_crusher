@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:block_crusher/src/style/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 
@@ -55,14 +55,10 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
   @override
   Widget build(BuildContext context) {
     final audioController = context.read<AudioController>();
-    final playerProgress = context.read<PlayerProgress>();
+    final unlockManager = context.read<WorldUnlockManager>();
 
-    final levelOpened = playerProgress.isWorldUnlocked(widget.levelDifficulty);
+    final levelOpened = unlockManager.isWorldUnlocked(widget.levelDifficulty);
 
-
-    bool isOpenToBuy() {
-      return false;
-    }
 
     celebrationWidget() {
       return Visibility(
@@ -211,8 +207,9 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
   }
 
   buy() async {
-    final player = context.read<PlayerProgress>();
-    if (player.coinCount < widget.levelDifficulty.coinPrice() ) {
+    final treasureCounter = context.read<TreasureCounter>();
+
+    if (treasureCounter.coinCount < widget.levelDifficulty.coinPrice() ) {
       final messenger = ScaffoldMessenger.of(context);
       messenger.showSnackBar(
         const SnackBar(
@@ -224,7 +221,8 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
     await Future<void>.delayed(_preCelebrationDuration);
     if (!mounted) return;
 
-    final playerProgress = context.read<PlayerProgress>();
+    final unlockManager = context.read<WorldUnlockManager>();
+
     if (!mounted) return;
     setState(() {
     _duringCelebration = true;
@@ -238,12 +236,13 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
     });
 
 
-    await playerProgress.unlockWorld(widget.levelDifficulty);
+    await unlockManager.unlockWorld(widget.levelDifficulty);
+    treasureCounter.decreaseCoinCount(widget.levelDifficulty.coinPrice());
   }
 }
 
 extension CoinPriceExtension on LevelDifficulty {
-  coinPrice() {
+  int coinPrice() {
     switch(this) {
 
       case LevelDifficulty.soomyLand:
@@ -272,8 +271,7 @@ class TopLayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final audioController = context.read<AudioController>();
-    final playerProgress = context.read<PlayerProgress>();
+    final treasureCounter = context.watch<TreasureCounter>();
 
     return
         SafeArea(
@@ -369,6 +367,7 @@ class TopLayerWidget extends StatelessWidget {
     //             ],
     //           ),
 
+
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
@@ -395,7 +394,7 @@ class TopLayerWidget extends StatelessWidget {
                     [
                       Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text(playerProgress.coinCount.toString(), style: TextStyle(color: levelDifficulty.getItemTextColor(), fontSize: 25),),
+                        child: Text(treasureCounter.coinCount.toString(), style: TextStyle(color: levelDifficulty.getItemTextColor(), fontSize: 25),),
                       ), Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: SizedBox(width: 35, height: 35, child: Image.asset('assets/images/coins/1000x1000/coin.png'),),
@@ -417,7 +416,6 @@ class BottomLayerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerProgress = context.read<PlayerProgress>();
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -454,46 +452,6 @@ class BottomLayerWidget extends StatelessWidget {
       ),
     );
 
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Container(
-          height: 60,
-          color: Colors.black,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Your progress',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              SizedBox(
-                width: 200,
-                child: LinearPercentIndicator(
-                  percent:
-                  playerProgress.highestLevelReached / gameLevels.length,
-                  lineHeight: 20,
-                  width: 200,
-                  backgroundColor: Colors.white,
-                  linearGradient: LinearGradient(
-                    end: Alignment.centerLeft,
-                    begin: Alignment.centerRight,
-                    colors: [
-                      Colors.red,
-                      Colors.red.shade400,
-                      Colors.yellow.shade200,
-                      Colors.yellow,
-                    ],
-                  ),
-                  barRadius: const Radius.circular(8),
-                  center: Text(
-                      '${playerProgress.highestLevelReached} / ${gameLevels
-                          .length}'),
-                ),
-              ),
-              Text(playerProgress.coinCount.toString()),
-            ],
-          )),
-    );
   }
 }
 
@@ -501,29 +459,5 @@ extension StringDescriptionExtension on LevelDifficulty{
   String descriptionOfWorld() {
     return "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
-    switch (this) {
-
-      case LevelDifficulty.soomyLand:
-        // TODO: Handle this case.
-        break;
-      case LevelDifficulty.hoomyLand:
-        // TODO: Handle this case.
-        break;
-      case LevelDifficulty.seaLand:
-        // TODO: Handle this case.
-        break;
-      case LevelDifficulty.cityLand:
-        // TODO: Handle this case.
-        break;
-      case LevelDifficulty.purpleWorld:
-        // TODO: Handle this case.
-        break;
-      case LevelDifficulty.alien:
-        // TODO: Handle this case.
-        break;
-      case LevelDifficulty.blueWorld:
-        // TODO: Handle this case.
-        break;
-    }
   }
 }

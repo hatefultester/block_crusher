@@ -1,11 +1,11 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
 import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,14 +18,12 @@ class HoomyLandLevels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playerProgress = context.watch<PlayerProgress>();
-
-    final unlocked = playerProgress.hoomyLandOpen;
+    final levelStatistics = context.watch<LevelStatistics>();
 
     List<Widget> hoomyPageTopSection = [
       SizedBox(
-        height: playerProgress.highestLevelReached == 4 ||
-            playerProgress.highestLevelReached == 5
+        height: levelStatistics.highestLevelReached == 4 ||
+            levelStatistics.highestLevelReached == 5
             ? levelBoxSize
             : levelBoxSize - 20,
         child: Row(
@@ -45,8 +43,8 @@ class HoomyLandLevels extends StatelessWidget {
     List<Widget> hoomyPageMiddleSection = [
       const LineBuilder(direction: Direction.left, count:20, id:10),
       SizedBox(
-        height: playerProgress.highestLevelReached == 3 ||
-            playerProgress.highestLevelReached == 2
+        height: levelStatistics.highestLevelReached == 3 ||
+            levelStatistics.highestLevelReached == 2
             ? levelBoxSize
             : levelBoxSize - 20,
         width: double.infinity,
@@ -83,7 +81,7 @@ class HoomyLandLevels extends StatelessWidget {
           const LevelBoxWidget(id: 6),
           Expanded(
             child: SizedBox(
-              height: playerProgress.highestLevelReached == 7
+              height: levelStatistics.highestLevelReached == 7
                   ? levelBoxSize
                   : levelBoxSize - 20,
               child: Row(

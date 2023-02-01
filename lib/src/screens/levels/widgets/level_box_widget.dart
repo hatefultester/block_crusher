@@ -1,9 +1,9 @@
 
 import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
-import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,9 +18,9 @@ class LevelBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final audioController = context.read<AudioController>();
-    final playerProgress = context.watch<PlayerProgress>();
+    final levelStatistics = context.watch<LevelStatistics>();
 
-    var highestScore = playerProgress.highestLevelReached;
+    var highestScore = levelStatistics.highestLevelReached;
 
     final level = gameLevels[id];
     bool enabled = highestScore >= level.levelId - 1;
