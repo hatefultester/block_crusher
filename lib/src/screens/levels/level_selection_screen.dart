@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:block_crusher/src/game_internals/player_progress/player_progress.dart';
+import 'package:block_crusher/src/screens/levels/pages/alien_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/city_land_levels.dart';
+import 'package:block_crusher/src/screens/levels/pages/purple_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/shark_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/soomy_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_selection_background.dart';
@@ -74,8 +76,8 @@ class LevelSelectionScreen extends StatelessWidget {
           HoomyLandLevels(),
           SharkLandLevels(),
           CityLandLevels(),
-          // PurpleLandLevels(),
-          // AlienLandLevels(),
+           PurpleLandLevels(),
+           AlienLandLevels(),
         ],
       );
     }
@@ -83,14 +85,11 @@ class LevelSelectionScreen extends StatelessWidget {
 
     /// return method
     return Scaffold(
-      body: SafeArea(
-        top: Platform.isIOS,
-        child: Stack(
-          children: [
-            gameWidget(),
-            levelsPageView(),
-          ],
-        ),
+      body: Stack(
+        children: [
+          gameWidget(),
+          levelsPageView(),
+        ],
       ),
     );
   }

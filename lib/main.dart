@@ -21,6 +21,7 @@ import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
+import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -173,7 +174,7 @@ class MyApp extends StatelessWidget {
                 path: 'play',
                 pageBuilder: (context, state) => buildMyTransition<void>(
                       child: const LevelSelectionScreen(
-                          key: Key('level selection')),
+                          key: Key('level selection'),),
                       color: context.watch<Palette>().backgroundLevelSelection,
                     ),
                 routes: [
@@ -219,6 +220,21 @@ class MyApp extends StatelessWidget {
                         child: WinGameScreen(
                           score: score,
                           key: const Key('win game'),
+                        ),
+                        color: context.watch<Palette>().backgroundPlaySession,
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'lost',
+                    pageBuilder: (context, state) {
+                      final map = state.extra! as Map<String, dynamic>;
+                      final score = map['score'] as Score;
+
+                      return buildMyTransition<void>(
+                        child: LostGameScreen(
+                          score: score,
+                          key: const Key('lost game'),
                         ),
                         color: context.watch<Palette>().backgroundPlaySession,
                       );

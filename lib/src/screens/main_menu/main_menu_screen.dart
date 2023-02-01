@@ -4,16 +4,12 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
+import 'package:block_crusher/src/screens/main_menu/background.dart';
 import 'package:block_crusher/src/screens/main_menu/button.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
-import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/style/snack_bar.dart';
-import 'package:block_crusher/src/utils/maps.dart';
-import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../settings/settings.dart';
@@ -160,64 +156,3 @@ class _MainMenuScreenState extends State<MainMenuScreen>
   }
 }
 
-
-
-class MainBackgroundGame extends FlameGame {
-  //late dart_async.Timer _timer;
-
-  //int _counter = 0;
-
-  final MapSpriteComponent map = MapSpriteComponent(7);
-
-  @override
-  Future<void>? onLoad() async {
-    await super.onLoad();
-
-    _startTimer();
-
-    await add(map);
-  }
-
-  _startTimer() async {
-
-  }
-}
-
-class MapSpriteComponent extends SpriteComponent
-    with HasGameRef<MainBackgroundGame> {
-  final int initialMap;
-
-  MapSpriteComponent(this.initialMap);
-
-  @override
-  dart_async.Future<void>? onLoad() async {
-    await super.onLoad();
-
-// natvrdo
-    sprite = await gameRef.loadSprite('backgrounds/sea_background.png');
-    size = Vector2(gameRef.size.x, gameRef.size.y);
-  }
-
-  changeBackground(int a) async {
-    if (a == 1) {
-      a = 5;
-    }
-
-    await Future.delayed(const Duration(milliseconds: 300));
-    final effect = OpacityEffect.to(
-      0,
-      EffectController(duration: 2),
-    );
-    final oppacityBack = OpacityEffect.to(
-      1,
-      EffectController(duration: 1),
-    );
-
-    await add(effect);
-
-    await Future.delayed(const Duration(seconds: 2));
-    sprite = await gameRef.loadSprite(maps[a]);
-    await add(oppacityBack);
-    await Future.delayed(const Duration(seconds: 1));
-  }
-}

@@ -89,6 +89,11 @@ class SettingsScreen extends StatelessWidget {
               const Icon(Icons.delete),
               onSelected: () {
                 context.read<PlayerProgress>().reset();
+
+                final messenger = ScaffoldMessenger.of(context);
+                messenger.showSnackBar(
+                    const SnackBar(
+                        content: Text('Reset succesful !'),),);
               },
             ),_SettingsLine(
               'CHEAT',
@@ -166,21 +171,24 @@ class _SettingsLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkResponse(
-      highlightShape: BoxShape.rectangle,
-      onTap: onSelected,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(title,
-                style: const TextStyle(
-                  fontSize: 30,
-                )),
-            const Spacer(),
-            icon,
-          ],
+    return Container(
+      height: 75,
+      child: InkResponse(
+        highlightShape: BoxShape.rectangle,
+        onTap: onSelected,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(title,
+                  style: const TextStyle(
+                    fontSize: 30,
+                  )),
+              const Spacer(),
+              icon,
+            ],
+          ),
         ),
       ),
     );

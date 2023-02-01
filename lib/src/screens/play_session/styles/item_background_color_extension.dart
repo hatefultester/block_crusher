@@ -15,7 +15,7 @@ extension ItemBackgroundColorIdentifier on LevelDifficulty {
         return Colors.blueAccent;
 
       case LevelDifficulty.cityLand:
-        return Colors.yellow;
+        return Colors.yellow.shade100;
 
       case LevelDifficulty.purpleWorld:
         return Colors.purple;
@@ -42,7 +42,7 @@ extension ItemBackgroundColorIdentifier on LevelDifficulty {
         return Colors.black;
 
       case LevelDifficulty.cityLand:
-        return Colors.white;
+        return Colors.black;
       case LevelDifficulty.purpleWorld:
         return Colors.white;
       case LevelDifficulty.alien:

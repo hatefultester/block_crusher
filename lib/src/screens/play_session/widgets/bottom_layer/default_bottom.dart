@@ -23,7 +23,13 @@ class _DefaultBottomWidgetState extends State<DefaultBottomWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-       // decoration: const BoxDecoration(color: Colors.black),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.black, Colors.black.withOpacity(0.9),Colors.transparent],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          )
+        ),
         height: 80,
         padding: const EdgeInsets.all(15),
         width: double.infinity,

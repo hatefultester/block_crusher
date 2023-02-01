@@ -81,5 +81,15 @@ class RemoteConfigService extends GetxService {
     return result;
   }
 
+  int getAlienLandCoinPrice() {
+    //TODO
+    return 2000;
+  }
+
+  int getPurpleLandCoinPrice() {
+    //TODO
+    return 3000;
+  }
+
 
 }

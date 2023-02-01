@@ -29,12 +29,14 @@ class Confetti extends StatefulWidget {
   ];
 
   final bool isStopped;
+  final bool lost;
 
   final List<Color> colors;
 
   const Confetti({
     this.colors = _defaultColors,
     this.isStopped = false,
+    this.lost = false,
     super.key,
   });
 
@@ -45,23 +47,27 @@ class Confetti extends StatefulWidget {
 class ConfettiPainter extends CustomPainter {
   final defaultPaint = Paint();
 
-  final int snippingsCount = 500;
+  int snippingsCount = 500;
 
   late final List<_PaperSnipping> _snippings;
 
   Size? _size;
+
+  final bool lost;
 
   DateTime _lastTime = DateTime.now();
 
   final UnmodifiableListView<Color> colors;
 
   ConfettiPainter(
-      {required Listenable animation, required Iterable<Color> colors})
+      {required Listenable animation, required Iterable<Color> colors, required this.lost})
       : colors = UnmodifiableListView(colors),
         super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
+    if(lost) snippingsCount = 100;
+
     if (_size == null) {
       // First time we have a size.
       _snippings = List.generate(
@@ -75,11 +81,12 @@ class ConfettiPainter extends CustomPainter {
     final didResize = _size != null && _size != size;
     final now = DateTime.now();
     final dt = now.difference(_lastTime);
+    final divider = lost ? 2000 : 400;
     for (final snipping in _snippings) {
       if (didResize) {
         snipping.updateBounds(size);
       }
-      snipping.update(dt.inMilliseconds / 500);
+      snipping.update(dt.inMilliseconds / divider);
       snipping.draw(canvas);
     }
 
@@ -101,6 +108,7 @@ class _ConfettiState extends State<Confetti>
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: ConfettiPainter(
+        lost: widget.lost,
         colors: widget.colors,
         animation: _controller,
       ),

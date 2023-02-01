@@ -55,6 +55,11 @@ List<String> soundTypeToFilename(SfxType type) {
         'lea/sound10.mp3',
         'lea/sound11.mp3',
       ];
+    case SfxType.lost:
+      return const [
+        'lea/lose.mp3',
+      ];
+      break;
   }
 }
 
@@ -66,4 +71,4 @@ double soundTypeToVolume(SfxType type) {
   }
 }
 
-enum SfxType { huhsh, wssh, buttonTap, congrats, erase, swishSwish, kosik }
+enum SfxType { huhsh, wssh, buttonTap, congrats, erase, swishSwish, kosik, lost }

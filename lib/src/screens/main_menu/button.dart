@@ -40,12 +40,16 @@ class _MovingButtonState extends State<MovingButton> {
 
     return Transform.translate(
       offset: Offset(_dx, _dy),
-      child: ElevatedButton(
-        onPressed: () {
-          audioController.playSfx(SfxType.buttonTap);
-          GoRouter.of(context).go(widget.route);
-        },
-        child: Center(child: Text(widget.title.toUpperCase())),
+      child: SizedBox(
+        width: 220,
+        height: 75,
+        child: ElevatedButton(
+          onPressed: () {
+            audioController.playSfx(SfxType.buttonTap);
+            GoRouter.of(context).go(widget.route);
+          },
+          child: Center(child: Text(widget.title.toUpperCase())),
+        ),
       ),
     );
   }

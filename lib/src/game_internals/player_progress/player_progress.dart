@@ -20,6 +20,10 @@ class PlayerProgress extends ChangeNotifier {
 
   bool _cityLandOpen = false;
 
+  bool _purpleLandOpen = false;
+
+  bool _alienLandOpen = false;
+
   int _highestLevelReached = 0;
 
   int _coinCount = 0;
@@ -63,6 +67,8 @@ class PlayerProgress extends ChangeNotifier {
     await _getLatestHoomyLandUnlockedStatus();
     await _getLatestCityLandUnlockedStatus();
     await _getLatestSeaLandUnlockedStatus();
+    await _getLatestAlienLandUnlockedStatus();
+    await _getLatestPurpleLandUnlockedStatus();
   }
 
   Future<void> _getLatestHoomyLandUnlockedStatus() async {
@@ -74,6 +80,32 @@ class PlayerProgress extends ChangeNotifier {
 
     if (isHoomyLandOpen && !_hoomyLandOpen) {
       _hoomyLandOpen = isHoomyLandOpen;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _getLatestAlienLandUnlockedStatus() async {
+    final isAlienLandOpen = await _store.isAlienLandOpen();
+
+    if (!isAlienLandOpen && _alienLandOpen) {
+      await _store.saveAlienLandLocked(_alienLandOpen);
+    }
+
+    if (isAlienLandOpen && !_alienLandOpen) {
+      _alienLandOpen = isAlienLandOpen;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _getLatestPurpleLandUnlockedStatus() async {
+    final isPurpleLandOpen = await _store.isPurpleLandOpen();
+
+    if (!isPurpleLandOpen && _purpleLandOpen) {
+      await _store.savePurpleLandLocked(_purpleLandOpen);
+    }
+
+    if (isPurpleLandOpen && !_alienLandOpen) {
+      _purpleLandOpen = isPurpleLandOpen;
       notifyListeners();
     }
   }
@@ -108,14 +140,30 @@ class PlayerProgress extends ChangeNotifier {
 
   void reset() async {
     _highestLevelReached = 0;
+    _coinCount = 0;
+    _cityLandOpen = false;
+    _hoomyLandOpen = false;
+    _seaLandOpen = false;
+    _purpleLandOpen = false;
+    _alienLandOpen = false;
+
     notifyListeners();
     await _store.saveHighestLevelReached(_highestLevelReached);
+    await _store.saveCoinCount(_coinCount);
+    await _store.saveCityLandLocked(_cityLandOpen);
+    await _store.saveSeaLandLocked(_seaLandOpen);
+    await _store.saveHoomyLandLocked(_hoomyLandOpen);
+    await _store.saveAlienLandLocked(_alienLandOpen);
+    await _store.savePurpleLandLocked(_purpleLandOpen);
   }
 
   void cheat() async {
     _highestLevelReached = 23;
-    notifyListeners();
+    _coinCount = 10000;
     await _store.saveHighestLevelReached(_highestLevelReached);
+    await _store.saveCoinCount(_coinCount);
+
+    notifyListeners();
   }
 
   void setLevelReached(int level) {
@@ -136,8 +184,6 @@ class PlayerProgress extends ChangeNotifier {
     switch(levelDifficulty) {
 
       case LevelDifficulty.soomyLand:
-      case LevelDifficulty.purpleWorld:
-      case LevelDifficulty.alien:
       case LevelDifficulty.blueWorld:
         return;
       case LevelDifficulty.hoomyLand:
@@ -161,6 +207,22 @@ class PlayerProgress extends ChangeNotifier {
         unawaited(_store.saveCityLandLocked(_cityLandOpen));
         unawaited(_store.saveCoinCount(coinCount));
         break;
+      case LevelDifficulty.purpleWorld:
+        _coinCount -= RemoteConfigService.to.getPurpleLandCoinPrice();
+      _purpleLandOpen = true;
+      notifyListeners();
+      unawaited(_store.saveHoomyLandLocked(_hoomyLandOpen));
+      unawaited(_store.saveCoinCount(coinCount));
+      break;
+        break;
+      case LevelDifficulty.alien:
+        _coinCount -= RemoteConfigService.to.getAlienLandCoinPrice();
+      _alienLandOpen = true;
+      notifyListeners();
+      unawaited(_store.saveHoomyLandLocked(_hoomyLandOpen));
+      unawaited(_store.saveCoinCount(coinCount));
+      break;
+        break;
     }
 
 
@@ -177,9 +239,9 @@ class PlayerProgress extends ChangeNotifier {
       case LevelDifficulty.cityLand:
         return cityLandOpen;
       case LevelDifficulty.purpleWorld:
-        return true;
+        return _purpleLandOpen;
       case LevelDifficulty.alien:
-        return true;
+        return _alienLandOpen;
       case LevelDifficulty.blueWorld:
         return true;
     }

@@ -42,6 +42,7 @@ class PlaySessionScreen extends StatefulWidget {
 class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   bool _duringCelebration = false;
+  bool _duringLost = false;
 
   late BlockCrusherGame _blockCrusherGame;
 
@@ -86,6 +87,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                 _appLayer(),
                 _debugButton(),
                 _celebrationWidget(),
+                _loseWidget(),
               ],
             ),
           ),
@@ -95,8 +97,10 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   _debugButton() {
-    return Align(alignment: Alignment(0,0), child:
-    ElevatedButton(onPressed: () { _playerWon(); }, child: Text('CHEAT')));
+    return const SizedBox.shrink();
+
+    return Align(alignment: Alignment.bottomLeft, child:
+    ElevatedButton(onPressed: () { _playerWon(); }, child: const Text('CHEAT')));
   }
 
   _appLayer() {
@@ -152,6 +156,20 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     );
   }
 
+  _loseWidget() {
+    return SizedBox.expand(
+      child: Visibility(
+        visible: _duringLost,
+        child: IgnorePointer(
+          child: Confetti(lost: true,
+            isStopped: !_duringLost,
+          ),
+        ),
+      ),
+    );
+  }
+
+
   @override
   void initState() {
     super.initState();
@@ -163,9 +181,32 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   }
 
   Future<void> _playerDie() async {
-    // TODO
+    final score = Score(
+      widget.level.levelId,
+      widget.level.levelId,
+      DateTime.now().difference(_startOfPlay),
+    );
+    final audioController = context.read<AudioController>();
+    final playerProgress = context.read<PlayerProgress>();
+    playerProgress
+      .incrementCoinCount(widget.level.coinCount);
 
-    _playerWon();
+    // Let the player see the game just after winning for a bit.
+    await Future<void>.delayed(_preCelebrationDuration);
+    if (!mounted) return;
+
+    setState(() {
+      _duringLost = true;
+    });
+
+    await Future<void>.delayed(const Duration(milliseconds: 200));
+
+    audioController.playSfx(SfxType.lost);
+
+    await Future<void>.delayed(_celebrationDuration);
+    if (!mounted) return;
+
+    GoRouter.of(context).go('/play/lost', extra: {'score': score});
   }
 
   Future<void> _playerWon() async {

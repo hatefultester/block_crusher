@@ -30,6 +30,7 @@ class LevelPageViewChild extends StatefulWidget {
 
   final LevelDifficulty levelDifficulty;
 
+
   const LevelPageViewChild(
       {super.key,
     required        this.levelDifficulty,
@@ -57,6 +58,11 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
     final playerProgress = context.read<PlayerProgress>();
 
     final levelOpened = playerProgress.isWorldUnlocked(widget.levelDifficulty);
+
+
+    bool isOpenToBuy() {
+      return false;
+    }
 
     celebrationWidget() {
       return Visibility(
@@ -106,45 +112,19 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
       );
     }
     else {
-      return SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  flex: widget.topSectionFlex,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: widget.topSection,
-                  ),
-                ),
-                Expanded(
-                  flex: widget.middleSectionFlex,
-                  child: Column(children: widget.middleSection),
-                ),
-                Expanded(
-                    flex: widget.bottomSectionFlex,
-                    child: Column(
-                      children: widget.bottomSection,
-                    )),
-              ],
-            ),
-            Expanded(
-              child: Stack(
-                  children: [Container(
-                color: Colors.black.withOpacity(0.7),
-                  child: Center(
+          return
+          Stack(
+              children: [Container(
+                width: double.infinity, height: double.infinity,
+            color: Colors.black.withOpacity(0.7),
+              child: Align(
+                alignment: Alignment.center,
                 child: SizedBox(
-                  width: 250, height: 220,
+                  width: 350, height: 320,
                   child:
                       Container(width: 250, height: 220, margin: const EdgeInsets.all(24), decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(50),
 
                         boxShadow: [
                           BoxShadow(
@@ -161,11 +141,17 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
 
-                          SizedBox(width: 50, height: 50, child: Image.asset('assets/images/coins/1000x1000/coin.png'),),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(widget.levelDifficulty.coinPrice().toString(), style: const TextStyle(fontSize: 30, color: Colors.white),),
+                              SizedBox(width: 50, height: 50, child: Image.asset('assets/images/coins/1000x1000/coin.png'),),
 
-                          Text(widget.levelDifficulty.coinPrice().toString(), style: const TextStyle(fontSize: 30, color: Colors.white),),
+                            ],
+                          ),
+
                           SizedBox(
-                            height: 40, width: 150,
+                            height: 75, width: 250,
                             child: ElevatedButton(
                               onPressed: () {
                                 audioController.playSfx(SfxType.buttonTap);
@@ -179,25 +165,62 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
                       ),
 
                   ),
-                ),
-              ), Align(
-                    alignment: const Alignment(0,-0.7),
-                    child: SizedBox(
-                      width: 150,
-                      height: 150,
-                      child: Image.asset('assets/images/lock/lock_locked.png'),
-                    ),
+              ),
+          ),
+
+               _duringCelebration ? Align(
+                alignment: const Alignment(0,-0.7),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.2),
+            spreadRadius: 4,
+            blurRadius: 8,
+            offset: const Offset(0, 3), // changes position of shadow
+          ), ],
                   ),
-                  ],),
-            ),
-            Expanded(child: celebrationWidget()),
-          ],
-        ),
-      );
+                  width: 150,
+                  height: 150,
+                  child: Image.asset('assets/images/lock/lock_unlocked.png'),
+                ),
+              ) :
+                Align(
+                  alignment: const Alignment(0,-0.7),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.2),
+                        spreadRadius: 4,
+                        blurRadius: 8,
+                        offset: const Offset(0, 3), // changes position of shadow
+                      ), ],
+                    ),
+                    width: 150,
+                    height: 150,
+                    child: Image.asset('assets/images/lock/lock_locked.png'),
+                  ),
+                ),
+
+
+                celebrationWidget(),
+              ],);
+
     }
   }
 
   buy() async {
+    final player = context.read<PlayerProgress>();
+    if (player.coinCount < widget.levelDifficulty.coinPrice() ) {
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.showSnackBar(
+        const SnackBar(
+            content: Text('You don\'t have enough coins :( '),),
+      );
+      return;
+    }
+
     await Future<void>.delayed(_preCelebrationDuration);
     if (!mounted) return;
 
@@ -224,12 +247,13 @@ extension CoinPriceExtension on LevelDifficulty {
     switch(this) {
 
       case LevelDifficulty.soomyLand:
-      case LevelDifficulty.purpleWorld:
-      case LevelDifficulty.alien:
       case LevelDifficulty.blueWorld:
         return 0;
 
-
+      case LevelDifficulty.purpleWorld:
+        return RemoteConfigService.to.getPurpleLandCoinPrice();
+      case LevelDifficulty.alien:
+        return RemoteConfigService.to.getAlienLandCoinPrice();
       case LevelDifficulty.hoomyLand:
         return RemoteConfigService.to.getHoomyLandCoinPrice();
       case LevelDifficulty.seaLand:
@@ -252,67 +276,70 @@ class TopLayerWidget extends StatelessWidget {
     final playerProgress = context.read<PlayerProgress>();
 
     return
-        Container(
-          margin: const EdgeInsets.all(15),
-          height: 70,
-          child: Stack(
-            children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-            margin: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: levelDifficulty.getItemBackgroundColor(),boxShadow:
-            [
-              BoxShadow(
-                color: levelDifficulty.getItemBackgroundColor().withOpacity(0.4),
-                spreadRadius: 4,
-                blurRadius: 8,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
-            ),
-            height: 100,
-            width: 60,
-            child: PopupMenuButton(
-              icon: Icon(
-                Icons.menu,
-                color: levelDifficulty.getItemTextColor(),
-                size: 25,
-              ),
-              color: levelDifficulty.getItemBackgroundColor(),
-              onSelected: ((value) {
-                audioController.playSfx(SfxType.buttonTap);
-                if (value == 0) {
-                  Navigator.pop(context);
-                }
-                if (value == 1) {
-                  GoRouter.of(context).go('/play/settings');
-                }
-                if (value == 2) {
-                  GoRouter.of(context).go('/play/profile');
-                }
-              })
-              ,itemBuilder: (BuildContext context) { return [
-              PopupMenuItem<int> (
-                value: 2,
-                child: Text('Profile', style: TextStyle(color: levelDifficulty.getItemTextColor(),),),
-              ),
-              PopupMenuItem<int> (
-                value: 1,
-                child: Text('Settings', style: TextStyle(color: levelDifficulty.getItemTextColor(),),),
-              ),
+        SafeArea(
+          top: Platform.isIOS,
+          child: Container(
+            margin: const EdgeInsets.all(15),
+            height: 70,
+            child: Stack(
+               children: [
 
-                PopupMenuItem<int> (
-                  value: 0,
-                  child: Text('Exit', style: TextStyle(color: levelDifficulty.getItemTextColor(),),),
-                ),
-            ];
-            },
-            ),
-        ),
-          ),
+                 //   Align(
+          //     alignment: Alignment.topLeft,
+          //     child: Container(
+          //     margin: const EdgeInsets.all(5),
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(50),
+          //       color: levelDifficulty.getItemBackgroundColor(),boxShadow:
+          //     [
+          //       BoxShadow(
+          //         color: levelDifficulty.getItemBackgroundColor().withOpacity(0.4),
+          //         spreadRadius: 4,
+          //         blurRadius: 8,
+          //         offset: const Offset(0, 3), // changes position of shadow
+          //       ),
+          //     ],
+          //     ),
+          //     height: 100,
+          //     width: 60,
+          //     child: PopupMenuButton(
+          //       icon: Icon(
+          //         Icons.menu,
+          //         color: levelDifficulty.getItemTextColor(),
+          //         size: 25,
+          //       ),
+          //       color: levelDifficulty.getItemBackgroundColor(),
+          //       onSelected: ((value) {
+          //         audioController.playSfx(SfxType.buttonTap);
+          //         if (value == 0) {
+          //           Navigator.pop(context);
+          //         }
+          //         if (value == 1) {
+          //           GoRouter.of(context).go('/play/settings');
+          //         }
+          //         if (value == 2) {
+          //           GoRouter.of(context).go('/play/profile');
+          //         }
+          //       })
+          //       ,itemBuilder: (BuildContext context) { return [
+          //       PopupMenuItem<int> (
+          //         value: 2,
+          //         child: Text('Profile', style: TextStyle(color: levelDifficulty.getItemTextColor(),),),
+          //       ),
+          //       PopupMenuItem<int> (
+          //         value: 1,
+          //         child: Text('Settings', style: TextStyle(color: levelDifficulty.getItemTextColor(),),),
+          //       ),
+          //
+          //         PopupMenuItem<int> (
+          //           value: 0,
+          //           child: Text('Exit', style: TextStyle(color: levelDifficulty.getItemTextColor(),),),
+          //         ),
+          //     ];
+          //     },
+          //     ),
+          // ),
+          //   ),
     //           Row(
     //             mainAxisAlignment: MainAxisAlignment.center,
     //             children: [
@@ -342,38 +369,42 @@ class TopLayerWidget extends StatelessWidget {
     //             ],
     //           ),
 
-
-              Align(
-                alignment: Alignment.topLeft,
-                child: Container( decoration: BoxDecoration(color: levelDifficulty.getItemBackgroundColor(),
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow:
-                  [
-                    BoxShadow(
-                      color: levelDifficulty.getItemBackgroundColor().withOpacity(0.4),
-                      spreadRadius: 4,
-                      blurRadius: 8,
-                      offset: const Offset(0, 3), // changes position of shadow
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    decoration: BoxDecoration(color: levelDifficulty.getItemBackgroundColor(),
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow:
+                    [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.4),
+                        spreadRadius: 4,
+                        blurRadius: 8,
+                        offset: const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                    border: Border.all(width: 1,color: levelDifficulty.getItemTextColor().withOpacity(0.7),),
                     ),
-                  ],),
-                  height: 100,
-                  width: 150,
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children:
-                  [
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(playerProgress.coinCount.toString(), style: TextStyle(color: levelDifficulty.getItemTextColor(), fontSize: 20),),
-                    ), Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: SizedBox(width: 35, height: 35, child: Image.asset('assets/images/coins/1000x677/money.png')),
-                    ),
-                  ],),
+                    height: 100,
+                    width: 200,
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children:
+                    [
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(playerProgress.coinCount.toString(), style: TextStyle(color: levelDifficulty.getItemTextColor(), fontSize: 25),),
+                      ), Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: SizedBox(width: 35, height: 35, child: Image.asset('assets/images/coins/1000x1000/coin.png'),),
+                      ),
+                    ],),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
   }
@@ -388,54 +419,40 @@ class BottomLayerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final playerProgress = context.read<PlayerProgress>();
 
-    return Align(alignment: Alignment.bottomCenter, child: Container(
-      margin: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-        color: levelDifficulty.getItemBackgroundColor(),boxShadow:
-      [
-        BoxShadow(
-          color: levelDifficulty.getItemBackgroundColor().withOpacity(0.4),
-          spreadRadius: 4,
-          blurRadius: 8,
-          offset: const Offset(0, 3), // changes position of shadow
-        ),
-      ],
-      ),
-      height: 50,
-      width: 50,
-      child:IconButton(onPressed: () {
-      showModalBottomSheet<void>(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: 300,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(50), topRight: Radius.circular(50), ),
-              color: levelDifficulty.getItemBackgroundColor(),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-
-                Flexible(child:SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(levelDifficulty.descriptionOfWorld(), style: TextStyle(color: levelDifficulty.getItemTextColor(), fontSize: 20),),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 25.0),
+        child: SizedBox(
+          height: 70,
+          width: 210,
+          child: MaterialButton(
+            onPressed: () {
+              final audio = context.read<AudioController>();
+              audio.playSfx(SfxType.buttonTap);
+                   GoRouter.of(context).go('/play/profile');  },
+            child: Container(
+              width: 200, height: 75,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),
+              border: Border.all(width: 1, color: levelDifficulty.getItemTextColor().withOpacity(0.7),), color: levelDifficulty.getItemBackgroundColor(),
+                boxShadow:
+                [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.4),
+                    spreadRadius: 4,
+                    blurRadius: 8,
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
-                ),),
-              ],
+                ],),
+              child: Center(
+                child: Text('P R O F I L E '
+                , style: TextStyle(color: levelDifficulty.getItemTextColor(), fontSize: 25, fontFamily: 'Quikhand'),),
+              ),
             ),
-          );
-        },
-      );
-
-    },
-    icon: Icon(Icons.arrow_upward_rounded, color: levelDifficulty.getItemTextColor(), size: 25),
-    ),),);
+          ),
+        ),
+      ),
+    );
 
     return Align(
       alignment: Alignment.bottomLeft,

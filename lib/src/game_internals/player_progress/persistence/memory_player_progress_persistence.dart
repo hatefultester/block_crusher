@@ -17,6 +17,10 @@ class MemoryOnlyPlayerProgressPersistence implements PlayerProgressPersistence {
 
   bool cityLandUnlocked = false;
 
+  bool alienLandUnlocked = false;
+
+  bool purpleLandUnlocked = false;
+
   @override
   Future<int> getHighestLevelReached() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
@@ -75,5 +79,29 @@ class MemoryOnlyPlayerProgressPersistence implements PlayerProgressPersistence {
   Future<void> saveSeaLandLocked(bool value) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     seaLandUnlocked = value;
+  }
+
+  @override
+  Future<bool> isAlienLandOpen() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return alienLandUnlocked;
+  }
+
+  @override
+  Future<bool> isPurpleLandOpen() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return purpleLandUnlocked;
+  }
+
+  @override
+  Future<void> saveAlienLandLocked(bool value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    alienLandUnlocked = value;
+  }
+
+  @override
+  Future<void> savePurpleLandLocked(bool value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    purpleLandUnlocked = value;
   }
 }
