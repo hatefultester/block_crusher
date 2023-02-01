@@ -136,16 +136,16 @@ List<dynamic> imageSource = [
       'size': Vector2(15, 5),
     },
     {
-      'source': 'characters/fish/1000x666/fish_hoomy.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
+      'source': 'characters/fish/1000x550xfish1.png',
+      'size': Vector2(10 * 1.3, 5.5 * 1.3),
     },
     {
       'source': 'characters/fish/1000x1000/symmetric_rick_fish.png',
       'size': Vector2(10 * 1.3, 10 * 1.3),
     },
     {
-      'source': 'characters/fish/1000x666/fish_hoomy_2.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
+      'source': 'characters/fish/1000x500xfish2.png',
+      'size': Vector2(10 * 1.3, 5 * 1.3),
     },
     {
       'source': 'characters/fish/1000x700_blue_fish.png',

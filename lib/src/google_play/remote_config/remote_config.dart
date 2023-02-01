@@ -66,6 +66,27 @@ class RemoteConfigService extends GetxService {
   int getCityLandCoinPrice() => _getInt(RemoteConfigKey.cityLandCoinPrice);
   int getSeaLandCoinPrice() => _getInt(RemoteConfigKey.seaLandCoinPrice);
   int getHoomyLandCoinPrice() => _getInt(RemoteConfigKey.hoomyLandCoinPrice);
+  int getAlienLandCoinPrice() => 2000; //todo
+  int getPurpleLandCoinPrice() => 2000; //todo
+
+  int getSoomyLandLives() => 3; // todo
+  int getHoomyLandLives() => 10; // todo
+  int getSharkLandLives() => 20; // todo
+  int getCityLandLives() => 50; // todo
+  int getAlienLandLives() => 3; // todo
+  int getPurpleLandLives() => 3; // todo
+
+  int getSoomyLevelBonusPrice() => 50; // todo
+  int getHoomyLevelBonusPrice() => 100; // todo
+  int getSharkLevelBonusPrice() => 200; // todo
+  int getCityLevelBonusPrice() => 250; // todo
+
+  int getSoomyLandConnectCoinCount() => 5; //todo
+  int getHoomyLandConnectCoinCount() => 10; //todo
+  int getSharkLandConnectCoinCount() => 15; //todo
+  int getCityLandConnectCoinCount() => 20; //todo
+  int getPurpleLandConnectCoinCount() => 25; //todo
+  int getAlienLandConnectCoinCount() => 30; //todo
 
   _getInt(String key) {
     var result = remoteConfig.getInt(key);
@@ -80,16 +101,4 @@ class RemoteConfigService extends GetxService {
 
     return result;
   }
-
-  int getAlienLandCoinPrice() {
-    //TODO
-    return 2000;
-  }
-
-  int getPurpleLandCoinPrice() {
-    //TODO
-    return 3000;
-  }
-
-
 }

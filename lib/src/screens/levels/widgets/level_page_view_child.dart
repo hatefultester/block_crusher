@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
@@ -11,6 +11,8 @@ import 'package:block_crusher/src/style/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
+import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 
 
 const _celebrationDuration = Duration(milliseconds: 2000);
@@ -28,7 +30,7 @@ class LevelPageViewChild extends StatefulWidget {
   final int middleSectionFlex;
   final int bottomSectionFlex;
 
-  final LevelDifficulty levelDifficulty;
+  final WorldType levelDifficulty;
 
 
   const LevelPageViewChild(
@@ -241,30 +243,27 @@ class _LevelPageViewChildState extends State<LevelPageViewChild> {
   }
 }
 
-extension CoinPriceExtension on LevelDifficulty {
+extension CoinPriceExtension on WorldType {
   int coinPrice() {
     switch(this) {
-
-      case LevelDifficulty.soomyLand:
-      case LevelDifficulty.blueWorld:
+      case WorldType.soomyLand:
         return 0;
-
-      case LevelDifficulty.purpleWorld:
+      case WorldType.purpleWorld:
         return RemoteConfigService.to.getPurpleLandCoinPrice();
-      case LevelDifficulty.alien:
+      case WorldType.alien:
         return RemoteConfigService.to.getAlienLandCoinPrice();
-      case LevelDifficulty.hoomyLand:
+      case WorldType.hoomyLand:
         return RemoteConfigService.to.getHoomyLandCoinPrice();
-      case LevelDifficulty.seaLand:
+      case WorldType.seaLand:
         return RemoteConfigService.to.getSeaLandCoinPrice();
-      case LevelDifficulty.cityLand:
+      case WorldType.cityLand:
         return RemoteConfigService.to.getCityLandCoinPrice();
     }
   }
 }
 
 class TopLayerWidget extends StatelessWidget {
-  final LevelDifficulty levelDifficulty;
+  final WorldType levelDifficulty;
   final String pageTitle;
 
   const TopLayerWidget({Key? key, required this.levelDifficulty, required this.pageTitle}) : super(key: key);
@@ -410,7 +409,7 @@ class TopLayerWidget extends StatelessWidget {
 }
 
 class BottomLayerWidget extends StatelessWidget {
-  final LevelDifficulty levelDifficulty;
+  final WorldType levelDifficulty;
 
   const BottomLayerWidget({Key? key, required this.levelDifficulty}) : super(key: key);
 
@@ -455,7 +454,7 @@ class BottomLayerWidget extends StatelessWidget {
   }
 }
 
-extension StringDescriptionExtension on LevelDifficulty{
+extension StringDescriptionExtension on WorldType{
   String descriptionOfWorld() {
     return "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 

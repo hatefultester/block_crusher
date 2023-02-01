@@ -1,11 +1,13 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
 import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:flutter/material.dart';
+
+import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 
 class CityLandLevels extends StatelessWidget {
   final int cityPageTopSectionFlex = 16;
@@ -82,7 +84,7 @@ class CityLandLevels extends StatelessWidget {
 
     return LevelPageViewChild(
         pageTitle: 'City World',
-        levelDifficulty: LevelDifficulty.cityLand,
+        levelDifficulty: WorldType.cityLand,
         topSection: cityPageTopSection,
         middleSection: cityPageMiddleSection,
         bottomSection: cityPageBottomSection,

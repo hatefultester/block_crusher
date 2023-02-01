@@ -1,11 +1,13 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
 import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:flutter/material.dart';
+
+import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 
 class PurpleLandLevels extends StatelessWidget {
   final int purplePageTopSectionFlex = 1;
@@ -36,7 +38,7 @@ class PurpleLandLevels extends StatelessWidget {
 
     return LevelPageViewChild(
         pageTitle: 'Purple world',
-        levelDifficulty: LevelDifficulty.purpleWorld,
+        levelDifficulty: WorldType.purpleWorld,
         topSection: purplePageTopSection,
         topSectionFlex: purplePageTopSectionFlex,
         middleSectionFlex: purplePageMiddleSectionFlex,

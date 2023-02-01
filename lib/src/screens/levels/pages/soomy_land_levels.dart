@@ -1,6 +1,6 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
 import 'package:block_crusher/src/screens/levels/widgets/level_page_view_child.dart';
@@ -8,6 +8,8 @@ import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 
 class SoomyLandLevels extends StatelessWidget {
   final int soomyPageTopSectionFlex = 1;
@@ -117,7 +119,7 @@ class SoomyLandLevels extends StatelessWidget {
 
     return LevelPageViewChild(
         pageTitle: 'Soomy world',
-        levelDifficulty: LevelDifficulty.soomyLand,
+        levelDifficulty: WorldType.soomyLand,
         topSection: soomyPageTopSection,
         middleSection: soomyPageMiddleSection,
         bottomSection: soomyPageBottomSection,

@@ -10,7 +10,7 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
 import 'package:block_crusher/src/google_play/crashlytics/crashlytics.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
@@ -21,15 +21,15 @@ import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
-import 'package:block_crusher/src/storage/characters_unlock_status/persistence/local_storage_player_progress_persistence.dart';
-import 'package:block_crusher/src/storage/characters_unlock_status/persistence/player_progress_persistence.dart';
-import 'package:block_crusher/src/storage/characters_unlock_status/player_progress.dart';
 import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:block_crusher/src/storage/game_achievements/persistence/game_achievements_persistence.dart';
 import 'package:block_crusher/src/storage/game_achievements/persistence/local_storage_game_achievements_persistence.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/level_statistics/persistence/level_statistics_persistence.dart';
 import 'package:block_crusher/src/storage/level_statistics/persistence/local_storage_level_statistics_persistence.dart';
+import 'package:block_crusher/src/storage/player_inventory/persistence/local_storage_player_progress_persistence.dart';
+import 'package:block_crusher/src/storage/player_inventory/persistence/player_inventory_persistence.dart';
+import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/storage/treasure_counts/persistence/local_storage_treasure_counter_persistence.dart';
 import 'package:block_crusher/src/storage/treasure_counts/persistence/treasure_counter_persistence.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
@@ -146,7 +146,7 @@ void guardedMain() {
         treasureCounterPersistence: LocalStorageTreasureCounterPersistence(),
         levelStatisticsPersistence: LocalStorageLevelStatisticsPersistence(),
         gameAchievementsPersistence: LocalStorageGameAchievementsPersistence(),
-        characterManagerPersistence: LocalStorageCharacterManagerPersistence(),
+        playerInventoryPersistence: LocalStoragePlayerInventoryPersistence(),
         inAppPurchaseController: inAppPurchaseController,
         adsController: null,
         gamesServicesController: gamesServicesController,
@@ -211,11 +211,8 @@ class MyApp extends StatelessWidget {
 
                       final subLevel = int.parse(state.params['sublevel']!);
 
-                      final level = subLevel == 0
-                          ? gameLevels
-                              .singleWhere((e) => e.levelId == levelNumber)
-                          : bonusLevels[levelNumber - 1]
-                              .singleWhere((e) => e.miniGameId == subLevel);
+                      final level = gameLevels
+                              .singleWhere((e) => e.levelId == levelNumber);
 
                       return buildMyTransition<void>(
                         child: PlaySessionScreen(
@@ -266,7 +263,7 @@ class MyApp extends StatelessWidget {
     ],
   );
 
-  final CharacterManagerPersistence characterManagerPersistence;
+  final PlayerInventoryPersistence playerInventoryPersistence;
 
   final GameAchievementsPersistence gameAchievementsPersistence;
 
@@ -289,7 +286,7 @@ class MyApp extends StatelessWidget {
     required this.inAppPurchaseController,
     required this.adsController,
     required this.gamesServicesController,
-    super.key, required this.characterManagerPersistence, required this.gameAchievementsPersistence, required this.levelStatisticsPersistence, required this.treasureCounterPersistence, required this.worldUnlockManagerPersistence,
+    super.key, required this.playerInventoryPersistence, required this.gameAchievementsPersistence, required this.levelStatisticsPersistence, required this.treasureCounterPersistence, required this.worldUnlockManagerPersistence,
   });
 
   @override
@@ -299,7 +296,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) {
-              var progress = CharacterManager(characterManagerPersistence);
+              var progress = PlayerInventory(playerInventoryPersistence);
               //progress.getLatestFromStore();
               return progress;
             },

@@ -1,30 +1,29 @@
 
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:flutter/material.dart';
 
-extension ItemBackgroundColorIdentifier on LevelDifficulty {
+import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
+
+extension ItemBackgroundColorIdentifier on WorldType {
   Color getItemBackgroundColor() {
     switch(this) {
-      case LevelDifficulty.soomyLand:
+      case WorldType.soomyLand:
        return Colors.redAccent;
 
-      case LevelDifficulty.hoomyLand:
+      case WorldType.hoomyLand:
        return Colors.black;
 
-      case LevelDifficulty.seaLand:
+      case WorldType.seaLand:
         return Colors.blueAccent;
 
-      case LevelDifficulty.cityLand:
+      case WorldType.cityLand:
         return Colors.yellow.shade100;
 
-      case LevelDifficulty.purpleWorld:
+      case WorldType.purpleWorld:
         return Colors.purple;
 
-      case LevelDifficulty.alien:
+      case WorldType.alien:
         return Colors.green;
-
-      case LevelDifficulty.blueWorld:
-        return Colors.blue;
 
     }
   }
@@ -32,22 +31,20 @@ extension ItemBackgroundColorIdentifier on LevelDifficulty {
   Color getItemTextColor() {
     switch (this) {
 
-      case LevelDifficulty.soomyLand:
+      case WorldType.soomyLand:
         return Colors.white;
 
-      case LevelDifficulty.hoomyLand:
+      case WorldType.hoomyLand:
         return Colors.white;
 
-      case LevelDifficulty.seaLand:
+      case WorldType.seaLand:
         return Colors.black;
 
-      case LevelDifficulty.cityLand:
+      case WorldType.cityLand:
         return Colors.black;
-      case LevelDifficulty.purpleWorld:
+      case WorldType.purpleWorld:
         return Colors.white;
-      case LevelDifficulty.alien:
-        return Colors.white;
-      case LevelDifficulty.blueWorld:
+      case WorldType.alien:
         return Colors.white;
     }
   }

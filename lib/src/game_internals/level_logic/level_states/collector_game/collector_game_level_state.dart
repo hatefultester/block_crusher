@@ -1,19 +1,20 @@
 
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// An extremely silly example of a game state.
-///
-/// Tracks only a single variable, [score], and calls [onWin] when
-/// the value of [score] reaches [getGoal].
+import 'level.dart';
+
 class CollectorGameLevelState extends ChangeNotifier {
   final VoidCallback onWin;
   final VoidCallback onDie;
 
-  final LevelType levelType;
-  final LevelDifficulty levelDifficulty;
+  final GameType levelType;
+  final WorldType levelDifficulty;
+  
+  final GameLevel level;
 
   final int characterId;
 
@@ -24,11 +25,8 @@ class CollectorGameLevelState extends ChangeNotifier {
   late int _lives;
   int get lives => _lives;
 
-  int _score = 0;
-  int get score => _score;
-
-  int _level = 0;
-  int get level => _level;
+  int _currentScore = 0;
+  int get currentScore => _currentScore;
 
   bool _playerDied = false;
   bool _gameWon = false;
@@ -41,15 +39,17 @@ class CollectorGameLevelState extends ChangeNotifier {
   List<int> items = [];
 
   void reset() {
-    _score = 0;
-    _level = 0;
-    _lives = 3;
+    _currentScore = 0;
+    _lives = level.lives;
+
     _playerDied = false;
     _gameWon = false;
   }
 
   CollectorGameLevelState(
-      {required this.onWin,
+      {
+        required this.level,
+        required this.onWin,
       required this.characterId,
       required this.onDie,
       required this.levelType,
@@ -57,19 +57,20 @@ class CollectorGameLevelState extends ChangeNotifier {
         this.isWinningLevel = true,
       this.goal = 100,
       this.maxLives = 10}) {
-    _lives = 3;
 
-    if (levelDifficulty == LevelDifficulty.cityLand) {
+    _lives = level.lives;
+
+    if (levelDifficulty == WorldType.cityLand) {
       _getGoalItems();
       debugPrint(cityFoods[characterId - 1]['debug']);
       return;
     }
 
-    if(levelDifficulty == LevelDifficulty.purpleWorld) {
+    if(levelDifficulty == WorldType.purpleWorld) {
       isWinningLevel = false;
     return;
     }
-    if(levelDifficulty == LevelDifficulty.alien) {
+    if(levelDifficulty == WorldType.alien) {
       isWinningLevel = false;
   return;
     }
@@ -87,20 +88,21 @@ class CollectorGameLevelState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setLevel(int value) {
-    _level = value;
+  void setScore(int value) {
+    _currentScore = value;
     notifyListeners();
   }
 
-  void increaseScore(int value) {
-    _score += value;
-    notifyListeners();
+  bool evaluateScore(int value) {
+    if (value > _currentScore) {
+      _currentScore = value;
+    return true;
+    }
+    return false;
   }
 
-  void setProgress(int value) {
-    _score = value;
-    notifyListeners();
-  }
+
+
 
   void decreaseLife() {
     _lives--;
@@ -114,7 +116,7 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   bool _collected() {
     if ((_playerDied || _gameWon)) return false;
-    if (levelDifficulty != LevelDifficulty.cityLand) return false;
+    if (levelDifficulty != WorldType.cityLand) return false;
 
     bool collected = true;
 
@@ -129,10 +131,8 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   void evaluate() {
-    if(!isWinningLevel) return;
-
-    if (levelType == LevelType.collector) {
-      if (_level >= goal && !_playerDied && !_gameWon) {
+    if (levelType == GameType.collector) {
+      if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
         onWin();
         _gameWon = true;
       }
@@ -141,7 +141,7 @@ class CollectorGameLevelState extends ChangeNotifier {
         _playerDied = true;
       }
     }
-    if (_collected()) {
+    if (_collected() && isWinningLevel) {
       onWin();
       _gameWon = true;
     }

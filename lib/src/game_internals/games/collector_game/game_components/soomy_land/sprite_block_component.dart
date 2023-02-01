@@ -1,12 +1,13 @@
 import 'dart:math';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
+import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
 
 
@@ -19,7 +20,7 @@ class SpriteBlockComponent extends SpriteComponent
 
   double extraspeed = 0;
 
-  final LevelDifficulty difficulty;
+  final WorldType difficulty;
 
   int characterId = 0;
 

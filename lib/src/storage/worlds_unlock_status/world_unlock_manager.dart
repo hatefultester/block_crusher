@@ -1,9 +1,11 @@
 
 import 'dart:async';
 
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/persistence/world_unlock_manager_persistence.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 
 class WorldUnlockManager extends ChangeNotifier {
   final WorldUnlockManagerPersistence _store;
@@ -132,56 +134,53 @@ class WorldUnlockManager extends ChangeNotifier {
     await _store.savePurpleLandLocked(_purpleLandOpen);
   }
 
-  unlockWorld(LevelDifficulty levelDifficulty) {
+  unlockWorld(WorldType levelDifficulty) {
     switch(levelDifficulty) {
 
-      case LevelDifficulty.soomyLand:
-      case LevelDifficulty.blueWorld:
+      case WorldType.soomyLand:
         return;
-      case LevelDifficulty.hoomyLand:
+      case WorldType.hoomyLand:
         _hoomyLandOpen = true;
         notifyListeners();
         unawaited(_store.saveHoomyLandLocked(_hoomyLandOpen));
         break;
-      case LevelDifficulty.seaLand:
+      case WorldType.seaLand:
         _seaLandOpen = true;
         notifyListeners();
         unawaited(_store.saveSeaLandLocked(_seaLandOpen));
         break;
-      case LevelDifficulty.cityLand:
+      case WorldType.cityLand:
         _cityLandOpen = true;
         notifyListeners();
         unawaited(_store.saveCityLandLocked(_cityLandOpen));
         break;
-      case LevelDifficulty.purpleWorld:
+      case WorldType.purpleWorld:
       _purpleLandOpen = true;
       notifyListeners();
-      unawaited(_store.saveHoomyLandLocked(_hoomyLandOpen));
+      unawaited(_store.savePurpleLandLocked(_hoomyLandOpen));
       break;
-      case LevelDifficulty.alien:
+      case WorldType.alien:
       _alienLandOpen = true;
       notifyListeners();
-      unawaited(_store.saveHoomyLandLocked(_hoomyLandOpen));
+      unawaited(_store.saveAlienLandLocked(_hoomyLandOpen));
       break;
     }
   }
 
-  isWorldUnlocked(LevelDifficulty levelDifficulty) {
+  isWorldUnlocked(WorldType levelDifficulty) {
     switch(levelDifficulty) {
-      case LevelDifficulty.soomyLand:
+      case WorldType.soomyLand:
         return true;
-      case LevelDifficulty.hoomyLand:
+      case WorldType.hoomyLand:
         return hoomyLandOpen;
-      case LevelDifficulty.seaLand:
+      case WorldType.seaLand:
         return seaLandOpen;
-      case LevelDifficulty.cityLand:
+      case WorldType.cityLand:
         return cityLandOpen;
-      case LevelDifficulty.purpleWorld:
+      case WorldType.purpleWorld:
         return purpleLandOpen;
-      case LevelDifficulty.alien:
+      case WorldType.alien:
         return alienLandOpen;
-      case LevelDifficulty.blueWorld:
-        return true;
     }
   }
 

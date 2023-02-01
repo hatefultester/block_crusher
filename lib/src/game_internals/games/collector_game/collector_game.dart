@@ -9,11 +9,13 @@ import 'package:block_crusher/src/game_internals/games/collector_game/game_compo
 import 'package:block_crusher/src/game_internals/games/collector_game/game_components/shark_land/shark_enemy_component.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/game_components/soomy_land/sprite_block_component.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
+import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
 import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -22,6 +24,8 @@ import 'package:provider/provider.dart';
 
 import 'dart:async' as dart_async;
 
+import '../../../storage/game_achievements/achievements.dart';
+import '../../level_logic/level_states/collector_game/world_type.dart';
 import 'game_components/purple_land/purple_component.dart';
 import 'util/collector_game_helper.dart';
 
@@ -29,7 +33,7 @@ import 'util/collector_game_helper.dart';
 class BlockCrusherGame extends FlameGame
     with HasCollisionDetection, HasDraggables, HasTappables {
 
-  final LevelDifficulty difficulty;
+  final WorldType difficulty;
   GameMode gameMode = GameMode.classic;
   late PurpleMode purpleMode;
 
@@ -41,6 +45,7 @@ class BlockCrusherGame extends FlameGame
   late int _tickCounter;
   late int _tickSpeed;
   late int _generatedCounter;
+  late int _connectCoinCount;
 
   late double _blockFallSpeed;
   double get blockFallSpeed => _blockFallSpeed;
@@ -75,18 +80,25 @@ class BlockCrusherGame extends FlameGame
     switch(gameMode) {
 
       case GameMode.classic:
+
         hasDifferentStartingBlock = false;
         hasSpecialEvents = false;
         generateCharacterFromLastLevel = true;
+
         _blockFallSpeed = RemoteConfigService.to.getDefaultBlockFallbackSpeed();
         _tickSpeed = RemoteConfigService.to.getDefaultTickSpeed();
+        _connectCoinCount = RemoteConfigService.to.getSoomyLandConnectCoinCount();
+
         break;
       case GameMode.hoomy:
+
         hasDifferentStartingBlock = false;
         hasSpecialEvents = true;
         generateCharacterFromLastLevel = false;
         _blockFallSpeed = RemoteConfigService.to.getHoomyBlockFallbackSpeed();
         _tickSpeed = RemoteConfigService.to.getHoomyTickSpeed();
+        _connectCoinCount = RemoteConfigService.to.getHoomyLandConnectCoinCount();
+
         break;
       case GameMode.sharks:
         hasDifferentStartingBlock = false;
@@ -94,6 +106,8 @@ class BlockCrusherGame extends FlameGame
         generateCharacterFromLastLevel = false;
         _blockFallSpeed = RemoteConfigService.to.getSharkBlockFallbackSpeed();
         _tickSpeed = RemoteConfigService.to.getSharkTickSpeed();
+        _connectCoinCount = RemoteConfigService.to.getSharkLandConnectCoinCount();
+
         break;
       case GameMode.cityFood:
         hasDifferentStartingBlock = true;
@@ -101,6 +115,8 @@ class BlockCrusherGame extends FlameGame
         generateCharacterFromLastLevel = false;
         _blockFallSpeed = RemoteConfigService.to.getCityBlockFallbackSpeed();
         _tickSpeed = RemoteConfigService.to.getCityTickSpeed();
+        _connectCoinCount = RemoteConfigService.to.getCityLandConnectCoinCount();
+
         break;
       case GameMode.purpleWorld:
         hasDifferentStartingBlock = true;
@@ -108,6 +124,8 @@ class BlockCrusherGame extends FlameGame
         generateCharacterFromLastLevel = false;
         _blockFallSpeed = RemoteConfigService.to.getPurpleBlockFallbackSpeed();
         _tickSpeed = RemoteConfigService.to.getPurpleTickSpeed();
+        _connectCoinCount = RemoteConfigService.to.getPurpleLandConnectCoinCount();
+
         if (state.characterId == 1) {
           purpleMode = PurpleMode.trippie;
         } else {
@@ -120,6 +138,8 @@ class BlockCrusherGame extends FlameGame
         generateCharacterFromLastLevel = false;
         _blockFallSpeed = RemoteConfigService.to.getAlienBlockFallbackSpeed();
         _tickSpeed = RemoteConfigService.to.getAlienTickSpeed();
+        _connectCoinCount = RemoteConfigService.to.getAlienLandConnectCoinCount();
+
         break;
     }
 
@@ -134,29 +154,26 @@ class BlockCrusherGame extends FlameGame
     String mapPath;
 
     switch (difficulty) {
-      case LevelDifficulty.soomyLand:
+      case WorldType.soomyLand:
         mapPath = gameMaps['brick']!;
         break;
-      case LevelDifficulty.hoomyLand:
+      case WorldType.hoomyLand:
         gameMode = GameMode.hoomy;
         mapPath = gameMaps['hoomy']!;
         break;
-      case LevelDifficulty.seaLand:
+      case WorldType.seaLand:
         gameMode = GameMode.sharks;
         mapPath = gameMaps['water']!;
         break;
-      case LevelDifficulty.cityLand:
+      case WorldType.cityLand:
         gameMode = GameMode.cityFood;
         mapPath = gameMaps['city']!;
         break;
-      case LevelDifficulty.blueWorld:
-        mapPath = gameMaps['blue']!;
-        break;
-      case LevelDifficulty.purpleWorld:
+      case WorldType.purpleWorld:
         gameMode = GameMode.purpleWorld;
         mapPath = gameMaps['purple']!;
         break;
-      case LevelDifficulty.alien:
+      case WorldType.alien:
         gameMode = GameMode.alien;
         mapPath = gameMaps['mimon']!;
         break;
@@ -226,7 +243,7 @@ class BlockCrusherGame extends FlameGame
   }
 
   addDefaultBlock() async {
-    if (difficulty == LevelDifficulty.soomyLand) {
+    if (difficulty == WorldType.soomyLand) {
       if (state.goal - 1 > 0) {
         await add(SpriteBlockComponent.withLevelSet(
             state.characterId - 1, difficulty));
@@ -237,16 +254,34 @@ class BlockCrusherGame extends FlameGame
   void collisionDetected(int level) {
     final audioController = context.read<AudioController>();
     audioController.playSfx(SfxType.wssh);
+    final achievement = context.read<GameAchievements>();
 
-    state.setProgress(state.score + 1);
-
-    if (level > state.level && gameMode != GameMode.cityFood) {
-      _increaseGameSpeed();
-      state.setLevel(level);
-      state.increaseCoinCount(10);
-    } else {
-      state.increaseCoinCount(5);
+    if (!achievement.isAchievementOpen(GameAchievement.connectTwoPlayers)) {
+      achievement.openNewAchievement(GameAchievement.connectTwoPlayers);
     }
+
+    if (gameMode == GameMode.purpleWorld) {
+      if (purpleMode == PurpleMode.counter) {
+        if(level == 4) {
+          state.increaseCoinCount(_connectCoinCount * 5);
+        } else {
+          state.increaseCoinCount(_connectCoinCount);
+        }
+        state.evaluate();
+        return;
+      }
+    }
+
+    print('notRETURNED');
+    int extraBonus = 0;
+
+    /// if you get new level you will get double points
+    if (state.evaluateScore(level)) {
+      extraBonus = _connectCoinCount * level;
+    }
+
+    /// based on level you reached you get specific score
+    state.increaseCoinCount(level * _connectCoinCount + extraBonus);
 
     state.evaluate();
   }
@@ -254,7 +289,9 @@ class BlockCrusherGame extends FlameGame
   collectedToTray(int level) {
     final audioController = context.read<AudioController>();
     audioController.playSfx(SfxType.kosik);
+
     state.collect(level);
+    state.increaseCoinCount(level * _connectCoinCount);
     state.evaluate();
   }
 
@@ -274,7 +311,9 @@ class BlockCrusherGame extends FlameGame
       _tickCounter++;
 
       if (_tickCounter != _tickSpeed) return;
+
       _tickCounter = 0;
+
       _generatedCounter++;
 
       if(hasDifferentStartingBlock) {
@@ -298,6 +337,7 @@ class BlockCrusherGame extends FlameGame
       } else {
         await add(SpriteBlockComponent(difficulty));
       }
+
 
       /// special events
       if(!hasSpecialEvents) return;

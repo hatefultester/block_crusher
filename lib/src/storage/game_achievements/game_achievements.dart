@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:block_crusher/src/storage/game_achievements/achievements.dart';
 import 'package:block_crusher/src/storage/game_achievements/persistence/game_achievements_persistence.dart';
+import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
 import 'package:flutter/foundation.dart';
 
 class GameAchievements extends ChangeNotifier {
@@ -11,6 +14,11 @@ class GameAchievements extends ChangeNotifier {
 
   GameAchievements(GameAchievementsPersistence store) : _store = store;
 
+  void openNewAchievement(GameAchievement achievement) {
+    _achievements[achievement] = true;
+    achievementSnackBar(GameAchievement.connectTwoPlayers);
+    unawaited(getLatestFromStore());
+  }
 
   bool isAchievementOpen(GameAchievement achievement) {
     return _achievements[achievement] ?? false;
@@ -37,7 +45,7 @@ class GameAchievements extends ChangeNotifier {
 
   void reset() async {
     for (int i = 0; i < GameAchievement.values.length; i++) {
-    _achievements[GameAchievement.values[i]] = true;
+    _achievements[GameAchievement.values[i]] = false;
     await _store.resetAchievement(GameAchievement.values[i]);
     }
     notifyListeners();

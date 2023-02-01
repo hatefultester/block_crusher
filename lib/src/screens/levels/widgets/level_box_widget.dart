@@ -1,5 +1,5 @@
 
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
@@ -57,7 +57,7 @@ class LevelBoxWidget extends StatelessWidget {
       width: enabled && !won ? levelBoxSize : levelBoxSize - 20,
       height: enabled && !won ? levelBoxSize : levelBoxSize - 20,
       child: Image.asset(
-          'assets/images/${imageSource[level.levelDifficulty.index][level.characterId]['source']}'),
+          'assets/images/${imageSource[level.worldType.index][level.characterId]['source']}'),
     );
 
     if (enabled) {

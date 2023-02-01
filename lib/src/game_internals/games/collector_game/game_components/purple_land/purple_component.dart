@@ -1,12 +1,13 @@
 import 'dart:math';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
+import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
 
 
@@ -15,7 +16,7 @@ class PurpleWorldComponent extends SpriteComponent
   Vector2? dragDeltaPosition;
   bool get isDragging => dragDeltaPosition != null;
 
-  final LevelDifficulty difficulty = LevelDifficulty.purpleWorld;
+  final WorldType difficulty = WorldType.purpleWorld;
 
   final double _scale = 7.0;
 

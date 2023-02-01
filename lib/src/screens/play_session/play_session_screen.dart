@@ -1,12 +1,8 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/collector_game.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
-import 'package:block_crusher/src/game_internals/level_logic/levels.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/level.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
 import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
@@ -23,13 +19,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 import '../../style/confetti.dart';
 import '../../style/palette.dart';
 
 
-const _celebrationDuration = Duration(milliseconds: 2000);
+const _celebrationDuration = Duration(milliseconds: 2500);
 
-const _preCelebrationDuration = Duration(milliseconds: 500);
+const _preCelebrationDuration = Duration(milliseconds: 750);
 
 class PlaySessionScreen extends StatefulWidget {
   final GameLevel level;
@@ -68,10 +65,10 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
         providers: [
           ChangeNotifierProvider(
             create: (context) => CollectorGameLevelState(
-              levelType: widget.level.levelType,
-              levelDifficulty: widget.level.levelDifficulty,
+              level: widget.level,
+              levelType: widget.level.gameType,
+              levelDifficulty: widget.level.worldType,
               goal: widget.level.characterId,
-              maxLives: 3,//widget.level.lives,
               characterId: widget.level.characterId,
               onDie: _playerDie,
               onWin: _playerWon,
@@ -109,18 +106,18 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   _topAppLayer() {
     /// for coin picker => 'assets/images/${imageSource[widget.level.levelDifficulty.index][levelState.level]['source']}'
-    String imagePath = 'assets/images/${imageSource[widget.level.levelDifficulty.index][widget.level.characterId]['source']}';
+    String imagePath = 'assets/images/${imageSource[widget.level.worldType.index][widget.level.characterId]['source']}';
     String title = 'Level ${widget.level.levelId}';
 
     return DefaultTopWidget(title: title , imagePath: imagePath,);
   }
 
   _bottomAppLayer() {
-    if (widget.level.levelDifficulty == LevelDifficulty.cityLand) {
+    if (widget.level.worldType == WorldType.cityLand) {
       return const CityLevelBottomWidget();
     }
 
-    if (widget.level.levelDifficulty == LevelDifficulty.purpleWorld) {
+    if (widget.level.worldType == WorldType.purpleWorld) {
       if(widget.level.characterId == 1) {
 
       }
@@ -171,11 +168,11 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   @override
   void initState() {
     super.initState();
-    _blockCrusherGame = BlockCrusherGame(widget.level.levelDifficulty);
+    _blockCrusherGame = BlockCrusherGame(widget.level.worldType);
 
     _startOfPlay = DateTime.now();
-    _itemBackgroundColor = widget.level.levelDifficulty.getItemBackgroundColor();
-    _itemTextColor = widget.level.levelDifficulty.getItemTextColor();
+    _itemBackgroundColor = widget.level.worldType.getItemBackgroundColor();
+    _itemTextColor = widget.level.worldType.getItemTextColor();
   }
 
   Future<void> _playerDie() async {
@@ -187,7 +184,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     final audioController = context.read<AudioController>();
     final treasureCounter = context.read<TreasureCounter>();
     treasureCounter
-      .incrementCoinCount(widget.level.coinCount);
+      .incrementCoinCount(widget.level.coinCountOnWin);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);
@@ -220,7 +217,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
     levelStatistics.setLevelReached(widget.level.levelId);
 
     final treasureCounter = context.read<TreasureCounter>();
-    treasureCounter.incrementCoinCount(widget.level.coinCount);
+    treasureCounter.incrementCoinCount(widget.level.coinCountOnWin);
 
     // Let the player see the game just after winning for a bit.
     await Future<void>.delayed(_preCelebrationDuration);
