@@ -2,7 +2,7 @@
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/screens/main_menu/background.dart';
 import 'package:block_crusher/src/screens/main_menu/button.dart';
-import 'package:block_crusher/src/style/snack_bar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +96,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
                 builder: (context, muted, child) {
                   return IconButton(
                     onPressed: () => {settingsController.toggleMuted(),
-                    if (!muted) showSnackBar('Sounds muted') else showSnackBar('Sounds activated')
+                 //   if (!muted) achievementSnackBar('Sounds muted') else achievementSnackBar('Sounds activated')
                     },
                     icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
                     iconSize: 30,

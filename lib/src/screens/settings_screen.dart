@@ -1,10 +1,11 @@
 
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
+import 'package:block_crusher/src/storage/game_achievements/achievements.dart';
 import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
-import 'package:block_crusher/src/style/snack_bar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -94,7 +95,7 @@ class SettingsScreen extends StatelessWidget {
                 context.read<GameAchievements>().reset();
                 context.read<WorldUnlockManager>().reset();
 
-                showSnackBar('Reset successful !');
+                achievementSnackBar(GameAchievement.firstPurchase);
               },
             ),_SettingsLine(
               'CHEAT',
@@ -105,7 +106,7 @@ class SettingsScreen extends StatelessWidget {
                 context.read<WorldUnlockManager>().cheat();
                 context.read<GameAchievements>().cheat();
 
-                showSnackBar('YOU CHEATED!');
+                achievementSnackBar(GameAchievement.connectTwoPlayers);
               },
             ),
             _gap,

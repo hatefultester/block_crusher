@@ -57,7 +57,7 @@ import 'src/settings/settings.dart';
 import 'src/screens/settings_screen.dart';
 import 'src/style/my_transition.dart';
 import 'src/style/palette.dart';
-import 'src/style/snack_bar.dart';
+import 'src/style/custom_snackbars/snack_bar.dart';
 import 'src/screens/winning_screen/win_game_screen.dart';
 
 Future<void> main() async {

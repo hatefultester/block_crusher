@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:block_crusher/src/style/snack_bar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:logging/logging.dart';
@@ -146,7 +146,7 @@ class InAppPurchaseController extends ChangeNotifier {
           if (valid) {
             _adRemoval = const AdRemovalPurchase.active();
             if (purchaseDetails.status == PurchaseStatus.purchased) {
-              showSnackBar('Thank you for your support!');
+           //   achievementSnackBar('Thank you for your support!');
             }
             notifyListeners();
           } else {
@@ -176,7 +176,7 @@ class InAppPurchaseController extends ChangeNotifier {
 
   void _reportError(String message) {
     _log.severe(message);
-    showSnackBar(message);
+    //achievementSnackBar(message);
     _adRemoval = AdRemovalPurchase.error(message);
     notifyListeners();
   }
