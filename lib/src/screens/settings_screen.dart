@@ -4,6 +4,7 @@ import 'package:block_crusher/src/storage/game_achievements/game_achievements.da
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
+import 'package:block_crusher/src/style/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -93,10 +94,7 @@ class SettingsScreen extends StatelessWidget {
                 context.read<GameAchievements>().reset();
                 context.read<WorldUnlockManager>().reset();
 
-                final messenger = ScaffoldMessenger.of(context);
-                messenger.showSnackBar(
-                    const SnackBar(
-                        content: Text('Reset succesful !'),),);
+                showSnackBar('Reset successful !');
               },
             ),_SettingsLine(
               'CHEAT',
@@ -107,11 +105,7 @@ class SettingsScreen extends StatelessWidget {
                 context.read<WorldUnlockManager>().cheat();
                 context.read<GameAchievements>().cheat();
 
-                final messenger = ScaffoldMessenger.of(context);
-                messenger.showSnackBar(
-                  const SnackBar(
-                      content: Text('YOU CHEATED!')),
-                );
+                showSnackBar('YOU CHEATED!');
               },
             ),
             _gap,
