@@ -54,7 +54,7 @@ import 'src/screens/play_session/play_session_screen.dart';
 import 'src/settings/persistence/local_storage_settings_persistence.dart';
 import 'src/settings/persistence/settings_persistence.dart';
 import 'src/settings/settings.dart';
-import 'src/screens/settings_screen.dart';
+import 'src/screens/settings_screen/settings_screen.dart';
 import 'src/style/my_transition.dart';
 import 'src/style/palette.dart';
 import 'src/style/custom_snackbars/snack_bar.dart';

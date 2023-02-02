@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/game_components/soomy_land/sprite_block_component.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/games/collector_game/util/collision_detector.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';

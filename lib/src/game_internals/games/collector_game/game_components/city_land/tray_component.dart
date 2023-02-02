@@ -1,5 +1,6 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/game_components/soomy_land/sprite_block_component.dart';
+import 'package:block_crusher/src/game_internals/games/collector_game/util/collision_detector.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 

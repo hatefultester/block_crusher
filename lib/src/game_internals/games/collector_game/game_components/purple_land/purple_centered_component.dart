@@ -1,6 +1,7 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/game_components/purple_land/purple_component.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game_internals/games/collector_game/util/collision_detector.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/utils/characters.dart';
 import 'package:flame/collisions.dart';
@@ -65,6 +66,8 @@ class PurpleCenteredComponent extends SpriteComponent
           _sprite();
           //gameRef.collectedToTray(other.characterId);
           other.removeFromParent();
+
+          gameRef.purpleComponentDestroyed(other);
 
           _startAnimation();
     }
