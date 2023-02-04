@@ -4,7 +4,7 @@ import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
-import 'package:block_crusher/src/utils/characters.dart';
+import 'package:block_crusher/src/utils/in_game_characters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';

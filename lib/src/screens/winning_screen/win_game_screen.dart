@@ -13,6 +13,7 @@ import 'package:block_crusher/src/screens/winning_screen/background.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
+import 'package:block_crusher/src/utils/player_inventory_database.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -53,7 +54,6 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
       //adsController.takePreloadedAd();
     }
 
-    final winningCharacter = jsonDecode(widget.score.winningCharacter);
 
 
     ParticleOptions coinParticles = const ParticleOptions(
@@ -166,7 +166,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                             child: AnimatedContainer(
                               duration:const Duration(seconds: 2),
                               width: duringAnimation ?  80 : 30,
-                              child: Image.asset('assets/images/${winningCharacter['source']}')
+                              child: Image.asset('assets/images/${charactersForInventory[widget.score.winningCharacter]['source']}')
                             )
                           )
 

@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
-import 'package:block_crusher/src/utils/characters.dart';
+import 'package:block_crusher/src/utils/in_game_characters.dart';
 
 class GameLevel {
   final GameType gameType;
@@ -25,11 +25,7 @@ class GameLevel {
 
   String get winningCharacter {
     final character = imageSource[worldType.index][characterId];
-
-    Map<String, dynamic> characterModelMap = {};
-    characterModelMap['source'] = character['source'];
-
-    return jsonEncode(characterModelMap);
+    return character['winCharacterReferenceName'];
   }
 
   const GameLevel(

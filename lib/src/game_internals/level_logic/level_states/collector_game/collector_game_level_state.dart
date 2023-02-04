@@ -1,7 +1,7 @@
 
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
-import 'package:block_crusher/src/utils/characters.dart';
+import 'package:block_crusher/src/utils/in_game_characters.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 

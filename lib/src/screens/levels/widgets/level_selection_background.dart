@@ -1,7 +1,7 @@
 
 import 'dart:math';
 
-import 'package:block_crusher/src/utils/characters.dart';
+import 'package:block_crusher/src/utils/in_game_characters.dart';
 import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';

@@ -11,7 +11,6 @@ class GameAchievements extends ChangeNotifier {
 
   Map<GameAchievement, bool> _achievements = {};
 
-
   GameAchievements(GameAchievementsPersistence store) : _store = store;
 
   void openNewAchievement(GameAchievement achievement) {

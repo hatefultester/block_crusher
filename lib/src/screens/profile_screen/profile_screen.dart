@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:block_crusher/src/screens/profile_screen/profile_background_color.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
-import 'package:block_crusher/src/utils/game_characters/playable_characters.dart';
+import 'package:block_crusher/src/utils/player_inventory_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,8 +51,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   characterWidget(String character) {
-    final characterObject = jsonDecode(character);
-
-    return Container(width: 50, height: 50, child: Padding(padding: const EdgeInsets.all(5), child: Image.asset('assets/images/${characterObject['source']}'),),);
+    return Column(
+      children: [
+        Container(width: 50, height: 50, child: Padding(padding: const EdgeInsets.all(5), child: Image.asset('assets/images/${charactersForInventory[
+          character]['source']}'),),),
+        Text(charactersForInventory[character]['sila'].toString()),
+      ],
+    );
   }
 }

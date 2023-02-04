@@ -6,30 +6,37 @@ List<dynamic> imageSource = [
   [
     {
       'source': 'characters_skill_game/1_1000x880.png',
+      'winCharacterReferenceNameId' : 'soomy0',
       'size': Vector2(10, 8.8),
     },
     {
       'source': 'characters_skill_game/2_1000x880.png',
+      'winCharacterReferenceName' : 'soomy1',
       'size': Vector2(10, 8.8),
     },
     {
       'source': 'characters/1000x600/soomy-1.png',
+      'winCharacterReferenceName' : 'soomy2',
       'size': Vector2(12, 8.4),
     },
     {
       'source': 'characters/1000x600/soomy-2.png',
+      'winCharacterReferenceName' : 'soomy3',
       'size': Vector2(10 * 1.2, 6 * 1.2),
     },
     {
       'source': 'characters/1000x600/soomy-3.png',
+      'winCharacterReferenceName' : 'soomy4',
       'size': Vector2(12, 8.4),
     },
     {
       'source': 'characters/bots/1000x666/crazy-bot-1000.png',
+      'winCharacterReferenceName' : 'soomy5',
       'size': Vector2(10 * 1.2, 6.66 * 1.2),
     },
     {
       'source': 'characters/bots/1000x666/crazy-bot-3000.png',
+      'winCharacterReferenceName' : 'soomy6',
       'size': Vector2(10 * 1.2, 6.66 * 1.2),
     },
 
@@ -98,30 +105,37 @@ List<dynamic> imageSource = [
     /// sea level charaktery :D
     {
       'source': 'characters/fish/1500x500_poter.png',
+      'winCharacterReferenceName' : 'sea0',
       'size': Vector2(15, 5),
     },
     {
       'source': 'characters/fish/1000x550xfish1.png',
+      'winCharacterReferenceName' : 'sea1',
       'size': Vector2(10 * 1.3, 5.5 * 1.3),
     },
     {
       'source': 'characters/fish/1000x1000/symmetric_rick_fish.png',
+      'winCharacterReferenceName' : 'sea2',
       'size': Vector2(10 * 1.3, 10 * 1.3),
     },
     {
       'source': 'characters/fish/1000x500xfish2.png',
+      'winCharacterReferenceName' : 'sea3',
       'size': Vector2(10 * 1.3, 5 * 1.3),
     },
     {
       'source': 'characters/fish/1000x700_blue_fish.png',
+      'winCharacterReferenceName' : 'sea4',
       'size': Vector2(10 * 1.2, 7 * 1.2),
     },
     {
       'source': 'characters/fish/1000x933_red_fish.png',
+      'winCharacterReferenceName' : 'sea5',
       'size': Vector2(10 * 1.2, 9.33 * 1.2),
     },
     {
       'source': 'characters/fish/1300x928_octopus.png',
+      'winCharacterReferenceName' : 'sea6',
       'size': Vector2(13, 9.28),
     },
   ],
@@ -131,33 +145,40 @@ List<dynamic> imageSource = [
     /// hoomicy :D
     {
       'source': 'characters/hoomy/1000x666/yellow_hoomy.png',
+      'winCharacterReferenceName' : 'hoomy0',
       'size': Vector2(10 * 1.15, 8 * 1.15),
     },
     {
       'source': 'characters/hoomy/1000x666/psychedelic_hoomy.png',
+      'winCharacterReferenceName' : 'hoomy1',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source': 'characters/hoomy/1000x1000/blue_happy_hoomy.png',
+      'winCharacterReferenceName' : 'hoomy2',
       'size': Vector2(11, 11),
     },
     {
       'source': 'characters/hoomy/1000x666/pirate_hoomy.png',
+      'winCharacterReferenceName' : 'hoomy3',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source':
           'characters/hoomy_with_weapon/1000x666/green_hoomy_with_football.png',
+      'winCharacterReferenceName' : 'hoomy4',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source':
           'characters/hoomy_with_weapon/1000x666/pink_hoomy_with_flail.png',
+      'winCharacterReferenceName' : 'hoomy5',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source':
           'characters/hoomy_with_weapon/1000x666/light_green_hoomy_with_knife.png',
+      'winCharacterReferenceName' : 'hoomy6',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
   ],
