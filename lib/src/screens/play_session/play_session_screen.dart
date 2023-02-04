@@ -13,6 +13,7 @@ import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/defa
 import 'package:block_crusher/src/screens/play_session/widgets/top_layer/default_top.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/utils/in_game_characters.dart';
@@ -161,7 +162,10 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
   @override
   void initState() {
     super.initState();
-    blockCrusherGame = BlockCrusherGame(widget.level.worldType);
+    final achievements = context.read<GameAchievements>();
+    final audio = context.read<AudioController>();
+
+    blockCrusherGame = BlockCrusherGame(widget.level.worldType, achievements: achievements, audio: audio);
 
     startOfPlay = DateTime.now();
     itemBackgroundColor = widget.level.worldType.getItemBackgroundColor();

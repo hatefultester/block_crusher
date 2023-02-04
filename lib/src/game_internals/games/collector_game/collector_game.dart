@@ -18,7 +18,6 @@ class BlockCrusherGame extends FlameGame
   final WorldType difficulty;
   GameMode gameMode = GameMode.classic;
   late PurpleMode purpleMode;
-  late BuildContext context;
   late CollectorGameLevelState state;
 
   dart_async.Timer? timer;
@@ -39,10 +38,14 @@ class BlockCrusherGame extends FlameGame
   bool hasSpecialEvents;
   bool hasDifferentStartingBlock;
 
+  final achievements;
+  final audio;
+
   BlockCrusherGame(this.difficulty,
       {this.hasDifferentStartingBlock = false,
       this.generateCharacterFromLastLevel = false,
-      this.hasSpecialEvents = false})
+      this.hasSpecialEvents = false,
+      required this.achievements, required this.audio})
       : super();
 
   BlockCrusherGame setGame(

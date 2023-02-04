@@ -1,15 +1,16 @@
 import 'package:block_crusher/src/game_internals/games/collector_game/collector_game.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
+import 'package:block_crusher/src/settings/audio/audio_controller.dart';
+import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../google_play/remote_config/remote_config.dart';
 
 extension LoadingPart on BlockCrusherGame {
 
   setBlockCrusherGameFromPlaySessionWidget(BuildContext context, CollectorGameLevelState state) {
-
-    this.context = context;
     this.state = state;
 
     foodIndex = state.characterId - 1;

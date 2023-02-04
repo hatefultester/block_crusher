@@ -298,7 +298,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (context) {
               var progress = PlayerInventory(playerInventoryPersistence);
-              //progress.getLatestFromStore();
+              progress.getLatestFromStore();
               return progress;
             },
           ),

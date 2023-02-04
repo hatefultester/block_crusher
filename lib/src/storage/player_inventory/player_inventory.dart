@@ -22,11 +22,13 @@ class PlayerInventory extends ChangeNotifier {
   List<String> get playerCharacters => _playerCharacters;
 
   Future<void> getLatestFromStore() async {
+    print('get latest from store from inventory service');
     final reloadBackgroundColor = await _getLatestBackgroundColor();
     final reloadPlayerCharacters = await _getLatestPlayerCharacters();
     final reloadAvailableCharacters = await _getLatestAvailableCharacters();
 
     if (reloadBackgroundColor || reloadAvailableCharacters || reloadPlayerCharacters) {
+      print('notifing listeners');
       notifyListeners();
     }
   }
@@ -43,7 +45,7 @@ class PlayerInventory extends ChangeNotifier {
   }
 
   Future<bool> _getLatestPlayerCharacters() async {
-    final playerCharactersFromStore = await _store.getAvailableCharacters();
+    final playerCharactersFromStore = await _store.getPlayerCharacters();
     if(playerCharactersFromStore != _playerCharacters) {
       _playerCharacters = playerCharactersFromStore;
       return true;
@@ -52,7 +54,7 @@ class PlayerInventory extends ChangeNotifier {
   }
 
   Future<bool> _getLatestAvailableCharacters() async {
-    final availableCharactersFromStore = await _store.getPlayerCharacters();
+    final availableCharactersFromStore = await _store.getAvailableCharacters();
 
     if(availableCharactersFromStore != _availableCharacters) {
       _availableCharacters = availableCharactersFromStore;
@@ -87,6 +89,6 @@ class PlayerInventory extends ChangeNotifier {
   void addNewAvailableCharacter(String character) {
     _availableCharacters.add(character);
     notifyListeners();
-    unawaited(_store.savePlayerCharacters(_availableCharacters));
+    unawaited(_store.saveAvailableCharacters(_availableCharacters));
   }
 }

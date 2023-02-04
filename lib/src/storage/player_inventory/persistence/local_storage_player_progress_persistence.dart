@@ -22,24 +22,24 @@ class LocalStoragePlayerInventoryPersistence extends PlayerInventoryPersistence 
   @override
   Future<List<String>> getAvailableCharacters() async {
     final prefs = await instanceFuture;
-    return prefs.getStringList('availableCharacters') ?? [];
+    return prefs.getStringList('available_characters') ?? [];
   }
 
   @override
   Future<List<String>> getPlayerCharacters() async {
     final prefs = await instanceFuture;
-    return prefs.getStringList('playerCharacters') ?? [];
+    return prefs.getStringList('player_characters') ?? [];
   }
 
   @override
   Future<void> saveAvailableCharacters(List<String> values) async {
     final prefs = await instanceFuture;
-    await prefs.setStringList('availableCharacters', values);
+    await prefs.setStringList('available_characters', values);
   }
 
   @override
   Future<void> savePlayerCharacters(List<String> values) async {
     final prefs = await instanceFuture;
-    await prefs.setStringList('playerCharacters', values);
+    await prefs.setStringList('player_characters', values);
   }
 }

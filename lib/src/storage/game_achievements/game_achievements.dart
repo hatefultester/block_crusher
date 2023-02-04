@@ -7,16 +7,16 @@ import 'package:flutter/foundation.dart';
 
 class GameAchievements extends ChangeNotifier {
   final GameAchievementsPersistence _store;
-
-
   Map<GameAchievement, bool> _achievements = {};
 
   GameAchievements(GameAchievementsPersistence store) : _store = store;
 
+  Map<GameAchievement, bool> get achievements => _achievements;
+
   void openNewAchievement(GameAchievement achievement) {
     _achievements[achievement] = true;
-    achievementSnackBar(GameAchievement.connectTwoPlayers);
-    unawaited(getLatestFromStore());
+    achievementSnackBar(achievement);
+    unawaited(_store.unlockAchievement(achievement));
   }
 
   bool isAchievementOpen(GameAchievement achievement) {
@@ -24,23 +24,12 @@ class GameAchievements extends ChangeNotifier {
   }
 
   Future<void> getLatestFromStore() async {
-    await _getLatestAchievementsStatus();
-  }
-
-  Future<void> _getLatestAchievementsStatus() async {
-    for (int i = 0; i < GameAchievement.values.length; i++) {
-      final bool achievementMemory = await _store.isAchievementUnlocked(GameAchievement.values[i]);
-
-      if(isAchievementOpen(GameAchievement.values[i]) && !achievementMemory) {
-        await _store.unlockAchievement(GameAchievement.values[i]);
-      }
-
-      if(achievementMemory && !isAchievementOpen(GameAchievement.values[i])) {
-        _achievements[GameAchievement.values[i]] = achievementMemory;
-        notifyListeners();
-      }
+    for (var element in GameAchievement.values) {
+      _achievements[element] = await _store.isAchievementUnlocked(element);
     }
   }
+
+
 
   void reset() async {
     for (int i = 0; i < GameAchievement.values.length; i++) {
