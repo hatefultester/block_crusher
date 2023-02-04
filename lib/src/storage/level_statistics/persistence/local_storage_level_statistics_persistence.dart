@@ -18,4 +18,16 @@ class LocalStorageLevelStatisticsPersistence extends LevelStatisticsPersistence 
     await prefs.setInt('highestLevelReached', level);
   }
 
+  @override
+  Future<int> getTotalPlayedTimeInSeconds() async {
+    final prefs = await instanceFuture;
+    return prefs.getInt('totalPlayedTimeInSeconds') ?? 0;
+  }
+
+  @override
+  Future<void> saveTotalPlayedTimeInSeconds(int totalPlayedTimeInSeconds) async {
+    final prefs = await instanceFuture;
+    await prefs.setInt('totalPlayedTimeInSeconds', totalPlayedTimeInSeconds);
+  }
+
 }

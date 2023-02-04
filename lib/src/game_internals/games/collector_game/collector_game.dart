@@ -95,4 +95,7 @@ class BlockCrusherGame extends FlameGame
     timer?.cancel();
     debugPrint('game was stopped');
   }
+
+  coinCountFromState() => state.coinCount;
+
 }

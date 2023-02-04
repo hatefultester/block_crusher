@@ -17,6 +17,7 @@ import 'package:block_crusher/src/google_play/games_services/games_services.dart
 import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/screens/play_session/scenarios/game_play_statistics.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
@@ -227,7 +228,7 @@ class MyApp extends StatelessWidget {
                     path: 'won',
                     pageBuilder: (context, state) {
                       final map = state.extra! as Map<String, dynamic>;
-                      final score = map['score'] as Score;
+                      final score = map['score'] as GamePlayStatistics;
 
                       return buildMyTransition<void>(
                         child: WinGameScreen(
@@ -242,7 +243,7 @@ class MyApp extends StatelessWidget {
                     path: 'lost',
                     pageBuilder: (context, state) {
                       final map = state.extra! as Map<String, dynamic>;
-                      final score = map['score'] as Score;
+                      final score = map['score'] as GamePlayStatistics;
 
                       return buildMyTransition<void>(
                         child: LostGameScreen(

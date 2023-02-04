@@ -16,9 +16,10 @@ import 'package:provider/provider.dart';
 
 import '../../google_play/games_services/score.dart';
 import '../../style/responsive_screen.dart';
+import '../play_session/scenarios/game_play_statistics.dart';
 
 class WinGameScreen extends StatefulWidget {
-  final Score score;
+  final GamePlayStatistics score;
 
   const WinGameScreen({
     super.key,

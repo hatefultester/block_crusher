@@ -1,15 +1,9 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/screens/main_menu/background.dart';
-import 'package:block_crusher/src/screens/main_menu/button.dart';
-import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
+import 'package:block_crusher/src/screens/main_menu/moving_button.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../settings/settings.dart';
-import '../../style/palette.dart';
-import '../../style/responsive_screen.dart';
 
 
 class MainMenuScreen extends StatefulWidget {
@@ -21,16 +15,16 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen>
     with SingleTickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<Palette>();
-    final settingsController = context.watch<SettingsController>();
 
     mainArea() {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -49,7 +43,9 @@ class _MainMenuScreenState extends State<MainMenuScreen>
                 ),
                 textWidthBasis: TextWidthBasis.longestLine,
               ),
-            ),Container(
+            ),
+
+            Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
@@ -68,6 +64,7 @@ class _MainMenuScreenState extends State<MainMenuScreen>
                 textWidthBasis: TextWidthBasis.longestLine,
               ),
             ),
+
           ],
         ),
       );
@@ -76,19 +73,35 @@ class _MainMenuScreenState extends State<MainMenuScreen>
 
     menuArea() {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          MovingButton(title: 'p l a y', route : '/play', millisecondSpeed: 7, x: Direction.right),
+          MovingButton(title: 's e t t i n g s', route : '/settings', millisecondSpeed: 13,),
+        ],
+      );
+    }
+
+    return Scaffold(
+      body: Stack(
         children: [
+          GameWidget(game: MainBackgroundGame()),
+          //gradientWidget(),
+          Column(children: [
+            Expanded(flex: 2, child: mainArea(),),
+            Expanded(flex: 1, child: menuArea(),),
+            const SizedBox(height: 50,),
+          ],),
+        ],
+      ),
+    );
+  }
+}
 
+/*
 
-          const MovingButton(title: 'p l a y', route : '/play', millisecondSpeed: 7, x: Direction.right),
+Deprecated mute sound button
 
-          const SizedBox(
-            height: 20,
-          ),
-
-          const MovingButton(title: 's e t t i n g s', route : '/settings', millisecondSpeed: 13,),
-
-          Center(
+Center(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: ValueListenableBuilder<bool>(
@@ -107,44 +120,5 @@ class _MainMenuScreenState extends State<MainMenuScreen>
             ),
           ),
 
-        ],
-      );
-    }
-
-    // ignore: unused_element
-    gradientWidget() {
-      return Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Colors.red,
-            Colors.red.shade300,
-            Colors.yellow,
-            Colors.lime,
-            Colors.orange,
-            Colors.green,
-            Colors.blue,
-            Colors.white
-          ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-        ),
-      );
-    }
-
-    return Scaffold(
-      backgroundColor: palette.backgroundMain,
-      body: Stack(
-        children: [
-          GameWidget(game: MainBackgroundGame()),
-          //gradientWidget(),
-          ResponsiveScreen(
-            mainAreaProminence: 0.35,
-            squarishMainArea: mainArea(),
-            rectangularMenuArea: menuArea(),
-          ),
-        ],
-      ),
-    );
-  }
-}
+ */
 

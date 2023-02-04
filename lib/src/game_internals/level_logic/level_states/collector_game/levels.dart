@@ -18,21 +18,7 @@ const gameLevels = [
   GameLevel(
       levelId: 6, characterId: 6, worldType: WorldType.soomyLand),
 
-  /// HOOMY LAND LEVELS
-  /// RED BACKGROUND
-  ///
-  GameLevel(
-      levelId: 7, characterId: 1, worldType: WorldType.hoomyLand),
-  GameLevel(
-      levelId: 8, characterId: 2, worldType: WorldType.hoomyLand),
-  GameLevel(
-      levelId: 9, characterId: 3, worldType: WorldType.hoomyLand),
-  GameLevel(
-      levelId: 10, characterId: 4, worldType: WorldType.hoomyLand),
-  GameLevel(
-      levelId: 11, characterId: 5, worldType: WorldType.hoomyLand),
-  GameLevel(
-      levelId: 12, characterId: 6, worldType: WorldType.hoomyLand),
+
 
   /// SEA LEVELS
   /// SEA CHARACTERS
@@ -49,6 +35,22 @@ const gameLevels = [
       levelId: 17, characterId: 5, worldType: WorldType.seaLand),
   GameLevel(
       levelId: 18, characterId: 6, worldType: WorldType.seaLand),
+
+  /// HOOMY LAND LEVELS
+  /// RED BACKGROUND
+  ///
+  GameLevel(
+      levelId: 7, characterId: 1, worldType: WorldType.hoomyLand),
+  GameLevel(
+      levelId: 8, characterId: 2, worldType: WorldType.hoomyLand),
+  GameLevel(
+      levelId: 9, characterId: 3, worldType: WorldType.hoomyLand),
+  GameLevel(
+      levelId: 10, characterId: 4, worldType: WorldType.hoomyLand),
+  GameLevel(
+      levelId: 11, characterId: 5, worldType: WorldType.hoomyLand),
+  GameLevel(
+      levelId: 12, characterId: 6, worldType: WorldType.hoomyLand),
 
   /// CITY LEVEL
   /// CITY CHARACTERS

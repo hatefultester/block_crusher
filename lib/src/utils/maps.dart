@@ -13,11 +13,12 @@ const List<String> pageViewMaps = [
   /// soomy
   'backgrounds/brick_background.png',
 
+  /// sea
+  'backgrounds/water_world_background.png',
+
   /// hoomy
   'backgrounds/red_with_hoomy_background.png',
 
-  /// sea
-  'backgrounds/water_world_background.png',
 
   /// city
 

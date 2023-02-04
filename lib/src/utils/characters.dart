@@ -94,6 +94,39 @@ List<dynamic> imageSource = [
   ],
 
   [
+    /// sea Level
+    /// sea level charaktery :D
+    {
+      'source': 'characters/fish/1500x500_poter.png',
+      'size': Vector2(15, 5),
+    },
+    {
+      'source': 'characters/fish/1000x550xfish1.png',
+      'size': Vector2(10 * 1.3, 5.5 * 1.3),
+    },
+    {
+      'source': 'characters/fish/1000x1000/symmetric_rick_fish.png',
+      'size': Vector2(10 * 1.3, 10 * 1.3),
+    },
+    {
+      'source': 'characters/fish/1000x500xfish2.png',
+      'size': Vector2(10 * 1.3, 5 * 1.3),
+    },
+    {
+      'source': 'characters/fish/1000x700_blue_fish.png',
+      'size': Vector2(10 * 1.2, 7 * 1.2),
+    },
+    {
+      'source': 'characters/fish/1000x933_red_fish.png',
+      'size': Vector2(10 * 1.2, 9.33 * 1.2),
+    },
+    {
+      'source': 'characters/fish/1300x928_octopus.png',
+      'size': Vector2(13, 9.28),
+    },
+  ],
+
+  [
     /// hoomy level
     /// hoomicy :D
     {
@@ -128,38 +161,7 @@ List<dynamic> imageSource = [
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
   ],
-  [
-    /// sea Level
-    /// sea level charaktery :D
-    {
-      'source': 'characters/fish/1500x500_poter.png',
-      'size': Vector2(15, 5),
-    },
-    {
-      'source': 'characters/fish/1000x550xfish1.png',
-      'size': Vector2(10 * 1.3, 5.5 * 1.3),
-    },
-    {
-      'source': 'characters/fish/1000x1000/symmetric_rick_fish.png',
-      'size': Vector2(10 * 1.3, 10 * 1.3),
-    },
-    {
-      'source': 'characters/fish/1000x500xfish2.png',
-      'size': Vector2(10 * 1.3, 5 * 1.3),
-    },
-    {
-      'source': 'characters/fish/1000x700_blue_fish.png',
-      'size': Vector2(10 * 1.2, 7 * 1.2),
-    },
-    {
-      'source': 'characters/fish/1000x933_red_fish.png',
-      'size': Vector2(10 * 1.2, 9.33 * 1.2),
-    },
-    {
-      'source': 'characters/fish/1300x928_octopus.png',
-      'size': Vector2(13, 9.28),
-    },
-  ],
+
   [
     /// CITY WORLD LEVEL
     /// city level charaktery :D

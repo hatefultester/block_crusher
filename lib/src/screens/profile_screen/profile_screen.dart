@@ -1,5 +1,6 @@
 
 import 'package:block_crusher/src/screens/profile_screen/profile_background_color.dart';
+import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/utils/game_characters/playable_characters.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +19,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final playerInventory = context.watch<PlayerInventory>();
+    final levelStatistics = context.watch<LevelStatistics>();
 
     return Scaffold(
       backgroundColor: profileBackgroundColors[playerInventory.selectedBackgroundColorIndexForProfile],
       appBar: AppBar(title: const Text('Profile'),),
-      body: Wrap(
+      body: Column(
         children: [
-          for (int i = 0; i < 29; i++)
-          ElevatedButton(onPressed: () {playerInventory.changeSelectedBackgroundColorIndexForProfile(i);}, child: Container(
-              decoration: BoxDecoration(borderRadius:
-              BorderRadius.circular(60),
-              border: Border.all(width:0.1, color: Colors.black),
-              color: profileBackgroundColors[i],), width: 50, height: 50,
-              child: Center(child: Text(i.toString()),),),),
+          Wrap(
+            children: [
+              for (int i = 0; i < 29; i++)
+              ElevatedButton(onPressed: () {playerInventory.changeSelectedBackgroundColorIndexForProfile(i);}, child: Container(
+                  decoration: BoxDecoration(borderRadius:
+                  BorderRadius.circular(60),
+                  border: Border.all(width:0.1, color: Colors.black),
+                  color: profileBackgroundColors[i],), width: 50, height: 50,
+                  child: Center(child: Text(i.toString()),),),),
+            ],
+          ),
+          SizedBox(height: 300,child: Center(child: Text(levelStatistics.totalPlayedTimeInSeconds.toString(), style: const TextStyle(fontSize: 35),),)),
         ],
       ),
     );

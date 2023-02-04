@@ -1,4 +1,5 @@
 
+import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_child_menu.dart';
 import 'package:block_crusher/src/screens/levels/pages/alien_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/city_land_levels.dart';
 import 'package:block_crusher/src/screens/levels/pages/purple_land_levels.dart';
@@ -69,8 +70,8 @@ class LevelSelectionScreen extends StatelessWidget {
         controller: controller,
         children: const [
           SoomyLandLevels(),
-          HoomyLandLevels(),
           SharkLandLevels(),
+          HoomyLandLevels(),
           CityLandLevels(),
            PurpleLandLevels(),
            AlienLandLevels(),
@@ -85,6 +86,7 @@ class LevelSelectionScreen extends StatelessWidget {
         children: [
           gameWidget(),
           levelsPageView(),
+          const TopLayerWidget(),
         ],
       ),
     );

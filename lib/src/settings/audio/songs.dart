@@ -13,7 +13,7 @@ const Set<Song> songs = {
 };
 
 const Set<Song> themeSongs = {
-  Song('theme1.mp3', 'Theme song 1', artist: 'Lexa'),
+  //Song('theme1.mp3', 'Theme song 1', artist: 'Lexa'),
 };
 
 class Song {

@@ -2,6 +2,7 @@ import 'package:block_crusher/src/storage/level_statistics/persistence/level_sta
 
 class MemoryOnlyLevelStatisticsPersistence implements LevelStatisticsPersistence {
   int level = 0;
+  int totalPlayedTimeInSeconds = 0;
 
   @override
   Future<int> getHighestLevelReached() async {
@@ -13,6 +14,18 @@ class MemoryOnlyLevelStatisticsPersistence implements LevelStatisticsPersistence
   Future<void> saveHighestLevelReached(int level) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     this.level = level;
+  }
+
+  @override
+  Future<int> getTotalPlayedTimeInSeconds() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return totalPlayedTimeInSeconds;
+  }
+
+  @override
+  Future<void> saveTotalPlayedTimeInSeconds(int totalPlayedTimeInSeconds) async{
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    this.totalPlayedTimeInSeconds = totalPlayedTimeInSeconds;
   }
 
 }

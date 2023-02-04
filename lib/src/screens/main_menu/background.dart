@@ -1,4 +1,3 @@
-
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
@@ -45,7 +44,7 @@ class MapSpriteComponent extends SpriteComponent
     'backgrounds/sea_background.png',
     'backgrounds/sahara_background.png',
     'backgrounds/dragon_backgroud.png',
-    'backgrounds/palm_background.png',
+    //'backgrounds/palm_background.png',
   ];
 
   MapSpriteComponent(this.initialMap);
@@ -54,19 +53,18 @@ class MapSpriteComponent extends SpriteComponent
   dart_async.Future<void>? onLoad() async {
     await super.onLoad();
 
-// natvrdo
     sprite = await gameRef.loadSprite(myMaps[0]);
     size = Vector2(gameRef.size.x, gameRef.size.y);
   }
 
   changeBackground(int a) async {
-
-
     await Future.delayed(const Duration(milliseconds: 300));
+
     final effect = OpacityEffect.to(
       0,
       EffectController(duration: 2),
     );
+
     final oppacityBack = OpacityEffect.to(
       1,
       EffectController(duration: 1),
@@ -75,9 +73,11 @@ class MapSpriteComponent extends SpriteComponent
     await add(effect);
 
     await Future.delayed(const Duration(seconds: 2));
+
     sprite = await gameRef.loadSprite(myMaps[a]);
+
     await add(oppacityBack);
+
     await Future.delayed(const Duration(seconds: 1));
   }
-
 }

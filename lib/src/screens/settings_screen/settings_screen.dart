@@ -95,7 +95,7 @@ class SettingsScreen extends StatelessWidget {
                   'Reset progress',
                   const Icon(Icons.delete),
                   onSelected: () {
-                    context.read<TreasureCounter>().reset();
+                    //context.read<TreasureCounter>().reset();
                     context.read<LevelStatistics>().reset();
                     context.read<GameAchievements>().reset();
                     context.read<WorldUnlockManager>().reset();
