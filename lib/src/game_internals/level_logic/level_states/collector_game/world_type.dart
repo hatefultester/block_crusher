@@ -2,8 +2,8 @@ import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 
 enum WorldType {
   soomyLand,
-  hoomyLand,
   seaLand,
+  hoomyLand,
   cityLand,
   purpleWorld,
   alien;

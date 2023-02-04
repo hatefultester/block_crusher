@@ -72,43 +72,51 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
 
             behaviour: RandomParticleBehaviour(
                 options: coinParticles),
-            child: ResponsiveScreen(
-              squarishMainArea: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  if (adsControllerAvailable && !adsRemoved) ...[
-                    const Expanded(
-                      child: Center(
-                        child: BannerAdWidget(),
-                      ),
-                    ),
-                  ],
 
-                  gap,
+                  // if (adsControllerAvailable && !adsRemoved) ...[
+                  //   const Expanded(
+                  //     child: Center(
+                  //       child: BannerAdWidget(),
+                  //     ),
+                  //   ),
+                  // ],
+
                   const SizedBox(height: 50),
-                  Container(
-                    width: 300,
-                    decoration: BoxDecoration(
-                      boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.35),
-                        spreadRadius: 8,
-                        blurRadius: 16,
-                        offset: const Offset(4, 8), // changes position of shadow
-                      ), ],
-                    ),
-                    child: Column(children: [const Center(
-                      child: Text(
-                        'Game won',
-                        style: TextStyle(fontFamily: 'Quikhand', fontSize: 50, color: Colors.black),
+                  Center(
+                    child: Container(
+                      width: 300,
+                      decoration: BoxDecoration(
+                        boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.35),
+                          spreadRadius: 8,
+                          blurRadius: 16,
+                          offset: const Offset(4, 8), // changes position of shadow
+                        ), ],
                       ),
-                    ),
-                      gap,
-                      Center(
+                      padding: const EdgeInsets.only(top: 25, bottom: 25,),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [const Center(
                         child: Text(
-                          'Played time: ${widget.score.formattedTime}',
-                          style: const TextStyle(
-                              fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                          'Game won',
+                          style: TextStyle(fontFamily: 'Quikhand', fontSize: 50, color: Colors.black),
                         ),
-                      ),],),
+                      ),
+                        Row(
+                          children: [
+                            Text(
+                              'Played time: ${widget.score.formattedTime}',
+                              style: const TextStyle(
+                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                            ),
+                            SizedBox(width: 60,child: Image.asset('assets/images/in_app/clock.png'),),
+                          ],
+                        ),],),
+                    ),
                   ),
                   Column(
                     children: [
@@ -144,13 +152,13 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                   const SizedBox(height: 50),
                 ],
               ),
-              rectangularMenuArea: const SizedBox.shrink(),
-            ),
           ),
         ],
       ),
     );
   }
 }
+
+
 
 

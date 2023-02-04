@@ -33,17 +33,17 @@ class HoomyLandLevels extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(width: pageHorizontalPadding + 20),
-            const LevelBoxWidget(id: 10),
-            const LineBuilder(direction: Direction.down, id: 11, count: 20),
-            const LevelBoxWidget(id: 11),
-            const LineBuilder(direction: Direction.down, id: 12, count: 20),
+            const LevelBoxWidget(id: 16),
+            const LineBuilder(direction: Direction.down, id: 17, count: 20),
+            const LevelBoxWidget(id: 17),
+            const LineBuilder(direction: Direction.down, id: 18, count: 20),
           ],
         ),
       ),
     ];
 
     List<Widget> hoomyPageMiddleSection = [
-      const LineBuilder(direction: Direction.left, count:20, id:10),
+      const LineBuilder(direction: Direction.left, count:20, id:16),
       SizedBox(
         height: levelStatistics.highestLevelReached == 3 ||
             levelStatistics.highestLevelReached == 2
@@ -55,16 +55,16 @@ class HoomyLandLevels extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(width: pageHorizontalPadding + 15),
-            const LevelBoxWidget(id: 8),
-            const LineBuilder(id: 9, count:30, direction: Direction.up),
-            const LevelBoxWidget(id: 9),
+            const LevelBoxWidget(id: 14),
+            const LineBuilder(id: 15, count:30, direction: Direction.up),
+            const LevelBoxWidget(id: 15),
             SizedBox(
               width: pageHorizontalPadding + 10,
             )
           ],
         ),
       ),
-      const LineBuilder(id: 8, count: 20, direction: Direction.left),
+      const LineBuilder(id: 14, count: 20, direction: Direction.left),
     ];
 
     List<Widget> hoomyPageBottomSection = [
@@ -78,18 +78,18 @@ class HoomyLandLevels extends StatelessWidget {
             height: levelBoxSize,
             direction: Direction.up,
             count:7,
-            id: 6,
+            id: 12,
           ),
-          const LevelBoxWidget(id: 6),
+          const LevelBoxWidget(id:12),
           Expanded(
             child: SizedBox(
-              height: levelStatistics.highestLevelReached == 7
+              height: levelStatistics.highestLevelReached == 13
                   ? levelBoxSize
                   : levelBoxSize - 20,
               child: Row(
                 children: const [
-                  LineBuilder(id: 7, count: 35, direction: Direction.up),
-                  LevelBoxWidget(id: 7),
+                  LineBuilder(id: 13, count: 35, direction: Direction.up),
+                  LevelBoxWidget(id: 13),
                 ],
               ),
             ),

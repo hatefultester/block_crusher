@@ -48,6 +48,7 @@ flutter:
   assets:
      - assets/
      - assets/images/
+     - assets/images/in_app/
      - assets/images/food/
      - assets/images/food/100x215/
      - assets/images/food/100x250/
