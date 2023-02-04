@@ -74,6 +74,8 @@ class CollectorGameLevelState extends ChangeNotifier {
       isWinningLevel = false;
   return;
     }
+
+
   }
 
   _getGoalItems() {
@@ -131,6 +133,7 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   void evaluate() {
+
     if (levelType == GameType.collector) {
       if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
         onWin();

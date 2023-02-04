@@ -8,32 +8,68 @@ import '../../screens/profile_screen/profile_background_color.dart';
 
 class PlayerInventory extends ChangeNotifier {
   final PlayerInventoryPersistence _store;
+
   final int maximumBackgroundColorForProfileIndex = profileBackgroundColors.length - 1;
 
   PlayerInventory(PlayerInventoryPersistence store) : _store = store;
 
-
   int _selectedBackgroundColorIndexForProfile = 0;
   int get selectedBackgroundColorIndexForProfile => _selectedBackgroundColorIndexForProfile;
 
+  List<String> _availableCharacters = [];
+  List<String> get availableCharacters => _availableCharacters;
+  List<String> _playerCharacters=[];
+  List<String> get playerCharacters => _playerCharacters;
 
   Future<void> getLatestFromStore() async {
-    await _getLatestCoinCount();
-  }
+    final reloadBackgroundColor = await _getLatestBackgroundColor();
+    final reloadPlayerCharacters = await _getLatestPlayerCharacters();
+    final reloadAvailableCharacters = await _getLatestAvailableCharacters();
 
-  Future<void> _getLatestCoinCount() async {
-    final selectedBackgroundColorIndexForProfileFromLocalStorage = await _store.getIndexOfSelectedBackgroundColorForProfile();
-    if (selectedBackgroundColorIndexForProfileFromLocalStorage != selectedBackgroundColorIndexForProfile) {
-      _selectedBackgroundColorIndexForProfile = selectedBackgroundColorIndexForProfileFromLocalStorage;
+    if (reloadBackgroundColor || reloadAvailableCharacters || reloadPlayerCharacters) {
       notifyListeners();
     }
   }
 
+  Future<bool> _getLatestBackgroundColor() async {
+    final selectedBackgroundColorIndexForProfileFromLocalStorage = await _store.getIndexOfSelectedBackgroundColorForProfile();
+
+    if (selectedBackgroundColorIndexForProfileFromLocalStorage != selectedBackgroundColorIndexForProfile) {
+      _selectedBackgroundColorIndexForProfile = selectedBackgroundColorIndexForProfileFromLocalStorage;
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> _getLatestPlayerCharacters() async {
+    final playerCharactersFromStore = await _store.getAvailableCharacters();
+    if(playerCharactersFromStore != _playerCharacters) {
+      _playerCharacters = playerCharactersFromStore;
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> _getLatestAvailableCharacters() async {
+    final availableCharactersFromStore = await _store.getPlayerCharacters();
+
+    if(availableCharactersFromStore != _availableCharacters) {
+      _availableCharacters = availableCharactersFromStore;
+      return true;
+    }
+    return false;
+  }
+
   void reset() async {
     _selectedBackgroundColorIndexForProfile = 0;
+    _playerCharacters = [];
+    _availableCharacters = [];
 
     notifyListeners();
     await _store.saveIndexOfSelectedBackgroundColorForProfile(_selectedBackgroundColorIndexForProfile);
+    await _store.savePlayerCharacters(_playerCharacters);
+    await _store.saveAvailableCharacters(_availableCharacters);
   }
 
   void changeSelectedBackgroundColorIndexForProfile(int value) {
@@ -42,4 +78,15 @@ class PlayerInventory extends ChangeNotifier {
     unawaited(_store.saveIndexOfSelectedBackgroundColorForProfile(value));
   }
 
+  void addNewPlayerCharacter(String character) {
+    _playerCharacters.add(character);
+    notifyListeners();
+    unawaited(_store.savePlayerCharacters(_playerCharacters));
+  }
+
+  void addNewAvailableCharacter(String character) {
+    _availableCharacters.add(character);
+    notifyListeners();
+    unawaited(_store.savePlayerCharacters(_availableCharacters));
+  }
 }

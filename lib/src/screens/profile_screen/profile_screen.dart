@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:block_crusher/src/screens/profile_screen/profile_background_color.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
@@ -37,9 +39,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Center(child: Text(i.toString()),),),),
             ],
           ),
+          Wrap(children: [
+            for (int i = 0; i < playerInventory.availableCharacters.length; i++)
+              characterWidget(playerInventory.availableCharacters[i])
+          ],),
+
           SizedBox(height: 300,child: Center(child: Text(levelStatistics.totalPlayedTimeInSeconds.toString(), style: const TextStyle(fontSize: 35),),)),
         ],
       ),
     );
+  }
+
+  characterWidget(String character) {
+    final characterObject = jsonDecode(character);
+
+    return Container(width: 50, height: 50, child: Padding(padding: const EdgeInsets.all(5), child: Image.asset('assets/images/${characterObject['source']}'),),);
   }
 }

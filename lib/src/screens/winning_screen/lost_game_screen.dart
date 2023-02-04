@@ -44,76 +44,126 @@ class LostGameScreen extends StatelessWidget {
       body: Stack(
         children: [
           GameWidget(game: LostBackground()),
-          ResponsiveScreen(
-            squarishMainArea: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                if (adsControllerAvailable && !adsRemoved) ...[
-                  const Expanded(
-                    child: Center(
-                      child: BannerAdWidget(),
-                    ),
-                  ),
-                ],
-                gap,
-                Container(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+
+              // if (adsControllerAvailable && !adsRemoved) ...[
+              //   const Expanded(
+              //     child: Center(
+              //       child: BannerAdWidget(),
+              //     ),
+              //   ),
+              // ],
+
+              const SizedBox(height: 50),
+              Center(
+                child: Container(
                   width: 300,
                   decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.35),
+                    boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.35),
                       spreadRadius: 8,
                       blurRadius: 16,
                       offset: const Offset(4, 8), // changes position of shadow
                     ), ],
                   ),
-                  child: Column(children: [const Center(
-                    child: Text(
-                      'Game lost',
-                      style: TextStyle(fontFamily: 'Quikhand', fontSize: 50, color: Colors.white),
+                  padding: const EdgeInsets.only(top: 25, bottom: 25, left: 20, right: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+                      Center(
+                        child:
+                        Container(
+                          padding: const EdgeInsets.only(bottom:5),
+                          child: Text(
+                            'Game lost !',
+                            style: TextStyle(fontFamily: 'Quikhand', fontSize: 35, color: Colors.black),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height:15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Played time:',
+                            style: TextStyle(
+                                fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
+                          ),
+                          const Spacer(),
+                          Text(
+                            score.formattedTime,
+                            style: const TextStyle(
+                                fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                          ),
+                          const SizedBox(width: 15),
+                          SizedBox(width: 50,child: Image.asset('assets/images/in_app/clock.png'),),
+                        ],
+                      ),
+                      const SizedBox(height:15),
+                      Visibility(
+                        visible: score.coinCount > 0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Earned:',
+                              style: TextStyle(
+                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
+                            ),
+                            const Spacer(),
+                            Text(
+                              score.coinCount.toString(),
+                              style: const TextStyle(
+                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                            ),
+                            const SizedBox(width: 15),
+                            SizedBox(width: 50,child: Image.asset('assets/images/coins/1000x677/money.png'),),
+                          ],
+                        ),
+                      ),
+
+                    ],),
+                ),
+              ),
+              Column(
+                children: [
+                  const SizedBox(height: 25),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: 300,
+                    height: 100,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final audio = context.read<AudioController>();
+                        audio.playSfx(SfxType.buttonTap);
+                        GoRouter.of(context).go('/play/session/${score.level}/0');
+                      },
+                      child: const Text('Try again'),
                     ),
                   ),
-                    gap,
-                    Center(
-                      child: Text(
-                        'Played time: ${score.formattedTime}',
-                        style: const TextStyle(
-                            fontFamily: 'Quikhand', color: Colors.white, fontSize: 30),
-                      ),
-                    ),],),
-                ),
 
-                const SizedBox(height: 50),
-              ],
-            ),
-            rectangularMenuArea: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width: 300,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final audio = context.read<AudioController>();
-                      audio.playSfx(SfxType.buttonTap);
-                      GoRouter.of(context).go('/play');
-                    },
-                    child: const Text('E X I T'),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    width: 300,
+                    height: 100,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        final audio = context.read<AudioController>();
+                        audio.playSfx(SfxType.buttonTap);
+                        GoRouter.of(context).go('/play');
+                      },
+                      child: const Text('Back to levels'),
+                    ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  width: 300,
-                  height: 100,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      final audio = context.read<AudioController>();
-                      audio.playSfx(SfxType.buttonTap);
-                      GoRouter.of(context).go('/play/session/${score.level}/0');
-                    },
-                    child: const Text('P L A Y  A G A I N'),
-                  ),
-                ),
-              ],
-            ),
+
+                ],
+              ),
+            ],
           ),
         ],
       ),

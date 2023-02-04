@@ -9,18 +9,20 @@ import 'package:provider/provider.dart';
 
 extension PlayerDieScenarion on PlaySessionScreenState {
   Future<void> playerDie() async {
+    final audioController = context.read<AudioController>();
+    final treasureCounter = context.read<TreasureCounter>();
+    final levelStatistics = context.read<LevelStatistics>();
+
+    final bool alreadyFinishedLevel = levelStatistics.highestLevelReached >= widget.level.levelId;
     final int coinIncrease =  blockCrusherGame.coinCountFromState();
 
     final GamePlayStatistics gamePlayStatistics = GamePlayStatistics(
         duration: DateTime.now().difference(startOfPlay),
         level: widget.level.levelId,
-        coinCount: coinIncrease
-    );
+        coinCount: coinIncrease, alreadyFinishedLevel: alreadyFinishedLevel
+    , winningCharacter: widget.level.winningCharacter);
 
 
-    final audioController = context.read<AudioController>();
-    final treasureCounter = context.read<TreasureCounter>();
-    final levelStatistics = context.read<LevelStatistics>();
 
 
     treasureCounter.incrementCoinCount(gamePlayStatistics.coinCount);

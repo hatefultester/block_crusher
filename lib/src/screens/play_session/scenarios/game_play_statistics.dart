@@ -9,5 +9,9 @@ class GamePlayStatistics {
 
   String get formattedTime => duration.toFormattedString();
 
-  GamePlayStatistics({required this.duration, required this.level, required this.coinCount});
+  final bool alreadyFinishedLevel;
+
+  final String winningCharacter;
+
+  GamePlayStatistics({required this.duration, required this.level, required this.coinCount, required this.alreadyFinishedLevel, required this.winningCharacter, });
 }

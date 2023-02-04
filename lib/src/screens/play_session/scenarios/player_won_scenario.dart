@@ -4,6 +4,7 @@ import 'package:block_crusher/src/screens/play_session/scenarios/game_play_stati
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
+import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -12,19 +13,27 @@ import 'package:provider/provider.dart';
 
 extension PlayerWonScenario on PlaySessionScreenState{
   Future<void> playerWon() async {
+    final audioController = context.read<AudioController>();
+    final levelStatistics = context.read<LevelStatistics>();
+    final playerInventory = context.read<PlayerInventory>();
+
     final int coinIncrease =  blockCrusherGame.coinCountFromState();
     final int coinIncreaseFromLevel = widget.level.coinCountOnWin;
+
+    final bool alreadyFinishedLevel = levelStatistics.highestLevelReached >= widget.level.levelId;
 
     final GamePlayStatistics gamePlayStatistics = GamePlayStatistics(
       duration: DateTime.now().difference(startOfPlay),
       level: widget.level.levelId,
-      coinCount: coinIncreaseFromLevel + coinIncrease
+      coinCount: alreadyFinishedLevel ? coinIncrease :coinIncreaseFromLevel + coinIncrease,
+        alreadyFinishedLevel: alreadyFinishedLevel
+        , winningCharacter: widget.level.winningCharacter
     );
 
-    final audioController = context.read<AudioController>();
-    final levelStatistics = context.read<LevelStatistics>();
     levelStatistics.setLevelReached(gamePlayStatistics.level);
     levelStatistics.increaseTotalPlayTime(gamePlayStatistics.duration.inSeconds);
+
+    playerInventory.addNewAvailableCharacter(gamePlayStatistics.winningCharacter);
 
     final treasureCounter = context.read<TreasureCounter>();
     treasureCounter.incrementCoinCount(gamePlayStatistics.coinCount);

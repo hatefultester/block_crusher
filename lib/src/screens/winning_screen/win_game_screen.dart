@@ -2,13 +2,17 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:animated_background/animated_background.dart';
+import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
 import 'package:block_crusher/src/google_play/ads/banner_ad_widget.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:block_crusher/src/screens/winning_screen/background.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +35,10 @@ class WinGameScreen extends StatefulWidget {
 }
 
 class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProviderStateMixin {
+
+
+  bool duringAnimation = false;
+
   @override
   Widget build(BuildContext context) {
     final adsControllerAvailable = context.watch<AdsController?>() != null;
@@ -44,6 +52,8 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
 
       //adsController.takePreloadedAd();
     }
+
+    final winningCharacter = jsonDecode(widget.score.winningCharacter);
 
 
     ParticleOptions coinParticles = const ParticleOptions(
@@ -96,26 +106,71 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                           offset: const Offset(4, 8), // changes position of shadow
                         ), ],
                       ),
-                      padding: const EdgeInsets.only(top: 25, bottom: 25,),
+                      padding: const EdgeInsets.only(top: 25, bottom: 25, left: 20, right: 20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [const Center(
-                        child: Text(
-                          'Game won',
-                          style: TextStyle(fontFamily: 'Quikhand', fontSize: 50, color: Colors.black),
+                        children: [
+
+                          Center(
+                        child:
+                        Container(
+                         padding: const EdgeInsets.only(bottom:5),
+                          child: Text(
+                            'Game finished !',
+                            style: TextStyle(fontFamily: 'Quikhand', fontSize: 35, color: Colors.black),
+                          ),
                         ),
                       ),
+
+                          const SizedBox(height:15),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            const Text(
+                              'Played time:',
+                              style: TextStyle(
+                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
+                            ),
+                            const Spacer(),
                             Text(
-                              'Played time: ${widget.score.formattedTime}',
+                              widget.score.formattedTime,
                               style: const TextStyle(
                                   fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
                             ),
-                            SizedBox(width: 60,child: Image.asset('assets/images/in_app/clock.png'),),
+                            const SizedBox(width: 15),
+                            SizedBox(width: 50,child: Image.asset('assets/images/in_app/clock.png'),),
                           ],
-                        ),],),
+                        ),
+                          const SizedBox(height:15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Earned:',
+                                style: TextStyle(
+                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
+                              ),
+                              const Spacer(),
+                              Text(
+                                widget.score.coinCount.toString(),
+                                style: const TextStyle(
+                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                              ),
+                              const SizedBox(width: 15),
+                              SizedBox(width: 50,child: Image.asset('assets/images/coins/1000x677/money.png'),),
+                            ],
+                          ),
+                          const SizedBox(height: 15),
+                          Center(
+                            child: AnimatedContainer(
+                              duration:const Duration(seconds: 2),
+                              width: duringAnimation ?  80 : 30,
+                              child: Image.asset('assets/images/${winningCharacter['source']}')
+                            )
+                          )
+
+                        ],),
                     ),
                   ),
                   Column(
@@ -131,20 +186,23 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                             audio.playSfx(SfxType.buttonTap);
                             GoRouter.of(context).go('/play');
                           },
-                          child: const Text('E X I T'),
+                          child: const Text('Back to levels'),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 300,
-                        height: 100,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final audio = context.read<AudioController>();
-                            audio.playSfx(SfxType.buttonTap);
-                            GoRouter.of(context).go('/play/session/${widget.score.level+1}/0');
-                          },
-                          child: const Text('C O N T I N U E'),
+                      Visibility(
+                        visible: nextLevelVisible(widget.score.level+1),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          width: 300,
+                          height: 100,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              final audio = context.read<AudioController>();
+                              audio.playSfx(SfxType.buttonTap);
+                              GoRouter.of(context).go('/play/session/${widget.score.level+1}/0');
+                            },
+                            child: const Text('Play next level'),
+                          ),
                         ),
                       ),
                     ],
@@ -156,6 +214,27 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 300));
+      setState(() {
+duringAnimation = true;
+      });
+    });
+  }
+
+  bool nextLevelVisible(int levelId) {
+    final level = gameLevels.singleWhere((e) => e.levelId == levelId);
+
+    if(!level.openByDefault) return false;
+
+    final worldUnlockManager = context.read<WorldUnlockManager>();
+
+    return worldUnlockManager.isWorldUnlocked(level.worldType);
   }
 }
 

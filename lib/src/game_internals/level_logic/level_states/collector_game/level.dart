@@ -1,5 +1,8 @@
 
+import 'dart:convert';
+
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
+import 'package:block_crusher/src/utils/characters.dart';
 
 class GameLevel {
   final GameType gameType;
@@ -19,6 +22,15 @@ class GameLevel {
   final String? achievementIdIOS;
   final String? achievementIdAndroid;
   bool get awardsAchievement => achievementIdAndroid != null;
+
+  String get winningCharacter {
+    final character = imageSource[worldType.index][characterId];
+
+    Map<String, dynamic> characterModelMap = {};
+    characterModelMap['source'] = character['source'];
+
+    return jsonEncode(characterModelMap);
+  }
 
   const GameLevel(
       {required this.worldType,

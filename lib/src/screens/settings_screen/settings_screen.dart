@@ -4,6 +4,7 @@ import 'package:block_crusher/src/screens/settings_screen/settings_background.da
 import 'package:block_crusher/src/storage/game_achievements/achievements.dart';
 import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
+import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
@@ -99,6 +100,7 @@ class SettingsScreen extends StatelessWidget {
                     context.read<LevelStatistics>().reset();
                     context.read<GameAchievements>().reset();
                     context.read<WorldUnlockManager>().reset();
+                    context.read<PlayerInventory>().reset();
 
                     achievementSnackBar(GameAchievement.firstPurchase);
                   },
