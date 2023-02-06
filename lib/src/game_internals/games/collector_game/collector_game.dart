@@ -5,6 +5,9 @@ import 'package:block_crusher/src/game_internals/games/collector_game/util/map.d
 import 'package:block_crusher/src/game_internals/games/collector_game/util/on_load_creatures.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/util/timer_manager.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
+import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/settings/audio/audio_controller.dart';
+import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -38,14 +41,15 @@ class BlockCrusherGame extends FlameGame
   bool hasSpecialEvents;
   bool hasDifferentStartingBlock;
 
-  final achievements;
-  final audio;
+  final RemoteConfig remoteConfig;
+  final GameAchievements gameAchievements;
+  final AudioController audioController;
 
   BlockCrusherGame(this.difficulty,
       {this.hasDifferentStartingBlock = false,
       this.generateCharacterFromLastLevel = false,
       this.hasSpecialEvents = false,
-      required this.achievements, required this.audio})
+      required this.gameAchievements, required this.audioController, required this.remoteConfig})
       : super();
 
   BlockCrusherGame setGame(

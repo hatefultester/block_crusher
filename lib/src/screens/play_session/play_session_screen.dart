@@ -5,6 +5,7 @@ import 'package:block_crusher/src/game_internals/level_logic/level_states/collec
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/level.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
 import 'package:block_crusher/src/google_play/games_services/score.dart';
+import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/screens/play_session/scenarios/player_die_scenario.dart';
 import 'package:block_crusher/src/screens/play_session/scenarios/player_won_scenario.dart';
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
@@ -52,6 +53,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final remoteConfig = context.read<RemoteConfig>();
 
   //  var adsController = AdsController(MobileAds.instance);
   //  adsController.preloadAd();
@@ -64,6 +66,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
         providers: [
           ChangeNotifierProvider(
             create: (context) => CollectorGameLevelState(
+              maxLives: widget.level.worldType.defaultLives(remoteConfig),
               level: widget.level,
               levelType: widget.level.gameType,
               levelDifficulty: widget.level.worldType,
@@ -164,8 +167,9 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     super.initState();
     final achievements = context.read<GameAchievements>();
     final audio = context.read<AudioController>();
+    final remoteConfig = context.read<RemoteConfig>();
 
-    blockCrusherGame = BlockCrusherGame(widget.level.worldType, achievements: achievements, audio: audio);
+    blockCrusherGame = BlockCrusherGame(widget.level.worldType, gameAchievements: achievements, audioController: audio, remoteConfig: remoteConfig);
 
     startOfPlay = DateTime.now();
     itemBackgroundColor = widget.level.worldType.getItemBackgroundColor();

@@ -40,7 +40,7 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   void reset() {
     _currentScore = 0;
-    _lives = level.lives;
+    _lives = maxLives;
 
     _playerDied = false;
     _gameWon = false;
@@ -56,9 +56,9 @@ class CollectorGameLevelState extends ChangeNotifier {
       required this.levelDifficulty,
         this.isWinningLevel = true,
       this.goal = 100,
-      this.maxLives = 10}) {
+      required this.maxLives}) {
 
-    _lives = level.lives;
+    _lives = maxLives;
 
     if (levelDifficulty == WorldType.cityLand) {
       _getGoalItems();

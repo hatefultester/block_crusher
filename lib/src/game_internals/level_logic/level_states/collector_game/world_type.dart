@@ -8,29 +8,28 @@ enum WorldType {
   purpleWorld,
   alien;
 
-  int defaultLives() {
-
+  int defaultLives(RemoteConfig remoteConfig) {
     int lives = 3;
 
     switch (this) {
 
       case WorldType.soomyLand:
-        lives = RemoteConfigService.to.getSoomyLandLives();
+        lives = remoteConfig.getSoomyLandLives();
         break;
       case WorldType.hoomyLand:
-        lives = RemoteConfigService.to.getHoomyLandLives();
+        lives = remoteConfig.getHoomyLandLives();
         break;
       case WorldType.seaLand:
-        lives = RemoteConfigService.to.getSharkLandLives();
+        lives = remoteConfig.getSharkLandLives();
         break;
       case WorldType.cityLand:
-        lives = RemoteConfigService.to.getCityLandLives();
+        lives = remoteConfig.getCityLandLives();
         break;
       case WorldType.purpleWorld:
-        lives = RemoteConfigService.to.getPurpleLandLives();
+        lives = remoteConfig.getPurpleLandLives();
         break;
       case WorldType.alien:
-        lives = RemoteConfigService.to.getAlienLandLives();
+        lives = remoteConfig.getAlienLandLives();
         break;
     }
 

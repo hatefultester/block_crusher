@@ -11,10 +11,10 @@ import 'package:provider/provider.dart';
 extension CollisionDetector on BlockCrusherGame {
 
   void collisionDetected(int level) {
-    audio.playSfx(SfxType.wssh);
+    audioController.playSfx(SfxType.wssh);
 
-    if (!achievements.isAchievementOpen(GameAchievement.connectTwoPlayers)) {
-      achievements.openNewAchievement(GameAchievement.connectTwoPlayers);
+    if (!gameAchievements.isAchievementOpen(GameAchievement.connectTwoPlayers)) {
+      gameAchievements.openNewAchievement(GameAchievement.connectTwoPlayers);
     }
 
     if (gameMode == GameMode.purpleWorld) {
@@ -46,7 +46,7 @@ extension CollisionDetector on BlockCrusherGame {
   }
 
   collectedToTray(int level) {
-    audio.playSfx(SfxType.kosik);
+    audioController.playSfx(SfxType.kosik);
 
     state.collect(level);
     state.increaseCoinCount(level * connectCoinCount);

@@ -1,5 +1,6 @@
-import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_child_close_level_builder.dart';
-import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_child_open_level_builder.dart';
+import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/screens/levels/level_page_helper_widgets/level_page_view_child_close_level_builder.dart';
+import 'package:block_crusher/src/screens/levels/level_page_helper_widgets/level_page_view_child_open_level_builder.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 
-class LevelPageViewChild extends StatefulWidget {
+class LevelPage extends StatefulWidget {
   final String pageTitle;
 
   final List<Widget> topSection;
@@ -21,7 +22,7 @@ class LevelPageViewChild extends StatefulWidget {
   final WorldType levelDifficulty;
 
 
-  const LevelPageViewChild(
+  const LevelPage(
       {super.key,
     required        this.levelDifficulty,
         this.topSection =  const [SizedBox.shrink()],
@@ -34,10 +35,10 @@ class LevelPageViewChild extends StatefulWidget {
       });
 
   @override
-  State<LevelPageViewChild> createState() => LevelPageViewChildState();
+  State<LevelPage> createState() => LevelPageState();
 }
 
-class LevelPageViewChildState extends State<LevelPageViewChild> {
+class LevelPageState extends State<LevelPage> {
 
   bool opened = false;
   bool duringCelebration = false;
@@ -47,6 +48,7 @@ class LevelPageViewChildState extends State<LevelPageViewChild> {
     final audioController = context.read<AudioController>();
     final unlockManager = context.read<WorldUnlockManager>();
     final levelOpened = unlockManager.isWorldUnlocked(widget.levelDifficulty);
+    final remoteConfig = context.read<RemoteConfig>();
 
 
     if (levelOpened || opened) {

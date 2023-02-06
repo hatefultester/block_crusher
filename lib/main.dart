@@ -1,11 +1,4 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
 
-// Uncomment the following lines when enabling Firebase Crashlytics
-// import 'dart:io';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'firebase_options.dart';
 
 import 'dart:io';
 
@@ -14,9 +7,9 @@ import 'package:block_crusher/src/game_internals/level_logic/level_states/collec
 import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
 import 'package:block_crusher/src/google_play/crashlytics/crashlytics.dart';
 import 'package:block_crusher/src/google_play/games_services/games_services.dart';
-import 'package:block_crusher/src/google_play/games_services/score.dart';
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/screens/main_screen/main_screen.dart';
 import 'package:block_crusher/src/screens/play_session/scenarios/game_play_statistics.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
@@ -42,7 +35,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
@@ -50,7 +42,6 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 import 'src/screens/levels/level_selection_screen.dart';
-import 'src/screens/main_menu/main_menu_screen.dart';
 import 'src/screens/play_session/play_session_screen.dart';
 import 'src/settings/persistence/local_storage_settings_persistence.dart';
 import 'src/settings/persistence/settings_persistence.dart';
@@ -80,9 +71,6 @@ Future<void> main() async {
     }
   }
 
-
-  await Get.putAsync<RemoteConfigService>(() => RemoteConfigService().init(),
-      permanent: true);
 
   await guardWithCrashlytics(
     guardedMain,
@@ -185,14 +173,14 @@ class MyApp extends StatelessWidget {
       GoRoute(
           path: '/',
           builder: (context, state) =>
-              const MainMenuScreen(key: Key('main menu')),
+              const MainScreen(key: Key('main menu')),
           routes: [
             GoRoute(
                 path: 'play',
                 pageBuilder: (context, state) => buildMyTransition<void>(
                       child: const LevelSelectionScreen(
                           key: Key('level selection'),),
-                      color: context.watch<Palette>().backgroundLevelSelection,
+                  color: Colors.black,
                     ),
                 routes: [
                   GoRoute(
@@ -220,7 +208,7 @@ class MyApp extends StatelessWidget {
                           level,
                           key: const Key('play session'),
                         ),
-                        color: context.watch<Palette>().backgroundPlaySession,
+                        color: Colors.black,
                       );
                     },
                   ),
@@ -235,7 +223,7 @@ class MyApp extends StatelessWidget {
                           score: score,
                           key: const Key('win game'),
                         ),
-                        color: context.watch<Palette>().backgroundPlaySession,
+                        color: Colors.black,
                       );
                     },
                   ),
@@ -250,7 +238,7 @@ class MyApp extends StatelessWidget {
                           score: score,
                           key: const Key('lost game'),
                         ),
-                        color: context.watch<Palette>().backgroundPlaySession,
+                        color: Colors.black,
                       );
                     },
                   )
@@ -295,62 +283,61 @@ class MyApp extends StatelessWidget {
     return AppLifecycleObserver(
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<RemoteConfig>(
+            create: (context) {
+              var remoteConfig = RemoteConfig();
+              remoteConfig.init();
+              return remoteConfig;
+            }
+          ),
+          ChangeNotifierProvider<PlayerInventory>(
             create: (context) {
               var progress = PlayerInventory(playerInventoryPersistence);
               progress.getLatestFromStore();
               return progress;
             },
           ),
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<GameAchievements>(
             create: (context) {
               var progress = GameAchievements(gameAchievementsPersistence);
               progress.getLatestFromStore();
               return progress;
             },
           ),
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<LevelStatistics>(
             create: (context) {
               var progress = LevelStatistics(levelStatisticsPersistence);
               progress.getLatestFromStore();
               return progress;
             },
           ),
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<TreasureCounter>(
             create: (context) {
               var progress = TreasureCounter(treasureCounterPersistence);
               progress.getLatestFromStore();
               return progress;
             },
           ),
-          ChangeNotifierProvider(
+          ChangeNotifierProvider<WorldUnlockManager>(
             create: (context) {
               var progress = WorldUnlockManager(worldUnlockManagerPersistence);
               progress.getLatestFromStore();
               return progress;
             },
           ),
-
           Provider<GamesServicesController?>.value(
               value: gamesServicesController),
-
           Provider<AdsController?>.value(value: adsController),
-
           ChangeNotifierProvider<InAppPurchaseController?>.value(
               value: inAppPurchaseController),
-
           Provider<SettingsController>(
             lazy: false,
             create: (context) => SettingsController(
               persistence: settingsPersistence,
             )..loadStateFromPersistence(),
           ),
-
           ProxyProvider2<SettingsController, ValueNotifier<AppLifecycleState>,
               AudioController>(
-            // Ensures that the AudioController is created on startup,
-            // and not "only when it's needed", as is default behavior.
-            // This way, music starts immediately.
             lazy: false,
             create: (context) => AudioController()..initialize(),
             update: (context, settings, lifecycleNotifier, audio) {
@@ -361,26 +348,16 @@ class MyApp extends StatelessWidget {
             },
             dispose: (context, audio) => audio.dispose(),
           ),
-          Provider(
-            create: (context) => Palette(),
-          ),
         ],
         child: Builder(builder: (context) {
-          final palette = context.watch<Palette>();
-
-          return GetMaterialApp.router(
+          return MaterialApp.router(
             title: 'Block crusher',
             debugShowCheckedModeBanner: false,
             debugShowMaterialGrid: false,
             showSemanticsDebugger: false,
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: palette.darkPen,
-                background: palette.backgroundMain,
-              ),
-              textTheme: TextTheme(
+              textTheme: const TextTheme(
                 bodyMedium: TextStyle(
-                  color: palette.ink,
                   fontFamily: 'Quikhand',
                 ),
               ),

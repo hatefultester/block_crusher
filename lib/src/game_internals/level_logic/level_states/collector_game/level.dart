@@ -17,8 +17,6 @@ class GameLevel {
   final int levelCoinPriceToOpen;
   bool get openByDefault => levelCoinPriceToOpen == 0 ? true : false;
 
-  int get lives => worldType.defaultLives();
-
   final String? achievementIdIOS;
   final String? achievementIdAndroid;
   bool get awardsAchievement => achievementIdAndroid != null;

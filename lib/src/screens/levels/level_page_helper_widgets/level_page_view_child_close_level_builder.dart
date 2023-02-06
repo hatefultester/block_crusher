@@ -1,14 +1,60 @@
-import 'package:block_crusher/src/screens/levels/page_view_child/level_open_coin_price_helper.dart';
-import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_child.dart';
-import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_close_level.dart';
+import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
+import 'package:block_crusher/src/screens/levels/level_page_helper_widgets/level_open_coin_price_helper.dart';
+import 'package:block_crusher/src/screens/levels/level_page_helper_widgets/level_page.dart';
+import 'package:block_crusher/src/screens/levels/level_page_helper_widgets/level_page_close_level.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
+import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
 import 'package:block_crusher/src/style/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-extension LevelPageViewChildCloseLevelBuilder on LevelPageViewChildState {
+
+const _celebrationDuration = Duration(milliseconds: 2000);
+const _preCelebrationDuration = Duration(milliseconds: 500);
+
+
+extension LevelPageViewChildCloseLevelBuilder on LevelPageState {
+
+  buy() async {
+    final treasureCounter = context.read<TreasureCounter>();
+    final remoteConfig = context.read<RemoteConfig>();
+
+    if (treasureCounter.coinCount < widget.levelDifficulty.coinPrice(remoteConfig) ) {
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('You don\'t have enough coins :( '),),
+      );
+      return;
+    }
+
+    await Future<void>.delayed(_preCelebrationDuration);
+    if (!mounted) return;
+
+    final unlockManager = context.read<WorldUnlockManager>();
+
+    if (!mounted) return;
+    setState(() {
+      duringCelebration = true;
+    });
+
+    await Future<void>.delayed(_celebrationDuration);
+    if (!mounted) return;
+    setState(() {
+      duringCelebration = false;
+      opened = true;
+    });
+
+
+    await unlockManager.unlockWorld(widget.levelDifficulty);
+    treasureCounter.decreaseCoinCount(widget.levelDifficulty.coinPrice(remoteConfig));
+  }
 
   Widget buildCloseLevel(AudioController audioController) {
+    final RemoteConfig remoteConfig = context.read<RemoteConfig>();
+
     return
       Stack(
         children: [Container(
@@ -41,7 +87,7 @@ extension LevelPageViewChildCloseLevelBuilder on LevelPageViewChildState {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(widget.levelDifficulty.coinPrice().toString(), style: const TextStyle(fontSize: 30, color: Colors.white),),
+                        Text(widget.levelDifficulty.coinPrice(remoteConfig).toString(), style: const TextStyle(fontSize: 30, color: Colors.white),),
                         SizedBox(width: 50, height: 50, child: Image.asset('assets/images/coins/1000x1000/coin.png'),),
 
                       ],

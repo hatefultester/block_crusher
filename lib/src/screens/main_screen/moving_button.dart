@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class MovingButton extends StatefulWidget {
+class MainMovingButton extends StatefulWidget {
   final String route;
   final String title;
 
@@ -16,14 +16,14 @@ class MovingButton extends StatefulWidget {
   final Direction x;
   final Direction y;
 
-  const MovingButton({Key? key, required this.route, required this.title, this.millisecondSpeed = 10,
+  const MainMovingButton({Key? key, required this.route, required this.title, this.millisecondSpeed = 10,
   this.y = Direction.down, this.x = Direction.left}) : super(key: key);
 
   @override
-  State<MovingButton> createState() => _MovingButtonState();
+  State<MainMovingButton> createState() => _MainMovingButtonState();
 }
 
-class _MovingButtonState extends State<MovingButton> {
+class _MainMovingButtonState extends State<MainMovingButton> {
   late double dx;
   late double dy;
   late Timer timer;

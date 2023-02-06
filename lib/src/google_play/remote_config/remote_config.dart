@@ -9,9 +9,7 @@ const Duration remoteConfigFetchTimeout = Duration(minutes:1);
 
 const Duration remoteConfigMinimumFetchInterval = Duration(minutes: 1);
 
-class RemoteConfigService extends GetxService {
-  static RemoteConfigService get to => Get.find();
-
+class RemoteConfig extends ChangeNotifier {
   final remoteConfig = FirebaseRemoteConfig.instance;
 
   final Map<String, dynamic> _defaultParameters = {
@@ -32,7 +30,7 @@ class RemoteConfigService extends GetxService {
     RemoteConfigKey.seaLandCoinPrice: 1200,
   };
 
-  Future<RemoteConfigService> init() async {
+  Future<void> init() async {
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: remoteConfigFetchTimeout,
       minimumFetchInterval: remoteConfigMinimumFetchInterval,
@@ -45,8 +43,6 @@ class RemoteConfigService extends GetxService {
     remoteConfig.getAll().forEach((key, value) {
       debugPrint('REMOTE CONFIG KEY : ${key.toString()}, VALUE : ${value.asString()}');
     });
-
-    return this;
   }
 
   double getDefaultBlockFallbackSpeed() => _getDouble(RemoteConfigKey.defaultFallbackSpeed);

@@ -1,8 +1,8 @@
-import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_child.dart';
-import 'package:block_crusher/src/screens/levels/page_view_child/level_page_view_child_menu.dart';
+
+import 'package:block_crusher/src/screens/levels/level_page_helper_widgets/level_page.dart';
 import 'package:flutter/material.dart';
 
-extension LevelPageViewChildOpenLevelBuilder on LevelPageViewChildState {
+extension LevelPageViewChildOpenLevelBuilder on LevelPageState {
 
   Widget buildOpenLevel() {
     return Stack(

@@ -20,6 +20,7 @@ class LevelSelectionBackground extends FlameGame {
 
   LevelSelectionBackground(this.initialPage) {
     map = MapSpriteComponent(initialPage);
+    addMap();
   }
 
   addMap() async {

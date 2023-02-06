@@ -1,10 +1,7 @@
 import 'package:block_crusher/src/game_internals/games/collector_game/collector_game.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
-import 'package:block_crusher/src/settings/audio/audio_controller.dart';
-import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../google_play/remote_config/remote_config.dart';
 
@@ -27,9 +24,9 @@ extension LoadingPart on BlockCrusherGame {
         hasSpecialEvents = false;
         generateCharacterFromLastLevel = true;
 
-        blockFallSpeed = RemoteConfigService.to.getDefaultBlockFallbackSpeed();
-        tickSpeed = RemoteConfigService.to.getDefaultTickSpeed();
-        connectCoinCount = RemoteConfigService.to.getSoomyLandConnectCoinCount();
+        blockFallSpeed = remoteConfig.getDefaultBlockFallbackSpeed();
+        tickSpeed = remoteConfig.getDefaultTickSpeed();
+        connectCoinCount = remoteConfig.getSoomyLandConnectCoinCount();
 
         break;
       case GameMode.hoomy:
@@ -37,36 +34,36 @@ extension LoadingPart on BlockCrusherGame {
         hasDifferentStartingBlock = false;
         hasSpecialEvents = true;
         generateCharacterFromLastLevel = false;
-        blockFallSpeed = RemoteConfigService.to.getHoomyBlockFallbackSpeed();
-        tickSpeed = RemoteConfigService.to.getHoomyTickSpeed();
-        connectCoinCount = RemoteConfigService.to.getHoomyLandConnectCoinCount();
+        blockFallSpeed = remoteConfig.getHoomyBlockFallbackSpeed();
+        tickSpeed = remoteConfig.getHoomyTickSpeed();
+        connectCoinCount = remoteConfig.getHoomyLandConnectCoinCount();
 
         break;
       case GameMode.sharks:
         hasDifferentStartingBlock = false;
         hasSpecialEvents = true;
         generateCharacterFromLastLevel = false;
-        blockFallSpeed = RemoteConfigService.to.getSharkBlockFallbackSpeed();
-        tickSpeed = RemoteConfigService.to.getSharkTickSpeed();
-        connectCoinCount = RemoteConfigService.to.getSharkLandConnectCoinCount();
+        blockFallSpeed = remoteConfig.getSharkBlockFallbackSpeed();
+        tickSpeed = remoteConfig.getSharkTickSpeed();
+        connectCoinCount = remoteConfig.getSharkLandConnectCoinCount();
 
         break;
       case GameMode.cityFood:
         hasDifferentStartingBlock = true;
         hasSpecialEvents = true;
         generateCharacterFromLastLevel = false;
-        blockFallSpeed = RemoteConfigService.to.getCityBlockFallbackSpeed();
-        tickSpeed = RemoteConfigService.to.getCityTickSpeed();
-        connectCoinCount = RemoteConfigService.to.getCityLandConnectCoinCount();
+        blockFallSpeed = remoteConfig.getCityBlockFallbackSpeed();
+        tickSpeed = remoteConfig.getCityTickSpeed();
+        connectCoinCount = remoteConfig.getCityLandConnectCoinCount();
 
         break;
       case GameMode.purpleWorld:
         hasDifferentStartingBlock = true;
         hasSpecialEvents = true;
         generateCharacterFromLastLevel = false;
-        blockFallSpeed = RemoteConfigService.to.getPurpleBlockFallbackSpeed();
-        tickSpeed = RemoteConfigService.to.getPurpleTickSpeed();
-        connectCoinCount = RemoteConfigService.to.getPurpleLandConnectCoinCount();
+        blockFallSpeed = remoteConfig.getPurpleBlockFallbackSpeed();
+        tickSpeed = remoteConfig.getPurpleTickSpeed();
+        connectCoinCount = remoteConfig.getPurpleLandConnectCoinCount();
 
         if (state.characterId == 1) {
           purpleMode = PurpleMode.trippie;
@@ -78,9 +75,9 @@ extension LoadingPart on BlockCrusherGame {
         hasDifferentStartingBlock = false;
         hasSpecialEvents = true;
         generateCharacterFromLastLevel = false;
-        blockFallSpeed = RemoteConfigService.to.getAlienBlockFallbackSpeed();
-        tickSpeed = RemoteConfigService.to.getAlienTickSpeed();
-        connectCoinCount = RemoteConfigService.to.getAlienLandConnectCoinCount();
+        blockFallSpeed = remoteConfig.getAlienBlockFallbackSpeed();
+        tickSpeed = remoteConfig.getAlienTickSpeed();
+        connectCoinCount = remoteConfig.getAlienLandConnectCoinCount();
 
         break;
     }

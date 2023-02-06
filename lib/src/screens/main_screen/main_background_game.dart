@@ -65,7 +65,7 @@ class MapSpriteComponent extends SpriteComponent
       EffectController(duration: 2),
     );
 
-    final oppacityBack = OpacityEffect.to(
+    final opacityBack = OpacityEffect.to(
       1,
       EffectController(duration: 1),
     );
@@ -76,7 +76,7 @@ class MapSpriteComponent extends SpriteComponent
 
     sprite = await gameRef.loadSprite(myMaps[a]);
 
-    await add(oppacityBack);
+    await add(opacityBack);
 
     await Future.delayed(const Duration(seconds: 1));
   }
