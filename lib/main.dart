@@ -10,6 +10,7 @@ import 'package:block_crusher/src/google_play/games_services/games_services.dart
 import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/screens/main_screen/main_screen.dart';
+import 'package:block_crusher/src/screens/play_screen/play_screen.dart';
 import 'package:block_crusher/src/screens/play_session/scenarios/game_play_statistics.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
@@ -41,15 +42,13 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-import 'src/screens/levels/level_selection_screen.dart';
 import 'src/screens/play_session/play_session_screen.dart';
 import 'src/settings/persistence/local_storage_settings_persistence.dart';
 import 'src/settings/persistence/settings_persistence.dart';
 import 'src/settings/settings.dart';
 import 'src/screens/settings_screen/settings_screen.dart';
 import 'src/style/my_transition.dart';
-import 'src/style/palette.dart';
-import 'src/style/custom_snackbars/snack_bar.dart';
+import 'src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'src/screens/winning_screen/win_game_screen.dart';
 
 Future<void> main() async {
@@ -178,8 +177,7 @@ class MyApp extends StatelessWidget {
             GoRoute(
                 path: 'play',
                 pageBuilder: (context, state) => buildMyTransition<void>(
-                      child: const LevelSelectionScreen(
-                          key: Key('level selection'),),
+                      child: const PlayScreen(),
                   color: Colors.black,
                     ),
                 routes: [
@@ -283,9 +281,9 @@ class MyApp extends StatelessWidget {
     return AppLifecycleObserver(
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider<RemoteConfig>(
+          ChangeNotifierProvider<RemoteConfigProvider>(
             create: (context) {
-              var remoteConfig = RemoteConfig();
+              var remoteConfig = RemoteConfigProvider();
               remoteConfig.init();
               return remoteConfig;
             }

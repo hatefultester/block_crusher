@@ -53,7 +53,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final remoteConfig = context.read<RemoteConfig>();
+    final remoteConfig = context.read<RemoteConfigProvider>();
 
   //  var adsController = AdsController(MobileAds.instance);
   //  adsController.preloadAd();
@@ -167,7 +167,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     super.initState();
     final achievements = context.read<GameAchievements>();
     final audio = context.read<AudioController>();
-    final remoteConfig = context.read<RemoteConfig>();
+    final remoteConfig = context.read<RemoteConfigProvider>();
 
     blockCrusherGame = BlockCrusherGame(widget.level.worldType, gameAchievements: achievements, audioController: audio, remoteConfig: remoteConfig);
 

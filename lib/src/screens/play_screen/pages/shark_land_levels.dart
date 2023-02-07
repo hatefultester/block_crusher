@@ -1,14 +1,13 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
-import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
-import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 import '../level_page_helper_widgets/level_page.dart';
+import '../widgets/level_box_widget.dart';
+import '../widgets/line_builder.dart';
 
 class SharkLandLevels extends StatelessWidget {
 
@@ -28,7 +27,7 @@ class SharkLandLevels extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
+          children: const [
             LineBuilder(
               width: pageHorizontalPadding + 15,
               height: levelBoxSize,
@@ -37,8 +36,8 @@ class SharkLandLevels extends StatelessWidget {
               count: 5,
               id: 6,
             ),
-            const LevelBoxWidget(id: 6),
-            const Spacer(),
+            LevelBoxWidget(id: 6),
+            Spacer(),
           ],
         ),
       ),

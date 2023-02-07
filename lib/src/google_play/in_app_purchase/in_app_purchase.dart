@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:logging/logging.dart';

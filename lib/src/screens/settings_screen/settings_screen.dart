@@ -7,7 +7,8 @@ import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart
 import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
-import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/error_message_snackbar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -99,8 +100,6 @@ class SettingsScreen extends StatelessWidget {
                     context.read<GameAchievements>().reset();
                     context.read<WorldUnlockManager>().reset();
                     context.read<PlayerInventory>().reset();
-
-                    achievementSnackBar(GameAchievement.firstPurchase);
                   },
                 ),_SettingsLine(
                   'CHEAT',
@@ -111,7 +110,7 @@ class SettingsScreen extends StatelessWidget {
                     context.read<WorldUnlockManager>().cheat();
                     context.read<GameAchievements>().cheat();
 
-                    achievementSnackBar(GameAchievement.connectTwoPlayers);
+                    showAchievementSnackBar(GameAchievement.connectTwoPlayers);
                   },
                 ),
                 _gap,

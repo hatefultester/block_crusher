@@ -1,6 +1,6 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/screens/levels/widgets/single_line_block.dart';
+import 'package:block_crusher/src/screens/play_screen/widgets/single_line_block.dart';
 import 'package:flutter/material.dart';
 
 class LineBuilder extends StatelessWidget {

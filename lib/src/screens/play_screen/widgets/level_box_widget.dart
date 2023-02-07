@@ -1,6 +1,4 @@
-
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
-import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
@@ -9,9 +7,35 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+const double levelBoxSize = 100;
+
+const double pageHorizontalPadding = 12;
+
+const ColorFilter greyscaleMatrix = ColorFilter.matrix(<double>[
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0.2126,
+  0.7152,
+  0.0722,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+]);
+
 class LevelBoxWidget extends StatelessWidget {
   final int id;
-
 
   const LevelBoxWidget({Key? key, required this.id}) : super(key: key);
 
@@ -30,23 +54,19 @@ class LevelBoxWidget extends StatelessWidget {
 
     final bool won = highestScore > level.levelId - 1;
 
-
     final Widget child = Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         gradient: won
             ? LinearGradient(
-          begin:
-          id.isEven ? Alignment.topRight : Alignment.topLeft,
-          end: id.isEven
-              ? Alignment.bottomLeft
-              : Alignment.bottomRight,
-          colors: [
-            Colors.white,
-            Colors.yellow.shade200,
-            Colors.white,
-          ],
-        )
+                begin: id.isEven ? Alignment.topRight : Alignment.topLeft,
+                end: id.isEven ? Alignment.bottomLeft : Alignment.bottomRight,
+                colors: [
+                  Colors.white,
+                  Colors.yellow.shade200,
+                  Colors.white,
+                ],
+              )
             : null,
         border: Border.all(
           color: won ? Colors.yellow.shade600 : Colors.black,
@@ -73,7 +93,8 @@ class LevelBoxWidget extends StatelessWidget {
           },
           child: IgnorePointer(
             child: child,
-          ),),
+          ),
+        ),
       );
     } else {
       return ColorFiltered(

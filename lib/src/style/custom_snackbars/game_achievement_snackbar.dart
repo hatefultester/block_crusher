@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../storage/game_achievements/achievements.dart';
 
-void achievementSnackBar(GameAchievement achievement) {
+void showAchievementSnackBar(GameAchievement achievement) {
   final messenger = scaffoldMessengerKey.currentState;
   messenger?.showSnackBar(
     SnackBar(

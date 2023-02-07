@@ -8,7 +8,7 @@ enum WorldType {
   purpleWorld,
   alien;
 
-  int defaultLives(RemoteConfig remoteConfig) {
+  int defaultLives(RemoteConfigProvider remoteConfig) {
     int lives = 3;
 
     switch (this) {

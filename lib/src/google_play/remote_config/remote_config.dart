@@ -9,7 +9,7 @@ const Duration remoteConfigFetchTimeout = Duration(minutes:1);
 
 const Duration remoteConfigMinimumFetchInterval = Duration(minutes: 1);
 
-class RemoteConfig extends ChangeNotifier {
+class RemoteConfigProvider extends ChangeNotifier {
   final remoteConfig = FirebaseRemoteConfig.instance;
 
   final Map<String, dynamic> _defaultParameters = {

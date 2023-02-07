@@ -1,10 +1,11 @@
 import 'dart:math';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'level_box_widget.dart';
 
 Color _lineBorderColor = Colors.black;
 

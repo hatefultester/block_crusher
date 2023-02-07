@@ -1,14 +1,13 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
-import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
-import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 import '../level_page_helper_widgets/level_page.dart';
+import '../widgets/level_box_widget.dart';
+import '../widgets/line_builder.dart';
 
 class AlienLandLevels extends StatelessWidget {
   final int alienPageTopSectionFlex = 5;
@@ -28,9 +27,9 @@ class AlienLandLevels extends StatelessWidget {
             ? levelBoxSize
             : levelBoxSize - 20,
         child: Row(
-          children: [
+          children: const [
             LineBuilder(width: pageHorizontalPadding + 50, expandable: false, direction: Direction.down, id: 25, count: 15),
-            const LevelBoxWidget(id: 25),
+            LevelBoxWidget(id: 25),
           ],
         ),
       ),

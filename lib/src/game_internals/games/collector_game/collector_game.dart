@@ -41,7 +41,7 @@ class BlockCrusherGame extends FlameGame
   bool hasSpecialEvents;
   bool hasDifferentStartingBlock;
 
-  final RemoteConfig remoteConfig;
+  final RemoteConfigProvider remoteConfig;
   final GameAchievements gameAchievements;
   final AudioController audioController;
 

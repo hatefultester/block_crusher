@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:block_crusher/src/storage/game_achievements/achievements.dart';
 import 'package:block_crusher/src/storage/game_achievements/persistence/game_achievements_persistence.dart';
-import 'package:block_crusher/src/style/custom_snackbars/snack_bar.dart';
+import 'package:block_crusher/src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'package:flutter/foundation.dart';
 
 class GameAchievements extends ChangeNotifier {
@@ -15,7 +15,7 @@ class GameAchievements extends ChangeNotifier {
 
   void openNewAchievement(GameAchievement achievement) {
     _achievements[achievement] = true;
-    achievementSnackBar(achievement);
+    showAchievementSnackBar(achievement);
     unawaited(_store.unlockAchievement(achievement));
   }
 

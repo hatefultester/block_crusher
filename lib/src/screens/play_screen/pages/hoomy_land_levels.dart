@@ -1,14 +1,13 @@
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/screens/levels/level_selection_data.dart';
-import 'package:block_crusher/src/screens/levels/widgets/level_box_widget.dart';
-import 'package:block_crusher/src/screens/levels/widgets/line_builder.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
 import '../level_page_helper_widgets/level_page.dart';
+import '../widgets/level_box_widget.dart';
+import '../widgets/line_builder.dart';
 
 class HoomyLandLevels extends StatelessWidget {
   final int hoomyPageTopSectionFlex = 3;
@@ -31,7 +30,7 @@ class HoomyLandLevels extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            SizedBox(width: pageHorizontalPadding + 20),
+            const SizedBox(width: pageHorizontalPadding + 20),
             const LevelBoxWidget(id: 16),
             const LineBuilder(direction: Direction.down, id: 17, count: 20),
             const LevelBoxWidget(id: 17),
@@ -53,11 +52,11 @@ class HoomyLandLevels extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: pageHorizontalPadding + 15),
+            const SizedBox(width: pageHorizontalPadding + 15),
             const LevelBoxWidget(id: 14),
             const LineBuilder(id: 15, count:30, direction: Direction.up),
             const LevelBoxWidget(id: 15),
-            SizedBox(
+            const SizedBox(
               width: pageHorizontalPadding + 10,
             )
           ],
@@ -71,7 +70,7 @@ class HoomyLandLevels extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LineBuilder(
+          const LineBuilder(
             expandable: false,
             width: pageHorizontalPadding + 20,
             height: levelBoxSize,
@@ -93,7 +92,7 @@ class HoomyLandLevels extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: pageHorizontalPadding),
+          const SizedBox(width: pageHorizontalPadding),
         ],
       )
     ];

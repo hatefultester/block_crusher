@@ -1,8 +1,9 @@
+
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 
 extension CoinPriceExtension on WorldType {
-  int coinPrice(RemoteConfig remoteConfig) {
+  int coinPrice(RemoteConfigProvider remoteConfig) {
     switch(this) {
       case WorldType.soomyLand:
         return 0;

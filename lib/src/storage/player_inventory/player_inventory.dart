@@ -22,13 +22,11 @@ class PlayerInventory extends ChangeNotifier {
   List<String> get playerCharacters => _playerCharacters;
 
   Future<void> getLatestFromStore() async {
-    print('get latest from store from inventory service');
     final reloadBackgroundColor = await _getLatestBackgroundColor();
     final reloadPlayerCharacters = await _getLatestPlayerCharacters();
     final reloadAvailableCharacters = await _getLatestAvailableCharacters();
 
     if (reloadBackgroundColor || reloadAvailableCharacters || reloadPlayerCharacters) {
-      print('notifing listeners');
       notifyListeners();
     }
   }

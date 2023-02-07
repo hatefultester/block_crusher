@@ -15,6 +15,12 @@ extension AchievementSnackBarStringData on GameAchievement {
       case GameAchievement.finishedSoomyLand:
         // TODO: Handle this case.
         break;
+      case GameAchievement.finishedSeaLand:
+        // TODO: Handle this case.
+        break;
+      case GameAchievement.finishedHoomyLand:
+        // TODO: Handle this case.
+        break;
     }
 
     return message;
@@ -32,6 +38,12 @@ extension AchievementSnackBarStringData on GameAchievement {
         path = '$path/coins/1000x677/money.png';
         break;
       case GameAchievement.finishedSoomyLand:
+        break;
+      case GameAchievement.finishedSeaLand:
+        // TODO: Handle this case.
+        break;
+      case GameAchievement.finishedHoomyLand:
+        // TODO: Handle this case.
         break;
     }
 
