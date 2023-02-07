@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:block_crusher/src/storage/game_achievements/achievements.dart';
 import 'package:block_crusher/src/storage/game_achievements/persistence/game_achievements_persistence.dart';
-import 'package:block_crusher/src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../style/custom_snack_bars/game_achievement_snack_bar.dart';
 
 class GameAchievements extends ChangeNotifier {
   final GameAchievementsPersistence _store;

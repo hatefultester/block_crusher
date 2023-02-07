@@ -31,6 +31,7 @@ import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart'
 import 'package:block_crusher/src/storage/worlds_unlock_status/persistence/local_storage_world_unlock_manager_persistence.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/persistence/world_unlock_manager_persistence.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
+import 'package:block_crusher/src/style/custom_snack_bars/scaffold_key.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -48,7 +49,6 @@ import 'src/settings/persistence/settings_persistence.dart';
 import 'src/settings/settings.dart';
 import 'src/screens/settings_screen/settings_screen.dart';
 import 'src/style/my_transition.dart';
-import 'src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'src/screens/winning_screen/win_game_screen.dart';
 
 Future<void> main() async {

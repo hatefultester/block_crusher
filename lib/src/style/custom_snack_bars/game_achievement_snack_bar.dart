@@ -1,3 +1,4 @@
+import 'package:block_crusher/src/style/custom_snack_bars/scaffold_key.dart';
 import 'package:block_crusher/strings/achievement_snack_bar_texts.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class _AchievementSnackBarTransitionMessageWidgetState extends State<Achievement
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         AnimatedContainer(duration: const Duration(milliseconds: 500),
-        width: selected ? 0 : 150,
+          width: selected ? 0 : 150,
         ),
         AnimatedContainer(duration: const Duration(milliseconds: 1300),
         alignment: selected ? Alignment.topLeft : const Alignment(1.5,0),
@@ -63,9 +64,13 @@ class _AchievementSnackBarTransitionMessageWidgetState extends State<Achievement
                        mainAxisAlignment: MainAxisAlignment.center,
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                         const Text('A C H I E V E M E N T !', style: TextStyle(color: Colors.white, fontFamily: 'Quikhand', fontSize: 18),),
+                         const FittedBox(
+                             fit: BoxFit.scaleDown,
+                             child: Text('A C H I E V E M E N T !', style: TextStyle(color: Colors.white, fontFamily: 'Quikhand', fontSize: 18),)),
                          const SizedBox(height: 5,),
-                         Text(widget.achievement.message(), style: const TextStyle(color: Colors.white, fontFamily: 'Quikhand', fontSize: 15),maxLines: 2,),
+                         FittedBox(
+                             fit: BoxFit.scaleDown,
+                             child: Text(widget.achievement.message(), style: const TextStyle(color: Colors.white, fontFamily: 'Quikhand', fontSize: 15),maxLines: 2,)),
                        ],
                      ),
                    ),
@@ -77,8 +82,7 @@ class _AchievementSnackBarTransitionMessageWidgetState extends State<Achievement
               child: Align(alignment: Alignment.bottomLeft, child: Container(
                   padding: const EdgeInsets.only(right: 15, top: 20),
                   width: 40, child: Image.asset('assets/images/lock/lock_unlocked.png',),),),
-            )
-
+            ),
           ],
         ),),
       ],
@@ -96,8 +100,4 @@ class _AchievementSnackBarTransitionMessageWidgetState extends State<Achievement
     });
   }
 
-
 }
-
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-    GlobalKey(debugLabel: 'scaffoldMessengerKey');

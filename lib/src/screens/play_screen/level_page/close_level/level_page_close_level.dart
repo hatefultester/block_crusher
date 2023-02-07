@@ -1,6 +1,5 @@
 import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/helpers/extensions/level_open_coin_price_helper.dart';
-import 'package:block_crusher/src/style/custom_snackbars/error_message_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +15,11 @@ const _preCelebrationDuration = Duration(milliseconds: 200);
 
 class LevelPageCloseLevel extends StatefulWidget {
   final WorldType levelDifficulty;
+  final String title;
   final Function onBuy;
   final Function onError;
 
-  const LevelPageCloseLevel({super.key, required this.levelDifficulty, required this.onBuy, required this.onError});
+  const LevelPageCloseLevel({super.key, required this.levelDifficulty, required this.onBuy, required this.onError, required this.title});
 
   @override
   State<LevelPageCloseLevel> createState() =>
@@ -32,7 +32,6 @@ class _LevelPageCloseLevelState
 
   @override
   Widget build(BuildContext context) {
-    final audioController = context.read<AudioController>();
     final RemoteConfigProvider remoteConfig =
         context.read<RemoteConfigProvider>();
 
@@ -41,7 +40,7 @@ class _LevelPageCloseLevelState
         Container(
           width: double.infinity,
           height: double.infinity,
-          color: Colors.black.withOpacity(0.7),
+          color: Colors.black.withOpacity(0.5),
           child: Align(
             alignment: Alignment.center,
             child: SizedBox(
@@ -68,19 +67,45 @@ class _LevelPageCloseLevelState
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child:Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Transform.rotate(
+                          angle: 0.05,
+                          child: SizedBox(width: 50, height: 50, child: duringCelebration ?
+                          Image.asset('assets/images/lock/lock_unlocked.png') : Image.asset('assets/images/lock/lock_locked.png'),),
+                        ),
+                        const SizedBox(width: 10),
+                         Text(
+                            widget.title.toUpperCase(),
+                            style: const TextStyle(
+                                fontSize: 35, color: Colors.black),
+                          ),
+                        const SizedBox(width: 10),
+                        Transform.rotate(
+                          angle: -0.05,
+                          child: SizedBox(width: 50, height: 50, child: duringCelebration ?
+                          Image.asset('assets/images/lock/lock_unlocked.png'): Image.asset('assets/images/lock/lock_locked.png'),),
+                        ),
+                      ],
+                    ),
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           widget.levelDifficulty
                               .coinPrice(remoteConfig)
                               .toString(),
                           style: const TextStyle(
-                              fontSize: 30, color: Colors.white),
+                              fontSize: 30, color: Colors.black),
                         ),
+                        const SizedBox(width: 20),
                         SizedBox(
-                          width: 50,
-                          height: 50,
+                          width: 30,
+                          height: 30,
                           child: Image.asset(
                               'assets/images/coins/1000x1000/coin.png'),
                         ),
@@ -95,7 +120,7 @@ class _LevelPageCloseLevelState
                         },
                         child: const Center(
                           child: Text(
-                            'O P E N',
+                            'B U Y',
                             style: TextStyle(color: Colors.green),
                           ),
                         ),
@@ -107,49 +132,6 @@ class _LevelPageCloseLevelState
             ),
           ),
         ),
-        duringCelebration
-            ? Align(
-                alignment: const Alignment(0, -0.7),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.2),
-                        spreadRadius: 4,
-                        blurRadius: 8,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  width: 150,
-                  height: 150,
-                  child: Image.asset('assets/images/lock/lock_unlocked.png'),
-                ),
-              )
-            : Align(
-                alignment: const Alignment(0, -0.7),
-                child: Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.2),
-                        spreadRadius: 4,
-                        blurRadius: 8,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  width: 150,
-                  height: 150,
-                  child: Image.asset('assets/images/lock/lock_locked.png'),
-                ),
-              ),
         Visibility(
           visible: duringCelebration,
           child: IgnorePointer(
@@ -182,8 +164,8 @@ class _LevelPageCloseLevelState
     audioController.playSfx(SfxType.buttonTap);
 
     if (_canBeAffordedByPlayer()) {
+      widget.onBuy(_celebrationDuration + _preCelebrationDuration);
       await _playCelebration();
-      widget.onBuy();
     } else {
       widget.onError();
     }

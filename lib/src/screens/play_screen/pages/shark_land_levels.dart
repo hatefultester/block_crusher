@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
-import '../level_page_helper_widgets/level_page.dart';
+import '../level_page/level_page.dart';
 import '../widgets/level_box_widget.dart';
 import '../widgets/line_builder.dart';
 

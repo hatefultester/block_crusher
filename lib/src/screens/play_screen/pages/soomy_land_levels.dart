@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
-import '../level_page_helper_widgets/level_page.dart';
+import '../level_page/level_page.dart';
 import '../widgets/level_box_widget.dart';
 import '../widgets/line_builder.dart';
 
@@ -21,27 +21,30 @@ class SoomyLandLevels extends StatelessWidget {
     final levelStatistics = context.watch<LevelStatistics>();
 
     List<Widget> soomyPageTopSection = [
-      const LineBuilder(id: 0, direction: Direction.left, count: 30),
       SizedBox(
-        height: levelStatistics.highestLevelReached == 0 ||
-                levelStatistics.highestLevelReached == 1
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height: levelBoxSize,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            const SizedBox(
-              width: pageHorizontalPadding,
+          children: const [
+            SizedBox(
+              width: pageHorizontalPadding + 50,
             ),
-            const LevelBoxWidget(id: 0),
-            const LineBuilder(
+
+            /// LEVEL 1
+            LevelBoxWidget(id: 0),
+
+            /// LINE TO LEVEL 2
+            LineBuilder(
               id: 1,
-              count: 30,
+              count: 20,
               direction: Direction.down,
             ),
-            const LevelBoxWidget(id: 1),
-            const SizedBox(
+
+            /// LEVEL 2
+            LevelBoxWidget(id: 1),
+
+            SizedBox(
               width: pageHorizontalPadding + 20,
             ),
           ],
@@ -50,40 +53,47 @@ class SoomyLandLevels extends StatelessWidget {
     ];
 
     List<Widget> soomyPageMiddleSection = [
+
+      /// LINE TO LEVEL 3
       const LineBuilder(
         direction: Direction.right,
         count: 20,
         id: 2,
       ),
+
       SizedBox(
-        height: levelStatistics.highestLevelReached == 3 ||
-                levelStatistics.highestLevelReached == 2
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height: levelBoxSize,
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(width: pageHorizontalPadding + 15),
-            const LevelBoxWidget(id: 3),
-            const LineBuilder(id: 3, direction: Direction.up, count: 30),
-            const LevelBoxWidget(id: 2),
-            const SizedBox(
+          children: const [
+            SizedBox(width: pageHorizontalPadding + 15),
+
+            /// LEVEL 4
+            LevelBoxWidget(id: 3),
+
+            /// LINE TO LEVEL 4
+            LineBuilder(id: 3, direction: Direction.up, count: 30),
+
+            /// LEVEL 3
+            LevelBoxWidget(id: 2),
+
+            SizedBox(
               width: pageHorizontalPadding + 10,
             )
           ],
         ),
       ),
+
+      /// LINE TO LEVEL 5
       const LineBuilder(count: 20, direction: Direction.left, id: 4),
+
     ];
 
     List<Widget> soomyPageBottomSection = [
       SizedBox(
-        height: levelStatistics.highestLevelReached == 4 ||
-                levelStatistics.highestLevelReached == 5
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height: levelBoxSize,
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -92,15 +102,23 @@ class SoomyLandLevels extends StatelessWidget {
             const SizedBox(
               width: pageHorizontalPadding + 10,
             ),
+
+            /// LEVEL 5
             const LevelBoxWidget(id: 4),
+
             Expanded(
               child: Row(
                 children: const [
+                  /// LINE TO LEVEL 6
                   LineBuilder(count: 35, direction: Direction.up, id: 5),
+
+                  /// LEVEL 6
                   LevelBoxWidget(id: 5),
                 ],
               ),
             ),
+
+            /// LINE TO NEXT PAGE LEVEL 7
             const LineBuilder(
               expandable: false,
               height: double.infinity,

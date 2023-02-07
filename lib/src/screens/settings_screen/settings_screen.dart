@@ -7,13 +7,12 @@ import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart
 import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/storage/treasure_counts/treasure_counter.dart';
 import 'package:block_crusher/src/storage/worlds_unlock_status/world_unlock_manager.dart';
-import 'package:block_crusher/src/style/custom_snackbars/error_message_snackbar.dart';
-import 'package:block_crusher/src/style/custom_snackbars/game_achievement_snackbar.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../style/custom_snack_bars/game_achievement_snack_bar.dart';
 import '../../style/palette.dart';
 import '../../style/responsive_screen.dart';
 import '../../settings/custom_name_dialog.dart';

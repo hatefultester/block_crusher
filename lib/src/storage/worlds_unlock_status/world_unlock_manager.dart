@@ -167,7 +167,7 @@ class WorldUnlockManager extends ChangeNotifier {
     }
   }
 
-  isWorldUnlocked(WorldType levelDifficulty) {
+  bool isWorldUnlocked(WorldType levelDifficulty) {
     switch(levelDifficulty) {
       case WorldType.soomyLand:
         return true;
@@ -181,6 +181,37 @@ class WorldUnlockManager extends ChangeNotifier {
         return purpleLandOpen;
       case WorldType.alien:
         return alienLandOpen;
+    }
+  }
+
+  bool canBeOpened(WorldType levelDifficulty) {
+    switch(levelDifficulty) {
+      case WorldType.soomyLand:
+      case WorldType.seaLand:
+        return true;
+      case WorldType.hoomyLand:
+        return seaLandOpen;
+      case WorldType.cityLand:
+        return seaLandOpen && hoomyLandOpen;
+      case WorldType.purpleWorld:
+        return seaLandOpen && hoomyLandOpen && cityLandOpen;
+      case WorldType.alien:
+        return seaLandOpen && hoomyLandOpen && cityLandOpen && purpleLandOpen;
+    }
+  }
+
+  bool isHiddenLevel(WorldType levelDifficulty) {
+    switch (levelDifficulty) {
+      case WorldType.soomyLand:
+      case WorldType.seaLand:
+      case WorldType.hoomyLand:
+        return false;
+      case WorldType.cityLand:
+        return !seaLandOpen;
+      case WorldType.purpleWorld:
+        return !hoomyLandOpen;
+      case WorldType.alien:
+        return !cityLandOpen;
     }
   }
 

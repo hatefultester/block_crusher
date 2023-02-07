@@ -260,12 +260,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "get",
-      "rootUri": "file:///Users/matejgrohmann/.pub-cache/hosted/pub.dev/get-4.6.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.15"
-    },
-    {
       "name": "go_router",
       "rootUri": "file:///Users/matejgrohmann/.pub-cache/hosted/pub.dev/go_router-6.0.2",
       "packageUri": "lib/",
@@ -614,7 +608,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-02-04T15:13:02.258626Z",
+  "generated": "2023-02-07T13:51:11.925560Z",
   "generator": "pub",
   "generatorVersion": "2.19.0"
 }
