@@ -282,6 +282,7 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<RemoteConfigProvider>(
+            lazy: false,
             create: (context) {
               var remoteConfig = RemoteConfigProvider();
               remoteConfig.init();
@@ -289,6 +290,7 @@ class MyApp extends StatelessWidget {
             }
           ),
           ChangeNotifierProvider<PlayerInventory>(
+            lazy: false,
             create: (context) {
               var progress = PlayerInventory(playerInventoryPersistence);
               progress.getLatestFromStore();
@@ -296,6 +298,7 @@ class MyApp extends StatelessWidget {
             },
           ),
           ChangeNotifierProvider<GameAchievements>(
+            lazy: false,
             create: (context) {
               var progress = GameAchievements(gameAchievementsPersistence);
               progress.getLatestFromStore();
@@ -303,6 +306,7 @@ class MyApp extends StatelessWidget {
             },
           ),
           ChangeNotifierProvider<LevelStatistics>(
+            lazy: false,
             create: (context) {
               var progress = LevelStatistics(levelStatisticsPersistence);
               progress.getLatestFromStore();
@@ -310,6 +314,7 @@ class MyApp extends StatelessWidget {
             },
           ),
           ChangeNotifierProvider<TreasureCounter>(
+            lazy: false,
             create: (context) {
               var progress = TreasureCounter(treasureCounterPersistence);
               progress.getLatestFromStore();
@@ -317,6 +322,7 @@ class MyApp extends StatelessWidget {
             },
           ),
           ChangeNotifierProvider<WorldUnlockManager>(
+            lazy: false,
             create: (context) {
               var progress = WorldUnlockManager(worldUnlockManagerPersistence);
               progress.getLatestFromStore();

@@ -1,4 +1,5 @@
 
+import 'package:block_crusher/src/screens/play_screen/widgets/level_arrows.dart';
 import 'package:block_crusher/src/screens/play_screen/widgets/play_screen_background_game.dart';
 import 'package:block_crusher/src/screens/play_screen/play_screen_provider.dart';
 import 'package:block_crusher/src/screens/play_screen/widgets/level_selection_background.dart';
@@ -30,6 +31,7 @@ class PlayScreen extends StatelessWidget {
             PlayScreenBackgroundGame(),
             LevelsPageView(),
             TopLayerWidget(),
+            LevelArrows(),
           ],
         ),
       ),

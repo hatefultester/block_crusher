@@ -71,7 +71,7 @@ class LevelBoxWidget extends StatelessWidget {
 
 class _BoxContent extends StatelessWidget {
   final String path;
-  final String id;
+  final int id;
 
   const _BoxContent({Key? key, required this.path, required this.id}) : super(key: key);
 
@@ -96,7 +96,7 @@ class _BoxContent extends StatelessWidget {
                   height: 30,
                   child: Center(child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(id, style: const TextStyle(fontSize: 20,),),),),),),),
+                      child: Text((id+1).toString(), style: const TextStyle(fontSize: 20,),),),),),),),
         Center(child: Image.asset(path)),
       ],
     );
@@ -122,7 +122,7 @@ class _CloseLevelBox extends StatelessWidget {
         ),
         width: levelBoxSize,
         height: levelBoxSize,
-        child: _BoxContent(path: path, id: id.toString()),
+        child: _BoxContent(path: path, id: id),
       ),
     );
   }
@@ -158,7 +158,7 @@ class _OpenLevelBox extends StatelessWidget {
           ),
           width: levelBoxSize,
           height: levelBoxSize,
-          child: _BoxContent(path: path, id: id.toString()),
+          child: _BoxContent(path: path, id: id),
         ),
       ),
     );
@@ -204,7 +204,7 @@ class _FinishedLevelBox extends StatelessWidget {
           ),
           width: levelBoxSize,
           height: levelBoxSize,
-          child: _BoxContent(path: path, id: id.toString()),
+          child: _BoxContent(path: path, id: id),
         ),
       ),
     );

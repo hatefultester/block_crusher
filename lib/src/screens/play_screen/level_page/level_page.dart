@@ -89,7 +89,16 @@ class LevelPageState extends State<LevelPage> {
           ],
         );
       case WorldState.notAccessible:
-        return const LevelPageNotAccessible();
+        return  Stack(
+          children: [
+          LevelPageOpenLevel(
+          topSection: widget.topSection,
+          middleSection: widget.middleSection,
+          bottomSection: widget.bottomSection,
+          topSectionFlex: widget.topSectionFlex,
+          middleSectionFlex: widget.middleSectionFlex,
+          bottomSectionFlex: widget.bottomSectionFlex,
+        ), const LevelPageNotAccessible(),],);
       case WorldState.unspecified:
         return const SizedBox.shrink();
       case WorldState.hidden:

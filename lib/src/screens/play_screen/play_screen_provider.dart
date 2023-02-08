@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 
 class PlayScreenProvider extends ChangeNotifier {
 
+  int _page = 0;
+  int get page => _page;
+
   final PageController pageController;
 
   final LevelSelectionBackground backgroundGame;
@@ -11,7 +14,21 @@ class PlayScreenProvider extends ChangeNotifier {
   PlayScreenProvider({required this.pageController, required this.backgroundGame});
 
   pageSwitched(int page) {
+    // if(page < 0) return;
+    // if(page >= pageController.positions.length) return;
+    _page = page;
     backgroundGame.map.changeBackground(page);
+    print(_page.toString());
+  }
+
+  nextPage() {
+    pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+    pageSwitched(_page + 1);
+  }
+
+  previousPage() {
+    pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOutBack);
+    pageSwitched(_page - 1);
   }
 
 }
