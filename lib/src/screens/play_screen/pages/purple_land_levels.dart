@@ -8,7 +8,7 @@ import '../widgets/level_box_widget.dart';
 import '../widgets/line_builder.dart';
 
 class PurpleLandLevels extends StatelessWidget {
-  final int purplePageTopSectionFlex = 1;
+  final int purplePageTopSectionFlex = 3;
   final int purplePageMiddleSectionFlex = 1;
   final int purplePageBottomSectionFlex = 1;
 
@@ -20,24 +20,32 @@ class PurpleLandLevels extends StatelessWidget {
     List<Widget> purplePageTopSection = [
       const Spacer(),
       SizedBox(
-        height:  levelBoxSize - 20,
+        height:  levelBoxSize*1.4 ,
         child: Row(
           children: const [
-            LineBuilder(width: pageHorizontalPadding + 50, expandable: false, direction: Direction.down, id: 23, count: 15),
-            LevelBoxWidget(id: 23),
-            LineBuilder(width: pageHorizontalPadding + 125, direction: Direction.down, id: 24, count: 21),
-            LevelBoxWidget(id: 24),
-            SizedBox(width:pageHorizontalPadding),
+            Spacer(),
+            LevelBoxWidget(id: 23, customSize: levelBoxSize*1.4,),
+            Spacer(),
           ],
         ),
       ),
-      const LineBuilder(direction: Direction.left, id: 25, count: 25, offset: 9,)
+
+      const LineBuilder(direction: Direction.left, id: 25, count: 25, spacer: true)
+    ];
+
+    List<Widget> purplePageMiddleSection = [
+      Row(children: const [
+        Spacer(),
+         LevelBoxWidget(id: 24, customSize: levelBoxSize * 1.3),
+        Spacer()
+      ],),
     ];
 
     return LevelPage(
         pageTitle: 'Purple world',
         levelDifficulty: WorldType.purpleWorld,
         topSection: purplePageTopSection,
+        middleSection: purplePageMiddleSection,
         topSectionFlex: purplePageTopSectionFlex,
         middleSectionFlex: purplePageMiddleSectionFlex,
         bottomSectionFlex: purplePageBottomSectionFlex);

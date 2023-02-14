@@ -24,8 +24,10 @@ class SingleLineBlock extends StatelessWidget {
 
   final bool hasRandomColor;
 
+  final bool spacer;
 
-  const SingleLineBlock({Key? key, this.hasRandomColor = true,required this.direction, required this.id, this.offset = 0, this.rotationFactor = 0.0}) : super(key: key);
+
+  const SingleLineBlock({Key? key, this.hasRandomColor = true,required this.direction, required this.id, this.offset = 0, this.rotationFactor = 0.0, this.spacer = false}) : super(key: key);
 
   _finishedLineColor() {
     List<Color> finishedLineColors = [Colors.yellow.shade600,Colors.yellow.shade400, Colors.yellow.shade500, Colors.yellow.shade300,Colors.yellow.shade800, Colors.yellow.shade700];
@@ -110,6 +112,20 @@ class SingleLineBlock extends StatelessWidget {
               const Spacer(),
             ],
           ),
+        );
+      }
+
+      if ((direction == Direction.right || direction == Direction.left) && spacer) {
+        return Row(
+          children: [
+            const Spacer(),
+            Container(
+              decoration: borderDecoration,
+              height: lineThickness,
+              width: lineThickness,
+            ),
+            const Spacer(),
+          ]
         );
       }
 

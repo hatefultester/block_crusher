@@ -6,7 +6,7 @@ import 'remote_config_keys.dart';
 
 const Duration remoteConfigFetchTimeout = Duration(minutes:1);
 
-const Duration remoteConfigMinimumFetchInterval = Duration(minutes: 1);
+const Duration remoteConfigMinimumFetchInterval = Duration(hours: 1);
 
 class RemoteConfigProvider extends ChangeNotifier {
   final remoteConfig = FirebaseRemoteConfig.instance;

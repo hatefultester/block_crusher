@@ -22,14 +22,12 @@ class AlienLandLevels extends StatelessWidget {
 
     List<Widget> alienPageTopSection = [
       SizedBox(
-        height: levelStatistics.highestLevelReached == 4 ||
-            levelStatistics.highestLevelReached == 5
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height: levelBoxSize * 1.5,
         child: Row(
           children: const [
-            LineBuilder(width: pageHorizontalPadding + 50, expandable: false, direction: Direction.down, id: 25, count: 15),
-            LevelBoxWidget(id: 25),
+            Spacer(),
+             LevelBoxWidget(id: 25, customSize: levelBoxSize*1.5 ,),
+          Spacer(),
           ],
         ),
       ),

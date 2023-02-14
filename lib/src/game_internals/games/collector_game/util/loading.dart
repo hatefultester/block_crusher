@@ -3,8 +3,6 @@ import 'package:block_crusher/src/game_internals/games/collector_game/util/colle
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/collector_game_level_state.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../../google_play/remote_config/remote_config.dart';
-
 extension LoadingPart on BlockCrusherGame {
 
   setBlockCrusherGameFromPlaySessionWidget(BuildContext context, CollectorGameLevelState state) {

@@ -118,16 +118,18 @@ class SoomyLandLevels extends StatelessWidget {
               ),
             ),
 
+            const SizedBox(width: pageHorizontalPadding + 25),
+
             /// LINE TO NEXT PAGE LEVEL 7
-            const LineBuilder(
-              expandable: false,
-              height: double.infinity,
-              width: pageHorizontalPadding + 25,
-              direction: Direction.up,
-              count: 6,
-              id: 6,
-              offset: -20,
-            ),
+            // const LineBuilder(
+            //   expandable: false,
+            //   height: double.infinity,
+            //   width: pageHorizontalPadding + 25,
+            //   direction: Direction.up,
+            //   count: 6,
+            //   id: 6,
+            //   offset: -20,
+            // ),
           ],
         ),
       ),

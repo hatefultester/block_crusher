@@ -12,8 +12,8 @@ import '../widgets/line_builder.dart';
 class SharkLandLevels extends StatelessWidget {
 
   final int seaPageTopSectionFlex = 6;
-  final int seaPageMiddleSectionFlex = 9;
-  final int seaPageBottomSectionFlex = 9;
+  final int seaPageMiddleSectionFlex = 12;
+  final int seaPageBottomSectionFlex = 6;
 
   const SharkLandLevels({Key? key}) : super(key: key);
 
@@ -28,15 +28,12 @@ class SharkLandLevels extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: const [
-            LineBuilder(
-              width: pageHorizontalPadding + 15,
-              height: levelBoxSize,
-              direction: Direction.down,
-              expandable: false,
-              count: 5,
-              id: 6,
-            ),
+
+            SizedBox(width: pageHorizontalPadding + 10),
+
+            /// LEVEL 7 BOX
             LevelBoxWidget(id: 6),
+
             Spacer(),
           ],
         ),
@@ -48,62 +45,96 @@ class SharkLandLevels extends StatelessWidget {
       const LineBuilder(direction: Direction.left, id: 7, count: 11),
 
       SizedBox(
-        height:
-        levelStatistics.highestLevelReached == 7 ? levelBoxSize : levelBoxSize - 20,
+        height: levelBoxSize,
         child: Row(
-          children: [
+          children: const [
             SizedBox(
               width: pageHorizontalPadding + 15,
             ),
-            const LevelBoxWidget(id: 7),
-            const Spacer(),
+
+            /// BOX FOR LEVEL 8
+            LevelBoxWidget(id: 7),
+
+            Spacer(),
           ],
         ),
       ),
       const LineBuilder(direction: Direction.left, id:8, count:11),
       SizedBox(
-        height:
-        levelStatistics.highestLevelReached ==7  ? levelBoxSize : levelBoxSize - 20,
+        height: levelBoxSize,
         child: Row(
-          children: [
+          children: const [
+
             SizedBox(
               width: pageHorizontalPadding + 5,
             ),
-            const LevelBoxWidget(id: 8),
-            const LineBuilder(id: 11, count:30, direction: Direction.up),const LevelBoxWidget(id:11),
-            LineBuilder(
-              expandable: false,
-              height: levelBoxSize,
-              width: pageHorizontalPadding + levelBoxSize / 2 + 10,
-              direction: Direction.up,
-              id:12, count: 15,
-            ),
+
+            /// BOX FOR LEVEL 9
+            LevelBoxWidget(id: 8),
+
+            Spacer(),
+            // LINE BUILDER FOR LEVEL 12
+            // LineBuilder(id: 11, count:30, direction: Direction.up),
+
+            /// BOX FOR LEVEL 12
+            LevelBoxWidget(id:11),
+
+
+            SizedBox(width: pageHorizontalPadding + 30),
+            /// LINE BUILDER FOR NEXT PAGE LEVEL 13
+            // LineBuilder(
+            //   expandable: false,
+            //   height: levelBoxSize,
+            //   width: pageHorizontalPadding + levelBoxSize / 2 + 10,
+            //   direction: Direction.up,
+            //   id:12, count: 15,
+            // ),
           ],
         ),
       ),
-      const LineBuilder(direction: Direction.left, count: 11, id: 9,),
+
+      SizedBox(
+        height: levelBoxSize,
+        width: double.infinity,
+        child: Stack(
+          children: const [
+            LineBuilder(expandable: false, height: levelBoxSize, direction: Direction.left, count: 11, id: 9,),
+            LineBuilder(expandable: false, height: levelBoxSize, direction: Direction.right, count: 11, id: 11, offset: 30),
+          ],
+        ),
+      ),
     ];
 
     List<Widget> seaPageBottomSection = [
       SizedBox(
-        height:
-        levelStatistics.highestLevelReached == 9 ? levelBoxSize : levelBoxSize - 20,
+        height: levelBoxSize,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             SizedBox(width: pageHorizontalPadding),
-            const LevelBoxWidget(id: 9),
-            Expanded(
-              child: SizedBox(
-                height: levelBoxSize,
-                child: Row(children: [
-                  LineBuilder(expandable: false, width: pageHorizontalPadding + levelBoxSize / 2 + 10,direction: Direction.up, count: 15, id: 10),
-                  const LevelBoxWidget(id: 10),
-                  const Spacer(),
-                ]),
-              ),
-            )
+
+            /// BOX FOR LEVEL 10
+            LevelBoxWidget(id: 9),
+
+            /// LINE BUILDER FOR LEVEL 11
+            LineBuilder(expandable: true, width: pageHorizontalPadding + levelBoxSize / 2 + 10,direction: Direction.up, count: 30, id: 10),
+
+            /// BOX FOR LEVEL 11
+            LevelBoxWidget(id: 10),
+            SizedBox(width: pageHorizontalPadding + 30)
+
+
+            // Expanded(
+            //   child: SizedBox(
+            //     height: levelBoxSize,
+            //     child: Row(children: const [
+            //       LineBuilder(expandable: false, width: pageHorizontalPadding + levelBoxSize / 2 + 10,direction: Direction.up, count: 15, id: 10),
+            //       LevelBoxWidget(id: 10),
+            //       SizedBox(width: pageHorizontalPadding + 25)
+            //     ]),
+            //   ),
+            // )
           ],
         ),
       ),

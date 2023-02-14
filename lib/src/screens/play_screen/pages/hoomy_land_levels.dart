@@ -22,19 +22,25 @@ class HoomyLandLevels extends StatelessWidget {
 
     List<Widget> hoomyPageTopSection = [
       SizedBox(
-        height: levelStatistics.highestLevelReached == 4 ||
-            levelStatistics.highestLevelReached == 5
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height: levelBoxSize,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            const SizedBox(width: pageHorizontalPadding + 20),
-            const LevelBoxWidget(id: 16),
-            const LineBuilder(direction: Direction.down, id: 17, count: 20),
-            const LevelBoxWidget(id: 17),
-            const LineBuilder(direction: Direction.down, id: 18, count: 20),
+          children: const [
+            SizedBox(width: pageHorizontalPadding + 20),
+
+            /// BOX FOR LEVEL 17
+            LevelBoxWidget(id: 16),
+
+            /// LINE BUILDER FOR LEVEL 18
+            LineBuilder(direction: Direction.down, id: 17, count: 20),
+
+            /// BOX FOR LEVEL 18
+            LevelBoxWidget(id: 17),
+
+            /// LINE BUILDER TO NEXT PAGE
+            Spacer(),
+            ///LineBuilder(direction: Direction.down, id: 18, count: 20),
           ],
         ),
       ),
@@ -43,25 +49,31 @@ class HoomyLandLevels extends StatelessWidget {
     List<Widget> hoomyPageMiddleSection = [
       const LineBuilder(direction: Direction.left, count:20, id:16),
       SizedBox(
-        height: levelStatistics.highestLevelReached == 3 ||
-            levelStatistics.highestLevelReached == 2
-            ? levelBoxSize
-            : levelBoxSize - 20,
+        height: levelBoxSize,
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(width: pageHorizontalPadding + 15),
-            const LevelBoxWidget(id: 14),
-            const LineBuilder(id: 15, count:30, direction: Direction.up),
-            const LevelBoxWidget(id: 15),
-            const SizedBox(
+          children: const [
+            SizedBox(width: pageHorizontalPadding + 15),
+
+            /// BOX FOR LEVEL 15
+            LevelBoxWidget(id: 14),
+
+            /// LINE BUILDER FOR LEVEL 16
+            LineBuilder(id: 15, count:30, direction: Direction.up),
+
+            /// BOX FOR LEVEL 16
+            LevelBoxWidget(id: 15),
+
+            SizedBox(
               width: pageHorizontalPadding + 10,
             )
           ],
         ),
       ),
+
+      /// LINE BUILDER FOR LEVEL 15
       const LineBuilder(id: 14, count: 20, direction: Direction.left),
     ];
 
@@ -70,23 +82,30 @@ class HoomyLandLevels extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const LineBuilder(
-            expandable: false,
-            width: pageHorizontalPadding + 20,
-            height: levelBoxSize,
-            direction: Direction.up,
-            count:7,
-            id: 12,
-          ),
+
+          const SizedBox(width: pageHorizontalPadding + 20),
+
+          // const LineBuilder(
+          //   expandable: false,
+          //   width: pageHorizontalPadding + 20,
+          //   height: levelBoxSize,
+          //   direction: Direction.up,
+          //   count:7,
+          //   id: 12,
+          // ),
+
+          /// LEVEL BOX FOR LEVEL 13
           const LevelBoxWidget(id:12),
+
           Expanded(
             child: SizedBox(
-              height: levelStatistics.highestLevelReached == 13
-                  ? levelBoxSize
-                  : levelBoxSize - 20,
+              height: levelBoxSize,
               child: Row(
                 children: const [
+                  /// LINE BUILDER FOR LEVEL 14
                   LineBuilder(id: 13, count: 35, direction: Direction.up),
+
+                  /// BOX FOR LEVEL 14
                   LevelBoxWidget(id: 13),
                 ],
               ),

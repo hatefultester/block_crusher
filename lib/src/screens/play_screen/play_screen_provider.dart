@@ -22,13 +22,24 @@ class PlayScreenProvider extends ChangeNotifier {
   }
 
   nextPage() {
-    pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+    if(!canGoToNextPage()) return;
+    pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     pageSwitched(_page + 1);
   }
 
   previousPage() {
-    pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOutBack);
+    if(!canGoToPreviousPage()) return;
+    pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOutBack);
     pageSwitched(_page - 1);
   }
 
+  bool canGoToNextPage() {
+
+    // natvrdo
+    return _page != 5;
+  }
+
+  bool canGoToPreviousPage() {
+    return _page != 0;
+  }
 }

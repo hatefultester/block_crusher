@@ -15,6 +15,7 @@ class LineBuilder extends StatelessWidget {
   final int count;
 
   final bool expandable;
+  final bool spacer;
 
   const LineBuilder(
       {Key? key,
@@ -25,6 +26,7 @@ class LineBuilder extends StatelessWidget {
       this.width = double.infinity,
       this.height = double.infinity,
       required this.count,
+        this.spacer = false,
       this.expandable = true,})
       : super(key: key);
 
@@ -47,6 +49,7 @@ class LineBuilder extends StatelessWidget {
                           id: id,
                           offset: offset,
                           rotationFactor: rotationFactor,
+                    spacer: spacer,
                         ),
               ],
             ),);
@@ -66,6 +69,7 @@ class LineBuilder extends StatelessWidget {
                           id: id,
                           offset: offset,
                           rotationFactor: rotationFactor,
+                    spacer: spacer,
                         ),
               ],
             ),);

@@ -37,7 +37,9 @@ const ColorFilter greyscaleMatrix = ColorFilter.matrix(<double>[
 class LevelBoxWidget extends StatelessWidget {
   final int id;
 
-  const LevelBoxWidget({Key? key, required this.id}) : super(key: key);
+  final double customSize;
+
+  const LevelBoxWidget({Key? key, required this.id, this.customSize = levelBoxSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +59,15 @@ class LevelBoxWidget extends StatelessWidget {
         };
 
     if (won) {
-      return _FinishedLevelBox(path: path, onTap: onTap, id: id);
+      return _FinishedLevelBox(path: path, onTap: onTap, id: id, size: customSize);
     }
 
     if (enabled) {
-      return _OpenLevelBox(path: path, onTap: onTap, id: id);
+      return _OpenLevelBox(path: path, onTap: onTap, id: id, size: customSize);
     }
 
 
-    return _CloseLevelBox(path: path, id: id);
+    return _CloseLevelBox(path: path, id: id, size:  customSize);
   }
 }
 
@@ -93,7 +95,7 @@ class _BoxContent extends StatelessWidget {
                     )
                   ),
                   width: 30,
-                  height: 30,
+                  height:30,
                   child: Center(child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text((id+1).toString(), style: const TextStyle(fontSize: 20,),),),),),),),
@@ -107,8 +109,9 @@ class _BoxContent extends StatelessWidget {
 class _CloseLevelBox extends StatelessWidget {
   final String path;
   final int id;
+  final double size;
 
-  const _CloseLevelBox({Key? key, required this.path, required this.id}) : super(key: key);
+  const _CloseLevelBox({Key? key, required this.path, required this.id, required this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,9 +123,9 @@ class _CloseLevelBox extends StatelessWidget {
         color: Colors.grey.withOpacity(0.8),
           borderRadius: BorderRadius.circular(10),
         ),
-        width: levelBoxSize,
-        height: levelBoxSize,
-        child: _BoxContent(path: path, id: id),
+        width: size,
+        height: size,
+        child: _BoxContent(path: path, id: id,),
       ),
     );
   }
@@ -132,8 +135,9 @@ class _OpenLevelBox extends StatelessWidget {
   final String path;
   final GestureTapCallback onTap;
   final int id;
+  final double size;
 
-  const _OpenLevelBox({Key? key, required this.path, required this.onTap, required this.id})
+  const _OpenLevelBox({Key? key, required this.path, required this.onTap, required this.id, required this.size})
       : super(key: key);
 
   @override
@@ -156,9 +160,9 @@ class _OpenLevelBox extends StatelessWidget {
             ],
             borderRadius: BorderRadius.circular(10),
           ),
-          width: levelBoxSize,
-          height: levelBoxSize,
-          child: _BoxContent(path: path, id: id),
+          width: size,
+          height: size,
+          child: _BoxContent(path: path, id: id, ),
         ),
       ),
     );
@@ -169,9 +173,10 @@ class _FinishedLevelBox extends StatelessWidget {
   final String path;
   final GestureTapCallback onTap;
   final int id;
+  final double size;
 
   const _FinishedLevelBox(
-      {Key? key, required this.path, required this.onTap, required this.id})
+      {Key? key, required this.path, required this.onTap, required this.id, required this.size})
       : super(key: key);
 
   @override
@@ -202,9 +207,9 @@ class _FinishedLevelBox extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(10),
           ),
-          width: levelBoxSize,
-          height: levelBoxSize,
-          child: _BoxContent(path: path, id: id),
+          width: size,
+          height: size,
+          child: _BoxContent(path: path, id: id, ),
         ),
       ),
     );
