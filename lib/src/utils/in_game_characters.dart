@@ -134,30 +134,36 @@ List<dynamic> imageSource = [
   [
     {
       'source': 'food/300x150/butter.png',
+      'winCharacterReferenceNameId' : 'city0',
       'size': Vector2(9 * 1.3, 4.5 * 1.3),
     },
     {
       'goal': 5,
       'source': 'food/150x275/pear.png',
+      'winCharacterReferenceNameId' : 'city1',
       'size': Vector2(1.5 * 4, 2.75 * 4),
     },
     {
       'goal': 2,
       'source': 'food/100x215/milk.png',
+      'winCharacterReferenceNameId' : 'city2',
       'size': Vector2(3 * 1.5, 6.45 * 1.5),
     },
     {
       'goal': 8,
       'source': 'food/300x275/mufin.png',
+      'winCharacterReferenceNameId' : 'city3',
       'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
     {
       'goal': 8,
       'source': 'food/300x215/hamburger.png',
+    'winCharacterReferenceNameId' : 'city4',
       'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
     },
     {
       'source': 'food/300x250/chinese_soup.png',
+      'winCharacterReferenceNameId' : 'city5',
       'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
   ],

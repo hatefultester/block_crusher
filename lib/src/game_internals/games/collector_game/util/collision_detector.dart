@@ -51,6 +51,7 @@ extension CollisionDetector on BlockCrusherGame {
   }
 
   blockRemoved() {
+    if(gameMode == GameMode.cityFood) return;
     state.decreaseLife();
     state.evaluate();
   }

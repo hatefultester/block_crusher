@@ -11,6 +11,7 @@ import 'package:block_crusher/src/screens/play_session/scenarios/player_won_scen
 import 'package:block_crusher/src/screens/play_session/styles/item_background_color_extension.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/city_level_bottom.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/default_bottom.dart';
+import 'package:block_crusher/src/screens/play_session/widgets/top_layer/city_level_top.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/top_layer/default_top.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
@@ -105,6 +106,10 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     /// for coin picker => 'assets/images/${imageSource[widget.level.levelDifficulty.index][levelState.level]['source']}'
     String imagePath = 'assets/images/${imageSource[widget.level.worldType.index][widget.level.characterId]['source']}';
     String title = 'Level ${widget.level.levelId}';
+
+    if (widget.level.worldType == WorldType.cityLand) {
+      return CityTopWidget(title: title , imagePath: imagePath,);
+    }
 
     return DefaultTopWidget(title: title , imagePath: imagePath,);
   }

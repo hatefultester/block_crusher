@@ -103,9 +103,6 @@ class CollectorGameLevelState extends ChangeNotifier {
     return false;
   }
 
-
-
-
   void decreaseLife() {
     _lives--;
     notifyListeners();
@@ -117,8 +114,14 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   bool _collected() {
-    if ((_playerDied || _gameWon)) return false;
+    print('checking collected status');
+
+    if ((_playerDied)) return false;
+
+    print('its good, player didnt die');
     if (levelDifficulty != WorldType.cityLand) return false;
+
+    print('its city land all good');
 
     bool collected = true;
 
@@ -144,7 +147,8 @@ class CollectorGameLevelState extends ChangeNotifier {
         _playerDied = true;
       }
     }
-    if (_collected() && isWinningLevel) {
+
+    if (_collected()) {
       onWin();
       _gameWon = true;
     }
