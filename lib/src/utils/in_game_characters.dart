@@ -2,7 +2,7 @@ import 'package:flame/game.dart';
 
 List<dynamic> imageSource = [
   /// block characters page 1
-  /// begginner level
+  /// beginner level
   [
     {
       'source': 'characters_skill_game/1_1000x880.png',
@@ -38,65 +38,6 @@ List<dynamic> imageSource = [
       'source': 'characters/bots/1000x666/crazy-bot-3000.png',
       'winCharacterReferenceName' : 'soomy6',
       'size': Vector2(10 * 1.2, 6.66 * 1.2),
-    },
-
-////// NEXT
-    /// diamond characters
-    /// blue backgrounds
-    {
-      'source': 'characters_skill_game/3_500x1000.png',
-      'size': Vector2(5, 10),
-    },
-
-    {
-      'source': 'characters/object/1000x1000/happy_asymmetric_cube.png',
-      'size': Vector2(10, 10),
-    },
-
-    {
-      'source': 'characters_skill_game/4_500x1000.png',
-      'size': Vector2(5, 10),
-    },
-
-    /// final levels
-    {
-      'source':
-          'characters/hoomy_with_weapon/1000x666/green_hoomy_with_football.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
-    },
-    {
-      'source':
-          'characters/hoomy_with_weapon/1000x666/pink_hoomy_with_flail.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
-    },
-    {
-      'source':
-          'characters/hoomy_with_weapon/1000x666/light_green_hoomy_with_knife.png',
-      'size': Vector2(10 * 1.3, 6.66 * 1.3),
-    },
-
-    /// devil characters // secret
-    {
-      'source': 'characters_skill_game/16_1000x1140.png',
-      'size': Vector2(10, 8),
-    },
-    {
-      'source': 'characters_skill_game/17_1000x1140.png',
-      'size': Vector2(10, 8),
-    },
-    {
-      'source': 'characters_skill_game/18_1000x1140.png',
-      'size': Vector2(10, 8),
-    },
-
-    {
-      'source': 'characters_skill_game/6_1000x1000.png',
-      'size': Vector2(10, 10),
-    },
-
-    {
-      'source': 'characters_skill_game/5_1000x1000.png',
-      'size': Vector2(10, 10),
     },
   ],
 
@@ -140,9 +81,10 @@ List<dynamic> imageSource = [
     },
   ],
 
+
+  /// hoomy level
+  /// hoomicy :D
   [
-    /// hoomy level
-    /// hoomicy :D
     {
       'source': 'characters/hoomy/1000x666/yellow_hoomy.png',
       'winCharacterReferenceName' : 'hoomy0',
@@ -183,12 +125,13 @@ List<dynamic> imageSource = [
     },
   ],
 
-  [
-    /// CITY WORLD LEVEL
-    /// city level charaktery :D
 
-    /// 6 level characters
-    ///
+  /// CITY WORLD LEVEL
+  /// city level charaktery :D
+
+  /// 6 level characters
+  ///
+  [
     {
       'source': 'food/300x150/butter.png',
       'size': Vector2(9 * 1.3, 4.5 * 1.3),
@@ -218,10 +161,11 @@ List<dynamic> imageSource = [
       'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
   ],
-  [
-    /// BLUE WORLD LEVEL
-    /// BLUE level charaktery :D
 
+
+  /// BLUE WORLD LEVEL
+  /// BLUE level charaktery :D
+  [
     {
       'source': 'points/1.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
@@ -243,12 +187,13 @@ List<dynamic> imageSource = [
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
   ],
+
+
+  /// ALIEN
+  /// BLUE level charaktery :D
+
+  /// free characters
   [
-    /// ALIEN
-    /// BLUE level charaktery :D
-
-    /// free characters
-
     {
       'source': 'characters/aliens/s/1_1000x1021xaqua.png',
       'size': Vector2(10, 10.21),
@@ -265,13 +210,13 @@ List<dynamic> imageSource = [
       'isAnimated': false,
     },
     {
-      'source': 'characters/aliens/s/4_845x550xchobotince1.png',
-      'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+      'source': 'characters/aliens/s/4_845x550xchobotnice1.png',
+      'size': Vector2(10, 10/1.53),
       'isAnimated': true,
       'animationAssets': [
         {
           'source': 'characters/aliens/s/4_845x550xchobotnice1.png',
-          'size': Vector2(8.45 * 1.5, 5.5 * 1.5),
+          'size': Vector2(10, 10/1.53),
         },
         {
           'source': 'characters/aliens/s/4_965x550xchobotnice2.png',
@@ -288,8 +233,13 @@ List<dynamic> imageSource = [
     {
       'source': 'characters/aliens/s/6_400x800xyellow2.png',
       'size': Vector2(4 * 1.4, 8 * 1.4),
-      'isAnimated': false,
-    },
+      'isAnimated': true,
+      'animationAssets' : [
+        {'source': 'characters/aliens/s/6_400x800xyellow2.png',
+          'size': Vector2(4 * 1.4, 8 * 1.4),},
+        {'source': 'characters/aliens/600x800xyellow1.png',
+          'size': Vector2(6 * 1.4, 8 * 1.4),},
+        ],},
     {
       'source': 'characters/aliens/s/7_1000x1628xgreen.png',
       'size': Vector2(10, 16.28),
@@ -385,6 +335,8 @@ List<dynamic> imageSource = [
     },
   ],
 ];
+
+
 
 List cityFoods = [
   /// LEVEL 1

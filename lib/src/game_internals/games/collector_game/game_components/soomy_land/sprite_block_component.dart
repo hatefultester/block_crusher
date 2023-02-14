@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collision_detector.dart';
-import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/utils/in_game_characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -10,6 +9,7 @@ import 'package:flame/events.dart';
 
 import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
+import 'dart:async' as async_dart;
 
 
 class SpriteBlockComponent extends SpriteComponent
@@ -35,7 +35,16 @@ class SpriteBlockComponent extends SpriteComponent
   SpriteBlockComponent.withLevelSet(this.characterId, this.difficulty);
   SpriteBlockComponent.withDirection(this.direction, this.difficulty);
 
+  async_dart.Timer? timer;
+
   _sprite() async {
+    if(gameRef.gameMode == GameMode.alien)
+      {
+        final isAnimated = imageSource[difficulty.index][characterId]['isAnimated'];
+        if (isAnimated == true) {
+          _toggleAnimation();
+        }
+      }
     if (gameRef.gameMode != GameMode.cityFood) {
       if (imageSource[difficulty.index][characterId] != null) {
         sprite = await gameRef
@@ -52,6 +61,26 @@ class SpriteBlockComponent extends SpriteComponent
             _scale;
       }
     }
+  }
+
+  _toggleAnimation() {
+    if (timer != null) {
+      if (timer!.isActive) {
+        timer!.cancel();
+      }
+    }
+
+    int counter = 0;
+
+    timer = async_dart.Timer.periodic(const Duration(milliseconds: 300), (timer) async {
+      if (counter.isEven) {
+        sprite = await gameRef.loadSprite(imageSource[difficulty.index][characterId]['animationAssets'][0]['source']);
+        size = imageSource[difficulty.index][characterId]['animationAssets'][0]['size'] * _scale;
+      } else {
+        sprite = await gameRef.loadSprite(imageSource[difficulty.index][characterId]['animationAssets'][1]['source']);
+        size = imageSource[difficulty.index][characterId]['animationAssets'][1]['size'] * _scale;
+      }
+    },);
   }
 
   bool tapped = false;

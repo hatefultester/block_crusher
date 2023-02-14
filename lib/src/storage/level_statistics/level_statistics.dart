@@ -17,8 +17,6 @@ class LevelStatistics extends ChangeNotifier {
   int get highestLevelReached => _highestLevelReached;
   int get totalPlayedTimeInSeconds => _totalPlayedTimeInSeconds;
 
-
-
   void setLevelReached(int level) {
     if (level > _highestLevelReached) {
       _highestLevelReached = level;
@@ -68,7 +66,7 @@ class LevelStatistics extends ChangeNotifier {
   }
 
   void cheat() async {
-    _highestLevelReached = 23;
+    _highestLevelReached = 25;
     await _store.saveHighestLevelReached(_highestLevelReached);
     notifyListeners();
   }

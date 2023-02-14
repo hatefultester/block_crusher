@@ -9,6 +9,8 @@ import 'package:flame/effects.dart';
 import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
 
+import 'dart:async' as async_dart;
+
 class AlienCenteredComponent extends SpriteComponent
     with HasGameRef<BlockCrusherGame>, CollisionCallbacks,  Tappable {
 
@@ -25,9 +27,21 @@ class AlienCenteredComponent extends SpriteComponent
 
   Direction direction = Direction.down;
 
+  async_dart.Timer? timer;
+
   AlienCenteredComponent();
 
   _sprite() async {
+    if(gameRef.gameMode == GameMode.alien)
+    {
+      final isAnimated = imageSource[difficulty.index][characterId]['isAnimated'];
+      if (isAnimated == true) {
+        _toggleAnimation();
+      } else {
+        timer?.cancel();
+      }
+    }
+
     if (imageSource[difficulty.index][characterId] != null) {
       sprite = await gameRef
           .loadSprite(imageSource[difficulty.index][characterId]['source']);
@@ -38,6 +52,43 @@ class AlienCenteredComponent extends SpriteComponent
   }
 
   bool tapped = false;
+
+
+  _toggleAnimation() {
+    if (timer != null) {
+      if (timer!.isActive) {
+        timer!.cancel();
+      }
+    }
+
+    int counter = 0;
+
+    timer = async_dart.Timer.periodic(const Duration(milliseconds: 300), (timer){
+      final previousSize = size;
+      if (counter.isEven) {
+        loadAssetOne();
+      } else {
+        loadAssetTwo();
+      }
+      move(previousSize);
+      counter++;
+    },);
+  }
+
+  move(Vector2 previous) {
+    position = Vector2(gameRef.size.x/2 - size.x/2, gameRef.size.y/2);
+  }
+
+  loadAssetOne() async {
+    sprite = await gameRef.loadSprite(imageSource[difficulty.index][characterId]['animationAssets'][0]['source']);
+    size = imageSource[difficulty.index][characterId]['animationAssets'][0]['size'] * _scale;
+  }
+
+  loadAssetTwo() async {
+    sprite = await gameRef.loadSprite(imageSource[difficulty.index][characterId]['animationAssets'][1]['source']);
+    size = imageSource[difficulty.index][characterId]['animationAssets'][1]['size'] * _scale;
+
+  }
 
   @override
   Future<void> onLoad() async {

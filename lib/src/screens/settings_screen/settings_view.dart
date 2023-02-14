@@ -53,33 +53,7 @@ class SettingsView extends StatelessWidget {
                 settings.toggleMusicOn();
               }),
         ),
-        // Consumer<InAppPurchaseController?>(
-        //     builder: (context, inAppPurchase, child) {
-        //       if (inAppPurchase == null) {
-        //         // In-app purchases are not supported yet.
-        //         // Go to lib/main.dart and uncomment the lines that create
-        //         // the InAppPurchaseController.
-        //         return const SizedBox.shrink();
-        //       }
-        //
-        //       Widget icon;
-        //       VoidCallback? callback;
-        //       if (inAppPurchase.adRemoval.active) {
-        //         icon = const Icon(Icons.check);
-        //       } else if (inAppPurchase.adRemoval.pending) {
-        //         icon = const CircularProgressIndicator();
-        //       } else {
-        //         icon = const Icon(Icons.ad_units);
-        //         callback = () {
-        //           inAppPurchase.buy();
-        //         };
-        //       }
-        //       return _SettingsLine(
-        //         'Remove ads',
-        //         icon,
-        //         onSelected: callback,
-        //       );
-        //     }),
+
 
         _SettingsLine(
           title: 'Reset progress',
@@ -129,7 +103,7 @@ class SettingsView extends StatelessWidget {
         ),
 
         Visibility(
-          visible: kDebugMode && false,
+          visible: kDebugMode,
           child: _SettingsLine(
             title: 'CHEAT',
             path: 'assets/images/in_app/neutral_smile.png',
@@ -268,7 +242,7 @@ class _SettingsLine extends StatelessWidget {
                       Visibility(
                         visible: !on,
                         child: CustomPaint(
-                          size: Size(60, 60),
+                          size: const Size(60, 60),
                           painter: _CustomOffPainter(),
                         ),
                       )
@@ -287,7 +261,7 @@ class _SettingsLine extends StatelessWidget {
 class _CustomOffPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final p1 = Offset(5, 5);
+    const p1 = Offset(5, 5);
     final p2 = Offset(size.width - 5, size.height - 5);
     final paint = Paint()
       ..color = Colors.red
@@ -301,3 +275,31 @@ class _CustomOffPainter extends CustomPainter {
     return false;
   }
 }
+
+// Consumer<InAppPurchaseController?>(
+//     builder: (context, inAppPurchase, child) {
+//       if (inAppPurchase == null) {
+//         // In-app purchases are not supported yet.
+//         // Go to lib/main.dart and uncomment the lines that create
+//         // the InAppPurchaseController.
+//         return const SizedBox.shrink();
+//       }
+//
+//       Widget icon;
+//       VoidCallback? callback;
+//       if (inAppPurchase.adRemoval.active) {
+//         icon = const Icon(Icons.check);
+//       } else if (inAppPurchase.adRemoval.pending) {
+//         icon = const CircularProgressIndicator();
+//       } else {
+//         icon = const Icon(Icons.ad_units);
+//         callback = () {
+//           inAppPurchase.buy();
+//         };
+//       }
+//       return _SettingsLine(
+//         'Remove ads',
+//         icon,
+//         onSelected: callback,
+//       );
+//     }),
