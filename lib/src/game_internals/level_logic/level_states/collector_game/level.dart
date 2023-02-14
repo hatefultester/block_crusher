@@ -23,7 +23,7 @@ class GameLevel {
 
   String get winningCharacter {
     final character = imageSource[worldType.index][characterId];
-    return character['winCharacterReferenceName'];
+    return character['winCharacterReferenceName'] ?? 'null';
   }
 
   const GameLevel(

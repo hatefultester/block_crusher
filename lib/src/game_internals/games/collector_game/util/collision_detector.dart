@@ -16,6 +16,7 @@ extension CollisionDetector on BlockCrusherGame {
 
     if (gameMode == GameMode.purpleWorld) {
       if (purpleMode == PurpleMode.counter) {
+        state.decreaseCountdown();
         if(level == 4) {
           state.increaseCoinCount(connectCoinCount * 5);
         } else {
@@ -68,6 +69,8 @@ extension CollisionDetector on BlockCrusherGame {
   purpleComponentDestroyed(PurpleWorldComponent component) {
     var coinIncrease =  component.characterId == 0 ? 3 * connectCoinCount : connectCoinCount;
 
+    state.decreaseCountdown();
     state.increaseCoinCount(coinIncrease);
+    state.evaluate();
   }
 }

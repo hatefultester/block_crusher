@@ -13,6 +13,7 @@ import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/city
 import 'package:block_crusher/src/screens/play_session/widgets/bottom_layer/default_bottom.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/top_layer/city_level_top.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/top_layer/default_top.dart';
+import 'package:block_crusher/src/screens/play_session/widgets/top_layer/purple_level_top.dart';
 import 'package:block_crusher/src/settings/audio/audio_controller.dart';
 import 'package:block_crusher/src/settings/audio/sounds.dart';
 import 'package:block_crusher/src/storage/game_achievements/game_achievements.dart';
@@ -109,6 +110,10 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
 
     if (widget.level.worldType == WorldType.cityLand) {
       return CityTopWidget(title: title , imagePath: imagePath,);
+    }
+
+    if (widget.level.worldType == WorldType.purpleWorld) {
+      return PurpleTopWidget(title: title, imagePath: imagePath,);
     }
 
     return DefaultTopWidget(title: title , imagePath: imagePath,);

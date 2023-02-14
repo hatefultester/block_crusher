@@ -19,6 +19,7 @@ class CollectorGameLevelState extends ChangeNotifier {
   final int characterId;
 
   final int goal;
+  int _currentGoalStatus = 20;
 
   final int maxLives;
 
@@ -33,6 +34,8 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   int _coinCount = 0;
   int get coinCount => _coinCount;
+
+  int get currentGoal => _currentGoalStatus;
 
   bool isWinningLevel;
 
@@ -55,7 +58,7 @@ class CollectorGameLevelState extends ChangeNotifier {
       required this.levelType,
       required this.levelDifficulty,
         this.isWinningLevel = true,
-      this.goal = 100,
+      this.goal = 20,
       required this.maxLives}) {
 
     _lives = maxLives;
@@ -135,9 +138,20 @@ class CollectorGameLevelState extends ChangeNotifier {
     return collected;
   }
 
+  decreaseCountdown() {
+    _currentGoalStatus--;
+    notifyListeners();
+  }
+
+  _counterGoalReached() {
+    if (levelDifficulty != WorldType.purpleWorld) return false;
+    else {
+      return _currentGoalStatus == 0;
+    }
+  }
+
   void evaluate() {
 
-    if (levelType == GameType.collector) {
       if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
         onWin();
         _gameWon = true;
@@ -146,9 +160,14 @@ class CollectorGameLevelState extends ChangeNotifier {
         onDie();
         _playerDied = true;
       }
-    }
+
 
     if (_collected()) {
+      onWin();
+      _gameWon = true;
+    }
+
+    if (_counterGoalReached()) {
       onWin();
       _gameWon = true;
     }
