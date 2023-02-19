@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:block_crusher/src/screens/play_session/widgets/parts/coin_wallet.dart';
+import 'package:block_crusher/src/screens/play_session/widgets/parts/heart_widget.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/parts/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +16,13 @@ class DefaultTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget content = Container(
-      decoration: const BoxDecoration(color: Colors.black),
+      decoration: BoxDecoration(
+    gradient: LinearGradient(
+    colors: [Colors.black, Colors.black.withOpacity(0.9),Colors.transparent],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    )
+    ),
       height: 60,
       width: double.infinity,
       child: Row(
@@ -22,7 +30,7 @@ class DefaultTopWidget extends StatelessWidget {
         children: [
           IconButton(
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.cancel_rounded,
               color: Colors.white,
               size: 25,
             ),
@@ -31,21 +39,8 @@ class DefaultTopWidget extends StatelessWidget {
                 }),
           ),
           const Spacer(),
-          ImageWidget(path: imagePath),
-          const Spacer(),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 25,
-              color: Colors.white,
-            ),
-          ),
-          const Spacer(),
-          ImageWidget(
-            path: imagePath,
-          ),
-          const Spacer(),
-
+          const CoinWalletWidget(backgroundColor: Colors.red, textColor: Colors.white),
+          const HeartWidget(backgroundColor: Colors.red, textColor: Colors.white),
         ],
       ),
     );

@@ -21,17 +21,18 @@ class _HeartWidgetState extends State<HeartWidget> {
   Widget build(BuildContext context) {
     return Consumer<CollectorGameLevelState>(
         builder: (context, levelState, child) {
-          if (kDebugMode) {
-            print('REBUILDING CONSUMER ON COIN COUNT BOTTOM WIDGET');
-          }
 
           return
-            Container(width: 150, height: 50, decoration: BoxDecoration(color: widget.backgroundColor, borderRadius: BorderRadius.circular(20),), padding: const EdgeInsets.all(6),
+            Container(
+                margin: const EdgeInsets.only(left: 5, right: 5),
+                width: 75, height: 50, decoration: BoxDecoration(color: widget.backgroundColor, borderRadius: BorderRadius.circular(20),),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    for(int i = 0; i < levelState.maxLives ; i++) ImageWidget(path: _path(i, levelState.lives), size: 45,),
+                    const Spacer(),
+                    Text(levelState.lives.toString(), style: const TextStyle(fontSize: 25),),
+                    const ImageWidget(path: 'assets/images/heart/live_heart.png', width: 40, height: 50, symmetric: false,),
                   ],
                 ));}
     );

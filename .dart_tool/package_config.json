@@ -14,6 +14,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "animated_text_kit",
+      "rootUri": "file:///Users/matejgrohmann/.pub-cache/hosted/pub.dev/animated_text_kit-4.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "archive",
       "rootUri": "file:///Users/matejgrohmann/.pub-cache/hosted/pub.dev/archive-3.3.6",
       "packageUri": "lib/",
@@ -608,7 +614,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-02-19T10:17:20.740788Z",
+  "generated": "2023-02-19T11:31:49.296609Z",
   "generator": "pub",
   "generatorVersion": "2.19.0"
 }

@@ -65,9 +65,9 @@ class RemoteConfigProvider extends ChangeNotifier {
   int getPurpleLandCoinPrice() => 2000; //todo
 
   int getSoomyLandLives() => 3; // todo
-  int getHoomyLandLives() => 10; // todo
-  int getSharkLandLives() => 20; // todo
-  int getCityLandLives() => 50; // todo
+  int getHoomyLandLives() => 3; // todo
+  int getSharkLandLives() => 3; // todo
+  int getCityLandLives() => 3; // todo
   int getAlienLandLives() => 3; // todo
   int getPurpleLandLives() => 3; // todo
 

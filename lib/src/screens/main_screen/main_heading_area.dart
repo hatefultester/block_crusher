@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class MainHeadingArea extends StatelessWidget {
@@ -40,13 +41,23 @@ class MainHeadingArea extends StatelessWidget {
                 colors: [Colors.black, Colors.transparent],
               ),
             ),
-            child: Text(
-              'A d v a n t u r e s'.toUpperCase(),
+            child:
+            DefaultTextStyle(
               style: const TextStyle(
                 fontSize: 38,
+                letterSpacing: 2,
                 color: Colors.white,
+                fontFamily: 'Quikhand'
               ),
-              textWidthBasis: TextWidthBasis.longestLine,
+              child: AnimatedTextKit(
+                repeatForever: true,
+                pause: const Duration(seconds: 1),
+                animatedTexts: [
+                  TyperAnimatedText('Adventures', speed: const Duration(milliseconds:200)),
+                  TyperAnimatedText('have fun :)', speed: const Duration(milliseconds: 200)),
+                  TyperAnimatedText('get all characters', speed: const Duration(milliseconds: 200)),
+                ],
+              ),
             ),
           ),
 

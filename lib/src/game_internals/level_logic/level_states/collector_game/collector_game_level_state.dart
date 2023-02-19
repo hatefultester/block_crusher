@@ -79,6 +79,15 @@ class CollectorGameLevelState extends ChangeNotifier {
     }
 
 
+    if (kDebugMode) {
+      print('level state initialized');
+      print('isWinningLevel: ${isWinningLevel.toString()}');
+      print('level lives: ${_lives.toString()}');
+      print('maxLives: ${maxLives.toString()}');
+      print('goal: ${goal.toString()}');
+      print('////');
+    }
+
   }
 
   _getGoalItems() {

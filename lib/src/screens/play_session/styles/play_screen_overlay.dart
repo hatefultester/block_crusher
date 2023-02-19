@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class PlaySessionStartOverlay extends StatefulWidget {
@@ -35,8 +36,20 @@ class _PlaySessionStartOverlayState extends State<PlaySessionStartOverlay> {
             AnimatedContainer(
               duration: const Duration(seconds: 2),
               width: !resize ? 100 : 200,
-              child: FittedBox(fit: BoxFit.fill, child:
-                  Text(widget.title, style: const TextStyle(color: Colors.white),),
+              child: FittedBox(fit: BoxFit.scaleDown, child:
+              DefaultTextStyle(
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  letterSpacing: 2,
+                ),
+                child: AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText('Loading', speed: const Duration(milliseconds:20)),
+                    TypewriterAnimatedText(widget.title, speed: const Duration(milliseconds: 200)),
+                  ],
+                ),
+              ),
               ),
             ),
           ],

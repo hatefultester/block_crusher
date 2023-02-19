@@ -44,10 +44,6 @@ class _DefaultBottomWidgetState extends State<DefaultBottomWidget> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CoinWalletWidget(backgroundColor: widget.itemBackgroundColor, textColor : widget.itemTextColor),
-                  const SizedBox(width:5),
-                  HeartWidget(backgroundColor: widget.itemBackgroundColor, textColor : widget.itemTextColor),
-                  const SizedBox(width:5),
                   TimerWidget(widget.startOfPlay, backgroundColor: widget.itemBackgroundColor, textColor: widget.itemTextColor,),
                 ],
               );}
