@@ -119,7 +119,6 @@ class AlienCenteredComponent extends SpriteComponent
       });
       add(effect);
       other.removeFromParent();
-
     }
   }
 

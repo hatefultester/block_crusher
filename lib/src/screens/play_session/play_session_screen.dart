@@ -219,7 +219,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
         duration: DateTime.now().difference(startOfPlay),
         level: widget.level.levelId,
         coinCount: coinIncrease, alreadyFinishedLevel: alreadyFinishedLevel
-        , winningCharacter: widget.level.winningCharacter);
+        , winningCharacter: widget.level.winningCharacterReference);
 
 
     treasureCounter.incrementCoinCount(gamePlayStatistics.coinCount);
@@ -257,7 +257,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
         level: widget.level.levelId,
         coinCount: alreadyFinishedLevel ? coinIncrease :coinIncreaseFromLevel + coinIncrease,
         alreadyFinishedLevel: alreadyFinishedLevel
-        , winningCharacter: widget.level.winningCharacter
+        , winningCharacter: widget.level.winningCharacterReference
     );
 
     levelStatistics.setLevelReached(gamePlayStatistics.level);

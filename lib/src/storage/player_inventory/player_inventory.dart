@@ -79,12 +79,14 @@ class PlayerInventory extends ChangeNotifier {
   }
 
   void addNewPlayerCharacter(String character) {
+    if(_playerCharacters.contains(character)) return;
     _playerCharacters.add(character);
     notifyListeners();
     unawaited(_store.savePlayerCharacters(_playerCharacters));
   }
 
   void addNewAvailableCharacter(String character) {
+    if(_availableCharacters.contains(character)) return;
     _availableCharacters.add(character);
     notifyListeners();
     unawaited(_store.saveAvailableCharacters(_availableCharacters));

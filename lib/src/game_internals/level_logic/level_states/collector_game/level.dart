@@ -12,6 +12,8 @@ class GameLevel {
   final int miniGameId;
   final int characterId;
 
+  final String winningCharacterReference;
+
   final int coinCountOnWin;
 
   final int levelCoinPriceToOpen;
@@ -21,13 +23,10 @@ class GameLevel {
   final String? achievementIdAndroid;
   bool get awardsAchievement => achievementIdAndroid != null;
 
-  String get winningCharacter {
-    final character = imageSource[worldType.index][characterId];
-    return character['winCharacterReferenceName'] ?? 'null';
-  }
 
-  const GameLevel(
-      {required this.worldType,
+
+  const GameLevel({
+    required this.worldType,
         required this.levelId,
         required this.characterId,
         this.achievementIdIOS,
@@ -35,7 +34,9 @@ class GameLevel {
         this.gameType = GameType.collector,
         this.miniGameId = 0,
         this.coinCountOnWin = 50,
-        this.levelCoinPriceToOpen = 0,})
+        this.levelCoinPriceToOpen = 0,
+        this.winningCharacterReference = 'null',
+      })
       : assert(
   (achievementIdAndroid != null && achievementIdIOS != null) ||
       (achievementIdAndroid == null && achievementIdIOS == null),

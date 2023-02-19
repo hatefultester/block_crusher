@@ -1,6 +1,10 @@
 import 'package:flame/components.dart';
 
 Map<String, dynamic> charactersForInventory = {
+  'null' : {
+    'source': 'characters_skill_game/1_1000x880.png',
+    'size': Vector2(10, 8.8),
+  },
   'soomy0': {
     'source': 'characters_skill_game/1_1000x880.png',
     'size': Vector2(10, 8.8),
