@@ -53,12 +53,15 @@ class PurpleWorldComponent extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    int xMax = (gameRef.size.x - size.x).toInt();
 
     gameMode = gameRef.gameMode;
 
     if(!hasCopy) {
       await _sprite();
+
+
+      int xMax = (gameRef.size.x - size.x).toInt();
+
       position = Vector2(
         (Random().nextInt(xMax) + 0),
         0,
