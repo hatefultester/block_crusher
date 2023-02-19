@@ -21,107 +21,113 @@ class SettingsView extends StatelessWidget {
     const gap = SizedBox(height: 50);
     final settings = context.watch<SettingsController>();
 
-    return Column(
+    return Stack(
       children: [
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 150),
+              gap,
+              ValueListenableBuilder<bool>(
+                valueListenable: settings.soundsOn,
+                builder: (context, soundsOn, child) => _SettingsLine(
+                  title: 'Sound FX',
+                  path: 'assets/images/in_app/note.png',
+                  on: soundsOn,
+                  onSelected: () {
+                    context.read<AudioController>().playSfx(SfxType.buttonTap);
+                    showInfoMessageSnackBar(
+                       soundsOn ? 'Sounds turned off' : 'Sounds turned on', 'Approved');
+                    settings.toggleSoundsOn();
+
+                  },
+                ),
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: settings.musicOn,
+                builder: (context, musicOn, child) => _SettingsLine(
+                    title: 'Music',
+                    path: 'assets/images/in_app/note.png',
+                    on: musicOn,
+                    onSelected: () {
+                      context.read<AudioController>().playSfx(SfxType.buttonTap);
+                      showInfoMessageSnackBar(
+                          musicOn ? 'Music turned off' : 'Music turned on', 'Approved');
+                      settings.toggleMusicOn();
+                    }),
+              ),
+
+
+              _SettingsLine(
+                title: 'Reset progress',
+                path: 'assets/images/in_app/trash.png',
+                onSelected: () {
+                  context.read<AudioController>().playSfx(SfxType.buttonTap);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text(
+                              'Are you sure that you want to reset all your game progress?'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: const <Widget>[
+                                Text('This action can\'t be returned.'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Dismiss'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Approve'),
+                              onPressed: () {
+                                if (!kDebugMode) {
+                                  context.read<TreasureCounter>().reset();
+                                }
+                                context.read<LevelStatistics>().reset();
+                                context.read<GameAchievements>().reset();
+                                context.read<WorldUnlockManager>().reset();
+                                context.read<PlayerInventory>().reset();
+
+                                showInfoMessageSnackBar(
+                                    'All your progress was reset', 'Approved');
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                },
+              ),
+
+              Visibility(
+                visible: kDebugMode,
+                child: _SettingsLine(
+                  title: 'CHEAT',
+                  path: 'assets/images/in_app/neutral_smile.png',
+                  onSelected: () {
+                    context.read<AudioController>().playSfx(SfxType.buttonTap);
+                    context.read<TreasureCounter>().cheat();
+                    context.read<LevelStatistics>().cheat();
+                    context.read<WorldUnlockManager>().cheat();
+                    context.read<GameAchievements>().cheat();
+
+                    showAchievementSnackBar(GameAchievement.connectTwoPlayers);
+                  },
+                ),
+              ),
+              const SizedBox(height: 50),
+              const _BackButton(),
+              const SizedBox(height: 50),
+            ],
+          ),
+        ),
         const _Title(),
-        gap,
-        ValueListenableBuilder<bool>(
-          valueListenable: settings.soundsOn,
-          builder: (context, soundsOn, child) => _SettingsLine(
-            title: 'Sound FX',
-            path: 'assets/images/in_app/note.png',
-            on: soundsOn,
-            onSelected: () {
-              context.read<AudioController>().playSfx(SfxType.buttonTap);
-              showInfoMessageSnackBar(
-                 soundsOn ? 'Sounds turned off' : 'Sounds turned on', 'Approved');
-              settings.toggleSoundsOn();
-
-            },
-          ),
-        ),
-        ValueListenableBuilder<bool>(
-          valueListenable: settings.musicOn,
-          builder: (context, musicOn, child) => _SettingsLine(
-              title: 'Music',
-              path: 'assets/images/in_app/note.png',
-              on: musicOn,
-              onSelected: () {
-                context.read<AudioController>().playSfx(SfxType.buttonTap);
-                showInfoMessageSnackBar(
-                    musicOn ? 'Music turned off' : 'Music turned on', 'Approved');
-                settings.toggleMusicOn();
-              }),
-        ),
-
-
-        _SettingsLine(
-          title: 'Reset progress',
-          path: 'assets/images/in_app/trash.png',
-          onSelected: () {
-            context.read<AudioController>().playSfx(SfxType.buttonTap);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text(
-                        'Are you sure that you want to reset all your game progress?'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: const <Widget>[
-                          Text('This action can\'t be returned.'),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('Dismiss'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      TextButton(
-                        child: const Text('Approve'),
-                        onPressed: () {
-                          if (!kDebugMode) {
-                            context.read<TreasureCounter>().reset();
-                          }
-                          context.read<LevelStatistics>().reset();
-                          context.read<GameAchievements>().reset();
-                          context.read<WorldUnlockManager>().reset();
-                          context.read<PlayerInventory>().reset();
-
-                          showInfoMessageSnackBar(
-                              'All your progress was reset', 'Approved');
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                });
-          },
-        ),
-
-        Visibility(
-          visible: kDebugMode,
-          child: _SettingsLine(
-            title: 'CHEAT',
-            path: 'assets/images/in_app/neutral_smile.png',
-            onSelected: () {
-              context.read<AudioController>().playSfx(SfxType.buttonTap);
-              context.read<TreasureCounter>().cheat();
-              context.read<LevelStatistics>().cheat();
-              context.read<WorldUnlockManager>().cheat();
-              context.read<GameAchievements>().cheat();
-
-              showAchievementSnackBar(GameAchievement.connectTwoPlayers);
-            },
-          ),
-        ),
-        gap,
-        const Spacer(),
-        const _BackButton(),
-        const Spacer(),
       ],
     );
   }
@@ -162,8 +168,8 @@ class _Title extends StatelessWidget {
               begin: Alignment.topCenter,
               colors: [
                 Colors.black,
-                Colors.black.withOpacity(0.8),
-                Colors.black.withOpacity(0.4)
+                Colors.black.withOpacity(0.9),
+                Colors.black.withOpacity(0.8)
               ]),
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(60),
@@ -210,7 +216,7 @@ class _SettingsLine extends StatelessWidget {
         highlightShape: BoxShape.rectangle,
         onTap: onSelected,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(

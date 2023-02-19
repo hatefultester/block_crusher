@@ -144,30 +144,63 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   _counterGoalReached() {
-    if (levelDifficulty != WorldType.purpleWorld) return false;
-    else {
+    if (levelDifficulty != WorldType.purpleWorld) {
+      return false;
+    } else {
       return _currentGoalStatus == 0;
     }
   }
 
   void evaluate() {
+    if(kDebugMode) {
+      print('Level evaluation function called');
+    }
 
       if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
+
+        if(kDebugMode) {
+          print('Player Won function called'
+          'current score: ${_currentScore.toString()} \n'
+          'current score is bigger then goal: ${(_currentScore >= goal).toString()} \n'
+              'did player died before this call: ${(_playerDied).toString()} \n'
+              'did player won before this call: ${(_gameWon).toString()} \n'
+              'is this winning level: ${(isWinningLevel).toString()} \n'
+          );
+        }
+
         onWin();
         _gameWon = true;
       }
+
+
       if (_lives <= 0 && !_playerDied && !_gameWon) {
+        if(kDebugMode) {
+          print('Player died function called \n'
+          'current lives status: ${_lives.toString()} \n'
+              'did player died before this call: ${(_playerDied).toString()} \n'
+              'did player won before this call: ${(_gameWon).toString()} \n'
+          );
+        }
+
         onDie();
         _playerDied = true;
       }
 
 
     if (_collected()) {
+      if(kDebugMode) {
+        print('player Won function called because everything was collected');
+      }
+
       onWin();
       _gameWon = true;
     }
 
     if (_counterGoalReached()) {
+      if(kDebugMode) {
+        print('player won function called because counter goal was reached');
+      }
+
       onWin();
       _gameWon = true;
     }

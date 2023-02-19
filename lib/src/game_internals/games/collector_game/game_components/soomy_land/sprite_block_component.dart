@@ -6,6 +6,7 @@ import 'package:block_crusher/src/utils/in_game_characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
@@ -123,6 +124,12 @@ class SpriteBlockComponent extends SpriteComponent
           (Random().nextInt(yMax) + 0),
         );
         break;
+    }
+
+    if(kDebugMode) {
+      print('New sprite block component generated');
+      print('initial position: ${position.x.toString()} / ${position.y
+          .toString()}');
     }
 
     await add(CircleHitbox()..shouldFillParent);

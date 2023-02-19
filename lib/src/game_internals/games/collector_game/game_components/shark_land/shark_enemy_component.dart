@@ -97,25 +97,21 @@ class SharkEnemyComponent extends SpriteComponent
     switch (direction) {
       case Direction.down:
         if (y > gameRef.size.y) {
-          gameRef.blockRemoved();
           removeFromParent();
         }
         break;
       case Direction.up:
         if (y < 0) {
-          gameRef.blockRemoved();
           removeFromParent();
         }
         break;
       case Direction.left:
         if (x < 0) {
-          gameRef.blockRemoved();
           removeFromParent();
         }
         break;
       case Direction.right:
         if (x > gameRef.size.x) {
-          gameRef.blockRemoved();
           removeFromParent();
         }
         break;
