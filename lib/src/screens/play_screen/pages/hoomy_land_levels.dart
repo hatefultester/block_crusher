@@ -33,7 +33,7 @@ class HoomyLandLevels extends StatelessWidget {
             LevelBoxWidget(id: 16),
 
             /// LINE BUILDER FOR LEVEL 18
-            LineBuilder(direction: Direction.down, id: 17, count: 20),
+            LineBuilder(direction: Direction.down, id: 17, count: 15),
 
             /// BOX FOR LEVEL 18
             LevelBoxWidget(id: 17),

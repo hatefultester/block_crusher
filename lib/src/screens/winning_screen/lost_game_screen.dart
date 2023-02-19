@@ -40,7 +40,6 @@ class LostGameScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           GameWidget(game: LostBackground()),

@@ -73,7 +73,6 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           GameWidget(game: WinBackground()),

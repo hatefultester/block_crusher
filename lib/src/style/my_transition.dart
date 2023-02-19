@@ -27,7 +27,7 @@ CustomTransitionPage<T> buildMyTransition<T>({
     name: name,
     arguments: arguments,
     restorationId: restorationId,
-    transitionDuration: const Duration(milliseconds: 700),
+    transitionDuration: const Duration(milliseconds: 1500),
   );
 }
 
@@ -100,11 +100,11 @@ class _MyRevealState extends State<_MyReveal> {
             Colors.black87,
             Colors.black45,
             Colors.transparent
-          ], begin: Alignment.topLeft, end: Alignment.bottomRight))),
+          ], begin: Alignment.topLeft, end: Alignment.bottomCenter))),
         ),
         AnimatedOpacity(
           opacity: _finished ? 1 : 0,
-          duration: const Duration(milliseconds: 800),
+          duration: const Duration(milliseconds: 1500),
           child: widget.child,
         ),
       ],

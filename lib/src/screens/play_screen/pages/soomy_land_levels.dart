@@ -110,7 +110,7 @@ class SoomyLandLevels extends StatelessWidget {
               child: Row(
                 children: const [
                   /// LINE TO LEVEL 6
-                  LineBuilder(count: 35, direction: Direction.up, id: 5),
+                  LineBuilder(count: 30, direction: Direction.up, id: 5),
 
                   /// LEVEL 6
                   LevelBoxWidget(id: 5),

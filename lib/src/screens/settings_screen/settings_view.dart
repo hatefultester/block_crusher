@@ -205,7 +205,7 @@ class _SettingsLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 120,
       child: InkResponse(
         highlightShape: BoxShape.rectangle,
         onTap: onSelected,
@@ -226,7 +226,7 @@ class _SettingsLine extends StatelessWidget {
               children: [
                 Text(title,
                     style: const TextStyle(
-                      fontSize: 25,
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2,
                       wordSpacing: 2,

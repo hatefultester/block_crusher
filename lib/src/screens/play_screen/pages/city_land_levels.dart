@@ -1,5 +1,4 @@
 import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/utils/maps.dart';
 import 'package:flutter/material.dart';
 
 import '../../../game_internals/level_logic/level_states/collector_game/world_type.dart';
@@ -8,7 +7,7 @@ import '../widgets/level_box_widget.dart';
 import '../widgets/line_builder.dart';
 
 class CityLandLevels extends StatelessWidget {
-  final int cityPageTopSectionFlex = 8;
+  final int cityPageTopSectionFlex = 12;
   final int cityPageMiddleSectionFlex = 8;
   final int cityPageBottomSectionFlex = 8;
 
@@ -63,14 +62,14 @@ class CityLandLevels extends StatelessWidget {
       const LineBuilder(
         direction: Direction.left,
         id: 20,
-        count: 30,
+        count: 15,
         offset: 40,
       ),
       SizedBox(
         height: levelBoxSize - 20,
         child: Row(
-          children: const [
-            SizedBox(width: pageHorizontalPadding + 50),
+          children: [
+            const SizedBox(width: pageHorizontalPadding + 50),
             // LineBuilder(
             //   width: pageHorizontalPadding + 60,
             //   height: levelBoxSize,
@@ -80,8 +79,16 @@ class CityLandLevels extends StatelessWidget {
             //   offset: 8,
             //   id: 18,
             // ),
-            LevelBoxWidget(
-              id: 18,
+            Row(
+              children: const [
+                LevelBoxWidget(
+                  id: 18,
+                ),
+
+                LineBuilder(id: 19, direction: Direction.up, count: 15, expandable: false, width: 80),
+
+                LevelBoxWidget(id: 19),
+              ],
             ),
           ],
         ),
@@ -89,20 +96,20 @@ class CityLandLevels extends StatelessWidget {
     ];
 
     List<Widget> cityPageBottomSection = [
-      const LineBuilder(
-          direction: Direction.left, id: 19, count: 21, offset: 30,
-      ),
-      SizedBox(
-        height: levelBoxSize - 20,
-        child: Row(
-          children: const [
-            SizedBox(width: pageHorizontalPadding + 50),
-            LevelBoxWidget(id: 19),
-            Spacer(),
-          ],
-        ),
-      ),
-      SizedBox(height: 60 + 5 * pageHorizontalPadding),
+      // const LineBuilder(
+      //     direction: Direction.left, id: 19, count: 15, offset: 30,
+      // ),
+      // SizedBox(
+      //   height: levelBoxSize - 20,
+      //   child: Row(
+      //     children: const [
+      //       SizedBox(width: pageHorizontalPadding + 50),
+      //       LevelBoxWidget(id: 19),
+      //       Spacer(),
+      //     ],
+      //   ),
+      // ),
+      const SizedBox(height: 60 + 5 * pageHorizontalPadding),
     ];
 
     return LevelPage(

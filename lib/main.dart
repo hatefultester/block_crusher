@@ -177,19 +177,19 @@ class MyApp extends StatelessWidget {
             GoRoute(
                 path: 'play',
                 pageBuilder: (context, state) => buildMyTransition<void>(
-                      child: const PlayScreen(),
+                      child: const PlayScreen(key: Key('play screen')),
                   color: Colors.black,
                     ),
                 routes: [
                   GoRoute(
                     path:'profile',
                     pageBuilder: (context, state) {
-                      return buildMyTransition(child: const ProfileScreen(), color: Colors.black);
+                      return buildMyTransition(child: const ProfileScreen(key: Key('user profile')), color: Colors.black);
                     },
                   ),GoRoute(
                     path: 'settings',
                     builder: (context, state) =>
-                    const SettingsScreen(key: Key('settings')),
+                    const SettingsScreen(key: Key('user settings')),
                   ),
                   GoRoute(
                     path: 'session/:level/:sublevel',
