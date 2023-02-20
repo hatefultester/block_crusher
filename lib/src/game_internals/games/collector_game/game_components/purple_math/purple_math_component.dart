@@ -8,6 +8,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
+import 'package:flutter/gestures.dart';
 
 import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
@@ -145,7 +146,7 @@ class PurpleMathComponent extends SpriteComponent
       add(effect);
       }
 
-      gameRef.collisionDetected(characterId);
+      gameRef.collisionDetected(characterId, intersectionPoints);
     }
   }
 

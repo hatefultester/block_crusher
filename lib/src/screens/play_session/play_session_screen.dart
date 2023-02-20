@@ -103,6 +103,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                     ? Column(
                         children: [
                           CityTopWidget(
+                            onExit: onExit,
                             title: title,
                             imagePath: imagePath,
                           ),
@@ -117,6 +118,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                     ? Column(
                         children: [
                           PurpleTopWidget(
+                            onExit: onExit,
                             title: title,
                             imagePath: imagePath,
                           ),
@@ -135,6 +137,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                     ? Column(
                         children: [
                           DefaultTopWidget(
+                            onExit: onExit,
                             title: title,
                             imagePath: imagePath,
                           ),
@@ -207,7 +210,8 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     startOfPlay = DateTime.now();
   }
 
-  Future<void> playerDie() async {
+  onExit() async {
+
     final audioController = context.read<AudioController>();
     final treasureCounter = context.read<TreasureCounter>();
     final levelStatistics = context.read<LevelStatistics>();
@@ -221,8 +225,37 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
         coinCount: coinIncrease, alreadyFinishedLevel: alreadyFinishedLevel
         , winningCharacter: widget.level.winningCharacterReference);
 
+    audioController.playSfx(SfxType.buttonTap);
 
     treasureCounter.incrementCoinCount(gamePlayStatistics.coinCount);
+
+    levelStatistics.increaseTotalPlayTime(gamePlayStatistics.duration.inSeconds);
+
+
+
+    GoRouter.of(context).go('/play');
+
+
+  }
+
+  Future<void> playerDie() async {
+    final audioController = context.read<AudioController>();
+    final treasureCounter = context.read<TreasureCounter>();
+    final levelStatistics = context.read<LevelStatistics>();
+
+    final bool alreadyFinishedLevel = levelStatistics.highestLevelReached >= widget.level.levelId;
+    final int coinIncrease =  blockCrusherGame.coinCountFromState();
+
+
+    final GamePlayStatistics gamePlayStatistics = GamePlayStatistics(
+        duration: DateTime.now().difference(startOfPlay),
+        level: widget.level.levelId,
+        coinCount: coinIncrease, alreadyFinishedLevel: alreadyFinishedLevel
+        , winningCharacter: widget.level.winningCharacterReference);
+
+
+    treasureCounter.incrementCoinCount(gamePlayStatistics.coinCount);
+
     levelStatistics.increaseTotalPlayTime(gamePlayStatistics.duration.inSeconds);
 
     await Future<void>.delayed(preCelebrationDuration);

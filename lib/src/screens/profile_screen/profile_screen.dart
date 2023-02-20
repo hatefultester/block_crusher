@@ -1,10 +1,14 @@
 
 import 'dart:convert';
 
+import 'package:block_crusher/src/screens/profile_screen/parts/profile_color_slider.dart';
+import 'package:block_crusher/src/screens/profile_screen/parts/profile_statistics_section.dart';
+import 'package:block_crusher/src/screens/profile_screen/parts/profile_top_part.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_background_color.dart';
 import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
 import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
 import 'package:block_crusher/src/utils/player_inventory_database.dart';
+import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +27,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final playerInventory = context.watch<PlayerInventory>();
     final levelStatistics = context.watch<LevelStatistics>();
 
+    final Color backgroundColor = profileBackgroundColors[playerInventory.selectedBackgroundColorIndexForProfile];
+
     return Scaffold(
-      backgroundColor: profileBackgroundColors[playerInventory.selectedBackgroundColorIndexForProfile],
-      appBar: AppBar(title: const Text('Profile'),),
-      body: Column(
+      backgroundColor: backgroundColor,
+
+      body: Stack(children: [
+        ProfileTopWidget(itemBackgroundColor: Colors.white, itemTextColor: Colors.black),
+        ProfileContent(),
+        ProfileColorSlider(),
+      ],
+      )
+    );
+  }
+}
+
+class ProfileContent extends StatelessWidget {
+  const ProfileContent({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 120,),
+        ProfileStatisticsSection(backgroundColor: Colors.white,textColor: Colors.black,),
+
+      ],
+    );
+  }
+}
+
+
+
+/*
+Column(
         children: [
           Wrap(
             children: [
@@ -47,10 +81,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SizedBox(height: 300,child: Center(child: Text(levelStatistics.totalPlayedTimeInSeconds.toString(), style: const TextStyle(fontSize: 35),),)),
         ],
       ),
-    );
-  }
 
-  characterWidget(String character) {
+
+        characterWidget(String character) {
     return Column(
       children: [
         Container(width: 50, height: 50, child: Padding(padding: const EdgeInsets.all(5), child: Image.asset('assets/images/${charactersForInventory[
@@ -59,4 +92,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ],
     );
   }
-}
+ */

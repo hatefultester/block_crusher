@@ -237,7 +237,7 @@ class SpriteBlockComponent extends SpriteComponent
       other.removeFromParent();
       direction = Direction.down;
 
-      gameRef.collisionDetected(characterId);
+      gameRef.collisionDetected(characterId, intersectionPoints);
     }
   }
 

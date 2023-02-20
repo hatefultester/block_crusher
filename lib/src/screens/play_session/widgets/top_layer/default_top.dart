@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'package:block_crusher/src/screens/play_session/widgets/parts/coin_wallet.dart';
 import 'package:block_crusher/src/screens/play_session/widgets/parts/heart_widget.dart';
-import 'package:block_crusher/src/screens/play_session/widgets/parts/image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DefaultTopWidget extends StatelessWidget {
   final String title;
   final String imagePath;
+  final VoidCallback onExit;
 
   const DefaultTopWidget(
-      {Key? key, required this.title, required this.imagePath})
+      {Key? key, required this.title, required this.imagePath, required this.onExit})
       : super(key: key);
 
   @override
@@ -34,9 +34,7 @@ class DefaultTopWidget extends StatelessWidget {
               color: Colors.white,
               size: 25,
             ),
-            onPressed: (() => {
-                  GoRouter.of(context).go('/play'),
-                }),
+            onPressed: (onExit),
           ),
           const Spacer(),
           const CoinWalletWidget(backgroundColor: Colors.red, textColor: Colors.white),

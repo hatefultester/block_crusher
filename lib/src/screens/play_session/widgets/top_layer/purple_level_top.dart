@@ -8,9 +8,10 @@ import 'package:go_router/go_router.dart';
 class PurpleTopWidget extends StatelessWidget {
   final String title;
   final String imagePath;
+  final VoidCallback onExit;
 
   const PurpleTopWidget(
-      {Key? key, required this.title, required this.imagePath})
+      {Key? key, required this.title, required this.imagePath, required this.onExit})
       : super(key: key);
 
   @override
@@ -28,9 +29,7 @@ class PurpleTopWidget extends StatelessWidget {
               color: Colors.white,
               size: 25,
             ),
-            onPressed: (() => {
-              GoRouter.of(context).go('/play'),
-            }),
+            onPressed: (onExit),
           ),
           const Spacer(),
           ImageWidget(path: imagePath),
