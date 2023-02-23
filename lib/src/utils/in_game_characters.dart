@@ -192,6 +192,46 @@ List<dynamic> imageSource = [
       'source': 'points/5.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
+    {
+      'source': 'points/1.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/2.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/3.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/4.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/5.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/1.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/2.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/3.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/4.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/5.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
   ],
 
 
@@ -342,7 +382,121 @@ List<dynamic> imageSource = [
   ],
 ];
 
-
+Map<String, List<dynamic>> purpleWorldCharacters = {
+  "greenCar": [
+    {
+      'source': 'characters/400-270-cars/green/1.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/green/2.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/green/3.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/green/4.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/green/5.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+  ],"redCar": [
+    {
+      'source': 'characters/400-270-cars/red/1.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/red/2.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/red/3.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/red/4.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    }, {
+      'source': 'characters/400-270-cars/red/5.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+  ],
+  "number": [
+    {
+      'source': 'points/1.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/2.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/3.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/4.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+    {
+      'source': 'points/5.png',
+      'size': Vector2(10 * 1.2, 8.69 * 1.2),
+    },
+  ],
+  "faraon" : [
+    {
+      'source': 'characters/5-4-faraons/1.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    },
+    {
+      'source': 'characters/5-4-faraons/2.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    }, {
+      'source': 'characters/5-4-faraons/3.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    }, {
+      'source': 'characters/5-4-faraons/4.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    }, {
+      'source': 'characters/5-4-faraons/5.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    },
+  ],
+  "vacuum" : [
+    {
+      'source': 'characters/600-530-vacuum/red/1.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    },
+    {
+      'source': 'characters/600-530-vacuum/red/2.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    }, {
+      'source': 'characters/600-530-vacuum/red/3.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    }, {
+      'source': 'characters/600-530-vacuum/red/4.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    }, {
+      'source': 'characters/600-530-vacuum/red/5.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    },
+  ],
+  "cube" : [
+    {
+      'source' : 'characters/400-450-cube/1.png',
+      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
+    },{
+      'source' : 'characters/400-450-cube/2.png',
+      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
+    },{
+      'source' : 'characters/400-450-cube/3.png',
+      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
+    },{
+      'source' : 'characters/400-450-cube/4.png',
+      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
+    },{
+      'source' : 'characters/400-450-cube/5.png',
+      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
+    }
+  ]
+};
 
 List cityFoods = [
   /// LEVEL 1

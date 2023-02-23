@@ -22,7 +22,7 @@ class ProfileColorSlider extends StatelessWidget {
         child: ProfileContainer(
           width: double.infinity,
           height: 80,
-          color: Colors.black,
+          color: Colors.white,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
@@ -33,7 +33,7 @@ class ProfileColorSlider extends StatelessWidget {
                   }, child: Container(
                   decoration: BoxDecoration(borderRadius:
                   BorderRadius.circular(60),
-                    border: Border.all(width:0.1, color: Colors.black),
+                    border: Border.all(width:0.01, color: Colors.black),
                     color: profileBackgroundColors[i],), width: 50, height: 50,
                   child: Center(child: Text(i.toString()),),),),
             ],

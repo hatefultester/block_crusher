@@ -63,6 +63,13 @@ flutter:
      - assets/images/food/300x300/
      - assets/images/characters_skill_game/
      - assets/images/characters/
+     - assets/images/characters/600-530-vacuum/
+     - assets/images/characters/600-530-vacuum/red/
+     - assets/images/characters/600-530-vacuum/pink/
+     - assets/images/characters/400-450-cube/
+     - assets/images/characters/400-270-cars/
+     - assets/images/characters/400-270-cars/green/
+     - assets/images/characters/400-270-cars/red/
      - assets/images/characters/300x280/
      - assets/images/characters/500x210/
      - assets/images/characters/700x525/
@@ -71,6 +78,7 @@ flutter:
      - assets/images/characters/1000x900/
      - assets/images/characters/bots/
      - assets/images/characters/bots/1000x666/
+     - assets/images/characters/5-4-faraons/
      - assets/images/characters/fish/
      - assets/images/characters/fish/1000x666/
      - assets/images/characters/fish/1000x1000/

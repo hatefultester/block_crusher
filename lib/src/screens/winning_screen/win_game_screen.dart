@@ -188,6 +188,19 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                           child: const Text('Back to levels'),
                         ),
                       ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: 300,
+                        height: 100,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final audio = context.read<AudioController>();
+                            audio.playSfx(SfxType.buttonTap);
+                            GoRouter.of(context).pushReplacement('/play/profile_market');
+                          },
+                          child: const Text('Go to market'),
+                        ),
+                      ),
                       Visibility(
                         visible: nextLevelVisible(widget.score.level+1),
                         child: Container(

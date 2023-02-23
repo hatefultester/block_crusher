@@ -15,15 +15,15 @@ extension CollisionDetector on BlockCrusherGame {
     audioController.playSfx(SfxType.wssh);
     final position = intersectionPoints.first;
 
-
     if (!gameAchievements.isAchievementOpen(GameAchievement.connectTwoPlayers)) {
       gameAchievements.openNewAchievement(GameAchievement.connectTwoPlayers);
     }
 
     if (gameMode == GameMode.purpleWorld) {
-      if (purpleMode == PurpleMode.counter) {
-        state.decreaseCountdown();
+      if (purpleMode == PurpleMode.counterToFive) {
+
         if(level == 4) {
+          state.decreaseCountdown(value: 5);
           state.increaseCoinCount(connectCoinCount * 5);
           addCoinEffect(connectCoinCount * 5);
         } else {
@@ -33,6 +33,7 @@ extension CollisionDetector on BlockCrusherGame {
         state.evaluate();
         return;
       }
+      return;
     }
 
     int extraBonus = 0;
@@ -72,7 +73,7 @@ extension CollisionDetector on BlockCrusherGame {
   splitPurpleComponent(PurpleWorldComponent component, NotifyingVector2 position) async {
     if(component.lives == 0) return;
 
-    var purpleComponentCopy = PurpleWorldComponent.copyFrom(component, Vector2(position.x, position.y));
+    var purpleComponentCopy = PurpleWorldComponent.copyFrom(component, Vector2(position.x, position.y), component.type);
     await add(purpleComponentCopy);
     purpleWorldComponents.add(purpleComponentCopy);
   }

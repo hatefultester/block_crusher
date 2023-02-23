@@ -1,3 +1,4 @@
+import 'package:block_crusher/src/style/custom_snack_bars/error_message_snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -106,18 +107,18 @@ class SettingsView extends StatelessWidget {
               ),
 
               Visibility(
-                visible: kDebugMode,
                 child: _SettingsLine(
-                  title: 'CHEAT',
+                  title: 'Give me money',
                   path: 'assets/images/in_app/neutral_smile.png',
                   onSelected: () {
                     context.read<AudioController>().playSfx(SfxType.buttonTap);
-                    context.read<TreasureCounter>().cheat();
-                    context.read<LevelStatistics>().cheat();
-                    context.read<WorldUnlockManager>().cheat();
-                    context.read<GameAchievements>().cheat();
+                    context.read<TreasureCounter>().incrementCoinCount(5000);
+                    showErrorMessageSnackBar('You have 5000 more money', 'Cheater');
+               //     context.read<LevelStatistics>().cheat();
+                 //   context.read<WorldUnlockManager>().cheat();
+                   // context.read<GameAchievements>().cheat();
 
-                    showAchievementSnackBar(GameAchievement.connectTwoPlayers);
+                    //showAchievementSnackBar(GameAchievement.connectTwoPlayers);
                   },
                 ),
               ),

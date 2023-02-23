@@ -78,7 +78,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
               level: widget.level,
               levelType: widget.level.gameType,
               levelDifficulty: widget.level.worldType,
-              goal: widget.level.characterId,
+              goal: widget.level.gameGoal ?? widget.level.characterId,
               characterId: widget.level.characterId,
               onDie: playerDie,
               onWin: playerWon,
@@ -90,7 +90,6 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
           child: Scaffold(
             body: Stack(
               children: [
-
                 /// GAME WIDGET
                 Consumer<CollectorGameLevelState>(
                     builder: (context, levelState, child) {
@@ -151,6 +150,10 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                       )
                     : const SizedBox.shrink(),
 
+                Align(alignment: Alignment.bottomCenter, child: Visibility(visible:true,
+                child: ElevatedButton(child: Text('cheat'), onPressed: () {playerWon();},),
+                ),),
+
                 // Game Won widget
                 SizedBox.expand(
                   child: Visibility(
@@ -193,7 +196,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     blockCrusherGame = BlockCrusherGame(widget.level.worldType,
         gameAchievements: achievements,
         audioController: audio,
-        remoteConfig: remoteConfig);
+        remoteConfig: remoteConfig, trippieCharacterType: widget.level.trippieCharacterType,mathCharacterType: widget.level.mathCharacterType);
 
     initAnimation();
 
@@ -215,6 +218,8 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final audioController = context.read<AudioController>();
     final treasureCounter = context.read<TreasureCounter>();
     final levelStatistics = context.read<LevelStatistics>();
+
+    levelStatistics.increaseLoseRate();
 
     final bool alreadyFinishedLevel = levelStatistics.highestLevelReached >= widget.level.levelId;
     final int coinIncrease =  blockCrusherGame.coinCountFromState();
@@ -242,6 +247,10 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final audioController = context.read<AudioController>();
     final treasureCounter = context.read<TreasureCounter>();
     final levelStatistics = context.read<LevelStatistics>();
+
+
+    levelStatistics.increaseDeathRate();
+
 
     final bool alreadyFinishedLevel = levelStatistics.highestLevelReached >= widget.level.levelId;
     final int coinIncrease =  blockCrusherGame.coinCountFromState();
@@ -279,6 +288,10 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final audioController = context.read<AudioController>();
     final levelStatistics = context.read<LevelStatistics>();
     final playerInventory = context.read<PlayerInventory>();
+
+
+    levelStatistics.increaseWinRate();
+
 
     final int coinIncrease =  blockCrusherGame.coinCountFromState();
     final int coinIncreaseFromLevel = widget.level.coinCountOnWin;

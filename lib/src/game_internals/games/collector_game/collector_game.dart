@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'dart:async' as dart_async;
 import '../../level_logic/level_states/collector_game/world_type.dart';
 import 'game_components/purple_land/purple_component.dart';
+import 'game_components/purple_math/purple_math_component.dart';
 import 'util/collector_game_helper.dart';
 
 class BlockCrusherGame extends FlameGame
@@ -22,6 +23,9 @@ class BlockCrusherGame extends FlameGame
   GameMode gameMode = GameMode.classic;
   late PurpleMode purpleMode;
   late CollectorGameLevelState state;
+
+  final TrippieCharacterType? trippieCharacterType;
+  final MathCharacterType? mathCharacterType;
 
   dart_async.Timer? timer;
 
@@ -48,8 +52,8 @@ class BlockCrusherGame extends FlameGame
   BlockCrusherGame(this.difficulty,
       {this.hasDifferentStartingBlock = false,
       this.generateCharacterFromLastLevel = false,
-      this.hasSpecialEvents = false,
-      required this.gameAchievements, required this.audioController, required this.remoteConfig})
+      this.hasSpecialEvents = false,this.trippieCharacterType, this.mathCharacterType,
+      required this.gameAchievements, required this.audioController, required this.remoteConfig,})
       : super();
 
   BlockCrusherGame setGame(

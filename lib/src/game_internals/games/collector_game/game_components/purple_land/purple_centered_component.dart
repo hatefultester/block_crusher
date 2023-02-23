@@ -61,8 +61,8 @@ class PurpleCenteredComponent extends SpriteComponent
     if (other is PurpleWorldComponent) {
       if(!other.isDragging) return;
 
-          characterId++;
-          _sprite();
+          // characterId++;
+          // _sprite();
           //gameRef.collectedToTray(other.characterId);
           other.removeFromParent();
 

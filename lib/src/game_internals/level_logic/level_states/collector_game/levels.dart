@@ -1,6 +1,10 @@
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/level.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
 
+import '../../../games/collector_game/game_components/purple_land/purple_component.dart';
+import '../../../games/collector_game/game_components/purple_math/purple_math_component.dart';
+import '../../../games/collector_game/util/collector_game_helper.dart';
+
 const gameLevels = [
   /// SOOMY LEVELS
   /// BRICK WALL
@@ -87,22 +91,116 @@ const gameLevels = [
       winningCharacterReference: 'city5',
       levelId: 23, characterId: 5, worldType: WorldType.cityLand),
 
-  /// ALIEN SHOOTER LEVEL
+  /// Purple world levels
   ///
   ///
   GameLevel(
-
       levelId: 24,
-      characterId: 1,
-      worldType: WorldType.purpleWorld),
-
-  GameLevel(
+      characterId: 0,
+      worldType: WorldType.purpleWorld,
+      purpleMode: PurpleMode.trippie,
+    trippieCharacterType: TrippieCharacterType.number,
+    gameGoal: 10,
+    winningCharacterReference: "purple1",
+  ), GameLevel(
     levelId: 25,
+    characterId: 4,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.cube,
+    winningCharacterReference: "purple2",
+    gameGoal: 25,
+  ),
+  GameLevel(
+    levelId: 26,
+    characterId: 1,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.trippie,
+    trippieCharacterType: TrippieCharacterType.vacuum,
+    winningCharacterReference: "purple3",
+    gameGoal: 25,
+  ),GameLevel(
+    levelId: 27,
+    characterId: 4,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.cube,
+    winningCharacterReference: "purple4",
+    gameGoal: 50,
+  ),
+  GameLevel(
+    levelId: 28,
     characterId: 2,
-    worldType: WorldType.purpleWorld),
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.trippie,
+    trippieCharacterType: TrippieCharacterType.number,
+    winningCharacterReference: "purple5",
+    gameGoal: 50,
+  ),GameLevel(
+    levelId: 29,
+    characterId: 2,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.faraon,
+    winningCharacterReference: "purple6",
+    gameGoal: 100,
+  ),
+  GameLevel(
+    levelId: 30,
+    characterId: 3,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.trippie,
+    trippieCharacterType: TrippieCharacterType.vacuum,
+    winningCharacterReference: "purple7",
+    gameGoal: 100,
+  ),GameLevel(
+    levelId: 31,
+    characterId: 2,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.faraon,
+    winningCharacterReference: "purple8",
+    gameGoal: 150,
+  ),
+  GameLevel(
+    levelId: 32,
+    characterId: 4,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.trippie,
+    trippieCharacterType: TrippieCharacterType.number,
+    winningCharacterReference: "purple9",
+    gameGoal: 150,
+  ),GameLevel(
+    levelId: 33,
+    characterId: 2,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.cube,
+    winningCharacterReference: "purple10",
+    gameGoal: 300,
+  ),
+  GameLevel(
+    levelId: 34,
+    characterId: 5,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.trippie,
+    trippieCharacterType: TrippieCharacterType.vacuum,
+    winningCharacterReference: "purple11",
+    gameGoal: 200,
+  ),GameLevel(
+    levelId: 35,
+    characterId: 2,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.faraon,
+    winningCharacterReference: "purple12",
+    gameGoal: 500,
+  ),
+
+/// counter to five
 
   GameLevel(
-      levelId: 26,
+      levelId: 36,
       characterId: 1,
       worldType: WorldType.alien),
 ];

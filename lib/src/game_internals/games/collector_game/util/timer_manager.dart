@@ -44,13 +44,15 @@ extension TimerManager on BlockCrusherGame {
 
             if(gameMode == GameMode.purpleWorld) {
               if (purpleMode == PurpleMode.trippie) {
+                final int index = random.nextInt(5);
+
                 final PurpleWorldComponent newPurpleComponent = PurpleWorldComponent(
-                    _generatedIndexNumber(random));
+                    _generatedIndexNumber(random), TrippieCharacterType.values.elementAt(index));
                 await add(newPurpleComponent);
                 purpleWorldComponents.add(newPurpleComponent);
               }
-              if (purpleMode == PurpleMode.counter) {
-                await add(PurpleMathComponent(_generatedIndexNumber(random)));
+              if (purpleMode == PurpleMode.counterToFive) {
+                await add(PurpleMathComponent(_generatedIndexNumber(random), type: mathCharacterType!));
               }
             }
           } else {
@@ -94,7 +96,7 @@ extension TimerManager on BlockCrusherGame {
       if(purpleMode == PurpleMode.trippie) {
         generatedIndexNumber = random.nextInt(4) + 1;
       }
-      if (purpleMode == PurpleMode.counter) {
+      if (purpleMode == PurpleMode.counterToFive) {
         generatedIndexNumber = random.nextInt(4);
         if(generatedIndexNumber >= 2) {
           if (random

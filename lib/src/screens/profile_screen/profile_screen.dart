@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 
+import 'package:block_crusher/src/screens/profile_screen/parts/profile_action_button_section.dart';
+import 'package:block_crusher/src/screens/profile_screen/parts/profile_back_button.dart';
 import 'package:block_crusher/src/screens/profile_screen/parts/profile_color_slider.dart';
 import 'package:block_crusher/src/screens/profile_screen/parts/profile_statistics_section.dart';
 import 'package:block_crusher/src/screens/profile_screen/parts/profile_top_part.dart';
@@ -32,10 +34,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: backgroundColor,
 
-      body: Stack(children: [
-        ProfileTopWidget(itemBackgroundColor: Colors.white, itemTextColor: Colors.black),
+      body: Stack(children: const [
+        ProfileTopWidget(title: 'Player statistics', itemBackgroundColor: Colors.white, itemTextColor: Colors.black),
         ProfileContent(),
-        ProfileColorSlider(),
+        ProfileBackButton(),
+      //  ProfileColorSlider(),
       ],
       )
     );
@@ -48,10 +51,12 @@ class ProfileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        const SizedBox(height: 120,),
-        ProfileStatisticsSection(backgroundColor: Colors.white,textColor: Colors.black,),
-
+      children: const [
+        SizedBox(height: 120,),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: ProfileStatisticsSection(backgroundColor: Colors.white,textColor: Colors.black,),
+        ),
       ],
     );
   }

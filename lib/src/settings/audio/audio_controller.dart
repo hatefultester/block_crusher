@@ -214,7 +214,8 @@ class AudioController {
         _log.info("resumeMusic() called when music is stopped. "
             "This probably means we haven't yet started the music. "
             "For example, the game was started with sound off.");
-        await _playFirstSongInPlaylist();
+       // todo music
+        // await _playFirstSongInPlaylist();
         break;
       case PlayerState.playing:
         _log.warning('resumeMusic() called when music is playing. '

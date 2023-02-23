@@ -1,4 +1,3 @@
-
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/levels.dart';
 import 'package:block_crusher/src/game_internals/level_logic/level_states/collector_game/world_type.dart';
 import 'package:block_crusher/src/utils/in_game_characters.dart';
@@ -13,7 +12,7 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   final GameType levelType;
   final WorldType levelDifficulty;
-  
+
   final GameLevel level;
 
   final int characterId;
@@ -50,16 +49,16 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   CollectorGameLevelState(
-      {
-        required this.level,
-        required this.onWin,
+      {required this.level,
+      required this.onWin,
       required this.characterId,
       required this.onDie,
       required this.levelType,
       required this.levelDifficulty,
-        this.isWinningLevel = true,
+      this.isWinningLevel = true,
       this.goal = 20,
       required this.maxLives}) {
+    _currentGoalStatus = goal;
 
     _lives = maxLives;
 
@@ -69,15 +68,14 @@ class CollectorGameLevelState extends ChangeNotifier {
       return;
     }
 
-    if(levelDifficulty == WorldType.purpleWorld) {
+    if (levelDifficulty == WorldType.purpleWorld) {
       isWinningLevel = false;
-    return;
+      return;
     }
-    if(levelDifficulty == WorldType.alien) {
+    if (levelDifficulty == WorldType.alien) {
       isWinningLevel = false;
-  return;
+      return;
     }
-
 
     if (kDebugMode) {
       print('level state initialized');
@@ -87,7 +85,6 @@ class CollectorGameLevelState extends ChangeNotifier {
       print('goal: ${goal.toString()}');
       print('////');
     }
-
   }
 
   _getGoalItems() {
@@ -110,18 +107,18 @@ class CollectorGameLevelState extends ChangeNotifier {
   bool evaluateScore(int value) {
     if (value > _currentScore) {
       _currentScore = value;
-    return true;
+      return true;
     }
     return false;
   }
 
-  void decreaseLife() {
-    _lives--;
+  void decreaseLife({int? value}) {
+    _lives = lives - (value ?? 1);
     notifyListeners();
   }
 
   void increaseCoinCount(int value) {
-    _coinCount+= value;
+    _coinCount += value;
     notifyListeners();
   }
 
@@ -147,8 +144,8 @@ class CollectorGameLevelState extends ChangeNotifier {
     return collected;
   }
 
-  decreaseCountdown() {
-    _currentGoalStatus--;
+  decreaseCountdown({int? value}) {
+    _currentGoalStatus -= value ?? 1;
     notifyListeners();
   }
 
@@ -161,43 +158,38 @@ class CollectorGameLevelState extends ChangeNotifier {
   }
 
   void evaluate() {
-    if(kDebugMode) {
+    if (kDebugMode) {
       print('Level evaluation function called');
     }
 
-      if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
-
-        if(kDebugMode) {
-          print('Player Won function called'
-          'current score: ${_currentScore.toString()} \n'
-          'current score is bigger then goal: ${(_currentScore >= goal).toString()} \n'
-              'did player died before this call: ${(_playerDied).toString()} \n'
-              'did player won before this call: ${(_gameWon).toString()} \n'
-              'is this winning level: ${(isWinningLevel).toString()} \n'
-          );
-        }
-
-        onWin();
-        _gameWon = true;
+    if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
+      if (kDebugMode) {
+        print('Player Won function called'
+            'current score: ${_currentScore.toString()} \n'
+            'current score is bigger then goal: ${(_currentScore >= goal).toString()} \n'
+            'did player died before this call: ${(_playerDied).toString()} \n'
+            'did player won before this call: ${(_gameWon).toString()} \n'
+            'is this winning level: ${(isWinningLevel).toString()} \n');
       }
 
+      onWin();
+      _gameWon = true;
+    }
 
-      if (_lives <= 0 && !_playerDied && !_gameWon) {
-        if(kDebugMode) {
-          print('Player died function called \n'
-          'current lives status: ${_lives.toString()} \n'
-              'did player died before this call: ${(_playerDied).toString()} \n'
-              'did player won before this call: ${(_gameWon).toString()} \n'
-          );
-        }
-
-        onDie();
-        _playerDied = true;
+    if (_lives <= 0 && !_playerDied && !_gameWon) {
+      if (kDebugMode) {
+        print('Player died function called \n'
+            'current lives status: ${_lives.toString()} \n'
+            'did player died before this call: ${(_playerDied).toString()} \n'
+            'did player won before this call: ${(_gameWon).toString()} \n');
       }
 
+      onDie();
+      _playerDied = true;
+    }
 
     if (_collected()) {
-      if(kDebugMode) {
+      if (kDebugMode) {
         print('player Won function called because everything was collected');
       }
 
@@ -206,7 +198,7 @@ class CollectorGameLevelState extends ChangeNotifier {
     }
 
     if (_counterGoalReached()) {
-      if(kDebugMode) {
+      if (kDebugMode) {
         print('player won function called because counter goal was reached');
       }
 

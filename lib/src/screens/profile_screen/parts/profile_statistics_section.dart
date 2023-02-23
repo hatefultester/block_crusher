@@ -23,14 +23,18 @@ class ProfileStatisticsSection extends StatelessWidget {
       alignment: Alignment.center,
       child: ProfileContainer(
           width: 350,
-          height: 220,
+          height: 440,
           color: backgroundColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _StatisticsLine(title: 'Wallet', value: treasureCounter.coinCount.toString(), color: textColor, path: 'assets/images/coins/1000x677/money.png'),
+
           _StatisticsLine(title: 'Played time', value: playedTime.toFormattedString(), color: textColor, path: 'assets/images/in_app/clock.png'),
-        _StatisticsLine(title: 'Current level', value: levelStatistics.highestLevelReached.toString(), color: textColor, path: 'assets/images/asterisks.png'),
+          _StatisticsLine(title: 'Wallet', value: treasureCounter.coinCount.toString(), color: textColor, path: 'assets/images/coins/1000x677/money.png'),
+          _StatisticsLine(title: 'Current level', value: levelStatistics.highestLevelReached.toString(), color: textColor, path: 'assets/images/asterisks.png'),
+          _StatisticsLine(title: 'Wins', value: levelStatistics.winRate.toString(), color: textColor, path: 'assets/images/in_app/win.png'),
+          _StatisticsLine(title: 'Deaths', value: levelStatistics.deathRate.toString(), color: textColor, path: 'assets/images/in_app/death_heart.png'),
+          _StatisticsLine(title: 'Gave up\'s', value: levelStatistics.loseRate.toString(), color: textColor, path: 'assets/images/in_app/neutral_smile.png'),
 
         ],
       )
@@ -38,6 +42,19 @@ class ProfileStatisticsSection extends StatelessWidget {
     );
   }
 }
+
+class ProfileWallet extends StatelessWidget {
+  const ProfileWallet({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final treasureCounter = context.watch<TreasureCounter>();
+
+    return ProfileContainer(height: 80, width: 320, child: _StatisticsLine(title: 'Wallet', value: treasureCounter.coinCount.toString(), color: Colors.black, path: 'assets/images/coins/1000x677/money.png'),
+        color: Colors.white,);
+  }
+}
+
 
 class _StatisticsLine extends StatelessWidget {
   final String title;

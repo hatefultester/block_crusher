@@ -130,6 +130,9 @@ class LevelPageViewChildPopUpMenuButton extends StatelessWidget {
       if (value == 2) {
         GoRouter.of(context).go('/play/profile');
       }
+      if (value == 3) {
+        GoRouter.of(context).go('/play/profile_market');
+      }
     }
 
     return PopupMenuButton(
@@ -141,9 +144,13 @@ class LevelPageViewChildPopUpMenuButton extends StatelessWidget {
       offset: const Offset(12, 80),
       itemBuilder: (BuildContext context) {
         return const [
+          PopupMenuItem<int>(
+            value: 3,
+            child: _ItemText(text: 'Market',),
+          ),
            PopupMenuItem<int>(
             value: 2,
-            child: _ItemText(text: 'Profile',),
+            child: _ItemText(text: 'Statistics',),
           ),
           PopupMenuItem<int>(
             value: 1,

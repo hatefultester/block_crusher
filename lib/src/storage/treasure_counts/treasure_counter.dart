@@ -76,6 +76,7 @@ class TreasureCounter extends ChangeNotifier {
     await _store.saveTegrommCount(_tegrommCount);
   }
 
+
   void cheat() async {
     _coinCount = 10000;
     _nutCount = 500;

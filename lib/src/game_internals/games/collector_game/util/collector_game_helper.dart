@@ -6,5 +6,5 @@ enum GameMode {
 enum Direction { down, up, left, right }
 
 enum PurpleMode {
-  trippie, counter,
+  trippie, counterToFive,
 }

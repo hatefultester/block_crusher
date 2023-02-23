@@ -63,11 +63,8 @@ extension LoadingPart on BlockCrusherGame {
         tickSpeed = remoteConfig.getPurpleTickSpeed();
         connectCoinCount = remoteConfig.getPurpleLandConnectCoinCount();
 
-        if (state.characterId == 1) {
-          purpleMode = PurpleMode.trippie;
-        } else {
-          purpleMode = PurpleMode.counter;
-        }
+        purpleMode = state.level.purpleMode ?? PurpleMode.trippie;
+
         break;
       case GameMode.alien:
         hasDifferentStartingBlock = false;

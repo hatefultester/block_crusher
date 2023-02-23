@@ -7,9 +7,10 @@ class ProfileTopWidget extends StatelessWidget {
 
   final Color itemBackgroundColor;
   final Color itemTextColor;
+  final String title;
 
   const ProfileTopWidget(
-      {Key? key, required this.itemBackgroundColor, required this.itemTextColor})
+      {Key? key, required this.itemBackgroundColor, required this.itemTextColor, required this.title})
       : super(key: key);
 
   @override
@@ -22,25 +23,12 @@ class ProfileTopWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.cancel_rounded,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: (() => {
-                  GoRouter.of(context).go('/play'),
-                }),
-              ),
-            ),
+
             const Spacer(),
             _ProfileTitle(
-                title: 'Your profile',
+                title: title,
                 color: itemBackgroundColor, textColor: itemTextColor),
             const Spacer(),
-            const SizedBox(width: 38,),
           ],
         ),
       ),
@@ -74,7 +62,7 @@ class _ProfileTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProfileContainer(
-      width: 200,
+      width: 300,
       height: 60,
       color: color,
       child: Text(title, style: TextStyle(

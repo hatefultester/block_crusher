@@ -35,12 +35,6 @@ class WorldUnlockManager extends ChangeNotifier {
     await _getLatestSeaLandUnlockedStatus();
     await _getLatestAlienLandUnlockedStatus();
     await _getLatestPurpleLandUnlockedStatus();
-
-    print("Hoomy land: ${hoomyLandOpen}");
-    print("Sea land: ${seaLandOpen}");
-    print("Purple land: ${purpleLandOpen}");
-    print("Alien land: ${alienLandOpen}");
-    print("City land: ${cityLandOpen}");
   }
 
   Future<void> _getLatestHoomyLandUnlockedStatus() async {
@@ -76,7 +70,7 @@ class WorldUnlockManager extends ChangeNotifier {
       await _store.savePurpleLandLocked(_purpleLandOpen);
     }
 
-    if (isPurpleLandOpen && !_alienLandOpen) {
+    if (isPurpleLandOpen && !_purpleLandOpen) {
       _purpleLandOpen = isPurpleLandOpen;
       notifyListeners();
     }

@@ -12,6 +12,7 @@ import 'package:block_crusher/src/google_play/remote_config/remote_config.dart';
 import 'package:block_crusher/src/screens/main_screen/main_screen.dart';
 import 'package:block_crusher/src/screens/play_screen/play_screen.dart';
 import 'package:block_crusher/src/screens/play_session/scenarios/game_play_statistics.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_market_screen.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/winning_screen/lost_game_screen.dart';
 import 'package:block_crusher/src/settings/app_lifecycle/app_lifecycle.dart';
@@ -185,6 +186,11 @@ class MyApp extends StatelessWidget {
                     path:'profile',
                     pageBuilder: (context, state) {
                       return buildMyTransition(child: const ProfileScreen(key: Key('user profile')), color: Colors.black);
+                    },
+                  ),GoRoute(
+                    path:'profile_market',
+                    pageBuilder: (context, state) {
+                      return buildMyTransition(child: const ProfileMarketScreen(key: Key('user profile market')), color: Colors.black);
                     },
                   ),GoRoute(
                     path: 'settings',

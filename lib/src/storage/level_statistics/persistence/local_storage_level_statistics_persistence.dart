@@ -30,4 +30,41 @@ class LocalStorageLevelStatisticsPersistence extends LevelStatisticsPersistence 
     await prefs.setInt('totalPlayedTimeInSeconds', totalPlayedTimeInSeconds);
   }
 
+  @override
+  Future<int> getDeathRate()  async {
+    final prefs = await instanceFuture;
+    return prefs.getInt('deathRate') ?? 0;
+  }
+
+  @override
+  Future<int> getLoseRate() async  {
+    final prefs = await instanceFuture;
+    return prefs.getInt('loseRate') ?? 0;
+  }
+
+  @override
+  Future<int> getWinRate() async {
+    final prefs = await instanceFuture;
+    return prefs.getInt('winRate') ?? 0;
+  }
+
+  @override
+  Future<void> saveDeathRate(int deathRate) async {
+    final prefs = await instanceFuture;
+    await prefs.setInt('deathRate', deathRate);
+  }
+
+  @override
+  Future<void> saveLoseRate(int loseRate) async {
+    final prefs = await instanceFuture;
+    await prefs.setInt('loseRate', loseRate);
+  }
+
+  @override
+  Future<void> saveWinRate(int winRate
+      )async  {
+    final prefs = await instanceFuture;
+    await prefs.setInt('winRate', winRate);
+  }
+
 }

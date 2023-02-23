@@ -136,4 +136,51 @@ Map<String, dynamic> charactersForInventory = {
     'winCharacterReferenceNameId' : 'city5',
     'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
   },
+  'purple1' : {
+    'source' : 'characters_skill_game/4_500x1000.png',
+    'size' : Vector2(5 * 3, 10 * 3),
+  },
+  'purple2' : {
+    'source' : 'characters_skill_game/7_1000x750.png',
+    'size' : Vector2(10 * 3, 7.5 * 3),
+  } , 'purple3' : {
+    'source' : 'characters_skill_game/8_1000x750.png',
+    'size' : Vector2(8 * 3, 7.5 * 3),
+  },
+  'purple4' : {
+    'source' : 'characters_skill_game/5_1000x1000.png',
+    'size' : Vector2(10 * 3, 10 * 3),
+  },
+  'purple5' : {
+    'source' : 'characters/food/1000x1500/long_red_wine.png',
+    'size' : Vector2(10 * 3, 15 * 3),
+  },
+  'purple6' : {
+    'source' : 'characters/object/1000x1000/happy_asymmetric_cube.png',
+    'size' : Vector2(10 * 3, 10 * 3),
+  },
+  'purple7' : {
+    'source' : 'characters/food/1000x1500/long_green_popsickle.png',
+    'size' : Vector2(10 * 3, 15 * 3),
+  },
+  'purple8' : {
+    'source' : 'characters/object/1000x666/cat_in_box.png',
+    'size' : Vector2(10 * 3, 6.66 * 3),
+  },
+  'purple9' : {
+    'source' : 'characters/object/1000x1000/satisfied_bag.png',
+    'size' : Vector2(10 * 3, 10 * 3),
+  },
+  'purple10' : {
+    'source' : 'characters/object/1000x1000/umbrella.png',
+    'size' : Vector2(10 * 3, 10 * 3),
+  },
+  'purple11' : {
+    'source' : 'characters_skill_game/6_1000x1000.png',
+    'size' : Vector2(10 * 3, 10 * 3),
+  },
+  'purple12' : {
+    'source' : 'characters_skill_game/16_1000x1140.png',
+    'size' : Vector2(10 * 3, 11.4 * 3),
+  },
 };

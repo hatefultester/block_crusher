@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/player_inventory_database.dart';
+
 const double levelBoxSize = 85;
 
 const double pageHorizontalPadding = 12;
@@ -39,7 +41,9 @@ class LevelBoxWidget extends StatelessWidget {
 
   final double customSize;
 
-  const LevelBoxWidget({Key? key, required this.id, this.customSize = levelBoxSize}) : super(key: key);
+  final String? sideImagePath;
+
+  const LevelBoxWidget({Key? key, required this.id, this.customSize = levelBoxSize, this.sideImagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +52,12 @@ class LevelBoxWidget extends StatelessWidget {
     final highestScore = levelStatistics.highestLevelReached;
     final level = gameLevels[id];
     final String path =
-        'assets/images/${imageSource[level.worldType.index][level.characterId]['source']}';
+        'assets/images/${charactersForInventory[level.winningCharacterReference]['source']}';
+
+    print(highestScore);
 
     final bool won = highestScore > level.levelId - 1;
+
     bool enabled = highestScore >= level.levelId - 1;
 
     onTap() => {
@@ -59,15 +66,15 @@ class LevelBoxWidget extends StatelessWidget {
         };
 
     if (won) {
-      return _FinishedLevelBox(path: path, onTap: onTap, id: id, size: customSize);
+      return _FinishedLevelBox(path: path, onTap: onTap, id: id, size: customSize, sideImagePath : sideImagePath,);
     }
 
     if (enabled) {
-      return _OpenLevelBox(path: path, onTap: onTap, id: id, size: customSize);
+      return _OpenLevelBox(path: path, onTap: onTap, id: id, size: customSize, sideImagePath : sideImagePath,);
     }
 
 
-    return _CloseLevelBox(path: path, id: id, size:  customSize);
+    return _CloseLevelBox(path: path, id: id, size:  customSize, sideImagePath : sideImagePath,);
   }
 }
 
@@ -75,7 +82,11 @@ class _BoxContent extends StatelessWidget {
   final String path;
   final int id;
 
-  const _BoxContent({Key? key, required this.path, required this.id}) : super(key: key);
+  final String? sideImagePath;
+
+  final double size;
+
+  const _BoxContent({Key? key, required this.path, required this.id, this.sideImagePath, required this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +111,9 @@ class _BoxContent extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text((id+1).toString(), style: const TextStyle(fontSize: 20,),),),),),),),
         Center(child: Image.asset(path)),
+       sideImagePath == null ? const SizedBox.shrink() : Align(
+            alignment: Alignment.bottomRight,
+            child: Transform.translate(offset: Offset(size/3, size/3),child: SizedBox(height: size/2, width: size/2, child : Image.asset(sideImagePath!),)),)
       ],
     );
   }
@@ -110,8 +124,9 @@ class _CloseLevelBox extends StatelessWidget {
   final String path;
   final int id;
   final double size;
+  final String? sideImagePath;
 
-  const _CloseLevelBox({Key? key, required this.path, required this.id, required this.size}) : super(key: key);
+  const _CloseLevelBox({Key? key, required this.path, required this.id, required this.size, this.sideImagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +140,7 @@ class _CloseLevelBox extends StatelessWidget {
         ),
         width: size,
         height: size,
-        child: _BoxContent(path: path, id: id,),
+        child: _BoxContent(path: path, id: id, sideImagePath: 'assets/images/lock/lock_locked.png', size: size),
       ),
     );
   }
@@ -136,8 +151,9 @@ class _OpenLevelBox extends StatelessWidget {
   final GestureTapCallback onTap;
   final int id;
   final double size;
+  final String? sideImagePath;
 
-  const _OpenLevelBox({Key? key, required this.path, required this.onTap, required this.id, required this.size})
+  const _OpenLevelBox({Key? key, required this.path, required this.onTap, required this.id, required this.size, this.sideImagePath})
       : super(key: key);
 
   @override
@@ -162,7 +178,7 @@ class _OpenLevelBox extends StatelessWidget {
           ),
           width: size,
           height: size,
-          child: _BoxContent(path: path, id: id, ),
+          child: _BoxContent(path: path, id: id, sideImagePath: 'assets/images/lock/lock_unlocked.png', size: size),
         ),
       ),
     );
@@ -174,9 +190,10 @@ class _FinishedLevelBox extends StatelessWidget {
   final GestureTapCallback onTap;
   final int id;
   final double size;
+  final String? sideImagePath;
 
   const _FinishedLevelBox(
-      {Key? key, required this.path, required this.onTap, required this.id, required this.size})
+      {Key? key, required this.path, required this.onTap, required this.id, required this.size, this.sideImagePath})
       : super(key: key);
 
   @override
@@ -209,7 +226,7 @@ class _FinishedLevelBox extends StatelessWidget {
           ),
           width: size,
           height: size,
-          child: _BoxContent(path: path, id: id, ),
+          child: _BoxContent(path: path, id: id, sideImagePath: null, size: size),
         ),
       ),
     );

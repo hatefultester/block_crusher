@@ -23,6 +23,10 @@ class LevelPage extends StatefulWidget {
   final int middleSectionFlex;
   final int bottomSectionFlex;
 
+  final int? topSectionMaxSize;
+  final int? middleSectionMaxSize;
+  final int? bottomSectionMaxSize;
+
   final WorldType levelDifficulty;
 
 
@@ -35,7 +39,10 @@ class LevelPage extends StatefulWidget {
         this.topSectionFlex = 1,
         this.middleSectionFlex = 1,
         this.bottomSectionFlex = 1,
-        this.pageTitle = 'Undefined name'
+        this.pageTitle = 'Undefined name',
+        this.middleSectionMaxSize,
+        this.topSectionMaxSize,
+        this.bottomSectionMaxSize,
       });
 
   @override
@@ -68,6 +75,9 @@ class LevelPageState extends State<LevelPage> {
           topSectionFlex: widget.topSectionFlex,
           middleSectionFlex: widget.middleSectionFlex,
           bottomSectionFlex: widget.bottomSectionFlex,
+          topSectionMaxSize: widget.topSectionMaxSize,
+          middleSectionMaxSize: widget.middleSectionMaxSize,
+          bottomSectionMaxSize: widget.bottomSectionMaxSize,
         );
       case WorldState.locked:
         return Stack(
@@ -79,6 +89,9 @@ class LevelPageState extends State<LevelPage> {
           topSectionFlex: widget.topSectionFlex,
           middleSectionFlex: widget.middleSectionFlex,
           bottomSectionFlex: widget.bottomSectionFlex,
+            topSectionMaxSize: widget.topSectionMaxSize,
+            middleSectionMaxSize: widget.middleSectionMaxSize,
+            bottomSectionMaxSize: widget.bottomSectionMaxSize,
         ),
             LevelPageCloseLevel(
               title: widget.pageTitle,
@@ -98,6 +111,9 @@ class LevelPageState extends State<LevelPage> {
           topSectionFlex: widget.topSectionFlex,
           middleSectionFlex: widget.middleSectionFlex,
           bottomSectionFlex: widget.bottomSectionFlex,
+            topSectionMaxSize: widget.topSectionMaxSize,
+            middleSectionMaxSize: widget.middleSectionMaxSize,
+            bottomSectionMaxSize: widget.bottomSectionMaxSize,
         ), const LevelPageNotAccessible(),],);
       case WorldState.unspecified:
         return const SizedBox.shrink();

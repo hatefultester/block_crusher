@@ -10,6 +10,9 @@ import 'package:flame/events.dart';
 import '../../../../level_logic/level_states/collector_game/world_type.dart';
 import '../../collector_game.dart';
 
+enum TrippieCharacterType {
+  vacuum, number, faraon, redCar, greenCar, cube
+}
 
 class PurpleWorldComponent extends SpriteComponent
     with HasGameRef<BlockCrusherGame>, CollisionCallbacks, Draggable, Tappable {
@@ -28,24 +31,57 @@ class PurpleWorldComponent extends SpriteComponent
 
   late GameMode gameMode;
 
-  int lives =3;
+  final TrippieCharacterType type;
+
+  int lives = 3;
 
   bool hasCopy;
   PurpleWorldComponent? copy;
   Vector2? predefinedPosition;
 
-  PurpleWorldComponent(this.characterId, {this.hasCopy = false});
+  PurpleWorldComponent(this.characterId, this.type, {this.hasCopy = false});
 
-  PurpleWorldComponent.copyFrom(this.copy, this.predefinedPosition, {this.hasCopy = true}) {
+  PurpleWorldComponent.copyFrom(this.copy, this.predefinedPosition, this.type, {this.hasCopy = true}) {
     lives = copy!.lives;
   }
 
   _sprite() async {
-      if (imageSource[difficulty.index][characterId] != null) {
+    if( type == TrippieCharacterType.number) {
+      if (purpleWorldCharacters['number']![characterId] != null) {
         sprite = await gameRef
-            .loadSprite(imageSource[difficulty.index][characterId]['source']);
-        size = imageSource[difficulty.index][characterId]['size'] * _scale;
-      }
+            .loadSprite(purpleWorldCharacters['number']![characterId]['source']);
+        size = purpleWorldCharacters['number']![characterId]['size'] * _scale;
+      }}
+    if (type == TrippieCharacterType.vacuum) {
+      if (purpleWorldCharacters['vacuum']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['vacuum']![characterId]['source']);
+        size = purpleWorldCharacters['vacuum']![characterId]['size'] * _scale;
+      }}
+    if (type == TrippieCharacterType.cube) {
+      if (purpleWorldCharacters['cube']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['cube']![characterId]['source']);
+        size = purpleWorldCharacters['cube']![characterId]['size'] * _scale;
+      }}
+    if (type == TrippieCharacterType.faraon) {
+      if (purpleWorldCharacters['faraon']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['faraon']![characterId]['source']);
+        size = purpleWorldCharacters['faraon']![characterId]['size'] * _scale;
+      }}
+    if (type == TrippieCharacterType.redCar) {
+      if (purpleWorldCharacters['redCar']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['redCar']![characterId]['source']);
+        size = purpleWorldCharacters['redCar']![characterId]['size'] * _scale;
+      }}
+    if (type == TrippieCharacterType.greenCar) {
+      if (purpleWorldCharacters['greenCar']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['greenCar']![characterId]['source']);
+        size = purpleWorldCharacters['greenCar']![characterId]['size'] * _scale;
+      }}
   }
 
   bool tapped = false;
