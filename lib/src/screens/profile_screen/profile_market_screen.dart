@@ -13,8 +13,11 @@ import 'package:block_crusher/src/storage/player_inventory.dart';
 import 'package:block_crusher/src/database/player_inventory_database.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/audio_controller.dart';
+import '../../services/sounds.dart';
 import '../../utils/responsive_screen.dart';
 
 class ProfileMarketScreen extends StatefulWidget {
@@ -36,7 +39,10 @@ class _ProfileMarketScreenState extends State<ProfileMarketScreen> {
         backgroundColor: backgroundColor,
 
         body: Stack(children: const [
-          ProfileTopWidget(title: 'Market', itemBackgroundColor: Colors.white, itemTextColor: Colors.black),
+          ProfileTopWidget(
+            width: 200,
+            title: 'Profile', itemBackgroundColor: Colors.white, itemTextColor: Colors.white, extra :
+          ProfileWallet(width: 150,),),
           ProfileContent(),
           ProfileBackButton(),
           //  ProfileColorSlider(),
@@ -53,8 +59,8 @@ class ProfileContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const [
-        SizedBox(height: 100),
-        ProfileWallet(),
+        SizedBox(height: 80),
+        ProfileStatisticsButton(),
         Expanded(child: ProfileCharactersView()),
         ProfileColorSlider(),
         SizedBox(height:80,),
@@ -62,6 +68,21 @@ class ProfileContent extends StatelessWidget {
     );
   }
 }
+
+class ProfileStatisticsButton extends StatelessWidget {
+  const ProfileStatisticsButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(padding: EdgeInsets.all(8), margin: EdgeInsets.all(8),width: double.infinity, height: 60, child:
+    ElevatedButton(onPressed: () {final audio = context.read<AudioController>();
+    audio.playSfx(SfxType.buttonTap);
+    GoRouter.of(context).pushReplacement('/play/profile');  }, child: Text('Game statistics'),
+      
+    ));
+  }
+}
+
 
 
 

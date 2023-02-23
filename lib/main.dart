@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:block_crusher/src/database/levels.dart';
+import 'package:block_crusher/src/screens/winning_screen/game_finished_screen.dart';
 import 'package:block_crusher/src/services/ads_controller.dart';
 import 'package:block_crusher/src/services/crashlytics.dart';
 import 'package:block_crusher/src/services/games_services.dart';
@@ -204,16 +205,25 @@ class MyApp extends StatelessWidget {
 
                       final subLevel = int.parse(state.params['sublevel']!);
 
-                      final level = gameLevels
-                              .singleWhere((e) => e.levelId == levelNumber);
-
-                      return buildMyTransition<void>(
-                        child: PlaySessionScreen(
-                          level,
-                          key: const Key('play session'),
-                        ),
-                        color: Colors.black,
-                      );
+                      if (levelNumber <= gameLevels.length
+                      ) {
+                        final level = gameLevels
+                            .singleWhere((e) => e.levelId == levelNumber);
+                        return buildMyTransition<void>(
+                          child: PlaySessionScreen(
+                            level,
+                            key: const Key('play session'),
+                          ),
+                          color: Colors.black,
+                        );
+                      } else {
+                        return buildMyTransition<void>(
+                          child: const GameFinishedScreen(
+                            key: Key('play session'),
+                          ),
+                          color: Colors.black,
+                        );;
+                      }
                     },
                   ),
                   GoRoute(

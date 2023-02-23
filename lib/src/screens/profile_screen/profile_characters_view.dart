@@ -1,3 +1,4 @@
+import 'package:block_crusher/src/screens/profile_screen/profile_container.dart';
 import 'package:block_crusher/src/storage/player_inventory.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,10 @@ class ProfileCharactersView extends StatelessWidget {
         //controller: PageController(),
         children: [
           for (int i = 0; i < inventory.availableCharacters.length; i++)
-            _ProfileBaseCharacter(index : i),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: _ProfileBaseCharacter(index : i),
+            ),
         ],
       )
     );
@@ -33,11 +37,23 @@ class _ProfileBaseCharacter extends StatelessWidget {
   Widget build(BuildContext context) {
     final inventory = context.read<PlayerInventory>();
 
-    return SizedBox( width: 300, height: 300,
-      child: Center(child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Image.asset('assets/images/${charactersForInventory[inventory.availableCharacters[index]]['source']}'),
-      )),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ProfileContainer(
+            width: 100
+            , height: 70,
+            color: Colors.black,child: Text((index+1).toString(), style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),),
+        ),
+        ProfileContainer( width: 300, height: 300,
+          color: Colors.black,
+          child: Center(child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Image.asset('assets/images/${charactersForInventory[inventory.availableCharacters[index]]['source']}'),
+          )),
+        ),
+      ],
     );
   }
 }

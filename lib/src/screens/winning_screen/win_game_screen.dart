@@ -81,9 +81,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
 
             behaviour: RandomParticleBehaviour(
                 options: coinParticles),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: ListView(
                 children: <Widget>[
 
                   // if (adsControllerAvailable && !adsRemoved) ...[
@@ -116,31 +114,40 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                         Container(
                          padding: const EdgeInsets.only(bottom:5),
                           child: Text(
-                            'Game finished !',
+                            'New character !',
                             style: TextStyle(fontFamily: 'Quikhand', fontSize: 35, color: Colors.black),
                           ),
                         ),
                       ),
 
                           const SizedBox(height:15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Played time:',
-                              style: TextStyle(
-                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
-                            ),
-                            const Spacer(),
-                            Text(
-                              widget.score.formattedTime,
-                              style: const TextStyle(
-                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
-                            ),
-                            const SizedBox(width: 15),
-                            SizedBox(width: 50,child: Image.asset('assets/images/in_app/clock.png'),),
-                          ],
-                        ),
+
+                          Center(
+                            child: AnimatedContainer(
+                              duration:const Duration(seconds: 2),
+                              width: duringAnimation ?  80 : 30,
+                              child: Image.asset('assets/images/${charactersForInventory[widget.score.winningCharacter]['source']}')
+                            )
+                          ),
+                          const SizedBox(height: 15),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Played time:',
+                                style: TextStyle(
+                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
+                              ),
+                              const Spacer(),
+                              Text(
+                                widget.score.formattedTime,
+                                style: const TextStyle(
+                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                              ),
+                              const SizedBox(width: 15),
+                              SizedBox(width: 50,child: Image.asset('assets/images/in_app/clock.png'),),
+                            ],
+                          ),
                           const SizedBox(height:15),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -160,47 +167,12 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                               SizedBox(width: 50,child: Image.asset('assets/images/coins/1000x677/money.png'),),
                             ],
                           ),
-                          const SizedBox(height: 15),
-                          Center(
-                            child: AnimatedContainer(
-                              duration:const Duration(seconds: 2),
-                              width: duringAnimation ?  80 : 30,
-                              child: Image.asset('assets/images/${charactersForInventory[widget.score.winningCharacter]['source']}')
-                            )
-                          )
-
                         ],),
                     ),
                   ),
                   Column(
                     children: [
                       const SizedBox(height: 50),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 300,
-                        height: 100,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final audio = context.read<AudioController>();
-                            audio.playSfx(SfxType.buttonTap);
-                            GoRouter.of(context).go('/play');
-                          },
-                          child: const Text('Back to levels'),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        width: 300,
-                        height: 100,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final audio = context.read<AudioController>();
-                            audio.playSfx(SfxType.buttonTap);
-                            GoRouter.of(context).pushReplacement('/play/profile_market');
-                          },
-                          child: const Text('Go to market'),
-                        ),
-                      ),
                       Visibility(
                         visible: nextLevelVisible(widget.score.level+1),
                         child: Container(
@@ -213,10 +185,43 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                               audio.playSfx(SfxType.buttonTap);
                               GoRouter.of(context).go('/play/session/${widget.score.level+1}/0');
                             },
-                            child: const Text('Play next level'),
+                            child: const Text('Continue playing', style: TextStyle(
+                              fontWeight: FontWeight.w600, letterSpacing: 2,
+                            ),),
                           ),
                         ),
                       ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: 300,
+                        height: 100,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final audio = context.read<AudioController>();
+                            audio.playSfx(SfxType.buttonTap);
+                            GoRouter.of(context).go('/play');
+                          },
+                          child: const Text('Back to levels', style: TextStyle(
+                              fontWeight: FontWeight.normal
+                          ),),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        width: 300,
+                        height: 100,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            final audio = context.read<AudioController>();
+                            audio.playSfx(SfxType.buttonTap);
+                            GoRouter.of(context).pushReplacement('/play/profile_market');
+                          },
+                          child: const Text('Go to profile',style: TextStyle(
+                              fontWeight: FontWeight.normal
+                          ),),
+                        ),
+                      ),
+
                     ],
                   ),
                   const SizedBox(height: 50),

@@ -44,49 +44,57 @@ class ProfileStatisticsSection extends StatelessWidget {
 }
 
 class ProfileWallet extends StatelessWidget {
-  const ProfileWallet({Key? key}) : super(key: key);
+  final double width;
+
+  const ProfileWallet({Key? key, this.width =  280}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final treasureCounter = context.watch<TreasureCounter>();
 
-    return ProfileContainer(height: 80, width: 320, child: _StatisticsLine(title: 'Wallet', value: treasureCounter.coinCount.toString(), color: Colors.black, path: 'assets/images/coins/1000x677/money.png'),
+    return ProfileContainer(height: 60, width: width, child: _StatisticsLine(
+        padding: EdgeInsets.all(4),
+        value: treasureCounter.coinCount.toString(), color: Colors.black, path: 'assets/images/coins/1000x677/money.png'),
         color: Colors.white,);
   }
 }
 
+const EdgeInsets _settingsLinePadding = EdgeInsets.all(12);
 
 class _StatisticsLine extends StatelessWidget {
-  final String title;
+  final String? title;
   final String path;
   final String value;
   final Color color;
 
-  const _StatisticsLine({Key? key, required this.title, required this.value, required this.color, required this.path}) : super(key: key);
+  final EdgeInsets padding;
+
+  const _StatisticsLine({Key? key,this.padding = _settingsLinePadding, this.title, required this.value, required this.color, required this.path}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding:padding,
       child: Row(
         children: [
-          SizedBox(
+          title == null ? SizedBox.shrink() : SizedBox(
               width: 140,
-              child: Text(title, style: TextStyle(fontSize: 30, color: color),)),
+              child: Text(title!, style: TextStyle(fontSize: 30, ),)),
           const Spacer(),
-          Container(height: 40, width: 1, color: color),
+          title == null ? SizedBox.shrink() : Container(height: 40, width: 1, color: color),
           const Spacer(),
           SizedBox(
               width: 120,
               child: Row(
                 children: [
                   const Spacer(),
-                  Text(value, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: color)),
+                  Text(value, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, )),
                   const Spacer(),
                   SizedBox(width:30, child: Image.asset(path)),
+                  title == null ? const Spacer() : const SizedBox.shrink(),
                 ],
               )),
-          const SizedBox(width: 15,),
+         title == null ? const Spacer() : const SizedBox(width: 15,),
         ],
       ),
     );

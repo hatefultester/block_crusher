@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: backgroundColor,
 
       body: Stack(children: const [
-        ProfileTopWidget(title: 'Player statistics', itemBackgroundColor: Colors.white, itemTextColor: Colors.black),
+        ProfileTopWidget(title: 'Player statistics', itemBackgroundColor: Colors.white, itemTextColor: Colors.white),
         ProfileContent(),
         ProfileBackButton(),
       //  ProfileColorSlider(),

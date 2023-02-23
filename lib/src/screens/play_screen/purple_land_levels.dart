@@ -70,7 +70,7 @@ class PurpleLandLevels extends StatelessWidget {
           ],
         ),
       ),
-      LineBuilder(direction: Direction.left, id: 29, count: 9,),
+      LineBuilder(direction: Direction.left, id: 29, count: 9, offset: customBoxSize.toInt() - 20),
     ];
 
     List<Widget> purplePageBottomSection = [
@@ -86,8 +86,6 @@ class PurpleLandLevels extends StatelessWidget {
               padding: EdgeInsets.only(top: 4),
               child: LevelBoxWidget(id: 30, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
             ),
-            LineBuilder(direction: Direction.up, id: 31, count: 5,),
-            LevelBoxWidget(id: 31, customSize: customBoxSize, sideImagePath: sideImagePathTrippie,),
             Spacer(),
           ],
         ),

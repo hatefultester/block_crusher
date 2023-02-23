@@ -146,7 +146,7 @@ class LevelPageViewChildPopUpMenuButton extends StatelessWidget {
         return const [
           PopupMenuItem<int>(
             value: 3,
-            child: _ItemText(text: 'Market',),
+            child: _ItemText(text: 'Profile',),
           ),
            PopupMenuItem<int>(
             value: 2,
