@@ -10,15 +10,18 @@ import 'level_box_widget.dart';
 import 'line_builder.dart';
 
 class SoomyLandLevels extends StatelessWidget {
-  final int soomyPageTopSectionFlex = 1;
-  final int soomyPageMiddleSectionFlex = 1;
-  final int soomyPageBottomSectionFlex = 1;
 
   const SoomyLandLevels({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final levelStatistics = context.watch<LevelStatistics>();
+
+    const int soomyPageTopSectionFlex = 1;
+    const int soomyPageMiddleSectionFlex = 1;
+    const int soomyPageBottomSectionFlex = 1;
+
+    const LevelBoxStyle boxStyle = LevelBoxStyle.rounded;
 
     List<Widget> soomyPageTopSection = [
       SizedBox(
@@ -32,7 +35,7 @@ class SoomyLandLevels extends StatelessWidget {
             ),
 
             /// LEVEL 1
-            LevelBoxWidget(id: 0),
+            LevelBoxWidget(id: 0, style: boxStyle,),
 
             /// LINE TO LEVEL 2
             LineBuilder(
@@ -42,7 +45,7 @@ class SoomyLandLevels extends StatelessWidget {
             ),
 
             /// LEVEL 2
-            LevelBoxWidget(id: 1),
+            LevelBoxWidget(id: 1,style: boxStyle,),
 
             SizedBox(
               width: pageHorizontalPadding + 20,
@@ -71,13 +74,13 @@ class SoomyLandLevels extends StatelessWidget {
             SizedBox(width: pageHorizontalPadding + 15),
 
             /// LEVEL 4
-            LevelBoxWidget(id: 3),
+            LevelBoxWidget(id: 3,style: boxStyle,),
 
             /// LINE TO LEVEL 4
             LineBuilder(id: 3, direction: Direction.up, count: 30),
 
             /// LEVEL 3
-            LevelBoxWidget(id: 2),
+            LevelBoxWidget(id: 2,style: boxStyle,),
 
             SizedBox(
               width: pageHorizontalPadding + 10,
@@ -104,7 +107,7 @@ class SoomyLandLevels extends StatelessWidget {
             ),
 
             /// LEVEL 5
-            const LevelBoxWidget(id: 4),
+            const LevelBoxWidget(id: 4,style: boxStyle,),
 
             Expanded(
               child: Row(
@@ -113,7 +116,7 @@ class SoomyLandLevels extends StatelessWidget {
                   LineBuilder(count: 30, direction: Direction.up, id: 5),
 
                   /// LEVEL 6
-                  LevelBoxWidget(id: 5),
+                  LevelBoxWidget(id: 5,style: boxStyle,),
                 ],
               ),
             ),

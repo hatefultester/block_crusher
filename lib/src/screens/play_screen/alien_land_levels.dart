@@ -26,7 +26,7 @@ class AlienLandLevels extends StatelessWidget {
         child: Row(
           children: const [
             Spacer(),
-             LevelBoxWidget(id: 25, customSize: levelBoxSize*1.5 ,),
+             LevelBoxWidget(id: 31, customSize: levelBoxSize*1.5 ,),
           Spacer(),
           ],
         ),

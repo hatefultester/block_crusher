@@ -114,11 +114,11 @@ class SettingsView extends StatelessWidget {
                     context.read<AudioController>().playSfx(SfxType.buttonTap);
                     context.read<TreasureCounter>().incrementCoinCount(5000);
                     showErrorMessageSnackBar('You have 5000 more money', 'Cheater');
-               //     context.read<LevelStatistics>().cheat();
-                 //   context.read<WorldUnlockManager>().cheat();
-                   // context.read<GameAchievements>().cheat();
+                    context.read<LevelStatistics>().cheat();
+                   context.read<WorldUnlockManager>().cheat();
+                    context.read<GameAchievements>().cheat();
 
-                    //showAchievementSnackBar(GameAchievement.connectTwoPlayers);
+                    //`showAchievementSnackBar(GameAchievement.connectTwoPlayers);
                   },
                 ),
               ),

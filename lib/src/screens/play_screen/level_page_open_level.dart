@@ -39,21 +39,25 @@ class LevelPageOpenLevel extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Stack(
         children: [
-          topSectionMaxSize == null ? Expanded(
-            flex: topSectionFlex,
-            child: topSectionChild,
-          ) : SizedBox(height: topSectionMaxSize!.toDouble(), width: double.infinity, child: topSectionChild),
-          middleSectionMaxSize == null ? Expanded(
-            flex: middleSectionFlex,
-            child: middleSectionChild,
-          ) : SizedBox(height: middleSectionMaxSize!.toDouble(), width: double.infinity, child: middleSectionChild),
-          bottomSectionMaxSize == null ? Expanded(
-            flex: bottomSectionFlex,
-            child: bottomSectionChild) : SizedBox(height: bottomSectionMaxSize!.toDouble(), width: double.infinity, child: bottomSectionChild) ,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              topSectionMaxSize == null ? Expanded(
+                flex: topSectionFlex,
+                child: topSectionChild,
+              ) : SizedBox(height: topSectionMaxSize!.toDouble(), width: double.infinity, child: topSectionChild),
+              middleSectionMaxSize == null ? Expanded(
+                flex: middleSectionFlex,
+                child: middleSectionChild,
+              ) : SizedBox(height: middleSectionMaxSize!.toDouble(), width: double.infinity, child: middleSectionChild),
+              bottomSectionMaxSize == null ? Expanded(
+                flex: bottomSectionFlex,
+                child: bottomSectionChild) : SizedBox(height: bottomSectionMaxSize!.toDouble(), width: double.infinity, child: bottomSectionChild) ,
+            ],
+          ),
         ],
       ),
     );

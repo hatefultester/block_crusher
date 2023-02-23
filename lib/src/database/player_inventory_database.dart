@@ -183,4 +183,8 @@ Map<String, dynamic> charactersForInventory = {
     'source' : 'characters_skill_game/16_1000x1140.png',
     'size' : Vector2(10 * 3, 11.4 * 3),
   },
+  'alien0' : {
+    'source' : 'in_app/final_win_character.png',
+    'size' : Vector2(10 * 3, 11.4 * 3),
+  }
 };

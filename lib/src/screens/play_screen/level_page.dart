@@ -11,6 +11,7 @@ import '../../utils/error_message_snack_bar.dart';
 import 'level_page_close_level.dart';
 import 'level_page_not_accessible.dart';
 import 'level_page_open_level.dart';
+import 'level_section_descriptor_builder.dart';
 
 class LevelPage extends StatefulWidget {
   final String pageTitle;
@@ -68,16 +69,21 @@ class LevelPageState extends State<LevelPage> {
     switch (_state) {
       case WorldState.finished:
       case WorldState.unlocked:
-        return LevelPageOpenLevel(
-          topSection: widget.topSection,
-          middleSection: widget.middleSection,
-          bottomSection: widget.bottomSection,
-          topSectionFlex: widget.topSectionFlex,
-          middleSectionFlex: widget.middleSectionFlex,
-          bottomSectionFlex: widget.bottomSectionFlex,
-          topSectionMaxSize: widget.topSectionMaxSize,
-          middleSectionMaxSize: widget.middleSectionMaxSize,
-          bottomSectionMaxSize: widget.bottomSectionMaxSize,
+        return Stack(
+          children: [
+            LevelPageOpenLevel(
+              topSection: widget.topSection,
+              middleSection: widget.middleSection,
+              bottomSection: widget.bottomSection,
+              topSectionFlex: widget.topSectionFlex,
+              middleSectionFlex: widget.middleSectionFlex,
+              bottomSectionFlex: widget.bottomSectionFlex,
+              topSectionMaxSize: widget.topSectionMaxSize,
+              middleSectionMaxSize: widget.middleSectionMaxSize,
+              bottomSectionMaxSize: widget.bottomSectionMaxSize,
+            ),
+            LevelSectionDescriptorBuilder(worldType: widget.levelDifficulty),
+          ],
         );
       case WorldState.locked:
         return Stack(

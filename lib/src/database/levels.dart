@@ -162,45 +162,13 @@ const gameLevels = [
     winningCharacterReference: "purple8",
     gameGoal: 150,
   ),
-  GameLevel(
-    levelId: 32,
-    characterId: 4,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.trippie,
-    trippieCharacterType: TrippieCharacterType.number,
-    winningCharacterReference: "purple9",
-    gameGoal: 150,
-  ),GameLevel(
-    levelId: 33,
-    characterId: 2,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.counterToFive,
-    mathCharacterType: MathCharacterType.cube,
-    winningCharacterReference: "purple10",
-    gameGoal: 300,
-  ),
-  GameLevel(
-    levelId: 34,
-    characterId: 5,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.trippie,
-    trippieCharacterType: TrippieCharacterType.vacuum,
-    winningCharacterReference: "purple11",
-    gameGoal: 200,
-  ),GameLevel(
-    levelId: 35,
-    characterId: 2,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.counterToFive,
-    mathCharacterType: MathCharacterType.faraon,
-    winningCharacterReference: "purple12",
-    gameGoal: 500,
-  ),
 
 /// counter to five
 
   GameLevel(
-      levelId: 36,
+      levelId: 32,
       characterId: 1,
-      worldType: WorldType.alien),
+      worldType: WorldType.alien,
+      winningCharacterReference: 'alien0'
+  ),
 ];

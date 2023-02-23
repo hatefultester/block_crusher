@@ -13,7 +13,7 @@ class SharkLandLevels extends StatelessWidget {
 
   final int seaPageTopSectionFlex = 6;
   final int seaPageMiddleSectionFlex = 12;
-  final int seaPageBottomSectionFlex = 6;
+  final int seaPageBottomSectionFlex = 8;
 
   const SharkLandLevels({Key? key}) : super(key: key);
 
@@ -138,6 +138,7 @@ class SharkLandLevels extends StatelessWidget {
           ],
         ),
       ),
+      const Spacer(),
     ];
 
     return LevelPage(

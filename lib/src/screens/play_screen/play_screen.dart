@@ -31,7 +31,8 @@ class PlayScreen extends StatelessWidget {
             PlayScreenBackgroundGame(),
             LevelsPageView(),
             TopLayerWidget(),
-            LevelArrows(),
+            // nelibi se mi tam
+            //LevelArrows(),
           ],
         ),
       ),

@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../database/player_inventory_database.dart';
 import '../../game/world_type.dart';
 import '../../services/sounds.dart';
 import '../../storage/player_inventory.dart';
@@ -54,8 +55,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
   Widget build(BuildContext context) {
     final remoteConfig = context.read<RemoteConfigProvider>();
 
-    final String imagePath =
-        'assets/images/${imageSource[widget.level.worldType.index][widget.level.characterId]['source']}';
+    final String imagePath = 'assets/images/${charactersForInventory[widget.level.winningCharacterReference]['source']}';
 
     final String title = 'Level ${widget.level.levelId}';
 

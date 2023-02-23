@@ -9,14 +9,14 @@ import 'line_builder.dart';
 
 
 const double customBoxSize = 80;
-const int maxMiddleSize = 200;
+const int maxMiddleSize = 300;
 const String sideImagePathTrippie = "assets/images/enemy/trippie/1000x850/trippie_closed_mouth.png";
 const String sideImagePathCounter = "assets/images/characters_skill_game/13_1200x600.png";
 
 class PurpleLandLevels extends StatelessWidget {
   final int purplePageTopSectionFlex = 3;
   final int purplePageMiddleSectionFlex = 1;
-  final int purplePageBottomSectionFlex = 5;
+  final int purplePageBottomSectionFlex = 3;
 
 
   const PurpleLandLevels({Key? key}) : super(key: key);
@@ -92,24 +92,7 @@ class PurpleLandLevels extends StatelessWidget {
           ],
         ),
       ),
-      LineBuilder(direction: Direction.right, id: 32, count: 9,),
-      SizedBox(
-        height:  customBoxSize ,
-        child: Row(
-          children: const [
-            Spacer(),
-            LevelBoxWidget(id: 34, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
-            LineBuilder(direction: Direction.up, id: 34, count: 5,),
-            LevelBoxWidget(id: 33, customSize: customBoxSize, sideImagePath: sideImagePathTrippie,),
-            LineBuilder(direction: Direction.up, id: 33, count: 5,),
-            Padding(
-              padding: EdgeInsets.only(top: 4),
-              child: LevelBoxWidget(id: 32, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
-            ),
-            Spacer(),
-          ],
-        ),
-      ),
+
       const Spacer(),
     ];
 
