@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:block_crusher/src/game/collector_game.dart';
 import 'package:block_crusher/src/game/collector_game_level_state.dart';
 import 'package:block_crusher/src/database/model/level.dart';
+import 'package:block_crusher/src/screens/play_session/purple_world_top_widget.dart';
 import 'package:block_crusher/src/services/games_services.dart';
 import 'package:block_crusher/src/services/remote_config.dart';
 import 'package:block_crusher/src/screens/play_session/game_play_statistics.dart';
@@ -10,9 +11,6 @@ import 'package:block_crusher/src/screens/play_session/item_background_color_ext
 import 'package:block_crusher/src/screens/play_session/play_screen_overlay.dart';
 import 'package:block_crusher/src/screens/play_session/city_level_bottom.dart';
 import 'package:block_crusher/src/screens/play_session/default_bottom.dart';
-import 'package:block_crusher/src/screens/play_session/widgets/top_layer/city_level_top.dart';
-import 'package:block_crusher/src/screens/play_session/widgets/top_layer/default_top.dart';
-import 'package:block_crusher/src/screens/play_session/widgets/top_layer/purple_level_top.dart';
 import 'package:block_crusher/src/services/audio_controller.dart';
 import 'package:block_crusher/src/storage/game_achievements.dart';
 import 'package:block_crusher/src/storage/level_statistics.dart';
@@ -27,6 +25,8 @@ import '../../game/world_type.dart';
 import '../../services/sounds.dart';
 import '../../storage/player_inventory.dart';
 import '../../utils/confetti.dart';
+import 'city_world_top_widget.dart';
+import 'default_top_widget.dart';
 
 class PlaySessionScreen extends StatefulWidget {
   final GameLevel level;
