@@ -1,5 +1,5 @@
 
-import 'package:block_crusher/src/screens/play_screen/widgets/level_selection_background.dart';
+import 'package:block_crusher/src/screens/play_screen/level_selection_background.dart';
 import 'package:flutter/material.dart';
 
 class PlayScreenProvider extends ChangeNotifier {

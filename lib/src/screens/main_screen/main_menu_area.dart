@@ -1,4 +1,4 @@
-import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
+import 'package:block_crusher/src/game/collector_game_helper.dart';
 import 'package:block_crusher/src/screens/main_screen/moving_button.dart';
 import 'package:flutter/material.dart';
 

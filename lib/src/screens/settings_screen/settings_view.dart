@@ -1,18 +1,18 @@
-import 'package:block_crusher/src/style/custom_snack_bars/error_message_snack_bar.dart';
+import 'package:block_crusher/src/utils/error_message_snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../settings/audio/audio_controller.dart';
-import '../../settings/audio/sounds.dart';
-import '../../settings/settings.dart';
-import '../../storage/game_achievements/achievements.dart';
-import '../../storage/game_achievements/game_achievements.dart';
-import '../../storage/level_statistics/level_statistics.dart';
-import '../../storage/player_inventory/player_inventory.dart';
-import '../../storage/treasure_counts/treasure_counter.dart';
-import '../../storage/worlds_unlock_status/world_unlock_manager.dart';
-import '../../style/custom_snack_bars/game_achievement_snack_bar.dart';
-import '../../style/custom_snack_bars/info_snack_bar.dart';
+import '../../services/audio_controller.dart';
+import '../../services/sounds.dart';
+import '../../storage/settings.dart';
+import '../../storage/achievements.dart';
+import '../../storage/game_achievements.dart';
+import '../../storage/level_statistics.dart';
+import '../../storage/player_inventory.dart';
+import '../../storage/treasure_counter.dart';
+import '../../storage/world_unlock_manager.dart';
+import '../../utils/game_achievement_snack_bar.dart';
+import '../../utils/info_snack_bar.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);

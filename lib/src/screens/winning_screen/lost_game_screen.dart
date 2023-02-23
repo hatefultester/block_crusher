@@ -2,20 +2,20 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:block_crusher/src/google_play/ads/ads_controller.dart';
-import 'package:block_crusher/src/google_play/ads/banner_ad_widget.dart';
-import 'package:block_crusher/src/google_play/in_app_purchase/in_app_purchase.dart';
+import 'package:block_crusher/src/services/ads_controller.dart';
+import 'package:block_crusher/src/services/banner_ad_widget.dart';
+import 'package:block_crusher/src/services/in_app_purchase.dart';
 import 'package:block_crusher/src/screens/winning_screen/background.dart';
-import 'package:block_crusher/src/settings/audio/audio_controller.dart';
-import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/services/audio_controller.dart';
+import 'package:block_crusher/src/services/sounds.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../google_play/games_services/score.dart';
-import '../../style/responsive_screen.dart';
-import '../play_session/scenarios/game_play_statistics.dart';
+import '../../services/score.dart';
+import '../../utils/responsive_screen.dart';
+import '../play_session/game_play_statistics.dart';
 
 class LostGameScreen extends StatelessWidget {
   final GamePlayStatistics score;

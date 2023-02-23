@@ -1,20 +1,20 @@
 
 import 'dart:convert';
 
-import 'package:block_crusher/src/screens/profile_screen/parts/profile_action_button_section.dart';
-import 'package:block_crusher/src/screens/profile_screen/parts/profile_back_button.dart';
-import 'package:block_crusher/src/screens/profile_screen/parts/profile_color_slider.dart';
-import 'package:block_crusher/src/screens/profile_screen/parts/profile_statistics_section.dart';
-import 'package:block_crusher/src/screens/profile_screen/parts/profile_top_part.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_action_button_section.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_back_button.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_color_slider.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_statistics_section.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_top_part.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_background_color.dart';
-import 'package:block_crusher/src/storage/level_statistics/level_statistics.dart';
-import 'package:block_crusher/src/storage/player_inventory/player_inventory.dart';
-import 'package:block_crusher/src/utils/player_inventory_database.dart';
+import 'package:block_crusher/src/storage/level_statistics.dart';
+import 'package:block_crusher/src/storage/player_inventory.dart';
+import 'package:block_crusher/src/database/player_inventory_database.dart';
 import 'package:flame/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../style/responsive_screen.dart';
+import '../../utils/responsive_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

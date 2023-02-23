@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:block_crusher/src/game_internals/games/collector_game/util/collector_game_helper.dart';
-import 'package:block_crusher/src/settings/audio/audio_controller.dart';
-import 'package:block_crusher/src/settings/audio/sounds.dart';
+import 'package:block_crusher/src/game/collector_game_helper.dart';
+import 'package:block_crusher/src/services/audio_controller.dart';
+import 'package:block_crusher/src/services/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
