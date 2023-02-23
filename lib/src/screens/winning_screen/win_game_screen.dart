@@ -245,6 +245,7 @@ duringAnimation = true;
   }
 
   bool nextLevelVisible(int levelId) {
+    if (levelId == 33) return true;
     final level = gameLevels.singleWhere((e) => e.levelId == levelId);
 
     if(!level.openByDefault) return false;

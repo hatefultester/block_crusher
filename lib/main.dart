@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:block_crusher/src/database/levels.dart';
+import 'package:block_crusher/src/database/model/level.dart';
+import 'package:block_crusher/src/game/world_type.dart';
 import 'package:block_crusher/src/screens/winning_screen/game_finished_screen.dart';
 import 'package:block_crusher/src/services/ads_controller.dart';
 import 'package:block_crusher/src/services/crashlytics.dart';
@@ -201,14 +203,19 @@ class MyApp extends StatelessWidget {
                   GoRoute(
                     path: 'session/:level/:sublevel',
                     pageBuilder: (context, state) {
-                      final levelNumber = int.parse(state.params['level']!);
 
+                      final levelNumber =
+                      int.parse(state.params['level']!);
+
+                      print(levelNumber.toString());
                       final subLevel = int.parse(state.params['sublevel']!);
 
-                      if (levelNumber <= gameLevels.length
-                      ) {
                         final level = gameLevels
-                            .singleWhere((e) => e.levelId == levelNumber);
+                            .singleWhere((e) => e.levelId == levelNumber, orElse: () => GameLevel(
+                            worldType: WorldType.hoomyLand, levelId: 0, characterId: 0));
+
+                        if (level.levelId != 0) {
+
                         return buildMyTransition<void>(
                           child: PlaySessionScreen(
                             level,
@@ -222,7 +229,7 @@ class MyApp extends StatelessWidget {
                             key: Key('play session'),
                           ),
                           color: Colors.black,
-                        );;
+                        );
                       }
                     },
                   ),

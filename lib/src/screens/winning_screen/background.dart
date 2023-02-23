@@ -15,7 +15,7 @@ class WinBackground extends FlameGame {
   @override
   Future<void>? onLoad() async {
     super.onLoad();
-    await add(SpriteComponent(size: Vector2(size.x, size.y), sprite: await loadSprite('backgrounds/win_game_background.png'),
+    await add(SpriteComponent(size: Vector2(size.x, size.y), sprite: await loadSprite('backgrounds/final_island.png'),
     ),);
   }
 
@@ -25,7 +25,7 @@ class FinishBackground extends FlameGame {
   @override
   Future<void>? onLoad() async {
     super.onLoad();
-    await add(SpriteComponent(size: Vector2(size.x, size.y), sprite: await loadSprite('backgrounds/final_island.png'),
+    await add(SpriteComponent(size: Vector2(size.x, size.y), sprite: await loadSprite('backgrounds/oaza.png'),
     ),);
   }
 

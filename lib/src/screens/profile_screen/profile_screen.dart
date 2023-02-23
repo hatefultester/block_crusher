@@ -10,7 +10,9 @@ import 'package:block_crusher/src/screens/profile_screen/profile_background_colo
 import 'package:block_crusher/src/storage/level_statistics.dart';
 import 'package:block_crusher/src/storage/player_inventory.dart';
 import 'package:block_crusher/src/database/player_inventory_database.dart';
+import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,6 +65,15 @@ class ProfileContent extends StatelessWidget {
 }
 
 
+class ProfileBackground extends FlameGame {
+  @override
+  Future<void>? onLoad() async {
+    super.onLoad();
+    await add(SpriteComponent(size: Vector2(size.x, size.y), sprite: await loadSprite('backgrounds/profil.png'),
+    ),);
+  }
+
+}
 
 /*
 Column(

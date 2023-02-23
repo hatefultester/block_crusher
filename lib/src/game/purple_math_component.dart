@@ -4,6 +4,7 @@ import 'package:block_crusher/src/game/collector_game_helper.dart';
 import 'package:block_crusher/src/game/collision_detector.dart';
 import 'package:block_crusher/src/database/levels.dart';
 import 'package:block_crusher/src/database/in_game_characters.dart';
+import 'package:block_crusher/src/game/purple_component.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -53,46 +54,65 @@ class PurpleMathComponent extends SpriteComponent
     lives = copy!.lives;
   }
 
+  TrippieCharacterType get _type {
+    final Random random = Random();
+
+    TrippieCharacterType type = TrippieCharacterType.values[random.nextInt(TrippieCharacterType.values.length - 1)];
+
+    return type;
+  }
+
   _sprite() async {
-    if (type == MathCharacterType.faraon) {
-      if (purpleWorldCharacters['faraon']![characterId] != null) {
+    if(_type == TrippieCharacterType.number) {
+      if (purpleWorldCharacters['number']![characterId] != null) {
         sprite = await gameRef
-            .loadSprite(
-            purpleWorldCharacters['faraon']![characterId]['source']);
+            .loadSprite(purpleWorldCharacters['number']![characterId]['source']);
         if (sizeSet) {
           size = size * 1.25;
-        } else {
-          size = purpleWorldCharacters['faraon']![characterId]['size'] * _scale;
-          sizeSet = true;
-        }
-      }
-    }
-    if (type == MathCharacterType.cube) {
+        } else {size = purpleWorldCharacters['number']![characterId]['size'] * _scale;sizeSet=true;}
+      }}
+    if (_type == TrippieCharacterType.vacuum) {
+      if (purpleWorldCharacters['vacuum']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['vacuum']![characterId]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else { size = purpleWorldCharacters['vacuum']![characterId]['size'] * _scale;sizeSet=true;}
+      }}
+    if (_type == TrippieCharacterType.cube) {
       if (purpleWorldCharacters['cube']![characterId] != null) {
         sprite = await gameRef
             .loadSprite(purpleWorldCharacters['cube']![characterId]['source']);
         if (sizeSet) {
           size = size * 1.25;
-        } else {
-          size = purpleWorldCharacters['cube']![characterId]['size'] * _scale;
-          sizeSet = true;
+        } else {size = purpleWorldCharacters['cube']![characterId]['size'] * _scale;sizeSet=true;}
+      }}
+    if (_type == TrippieCharacterType.faraon) {
+      if (purpleWorldCharacters['faraon']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['faraon']![characterId]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {size = purpleWorldCharacters['faraon']![characterId]['size'] * _scale;sizeSet =true;}
+      }}
+    if (_type == TrippieCharacterType.redCar) {
+      if (purpleWorldCharacters['redCar']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['redCar']![characterId]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {size = purpleWorldCharacters['redCar']![characterId]['size'] * _scale;sizeSet = true;}
+      }}
+    if (_type == TrippieCharacterType.greenCar) {
+      if (purpleWorldCharacters['greenCar']![characterId] != null) {
+        sprite = await gameRef
+            .loadSprite(purpleWorldCharacters['greenCar']![characterId]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {size = purpleWorldCharacters['greenCar']![characterId]['size'] * _scale;
+        sizeSet = true;
         }
-      }
-    }
-      if (type == MathCharacterType.vacuum) {
-        if (purpleWorldCharacters['vacuum']![characterId] != null) {
-          sprite = await gameRef
-              .loadSprite(
-              purpleWorldCharacters['vacuum']![characterId]['source']);
-          if (sizeSet) {
-            size = size * 1.25;
-          } else {
-            size =
-                purpleWorldCharacters['vacuum']![characterId]['size'] * _scale;
-            sizeSet = true;
-          }
-        }
-      }
+      }}
     }
 
     bool tapped = false;

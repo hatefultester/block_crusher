@@ -5,6 +5,7 @@ import 'package:block_crusher/src/screens/profile_screen/profile_action_button_s
 import 'package:block_crusher/src/screens/profile_screen/profile_back_button.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_characters_view.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_color_slider.dart';
+import 'package:block_crusher/src/screens/profile_screen/profile_screen.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_statistics_section.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_top_part.dart';
 import 'package:block_crusher/src/screens/profile_screen/profile_background_color.dart';
@@ -12,6 +13,7 @@ import 'package:block_crusher/src/storage/level_statistics.dart';
 import 'package:block_crusher/src/storage/player_inventory.dart';
 import 'package:block_crusher/src/database/player_inventory_database.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +40,8 @@ class _ProfileMarketScreenState extends State<ProfileMarketScreen> {
     return Scaffold(
         backgroundColor: backgroundColor,
 
-        body: Stack(children: const [
+        body: Stack(children: [
+          GameWidget(game: ProfileBackground(),),
           ProfileTopWidget(
             width: 200,
             title: 'Profile', itemBackgroundColor: Colors.white, itemTextColor: Colors.white, extra :

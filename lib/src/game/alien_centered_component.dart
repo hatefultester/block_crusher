@@ -112,6 +112,8 @@ class AlienCenteredComponent extends SpriteComponent
       if(!other.isDragging) return;
       if(other.characterId != characterId) return;
 
+      gameRef.state.decreaseCountdown();
+
       characterId++;
       OpacityEffect opacityBack = OpacityEffect.to(1, EffectController(duration: 0.1));
       OpacityEffect effect = OpacityEffect.to(0.2, EffectController(duration: 0.5), onComplete: () => {

@@ -169,6 +169,7 @@ const gameLevels = [
       levelId: 32,
       characterId: 1,
       worldType: WorldType.alien,
-      winningCharacterReference: 'alien0'
+      winningCharacterReference: 'alien0',
+      gameGoal: 3,
   ),
 ];

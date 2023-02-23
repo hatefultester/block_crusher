@@ -26,7 +26,7 @@ class LevelSectionDescriptorBuilder extends StatelessWidget {
       case WorldType.cityLand:
         return const DefaultDescriptor(message: 'Collect all the food into a tray!', offset: 60, color: Colors.yellow);
       case WorldType.purpleWorld:
-        return  DefaultDescriptor(message: 'Can you get all of them?', offset: 40, size: 50, color: Colors.green.shade900);
+        return  DefaultDescriptor(message: '', offset: 40, size: 50, color: Colors.green.shade900);
       case WorldType.alien:
         return const DefaultDescriptor(message: 'Get to the last alien and conquer a game!');
       default: return const SizedBox.shrink();
