@@ -132,7 +132,7 @@ class LevelStatistics extends ChangeNotifier {
   }
 
   void cheat() async {
-    _highestLevelReached = 25;
+    _highestLevelReached = 32;
     await _store.saveHighestLevelReached(_highestLevelReached);
     notifyListeners();
   }

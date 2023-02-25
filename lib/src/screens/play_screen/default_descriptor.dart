@@ -11,6 +11,7 @@ final Color color;
 
   @override
   Widget build(BuildContext context) {
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(

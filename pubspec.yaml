@@ -112,9 +112,6 @@ flutter:
 
 
   fonts:
-    - family: Permanent Marker
-      fonts:
-        - asset: assets/Permanent_Marker/PermanentMarker-Regular.ttf
     - family: Quikhand
       fonts:
         - asset: assets/fonts/Quikhand.ttf

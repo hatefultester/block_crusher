@@ -68,14 +68,6 @@ class CollectorGameLevelState extends ChangeNotifier {
       return;
     }
 
-    if (levelDifficulty == WorldType.purpleWorld) {
-      isWinningLevel = false;
-      return;
-    }
-    if (levelDifficulty == WorldType.alien) {
-      isWinningLevel = false;
-      return;
-    }
 
     if (kDebugMode) {
       print('level state initialized');
@@ -146,11 +138,12 @@ class CollectorGameLevelState extends ChangeNotifier {
 
   decreaseCountdown({int? value}) {
     _currentGoalStatus -= value ?? 1;
+    print(_currentGoalStatus.toString());
     notifyListeners();
   }
 
   _counterGoalReached() {
-    if (levelDifficulty != WorldType.purpleWorld) {
+    if (!level.hasCountdown) {
       return false;
     } else {
       return _currentGoalStatus == 0;
@@ -162,18 +155,22 @@ class CollectorGameLevelState extends ChangeNotifier {
       print('Level evaluation function called');
     }
 
-    if (_currentScore >= goal && !_playerDied && !_gameWon && isWinningLevel) {
-      if (kDebugMode) {
-        print('Player Won function called'
-            'current score: ${_currentScore.toString()} \n'
-            'current score is bigger then goal: ${(_currentScore >= goal).toString()} \n'
-            'did player died before this call: ${(_playerDied).toString()} \n'
-            'did player won before this call: ${(_gameWon).toString()} \n'
-            'is this winning level: ${(isWinningLevel).toString()} \n');
-      }
+    if (!level.hasCountdown) {
+      if (_currentScore >= goal && !_playerDied && !_gameWon &&
+          isWinningLevel) {
+        if (kDebugMode) {
+          print('Player Won function called'
+              'current score: ${_currentScore.toString()} \n'
+              'current score is bigger then goal: ${(_currentScore >= goal)
+              .toString()} \n'
+              'did player died before this call: ${(_playerDied).toString()} \n'
+              'did player won before this call: ${(_gameWon).toString()} \n'
+              'is this winning level: ${(isWinningLevel).toString()} \n');
+        }
 
-      onWin();
-      _gameWon = true;
+        onWin();
+        _gameWon = true;
+      }
     }
 
     if (_lives <= 0 && !_playerDied && !_gameWon) {

@@ -62,6 +62,7 @@ extension TimerManager on BlockCrusherGame {
 
           /// special events
           if(!hasSpecialEvents) return;
+
           if(generatedCounter % 2 != 0) return;
 
           if (gameMode == GameMode.hoomy) {
@@ -71,6 +72,11 @@ extension TimerManager on BlockCrusherGame {
           if (gameMode == GameMode.sharks) {
             await add(SharkEnemyComponent());
           }
+
+          if (gameMode == GameMode.alien) {
+            await add(SpriteBlockComponent.withRandomDirection(difficulty));
+          }
+
         });
   }
 

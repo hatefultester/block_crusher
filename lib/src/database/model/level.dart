@@ -33,7 +33,10 @@ class GameLevel {
   final TrippieCharacterType? trippieCharacterType;
   final MathCharacterType? mathCharacterType;
 
+  final bool hasCountdown;
+
   const GameLevel({
+    this.hasCountdown = false,
     required this.worldType,
         required this.levelId,
         required this.characterId,

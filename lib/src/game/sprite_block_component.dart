@@ -36,6 +36,22 @@ class SpriteBlockComponent extends SpriteComponent
   SpriteBlockComponent.withLevelSet(this.characterId, this.difficulty);
   SpriteBlockComponent.withDirection(this.direction, this.difficulty);
 
+ static  SpriteBlockComponent withRandomDirection(WorldType difficulty) {
+    final random = Random();
+    Direction direction;
+
+    if(random.nextInt(10).isEven) {
+      direction = Direction.up;
+    } else {
+      if (random.nextInt(5).isOdd) {
+        direction = Direction.left;
+      } else {
+        direction = Direction.right;
+      }
+    }
+    return SpriteBlockComponent.withDirection(direction, difficulty);
+  }
+
   async_dart.Timer? timer;
 
   _sprite() async {
@@ -43,7 +59,7 @@ class SpriteBlockComponent extends SpriteComponent
       {
         final isAnimated = imageSource[difficulty.index][characterId]['isAnimated'];
         if (isAnimated == true) {
-          _toggleAnimation();
+         //_toggleAnimation();
         }
       }
     if (gameRef.gameMode != GameMode.cityFood) {
@@ -98,6 +114,7 @@ class SpriteBlockComponent extends SpriteComponent
     await _sprite();
     int xMax = (gameRef.size.x - size.x).toInt();
     int yMax = (gameRef.size.y - size.y).toInt();
+    int yPadding = 150;
 
     switch (direction) {
       case Direction.down:
@@ -113,15 +130,28 @@ class SpriteBlockComponent extends SpriteComponent
         );
         break;
       case Direction.left:
+        int yPosition = Random().nextInt(yMax);
+
+        if(yPosition < yPadding) yPosition = yPadding;
+
+        if(yPosition > yMax - yPadding) yPosition = yMax - yPadding;
+
         position = Vector2(
           gameRef.size.x - 30,
-          (Random().nextInt(yMax) + 0),
+          (yPosition + 0),
         );
         break;
       case Direction.right:
+        int yPosition = Random().nextInt(yMax);
+
+        if(yPosition < yPadding) yPosition = yPadding;
+
+        if(yPosition > yMax - yPadding) yPosition = yMax - yPadding;
+
+
         position = Vector2(
           0 + 30,
-          (Random().nextInt(yMax) + 0),
+          (yPosition + 0),
         );
         break;
     }

@@ -95,6 +95,7 @@ const gameLevels = [
   ///
   ///
   GameLevel(
+    hasCountdown: true,
       levelId: 24,
       characterId: 0,
       worldType: WorldType.purpleWorld,
@@ -103,6 +104,7 @@ const gameLevels = [
     gameGoal: 10,
     winningCharacterReference: "purple1",
   ), GameLevel(
+    hasCountdown: true,
     levelId: 25,
     characterId: 4,
     worldType: WorldType.purpleWorld,
@@ -112,6 +114,7 @@ const gameLevels = [
     gameGoal: 25,
   ),
   GameLevel(
+    hasCountdown: true,
     levelId: 26,
     characterId: 1,
     worldType: WorldType.purpleWorld,
@@ -120,6 +123,7 @@ const gameLevels = [
     winningCharacterReference: "purple3",
     gameGoal: 25,
   ),GameLevel(
+    hasCountdown: true,
     levelId: 27,
     characterId: 4,
     worldType: WorldType.purpleWorld,
@@ -129,6 +133,7 @@ const gameLevels = [
     gameGoal: 50,
   ),
   GameLevel(
+    hasCountdown: true,
     levelId: 28,
     characterId: 2,
     worldType: WorldType.purpleWorld,
@@ -137,6 +142,7 @@ const gameLevels = [
     winningCharacterReference: "purple5",
     gameGoal: 50,
   ),GameLevel(
+    hasCountdown: true,
     levelId: 29,
     characterId: 2,
     worldType: WorldType.purpleWorld,
@@ -146,6 +152,7 @@ const gameLevels = [
     gameGoal: 100,
   ),
   GameLevel(
+    hasCountdown: true,
     levelId: 30,
     characterId: 3,
     worldType: WorldType.purpleWorld,
@@ -154,6 +161,7 @@ const gameLevels = [
     winningCharacterReference: "purple7",
     gameGoal: 100,
   ),GameLevel(
+    hasCountdown: true,
     levelId: 31,
     characterId: 2,
     worldType: WorldType.purpleWorld,
@@ -166,10 +174,11 @@ const gameLevels = [
 /// counter to five
 
   GameLevel(
+      hasCountdown: true,
       levelId: 32,
       characterId: 1,
       worldType: WorldType.alien,
       winningCharacterReference: 'alien0',
-      gameGoal: 3,
+      gameGoal: 9,
   ),
 ];
