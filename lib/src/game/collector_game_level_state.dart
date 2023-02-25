@@ -155,7 +155,7 @@ class CollectorGameLevelState extends ChangeNotifier {
       print('Level evaluation function called');
     }
 
-    if (!level.hasCountdown) {
+    if (!level.hasCountdown && levelDifficulty != WorldType.cityLand) {
       if (_currentScore >= goal && !_playerDied && !_gameWon &&
           isWinningLevel) {
         if (kDebugMode) {
