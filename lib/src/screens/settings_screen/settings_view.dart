@@ -87,9 +87,7 @@ class SettingsView extends StatelessWidget {
                             TextButton(
                               child: const Text('Approve'),
                               onPressed: () {
-                                if (!kDebugMode) {
-                                  context.read<TreasureCounter>().reset();
-                                }
+                                context.read<TreasureCounter>().reset();
                                 context.read<LevelStatistics>().reset();
                                 context.read<GameAchievements>().reset();
                                 context.read<WorldUnlockManager>().reset();
@@ -107,6 +105,7 @@ class SettingsView extends StatelessWidget {
               ),
 
               Visibility(
+                visible: false,
                 child: _SettingsLine(
                   title: 'Give me money',
                   path: 'assets/images/in_app/neutral_smile.png',

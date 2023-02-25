@@ -150,7 +150,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                       )
                     : const SizedBox.shrink(),
 
-                Align(alignment: Alignment.bottomCenter, child: Visibility(visible:true,
+                Align(alignment: Alignment.bottomCenter, child: Visibility(visible:false,
                 child: ElevatedButton(child: Text('cheat'), onPressed: () {playerWon();},),
                 ),),
 
