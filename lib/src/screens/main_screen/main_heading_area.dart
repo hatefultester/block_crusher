@@ -6,60 +6,97 @@ class MainHeadingArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const colorizeColors = [
+      Colors.white,
+      Colors.red,
+      Colors.orange,
+      Colors.blue,
+      Colors.green,
+      Colors.yellow,
+      Colors.amber,
+      Colors.deepPurple
+    ];
+
+    const colorizeTextStyle = TextStyle(
+      fontSize: 50,
+      letterSpacing: 8,
+      fontWeight: FontWeight.bold
+    );
+
+
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              gradient: const LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Colors.black, Colors.transparent],
-              ),
-            ),
-            child: Text(
-              'H o o m y   H o o'.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-              ),
-              textWidthBasis: TextWidthBasis.longestLine,
-            ),
-          ),
+          const SizedBox(height: 80,),
 
           Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              gradient: const LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Colors.black, Colors.transparent],
-              ),
-            ),
+            width: 350,
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(25),
+            //   gradient: const LinearGradient(
+            //     begin: Alignment.bottomCenter,
+            //     end: Alignment.topCenter,
+            //     colors: [Colors.black, Colors.transparent],
+            //   ),
+            // ),
             child:
-            DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 38,
-                letterSpacing: 2,
-                color: Colors.white,
-                fontFamily: 'Quikhand'
-              ),
-              child: AnimatedTextKit(
-                repeatForever: true,
-                pause: const Duration(seconds: 1),
-                animatedTexts: [
-                  TyperAnimatedText('Adventures', speed: const Duration(milliseconds:200)),
-                  TyperAnimatedText('have fun :)', speed: const Duration(milliseconds: 200)),
-                  TyperAnimatedText('get all characters', speed: const Duration(milliseconds: 200)),
-                ],
-              ),
-            ),
+            AnimatedTextKit(
+              animatedTexts: [
+              ColorizeAnimatedText('Hoomy Hoo Collector!',
+              textStyle: colorizeTextStyle,
+              speed: const Duration(milliseconds: 700),
+              colors: colorizeColors,
+                textAlign: TextAlign.center,
+            ),],
+            isRepeatingAnimation: true, repeatForever: true,),
+            // const Text(
+            //
+            //   style: TextStyle(
+            //     fontSize: 50,
+            //     color: Colors.white,
+            //     letterSpacing: 6
+            //   ),
+            //   textWidthBasis: TextWidthBasis.longestLine,
+            // ),
           ),
+
+
+
+          const Spacer(),
+
+          // Container(
+          //   padding: const EdgeInsets.all(10),
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(25),
+          //     gradient: const LinearGradient(
+          //       begin: Alignment.bottomCenter,
+          //       end: Alignment.topCenter,
+          //       colors: [Colors.black, Colors.transparent],
+          //     ),
+          //   ),
+          //   child:
+          //   DefaultTextStyle(
+          //     style: const TextStyle(
+          //       fontSize: 38,
+          //       letterSpacing: 2,
+          //       color: Colors.white,
+          //       fontFamily: 'Quikhand'
+          //     ),
+          //     child: AnimatedTextKit(
+          //       repeatForever: true,
+          //       pause: const Duration(seconds: 1),
+          //       animatedTexts: [
+          //         TyperAnimatedText('Adventures', speed: const Duration(milliseconds:200)),
+          //         TyperAnimatedText('have fun :)', speed: const Duration(milliseconds: 200)),
+          //         TyperAnimatedText('get all characters', speed: const Duration(milliseconds: 200)),
+          //       ],
+          //     ),
+          //   ),
+          // ),
 
         ],
       ),
