@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -7,6 +8,7 @@ import 'package:flame/game.dart';
 import 'dart:async' as dart_async;
 
 import '../../game/collector_game_helper.dart';
+import '../../services/app_lifecycle.dart';
 
 class MainBackgroundGame extends FlameGame {
   late dart_async.Timer _timer;
@@ -27,6 +29,9 @@ class MainBackgroundGame extends FlameGame {
 
   _startTimer() async {
     await add(AnimatedCharacter(_setCount.toString()));
+
+    if(AppLifecycleObserver.appState == AppLifecycleState.paused) return;
+
     _setCount++;
     _timer =
         dart_async.Timer.periodic(const Duration(seconds: 5), (timer) async {
@@ -70,11 +75,11 @@ Map<String, dynamic> _animatedCharactersAssets = {
   },
   '4': {
     'source': 'characters/fish/1300x928_octopus.png',
-    'size': Vector2(13*4, 9.28*4),
+    'size': Vector2(13*2, 9.28*2),
   },
   '5': {
     'source': 'characters/1000x600/soomy-3.png',
-    'size': Vector2(12*3, 8.4*3),
+    'size': Vector2(12*2, 8.4*2),
   },
   '6': {
     'source': 'characters/hoomy/1000x666/pirate_hoomy.png',
@@ -142,7 +147,7 @@ class MapSpriteComponent extends SpriteComponent
   List<String> myMaps = [
     'backgrounds/sea_background.png',
     'backgrounds/sahara_background.png',
-    'backgrounds/dragon_backgroud.png',
+    //'backgrounds/dragon_backgroud.png',
     //'backgrounds/palm_background.png',
   ];
 
@@ -161,7 +166,7 @@ class MapSpriteComponent extends SpriteComponent
 
     final effect = OpacityEffect.to(
       0,
-      EffectController(duration: 2),
+      EffectController(duration: 1.5),
     );
 
     final opacityBack = OpacityEffect.to(

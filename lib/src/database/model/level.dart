@@ -44,7 +44,7 @@ class GameLevel {
         this.achievementIdAndroid,
         this.gameType = GameType.collector,
         this.miniGameId = 0,
-        this.coinCountOnWin = 50,
+        this.coinCountOnWin = 0,
         this.levelCoinPriceToOpen = 0,
         this.winningCharacterReference = 'null', this.mathCharacterType,
         this.purpleMode, this.gameGoal, this.trippieCharacterType,

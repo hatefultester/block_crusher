@@ -1,17 +1,16 @@
 import 'package:block_crusher/src/utils/error_message_snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../services/audio_controller.dart';
 import '../../services/sounds.dart';
 import '../../storage/settings.dart';
-import '../../storage/achievements.dart';
 import '../../storage/game_achievements.dart';
 import '../../storage/level_statistics.dart';
 import '../../storage/player_inventory.dart';
 import '../../storage/treasure_counter.dart';
 import '../../storage/world_unlock_manager.dart';
-import '../../utils/game_achievement_snack_bar.dart';
 import '../../utils/info_snack_bar.dart';
 
 class SettingsView extends StatelessWidget {
@@ -105,22 +104,32 @@ class SettingsView extends StatelessWidget {
               ),
 
               Visibility(
-                visible: false,
+                visible: settings.cheatsOn,
                 child: _SettingsLine(
-                  title: 'Give me money',
+                  title: 'Give me money 5000',
                   path: 'assets/images/in_app/neutral_smile.png',
                   onSelected: () {
                     context.read<AudioController>().playSfx(SfxType.buttonTap);
                     context.read<TreasureCounter>().incrementCoinCount(5000);
-                    showErrorMessageSnackBar('You have 5000 more money', 'Cheater');
-                    context.read<LevelStatistics>().cheat();
-                   context.read<WorldUnlockManager>().cheat();
-                    context.read<GameAchievements>().cheat();
-
+                    showInfoMessageSnackBar('You have 5000 more money', 'Cheater');
                     //`showAchievementSnackBar(GameAchievement.connectTwoPlayers);
                   },
                 ),
               ),
+              Visibility(
+                visible: settings.cheatsOn,
+                child: _SettingsLine(
+                  title: 'Unlock all levels',
+                  path: 'assets/images/in_app/neutral_smile.png',
+                  onSelected: () {
+                    context.read<AudioController>().playSfx(SfxType.buttonTap);
+                    context.read<LevelStatistics>().cheat();
+                    context.read<WorldUnlockManager>().cheat();
+                    showInfoMessageSnackBar('Level set to 32', 'Cheater');
+                  },
+                ),
+              ),
+
               const SizedBox(height: 50),
               const _BackButton(),
               const SizedBox(height: 50),
@@ -156,11 +165,19 @@ class _BackButton extends StatelessWidget {
   }
 }
 
-class _Title extends StatelessWidget {
+class _Title extends StatefulWidget {
   const _Title({Key? key}) : super(key: key);
 
   @override
+  State<_Title> createState() => _TitleState();
+}
+
+class _TitleState extends State<_Title> {
+  int _backDoorCounter = 0;
+
+  @override
   Widget build(BuildContext context) {
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -178,18 +195,37 @@ class _Title extends StatelessWidget {
       width: double.infinity, height: 150,
       // margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
-        child: Text(
-          'Settings'.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 55,
-            letterSpacing: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        child: GestureDetector(
+          onTap: () => {_checkBackdoor()},
+          child: Text(
+            'Settings'.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 55,
+              letterSpacing: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
     );
   }
+
+  _checkBackdoor() {
+    final settings = context.read<SettingsController>();
+    _backDoorCounter ++;
+
+    if(_backDoorCounter == 15) {
+      settings.enableCheats();
+
+      GoRouter.of(context).pop();
+
+      showInfoMessageSnackBar('Cheats are now enabled for this session', 'Cheats enabled');
+
+    }
+  }
+
+
 }
 
 class _SettingsLine extends StatelessWidget {
@@ -228,16 +264,24 @@ class _SettingsLine extends StatelessWidget {
             padding: const EdgeInsets.only(left: 20, right: 20),
             margin: const EdgeInsets.all(10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                      wordSpacing: 2,
-                      color: Colors.white,
-                    )),
+                SizedBox(
+                  width: 140,
+                  child: FittedBox(
+                    fit:BoxFit.scaleDown,
+                    child: Text(title,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                          wordSpacing: 2,
+                          color: Colors.white,
+                        )),
+                  ),
+                ),
                 const Spacer(),
                 SizedBox(
                   height: 60,

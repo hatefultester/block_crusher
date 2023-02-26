@@ -6,15 +6,12 @@ class MainHeadingArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colorizeColors = [
+    List<Color> colorizeColors = [
       Colors.white,
-      Colors.red,
-      Colors.orange,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-      Colors.amber,
-      Colors.deepPurple
+      Colors.white.withOpacity(0.95),
+      Colors.white.withOpacity(0.9),
+      Colors.white.withOpacity(0.85),
+      Colors.white.withOpacity(0.8),
     ];
 
     const colorizeTextStyle = TextStyle(

@@ -21,8 +21,12 @@ import 'package:provider/provider.dart';
 import '../../services/audio_controller.dart';
 import '../../services/sounds.dart';
 import '../../utils/responsive_screen.dart';
+import 'character_detail_widget.dart';
+
+typedef ProfileCharacterTapCallback = void Function(int i);
 
 class ProfileMarketScreen extends StatefulWidget {
+
   const ProfileMarketScreen({Key? key}) : super(key: key);
 
   @override
@@ -30,6 +34,10 @@ class ProfileMarketScreen extends StatefulWidget {
 }
 
 class _ProfileMarketScreenState extends State<ProfileMarketScreen> {
+
+  var _displayCharacterDetail = false;
+  var _characterDetailIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     final playerInventory = context.watch<PlayerInventory>();
@@ -37,36 +45,53 @@ class _ProfileMarketScreenState extends State<ProfileMarketScreen> {
 
     final Color backgroundColor = profileBackgroundColors[playerInventory.selectedBackgroundColorIndexForProfile];
 
+
     return Scaffold(
         backgroundColor: backgroundColor,
 
         body: Stack(children: [
           GameWidget(game: ProfileBackground(),),
-          ProfileTopWidget(
-            width: 200,
-            title: 'Profile', itemBackgroundColor: Colors.white, itemTextColor: Colors.white, extra :
-          ProfileWallet(width: 150,),),
-          ProfileContent(),
-          ProfileBackButton(),
+          SizedBox.expand(child: ProfileContent(tapEventHandler: _tapEventHandler,)),
+          const ProfileTopWidget(
+            title: 'Profile', itemBackgroundColor: Colors.white, itemTextColor: Colors.white,),
+
+          const ProfileBackButton(),
+          Visibility(
+            visible: _displayCharacterDetail,
+            child: CharacterDetailWidget(index: _characterDetailIndex,backButtonTap: _backButtonHandler,),
+          )
           //  ProfileColorSlider(),
         ],
         )
     );
   }
+
+  void _tapEventHandler(int index) {
+    setState(() {
+      _characterDetailIndex = index;
+      _displayCharacterDetail = true;
+    });
+  }
+
+  void _backButtonHandler() {
+    setState(() {
+      _displayCharacterDetail = false;
+    });
+  }
 }
 
 class ProfileContent extends StatelessWidget {
-  const ProfileContent({Key? key}) : super(key: key);
+  final ProfileCharacterTapCallback tapEventHandler;
+
+  const ProfileContent({Key? key, required this.tapEventHandler}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        SizedBox(height: 80),
-        ProfileStatisticsButton(),
-        Expanded(child: ProfileCharactersView()),
-        ProfileColorSlider(),
-        SizedBox(height:80,),
+    return ListView(
+      children:  [
+        const SizedBox(height: 100),
+        ProfileCharactersView(onTapEvent: tapEventHandler),
+        const SizedBox(height:100,),
       ],
     );
   }
@@ -77,10 +102,10 @@ class ProfileStatisticsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(padding: EdgeInsets.all(8), margin: EdgeInsets.all(8),width: double.infinity, height: 60, child:
+    return Container(padding: const EdgeInsets.all(8), margin: const EdgeInsets.all(8),width: double.infinity, height: 60, child:
     ElevatedButton(onPressed: () {final audio = context.read<AudioController>();
     audio.playSfx(SfxType.buttonTap);
-    GoRouter.of(context).pushReplacement('/play/profile');  }, child: Text('Game statistics'),
+    GoRouter.of(context).pushReplacement('/play/profile');  }, child: const Text('Game statistics'),
       
     ));
   }

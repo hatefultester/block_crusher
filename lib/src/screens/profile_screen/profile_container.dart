@@ -6,14 +6,15 @@ class ProfileContainer extends StatelessWidget {
   final Color color;
   final double width;
   final double height;
+  final bool withOpacity;
 
-  const ProfileContainer({Key? key, required this.child, required this.color, this.width= 100, this.height = 50,}) : super(key: key);
+  const ProfileContainer({Key? key, this.withOpacity = false, required this.child, required this.color, this.width= 100, this.height = 50,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 5, right: 5),
-      width: width, height: height, decoration: BoxDecoration(color: Colors.black.withOpacity(0.6),
+      width: width, height: height, decoration: BoxDecoration(color: withOpacity ? Colors.black.withOpacity(0.6) : Colors.black,
       borderRadius: BorderRadius.circular(20),
       border: Border.all(color: Colors.black, width: 0.2),
 

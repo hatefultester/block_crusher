@@ -55,7 +55,7 @@ class _CityLevelBottomWidgetState extends State<CityLevelBottomWidget> {
                         size: 25,
                       )
                           : Text(
-                          '${levelState.items[i].toString()} / ${cityFoods[levelState.characterId - 1]['characters'][i]['goal']}',
+                          '${(cityFoods[levelState.characterId - 1]['characters'][i]['goal'] - levelState.items[i]).toString()}',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize:

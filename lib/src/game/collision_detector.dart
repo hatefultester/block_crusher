@@ -58,7 +58,8 @@ extension CollisionDetector on BlockCrusherGame {
     audioController.playSfx(SfxType.kosik);
 
     state.collect(level);
-    state.increaseCoinCount(level * connectCoinCount);
+    state.increaseCoinCount(level == 0 ? connectCoinCount : level * connectCoinCount);
+    addCoinEffect(connectCoinCount);
     state.evaluate();
   }
 

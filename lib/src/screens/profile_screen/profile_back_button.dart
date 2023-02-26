@@ -14,11 +14,15 @@ class ProfileBackButton extends StatelessWidget {
           height: 70,
           padding: EdgeInsets.all(8),
           margin: EdgeInsets.only(bottom:10),
-          child: ElevatedButton(
-            child: Text('Back'),
-            onPressed: (() => {
-              GoRouter.of(context).go('/play'),
-            }),
+          child: Material(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(30),
+            child: ElevatedButton(
+              child: Text('Back'),
+              onPressed: (() => {
+                GoRouter.of(context).go('/play'),
+              }),
+            ),
           ),
         ),
       ),

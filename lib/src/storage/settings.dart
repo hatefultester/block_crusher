@@ -21,6 +21,13 @@ class SettingsController {
 
   ValueNotifier<bool> musicOn = ValueNotifier(false);
 
+  bool _cheating = false;
+  bool get cheatsOn => _cheating;
+
+  void enableCheats() {
+    _cheating = true;
+  }
+
   /// Creates a new instance of [SettingsController] backed by [persistence].
   SettingsController({required SettingsPersistence persistence})
       : _persistence = persistence;

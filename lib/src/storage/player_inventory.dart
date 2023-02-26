@@ -78,14 +78,16 @@ class PlayerInventory extends ChangeNotifier {
     unawaited(_store.saveIndexOfSelectedBackgroundColorForProfile(value));
   }
 
-  void addNewPlayerCharacter(String character) {
+  void addNewPlayerCharacter(String character) async {
+    await _getLatestPlayerCharacters();
     if(_playerCharacters.contains(character)) return;
     _playerCharacters.add(character);
     notifyListeners();
     unawaited(_store.savePlayerCharacters(_playerCharacters));
   }
 
-  void addNewAvailableCharacter(String character) {
+  void addNewAvailableCharacter(String character) async {
+    await _getLatestAvailableCharacters();
     if(_availableCharacters.contains(character)) return;
     _availableCharacters.add(character);
     notifyListeners();

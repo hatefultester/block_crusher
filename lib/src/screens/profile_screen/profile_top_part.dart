@@ -12,11 +12,12 @@ class ProfileTopWidget extends StatelessWidget {
   final Color itemTextColor;
   final String title;
   final double width;
+  final bool opacity;
 
   final Widget extra;
 
   const ProfileTopWidget(
-      {Key? key, this.width = _width, this.extra = _sizedBox, required this.itemBackgroundColor, required this.itemTextColor, required this.title})
+      {Key? key, this.opacity = true, this.width = _width, this.extra = _sizedBox, required this.itemBackgroundColor, required this.itemTextColor, required this.title})
       : super(key: key);
 
   @override

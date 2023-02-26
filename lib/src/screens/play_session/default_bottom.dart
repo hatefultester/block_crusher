@@ -22,15 +22,24 @@ class DefaultBottomWidget extends StatefulWidget {
 class _DefaultBottomWidgetState extends State<DefaultBottomWidget> {
   @override
   Widget build(BuildContext context) {
+    // return Align(
+    //     alignment: Alignment.bottomCenter,
+    //     child: Padding(
+    //       padding: const EdgeInsets.only(bottom:4.0),
+    //       child: TimerWidget(widget.startOfPlay, backgroundColor: widget.itemBackgroundColor, textColor: widget.itemTextColor,),
+    //     ));
+
+
+
     return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.black, Colors.black.withOpacity(0.9),Colors.transparent],
+            colors: [Colors.black, Colors.black.withOpacity(0.9),Colors.black.withOpacity(0.2)],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
           )
         ),
-        height: 80,
+        height: 70,
         padding: const EdgeInsets.all(15),
         width: double.infinity,
         child: Row(

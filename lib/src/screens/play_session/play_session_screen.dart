@@ -14,6 +14,7 @@ import 'package:block_crusher/src/screens/play_session/default_bottom.dart';
 import 'package:block_crusher/src/services/audio_controller.dart';
 import 'package:block_crusher/src/storage/game_achievements.dart';
 import 'package:block_crusher/src/storage/level_statistics.dart';
+import 'package:block_crusher/src/storage/settings.dart';
 import 'package:block_crusher/src/storage/treasure_counter.dart';
 import 'package:block_crusher/src/database/in_game_characters.dart';
 import 'package:flame/game.dart';
@@ -54,6 +55,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
   @override
   Widget build(BuildContext context) {
     final remoteConfig = context.read<RemoteConfigProvider>();
+    final settings = context.read<SettingsController>();
 
     final String imagePath = 'assets/images/${charactersForInventory[widget.level.winningCharacterReference]['source']}';
 
@@ -150,7 +152,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                       )
                     : const SizedBox.shrink(),
 
-                Align(alignment: Alignment.bottomCenter, child: Visibility(visible:false,
+                Align(alignment: Alignment.bottomLeft, child: Visibility(visible:settings.cheatsOn,
                 child: ElevatedButton(child: Text('cheat'), onPressed: () {playerWon();},),
                 ),),
 
