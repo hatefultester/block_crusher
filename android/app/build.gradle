@@ -76,6 +76,12 @@ android {
         release {
             signingConfig signingConfigs.release
         }
+        debug {
+            signingConfig signingConfigs.release
+        }
+        staging {
+            signingConfig signingConfigs.release
+        }
     }
 }
 

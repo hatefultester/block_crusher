@@ -16,4 +16,20 @@ static const String sharkTickSpeed = "collectorGameSharkTickSpeed";
 static const String cityLandCoinPrice = "collectorGameCityLandCoinPrice";
 static const String hoomyLandCoinPrice = "collectorGameHoomyCityLandCoinPrice";
 static const String seaLandCoinPrice = "collectorGameSeaCityLandCoinPrice";
+static const String purpleLandCoinPrice = "collectorGamePurpleLandCoinPrice";
+static const String alienLandCoinPrice = "collectorGameAlienLandCoinPrice";
+
+static const String alienLives = "alienLandLives";
+static const String purpleLives = "purpleLandLives";
+static const String soomyLives = "soomyLandLives";
+static const String hoomyLives = "hoomyLandLives";
+static const String cityLives = "cityLandLives";
+static const String seaLives = "seaLandLives";
+
+static const String alienCoinCount = "alienConnectionCoinCount";
+static const String purpleCoinCount = "purpleConnectionCoinCount";
+static const String soomyCoinCount = "soomyConnectionCoinCount";
+static const String hoomyCoinCount = "hoomyConnectionCoinCount";
+static const String cityCoinCount = "cityConnectionCoinCount";
+static const String sharkCoinCount = "sharkConnectionCoinCount";
 }

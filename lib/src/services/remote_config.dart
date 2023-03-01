@@ -24,10 +24,22 @@ class RemoteConfigProvider extends ChangeNotifier {
     RemoteConfigKey.hoomyTickSpeed : 130,
     RemoteConfigKey.sharkTickSpeed : 135,
     RemoteConfigKey.sharkFallbackSpeed : 1.3,
-    RemoteConfigKey.cityLandCoinPrice: 1000,
-    RemoteConfigKey.hoomyLandCoinPrice: 1500,
+    RemoteConfigKey.cityLandCoinPrice: 3500,
+    RemoteConfigKey.hoomyLandCoinPrice: 2500,
     RemoteConfigKey.seaLandCoinPrice: 1200,
-  };
+    RemoteConfigKey.purpleLandCoinPrice: 5000,
+    RemoteConfigKey.alienLandCoinPrice: 10000,
+    RemoteConfigKey.alienLives : 3,
+    RemoteConfigKey.seaLives : 3,
+    RemoteConfigKey.soomyLives : 3,
+    RemoteConfigKey.hoomyLives : 3,
+    RemoteConfigKey.purpleLives : 3,
+    RemoteConfigKey.soomyCoinCount: 5,
+    RemoteConfigKey.hoomyCoinCount: 15,
+    RemoteConfigKey.sharkCoinCount: 10,
+    RemoteConfigKey.purpleCoinCount: 25,
+    RemoteConfigKey.alienCoinCount: 30,
+};
 
   Future<void> init() async {
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
@@ -61,27 +73,22 @@ class RemoteConfigProvider extends ChangeNotifier {
   int getCityLandCoinPrice() => _getInt(RemoteConfigKey.cityLandCoinPrice);
   int getSeaLandCoinPrice() => _getInt(RemoteConfigKey.seaLandCoinPrice);
   int getHoomyLandCoinPrice() => _getInt(RemoteConfigKey.hoomyLandCoinPrice);
-  int getAlienLandCoinPrice() => 2000; //todo
-  int getPurpleLandCoinPrice() => 2000; //todo
+  int getAlienLandCoinPrice() => _getInt(RemoteConfigKey.alienLandCoinPrice);
+  int getPurpleLandCoinPrice() => _getInt(RemoteConfigKey.purpleLandCoinPrice);
 
-  int getSoomyLandLives() => 3; // todo
-  int getHoomyLandLives() => 3; // todo
-  int getSharkLandLives() => 3; // todo
-  int getCityLandLives() => 3; // todo
-  int getAlienLandLives() => 3; // todo
-  int getPurpleLandLives() => 3; // todo
+  int getSoomyLandLives() => _getInt(RemoteConfigKey.soomyLives);
+  int getHoomyLandLives() => _getInt(RemoteConfigKey.hoomyLives);
+  int getSharkLandLives() => _getInt(RemoteConfigKey.seaLives);
+  int getCityLandLives() => _getInt(RemoteConfigKey.cityLives);
+  int getAlienLandLives() => _getInt(RemoteConfigKey.alienLives);
+  int getPurpleLandLives() => _getInt(RemoteConfigKey.purpleLives);
 
-  int getSoomyLevelBonusPrice() => 50; // todo
-  int getHoomyLevelBonusPrice() => 100; // todo
-  int getSharkLevelBonusPrice() => 200; // todo
-  int getCityLevelBonusPrice() => 250; // todo
-
-  int getSoomyLandConnectCoinCount() => 5; //todo
-  int getHoomyLandConnectCoinCount() => 10; //todo
-  int getSharkLandConnectCoinCount() => 15; //todo
-  int getCityLandConnectCoinCount() => 20; //todo
-  int getPurpleLandConnectCoinCount() => 25; //todo
-  int getAlienLandConnectCoinCount() => 30; //todo
+  int getSoomyLandConnectCoinCount() => _getInt(RemoteConfigKey.soomyCoinCount);
+  int getHoomyLandConnectCoinCount() => _getInt(RemoteConfigKey.hoomyCoinCount);
+  int getSharkLandConnectCoinCount() => _getInt(RemoteConfigKey.sharkCoinCount);
+  int getCityLandConnectCoinCount() => _getInt(RemoteConfigKey.cityCoinCount);
+  int getPurpleLandConnectCoinCount() => _getInt(RemoteConfigKey.purpleCoinCount);
+  int getAlienLandConnectCoinCount() => _getInt(RemoteConfigKey.alienCoinCount);
 
   _getInt(String key) {
     var result = remoteConfig.getInt(key);

@@ -17,8 +17,10 @@ import 'package:block_crusher/src/database/player_inventory_database.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/ads_ids.dart';
 import '../../services/score.dart';
 import '../../utils/responsive_screen.dart';
 import '../play_session/game_play_statistics.dart';
@@ -84,13 +86,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
             child: ListView(
                 children: <Widget>[
 
-                  // if (adsControllerAvailable && !adsRemoved) ...[
-                  //   const Expanded(
-                  //     child: Center(
-                  //       child: BannerAdWidget(),
-                  //     ),
-                  //   ),
-                  // ],
+
 
                   const SizedBox(height: 50),
                   Center(
@@ -113,7 +109,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                         child:
                         Container(
                          padding: const EdgeInsets.only(bottom:5),
-                          child: Text(
+                          child: const Text(
                             'New character !',
                             style: TextStyle(fontFamily: 'Quikhand', fontSize: 35, color: Colors.black),
                           ),
@@ -228,7 +224,17 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                 ],
               ),
           ),
+          if (adsControllerAvailable && !adsRemoved) ...[
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                  width: bannerAdSize.width.toDouble(),
+                  height: bannerAdSize.height.toDouble(),
+                  child: const BannerAdWidget()),
+            ),
+          ],
         ],
+
       ),
     );
   }
@@ -255,6 +261,7 @@ duringAnimation = true;
     return worldUnlockManager.isWorldUnlocked(level.worldType);
   }
 }
+
 
 
 

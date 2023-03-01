@@ -99,7 +99,7 @@ void guardedMain() {
   //       Read the README for more info on each integration.
 
   AdsController? adsController;
-  if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+  if (!kIsWeb && (Platform.isAndroid)) {
     /// Prepare the google_mobile_ads plugin so that the first ad loads
     /// faster. This can be done later or with a delay if startup
     /// experience suffers.
@@ -140,7 +140,7 @@ void guardedMain() {
         gameAchievementsPersistence: LocalStorageGameAchievementsPersistence(),
         playerInventoryPersistence: LocalStoragePlayerInventoryPersistence(),
         inAppPurchaseController: inAppPurchaseController,
-        adsController: null,
+        adsController: adsController,
         gamesServicesController: gamesServicesController,
       ),
     ),

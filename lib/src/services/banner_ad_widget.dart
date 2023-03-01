@@ -5,12 +5,14 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import 'ads_controller.dart';
+import 'ads_ids.dart';
 import 'preloaded_banner_ad.dart';
 
 /// Displays a banner ad that conforms to the widget's size in the layout,
@@ -48,6 +50,8 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return OrientationBuilder(
       builder: (context, orientation) {
         if (_currentOrientation == orientation &&
@@ -67,7 +71,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
           _currentOrientation = orientation;
           _loadAd();
         }
-        return const SizedBox();
+        return Container(width: bannerAdSize.width.toDouble(), height: bannerAdSize.height.toDouble(), color:Colors.red,);
       },
     );
   }
@@ -91,26 +95,32 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
     final adsController = context.read<AdsController>();
     final ad = adsController.takePreloadedAd();
+
     if (ad != null) {
       _log.info("A preloaded banner was supplied. Using it.");
       _showPreloadedAd(ad);
     } else {
       _loadAd();
     }
+
   }
 
   /// Load (another) ad, disposing of the current ad if there is one.
   Future<void> _loadAd() async {
     if (!mounted) return;
     _log.info('_loadAd() called.');
+
     if (_adLoadingState == _LoadingState.loading ||
         _adLoadingState == _LoadingState.disposing) {
       _log.info('An ad is already being loaded or disposed. Aborting.');
       return;
     }
+
     _adLoadingState = _LoadingState.disposing;
     await _bannerAd?.dispose();
+
     _log.fine('_bannerAd disposed');
+
     if (!mounted) return;
 
     setState(() {
@@ -135,6 +145,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       size = AdSize.mediumRectangle;
     }
 
+
     if (!mounted) return;
 
     assert(Platform.isAndroid || Platform.isIOS,
@@ -144,8 +155,9 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       // https://developers.google.com/admob/android/test-ads. When ready,
       // you replace this with your own, production ad unit ID,
       // created in https://apps.admob.com/.
-      adUnitId: Theme.of(context).platform == TargetPlatform.android
-          ? 'ca-app-pub-3940256099942544/6300978111'
+      adUnitId:
+      Theme.of(context).platform == TargetPlatform.android
+          ? 'ca-app-pub-8632510784563928/8625493657'
           : 'ca-app-pub-3940256099942544/2934735716',
       size: size,
       request: const AdRequest(),

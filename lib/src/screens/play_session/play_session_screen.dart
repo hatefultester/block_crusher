@@ -20,10 +20,12 @@ import 'package:block_crusher/src/database/in_game_characters.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../../database/player_inventory_database.dart';
 import '../../game/world_type.dart';
+import '../../services/ads_controller.dart';
 import '../../services/sounds.dart';
 import '../../storage/player_inventory.dart';
 import '../../utils/confetti.dart';
@@ -65,8 +67,8 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final bool isCityLand = widget.level.worldType == WorldType.cityLand;
     final bool isDefaultWorld = !isPurpleWorld && !isCityLand;
 
-    //  var adsController = AdsController(MobileAds.instance);
-    //  adsController.preloadAd();
+    var adsController = AdsController(MobileAds.instance);
+    adsController.preloadAd();
 
     return WillPopScope(
       onWillPop: () async {
