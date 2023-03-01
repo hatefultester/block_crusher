@@ -3,6 +3,8 @@ import 'package:block_crusher/src/game/collector_game_helper.dart';
 import 'package:block_crusher/src/game/collector_game_level_state.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../database/maps.dart';
+
 extension LoadingPart on BlockCrusherGame {
 
   setBlockCrusherGameFromPlaySessionWidget(BuildContext context, CollectorGameLevelState state) {
@@ -64,6 +66,11 @@ extension LoadingPart on BlockCrusherGame {
         connectCoinCount = remoteConfig.getPurpleLandConnectCoinCount();
 
         purpleMode = state.level.purpleMode ?? PurpleMode.trippie;
+
+        /// priserne debilni reseni
+        if (purpleMode != PurpleMode.trippie) {
+          mapPath = gameMaps['sahara']!;
+        }
 
         break;
       case GameMode.alien:

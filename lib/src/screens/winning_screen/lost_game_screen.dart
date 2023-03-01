@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/ads_ids.dart';
 import '../../services/score.dart';
 import '../../utils/responsive_screen.dart';
 import '../play_session/game_play_statistics.dart';
@@ -43,20 +44,9 @@ class LostGameScreen extends StatelessWidget {
       body: Stack(
         children: [
           GameWidget(game: LostBackground()),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          ListView(
             children: <Widget>[
-
-              // if (adsControllerAvailable && !adsRemoved) ...[
-              //   const Expanded(
-              //     child: Center(
-              //       child: BannerAdWidget(),
-              //     ),
-              //   ),
-              // ],
-
-              const SizedBox(height: 50),
+              const SizedBox(height: 420),
               Center(
                 child: Container(
                   width: 300,
@@ -97,9 +87,9 @@ class LostGameScreen extends StatelessWidget {
                           Text(
                             score.formattedTime,
                             style: const TextStyle(
-                                fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                                fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
                           ),
-                          const SizedBox(width: 15),
+                          const SizedBox(width: 10),
                           SizedBox(width: 50,child: Image.asset('assets/images/in_app/clock.png'),),
                         ],
                       ),
@@ -118,9 +108,9 @@ class LostGameScreen extends StatelessWidget {
                             Text(
                               score.coinCount.toString(),
                               style: const TextStyle(
-                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                                  fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
                             ),
-                            const SizedBox(width: 15),
+                            const SizedBox(width: 10),
                             SizedBox(width: 50,child: Image.asset('assets/images/coins/1000x677/money.png'),),
                           ],
                         ),
@@ -159,11 +149,21 @@ class LostGameScreen extends StatelessWidget {
                       child: const Text('Back to levels'),
                     ),
                   ),
-
+                  const SizedBox(height: 50),
                 ],
               ),
             ],
           ),
+          if (adsControllerAvailable && !adsRemoved) ...[
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                  width: bannerAdSize.width.toDouble(),
+                  height: bannerAdSize.height.toDouble(),
+                  child: const BannerAdWidget()),
+            ),
+
+        ],
         ],
       ),
     );

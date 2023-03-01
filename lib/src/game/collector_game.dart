@@ -50,6 +50,8 @@ class BlockCrusherGame extends FlameGame
   final GameAchievements gameAchievements;
   final AudioController audioController;
 
+  late String mapPath;
+
   BlockCrusherGame(this.difficulty,
       {this.hasDifferentStartingBlock = false,
       this.generateCharacterFromLastLevel = false,
@@ -67,12 +69,11 @@ class BlockCrusherGame extends FlameGame
   Future<void> onLoad() async {
     await super.onLoad();
 
-    String mapPath = setMapBasedOnDifficulty();
+    mapPath = setMapBasedOnDifficulty();
     setVariablesBasedOnGameMode();
 
-    if (purpleMode != PurpleMode.trippie) {
-      mapPath = gameMaps['sahara']!;
-    }
+
+
 
     await add(
       SpriteComponent(
