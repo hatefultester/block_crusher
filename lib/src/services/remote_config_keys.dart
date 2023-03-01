@@ -18,6 +18,7 @@ static const String hoomyLandCoinPrice = "collectorGameHoomyCityLandCoinPrice";
 static const String seaLandCoinPrice = "collectorGameSeaCityLandCoinPrice";
 static const String purpleLandCoinPrice = "collectorGamePurpleLandCoinPrice";
 static const String alienLandCoinPrice = "collectorGameAlienLandCoinPrice";
+static const String purpleLandMathCoinPrice = "collectorGamePurpleLandMathCoinPrice";
 
 static const String alienLives = "alienLandLives";
 static const String purpleLives = "purpleLandLives";

@@ -13,13 +13,13 @@ const int maxMiddleSize = 300;
 const String sideImagePathTrippie = "assets/images/enemy/trippie/1000x850/trippie_closed_mouth.png";
 const String sideImagePathCounter = "assets/images/characters_skill_game/13_1200x600.png";
 
-class PurpleLandLevels extends StatelessWidget {
+class PurpleLandCounterLevels extends StatelessWidget {
   final int purplePageTopSectionFlex = 3;
   final int purplePageMiddleSectionFlex = 1;
   final int purplePageBottomSectionFlex = 3;
 
 
-  const PurpleLandLevels({Key? key}) : super(key: key);
+  const PurpleLandCounterLevels({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,29 +30,30 @@ class PurpleLandLevels extends StatelessWidget {
         height:  customBoxSize ,
         child: Row(
           children: const [
-            SizedBox(width: levelBoxSize),
-            LevelBoxWidget(id: 23),
-            LineBuilder(direction: Direction.up, id: 24, count: 9,),
-            LevelBoxWidget(id: 24, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
+
             Spacer(),
+            LevelBoxWidget(id: 27),
+            LineBuilder(direction: Direction.up, id: 28, count: 9,),
+            LevelBoxWidget(id: 28, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
+            SizedBox(width: levelBoxSize),
           ],
         ),
       ),
     ];
 
     List<Widget> purplePageMiddleSection = [
-      LineBuilder(direction: Direction.left, id: 25, count:11, offset: levelBoxSize.toInt()-20),
+      LineBuilder(direction: Direction.right, id: 29, count:11, offset: levelBoxSize.toInt()-20),
       SizedBox(
         height:  customBoxSize ,
         child: Row(
           children: const [
+            Spacer(),
+            LevelBoxWidget(id: 29, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
             SizedBox(width: levelBoxSize),
-            LevelBoxWidget(id: 25, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
-            Spacer()
           ],
         ),
       ),
-      LineBuilder(direction: Direction.left, id: 26, count: 11, offset: levelBoxSize.toInt() - 20),
+      LineBuilder(direction: Direction.right, id: 30, count: 11, offset: levelBoxSize.toInt() - 20),
     ];
 
     List<Widget> purplePageBottomSection = [
@@ -61,9 +62,9 @@ class PurpleLandLevels extends StatelessWidget {
         height:  customBoxSize ,
         child: Row(
           children: const [
+            Spacer(),
+            LevelBoxWidget(id: 30, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
             SizedBox(width: levelBoxSize),
-            LevelBoxWidget(id: 26, customSize: customBoxSize, sideImagePath: sideImagePathCounter,),
-            Spacer()
           ],
         ),
       ),
@@ -72,15 +73,15 @@ class PurpleLandLevels extends StatelessWidget {
     ];
 
     return LevelPage(
-        pageTitle: 'Purple world',
-        levelDifficulty: WorldType.purpleWorld,
-        topSection: purplePageTopSection,
-        middleSection: purplePageMiddleSection,
-        bottomSection: purplePageBottomSection,
-        topSectionFlex: purplePageTopSectionFlex,
-        middleSectionFlex: purplePageMiddleSectionFlex,
-        bottomSectionFlex: purplePageBottomSectionFlex,
-        middleSectionMaxSize: maxMiddleSize,
+      pageTitle: 'Math world',
+      levelDifficulty: WorldType.purpleWorldMath,
+      topSection: purplePageTopSection,
+      middleSection: purplePageMiddleSection,
+      bottomSection: purplePageBottomSection,
+      topSectionFlex: purplePageTopSectionFlex,
+      middleSectionFlex: purplePageMiddleSectionFlex,
+      bottomSectionFlex: purplePageBottomSectionFlex,
+      middleSectionMaxSize: maxMiddleSize,
     );
   }
 }

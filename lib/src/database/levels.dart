@@ -103,66 +103,77 @@ const gameLevels = [
     trippieCharacterType: TrippieCharacterType.number,
     gameGoal: 10,
     winningCharacterReference: "purple1",
-  ), GameLevel(
-    hasCountdown: true,
-    levelId: 25,
-    characterId: 4,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.counterToFive,
-    mathCharacterType: MathCharacterType.cube,
-    winningCharacterReference: "purple2",
-    gameGoal: 25,
   ),
+
   GameLevel(
     hasCountdown: true,
-    levelId: 26,
+    levelId: 25,
     characterId: 1,
     worldType: WorldType.purpleWorld,
     purpleMode: PurpleMode.trippie,
     trippieCharacterType: TrippieCharacterType.vacuum,
-    winningCharacterReference: "purple3",
+    winningCharacterReference: "purple2",
     gameGoal: 25,
-  ),GameLevel(
-    hasCountdown: true,
-    levelId: 27,
-    characterId: 4,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.counterToFive,
-    mathCharacterType: MathCharacterType.cube,
-    winningCharacterReference: "purple4",
-    gameGoal: 50,
   ),
+
   GameLevel(
     hasCountdown: true,
-    levelId: 28,
+    levelId: 26,
     characterId: 2,
     worldType: WorldType.purpleWorld,
     purpleMode: PurpleMode.trippie,
     trippieCharacterType: TrippieCharacterType.number,
-    winningCharacterReference: "purple5",
+    winningCharacterReference: "purple3",
     gameGoal: 50,
-  ),GameLevel(
-    hasCountdown: true,
-    levelId: 29,
-    characterId: 2,
-    worldType: WorldType.purpleWorld,
-    purpleMode: PurpleMode.counterToFive,
-    mathCharacterType: MathCharacterType.faraon,
-    winningCharacterReference: "purple6",
-    gameGoal: 100,
   ),
   GameLevel(
     hasCountdown: true,
-    levelId: 30,
+    levelId: 27,
     characterId: 3,
     worldType: WorldType.purpleWorld,
     purpleMode: PurpleMode.trippie,
     trippieCharacterType: TrippieCharacterType.vacuum,
+    winningCharacterReference: "purple4",
+    gameGoal: 100,
+  ),
+
+  //// counter to 5 levels
+  GameLevel(
+    hasCountdown: true,
+    levelId: 28,
+    characterId: 4,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.cube,
+    winningCharacterReference: "purple5",
+    gameGoal: 25,
+  ),
+
+  GameLevel(
+    hasCountdown: true,
+    levelId: 29,
+    characterId: 4,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.cube,
+    winningCharacterReference: "purple6",
+    gameGoal: 50,
+  ),
+
+  GameLevel(
+    hasCountdown: true,
+    levelId: 30,
+    characterId: 2,
+    worldType: WorldType.purpleWorld,
+    purpleMode: PurpleMode.counterToFive,
+    mathCharacterType: MathCharacterType.faraon,
     winningCharacterReference: "purple7",
     gameGoal: 100,
-  ),GameLevel(
+  ),
+
+  GameLevel(
     hasCountdown: true,
-    levelId: 31,
+    levelId: 30,
     characterId: 2,
     worldType: WorldType.purpleWorld,
     purpleMode: PurpleMode.counterToFive,
@@ -171,7 +182,8 @@ const gameLevels = [
     gameGoal: 150,
   ),
 
-/// counter to five
+
+  /// counter to five
 
   GameLevel(
       hasCountdown: true,

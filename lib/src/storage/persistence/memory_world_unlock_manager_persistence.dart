@@ -7,6 +7,7 @@ class MemoryOnlyWorldUnlockManagerPersistence implements WorldUnlockManagerPersi
   bool cityLandUnlocked = false;
   bool alienLandUnlocked = false;
   bool purpleLandUnlocked = false;
+  bool purpleLandMathUnlocked = false;
 
   @override
   Future<bool> isCityLandOpen() async {
@@ -57,6 +58,12 @@ class MemoryOnlyWorldUnlockManagerPersistence implements WorldUnlockManagerPersi
   }
 
   @override
+  Future<bool> isPurpleLandMathOpen() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    return purpleLandMathUnlocked;
+  }
+
+  @override
   Future<void> saveAlienLandLocked(bool value) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     alienLandUnlocked = value;
@@ -66,5 +73,11 @@ class MemoryOnlyWorldUnlockManagerPersistence implements WorldUnlockManagerPersi
   Future<void> savePurpleLandLocked(bool value) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     purpleLandUnlocked = value;
+  }
+
+  @override
+  Future<void> savePurpleLandMathLocked(bool value) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    purpleLandMathUnlocked = value;
   }
 }

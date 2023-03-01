@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'alien_land_levels.dart';
 import 'city_land_levels.dart';
 import 'hoomy_land_levels.dart';
+import 'purple_land_counter_levels.dart';
 import 'purple_land_levels.dart';
 import 'shark_land_levels.dart';
 import 'soomy_land_levels.dart';
@@ -28,6 +29,7 @@ class LevelsPageView extends StatelessWidget {
         HoomyLandLevels(),
         CityLandLevels(),
         PurpleLandLevels(),
+        PurpleLandCounterLevels(),
         AlienLandLevels(),
       ],
     );

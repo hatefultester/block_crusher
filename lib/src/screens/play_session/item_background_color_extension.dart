@@ -25,6 +25,7 @@ extension ItemBackgroundColorIdentifier on WorldType {
       case WorldType.alien:
         return Colors.green;
 
+      default: return Colors.black;
     }
   }
 
@@ -46,6 +47,7 @@ extension ItemBackgroundColorIdentifier on WorldType {
         return Colors.white;
       case WorldType.alien:
         return Colors.white;
+      default: return Colors.white;
     }
   }
 }

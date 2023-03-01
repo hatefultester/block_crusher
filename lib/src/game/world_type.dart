@@ -6,7 +6,7 @@ enum WorldType {
   hoomyLand,
   cityLand,
   purpleWorld,
-  alien;
+  alien, purpleWorldMath;
 
   int defaultLives(RemoteConfigProvider remoteConfig) {
     int lives = 3;

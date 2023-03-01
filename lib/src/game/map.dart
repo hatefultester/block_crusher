@@ -32,6 +32,10 @@ extension MapPathHelper on BlockCrusherGame {
         gameMode = GameMode.alien;
         mapPath = gameMaps['mimon']!;
         break;
+      case WorldType.purpleWorldMath:
+        gameMode = GameMode.purpleWorld;
+        mapPath = gameMaps['sahara']!;
+        break;
     }
 
     return mapPath;

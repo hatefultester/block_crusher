@@ -72,16 +72,22 @@ class TopLayerWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Text(
-                      treasureCounter.coinCount.toString(),
-                      style: const TextStyle(
-                          color: Colors.white, fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.35,
+                  SizedBox(
+                    width: 100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          treasureCounter.coinCount.toString(),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.35,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-                      textAlign: TextAlign.left,
                     ),
                   ),
                   const SizedBox(width: 10,),

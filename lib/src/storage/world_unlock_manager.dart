@@ -13,6 +13,7 @@ class WorldUnlockManager extends ChangeNotifier {
   bool _seaLandOpen = false;
   bool _cityLandOpen = false;
   bool _purpleLandOpen = false;
+  bool _purpleLandMathOpen = false;
   bool _alienLandOpen = false;
 
 
@@ -23,6 +24,7 @@ class WorldUnlockManager extends ChangeNotifier {
   bool get seaLandOpen => _seaLandOpen;
   bool get alienLandOpen => _alienLandOpen;
   bool get purpleLandOpen => _purpleLandOpen;
+  bool get purpleLandMathOpen => _purpleLandMathOpen;
 
   Future<void> getLatestFromStore() async {
     await _getLatestUnlockedStatus();
@@ -34,6 +36,7 @@ class WorldUnlockManager extends ChangeNotifier {
     await _getLatestSeaLandUnlockedStatus();
     await _getLatestAlienLandUnlockedStatus();
     await _getLatestPurpleLandUnlockedStatus();
+    await _getLatestPurpleLandMathUnlockedStatus();
   }
 
   Future<void> _getLatestHoomyLandUnlockedStatus() async {
@@ -71,6 +74,18 @@ class WorldUnlockManager extends ChangeNotifier {
 
     if (isPurpleLandOpen && !_purpleLandOpen) {
       _purpleLandOpen = isPurpleLandOpen;
+      notifyListeners();
+    }
+  }
+  Future<void> _getLatestPurpleLandMathUnlockedStatus() async {
+    final isPurpleLandMathOpen = await _store.isPurpleLandMathOpen();
+
+    if (!isPurpleLandMathOpen && _purpleLandMathOpen) {
+      await _store.savePurpleLandMathLocked(_purpleLandMathOpen);
+    }
+
+    if (isPurpleLandMathOpen && !_purpleLandMathOpen) {
+      _purpleLandMathOpen = isPurpleLandMathOpen;
       notifyListeners();
     }
   }
@@ -124,6 +139,7 @@ class WorldUnlockManager extends ChangeNotifier {
     _seaLandOpen = true;
     _purpleLandOpen = true;
     _alienLandOpen = true;
+    _purpleLandMathOpen = true;
 
     notifyListeners();
     await _store.saveCityLandLocked(_cityLandOpen);
@@ -131,11 +147,17 @@ class WorldUnlockManager extends ChangeNotifier {
     await _store.saveHoomyLandLocked(_hoomyLandOpen);
     await _store.saveAlienLandLocked(_alienLandOpen);
     await _store.savePurpleLandLocked(_purpleLandOpen);
+    await _store.savePurpleLandMathLocked(_purpleLandMathOpen);
   }
 
   unlockWorld(WorldType levelDifficulty) {
     switch(levelDifficulty) {
 
+      case WorldType.purpleWorldMath:
+        _purpleLandMathOpen = true;
+        notifyListeners();
+        unawaited(_store.savePurpleLandMathLocked(_purpleLandMathOpen));
+        break;
       case WorldType.soomyLand:
         return;
       case WorldType.hoomyLand:
@@ -168,6 +190,8 @@ class WorldUnlockManager extends ChangeNotifier {
 
   bool isWorldUnlocked(WorldType levelDifficulty) {
     switch(levelDifficulty) {
+      case WorldType.purpleWorldMath:
+        return purpleLandMathOpen;
       case WorldType.soomyLand:
         return true;
       case WorldType.hoomyLand:
@@ -194,8 +218,10 @@ class WorldUnlockManager extends ChangeNotifier {
         return seaLandOpen && hoomyLandOpen;
       case WorldType.purpleWorld:
         return seaLandOpen && hoomyLandOpen && cityLandOpen;
-      case WorldType.alien:
+      case WorldType.purpleWorldMath:
         return seaLandOpen && hoomyLandOpen && cityLandOpen && purpleLandOpen;
+      case WorldType.alien:
+        return seaLandOpen && hoomyLandOpen && cityLandOpen && purpleLandOpen && purpleLandMathOpen;
     }
   }
 
@@ -209,8 +235,10 @@ class WorldUnlockManager extends ChangeNotifier {
         return !seaLandOpen;
       case WorldType.purpleWorld:
         return !hoomyLandOpen;
-      case WorldType.alien:
+      case WorldType.purpleWorldMath:
         return !cityLandOpen;
+      case WorldType.alien:
+        return !purpleLandOpen;
     }
   }
 

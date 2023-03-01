@@ -12,6 +12,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'dart:async' as dart_async;
+import '../database/maps.dart';
 import 'world_type.dart';
 import 'purple_component.dart';
 import 'purple_math_component.dart';
@@ -67,8 +68,11 @@ class BlockCrusherGame extends FlameGame
     await super.onLoad();
 
     String mapPath = setMapBasedOnDifficulty();
-
     setVariablesBasedOnGameMode();
+
+    if (purpleMode != PurpleMode.trippie) {
+      mapPath = gameMaps['sahara']!;
+    }
 
     await add(
       SpriteComponent(

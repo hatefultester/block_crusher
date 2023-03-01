@@ -19,6 +19,9 @@ extension WorldDescriptionTexts on WorldType {
       case WorldType.cityLand: return _cityLandDescriptions;
       case WorldType.purpleWorld: return _purpleLandDescriptions;
       case WorldType.alien: return _alienLandDescriptions;
+      case WorldType.purpleWorldMath:
+        return [];
+        break;
     }
   }
 }

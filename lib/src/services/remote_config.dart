@@ -28,7 +28,8 @@ class RemoteConfigProvider extends ChangeNotifier {
     RemoteConfigKey.hoomyLandCoinPrice: 2500,
     RemoteConfigKey.seaLandCoinPrice: 1200,
     RemoteConfigKey.purpleLandCoinPrice: 5000,
-    RemoteConfigKey.alienLandCoinPrice: 10000,
+    RemoteConfigKey.purpleLandMathCoinPrice : 10000,
+    RemoteConfigKey.alienLandCoinPrice: 15000,
     RemoteConfigKey.alienLives : 3,
     RemoteConfigKey.seaLives : 3,
     RemoteConfigKey.soomyLives : 3,
@@ -75,6 +76,7 @@ class RemoteConfigProvider extends ChangeNotifier {
   int getHoomyLandCoinPrice() => _getInt(RemoteConfigKey.hoomyLandCoinPrice);
   int getAlienLandCoinPrice() => _getInt(RemoteConfigKey.alienLandCoinPrice);
   int getPurpleLandCoinPrice() => _getInt(RemoteConfigKey.purpleLandCoinPrice);
+  int getPurpleLandMathCoinPrice() => _getInt(RemoteConfigKey.purpleLandMathCoinPrice);
 
   int getSoomyLandLives() => _getInt(RemoteConfigKey.soomyLives);
   int getHoomyLandLives() => _getInt(RemoteConfigKey.hoomyLives);

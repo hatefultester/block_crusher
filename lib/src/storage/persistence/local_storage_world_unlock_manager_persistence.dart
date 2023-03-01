@@ -55,6 +55,12 @@ class LocalStorageWorldUnlockManagerPersistence extends WorldUnlockManagerPersis
   }
 
   @override
+  Future<bool> isPurpleLandMathOpen() async {
+    final prefs = await instanceFuture;
+    return prefs.getBool('purpleLandMathLockedStatus') ?? false;
+  }
+
+  @override
   Future<void> saveAlienLandLocked(bool value) async {
     final prefs = await instanceFuture;
     await prefs.setBool('alienLandLockedStatus', value);
@@ -66,4 +72,9 @@ class LocalStorageWorldUnlockManagerPersistence extends WorldUnlockManagerPersis
     await prefs.setBool('purpleLandLockedStatus', value);
   }
 
+  @override
+  Future<void> savePurpleLandMathLocked(bool value) async {
+    final prefs = await instanceFuture;
+    await prefs.setBool('purpleLandMathLockedStatus', value);
+  }
 }

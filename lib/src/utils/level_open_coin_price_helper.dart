@@ -17,6 +17,8 @@ extension CoinPriceExtension on WorldType {
         return remoteConfig.getSeaLandCoinPrice();
       case WorldType.cityLand:
         return remoteConfig.getCityLandCoinPrice();
+      case WorldType.purpleWorldMath:
+        return remoteConfig.getPurpleLandMathCoinPrice();
     }
   }
 }

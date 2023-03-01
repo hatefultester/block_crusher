@@ -138,9 +138,9 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                               Text(
                                 widget.score.formattedTime,
                                 style: const TextStyle(
-                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
                               ),
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 10),
                               SizedBox(width: 50,child: Image.asset('assets/images/in_app/clock.png'),),
                             ],
                           ),
@@ -157,9 +157,9 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                               Text(
                                 widget.score.coinCount.toString(),
                                 style: const TextStyle(
-                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 30),
+                                    fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
                               ),
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 10),
                               SizedBox(width: 50,child: Image.asset('assets/images/coins/1000x677/money.png'),),
                             ],
                           ),
