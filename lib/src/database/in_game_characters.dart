@@ -6,37 +6,37 @@ List<dynamic> imageSource = [
   [
     {
       'source': 'characters_skill_game/1_1000x880.png',
-      'winCharacterReferenceNameId' : 'soomy0',
+      'winCharacterReferenceNameId': 'soomy0',
       'size': Vector2(10, 8.8),
     },
     {
       'source': 'characters_skill_game/2_1000x880.png',
-      'winCharacterReferenceName' : 'soomy1',
+      'winCharacterReferenceName': 'soomy1',
       'size': Vector2(10, 8.8),
     },
     {
       'source': 'characters/1000x600/soomy-1.png',
-      'winCharacterReferenceName' : 'soomy2',
+      'winCharacterReferenceName': 'soomy2',
       'size': Vector2(12, 8.4),
     },
     {
       'source': 'characters/1000x600/soomy-2.png',
-      'winCharacterReferenceName' : 'soomy3',
+      'winCharacterReferenceName': 'soomy3',
       'size': Vector2(10 * 1.2, 6 * 1.2),
     },
     {
       'source': 'characters/1000x600/soomy-3.png',
-      'winCharacterReferenceName' : 'soomy4',
+      'winCharacterReferenceName': 'soomy4',
       'size': Vector2(12, 8.4),
     },
     {
       'source': 'characters/bots/1000x666/crazy-bot-1000.png',
-      'winCharacterReferenceName' : 'soomy5',
+      'winCharacterReferenceName': 'soomy5',
       'size': Vector2(10 * 1.2, 6.66 * 1.2),
     },
     {
       'source': 'characters/bots/1000x666/crazy-bot-3000.png',
-      'winCharacterReferenceName' : 'soomy6',
+      'winCharacterReferenceName': 'soomy6',
       'size': Vector2(10 * 1.2, 6.66 * 1.2),
     },
   ],
@@ -46,85 +46,83 @@ List<dynamic> imageSource = [
     /// sea level charaktery :D
     {
       'source': 'characters/fish/1500x500_poter.png',
-      'winCharacterReferenceName' : 'sea0',
+      'winCharacterReferenceName': 'sea0',
       'size': Vector2(15, 5),
     },
     {
       'source': 'characters/fish/1000x550xfish1.png',
-      'winCharacterReferenceName' : 'sea1',
+      'winCharacterReferenceName': 'sea1',
       'size': Vector2(10 * 1.3, 5.5 * 1.3),
     },
     {
       'source': 'characters/fish/1000x1000/symmetric_rick_fish.png',
-      'winCharacterReferenceName' : 'sea2',
+      'winCharacterReferenceName': 'sea2',
       'size': Vector2(10 * 1.3, 10 * 1.3),
     },
     {
       'source': 'characters/fish/1000x500xfish2.png',
-      'winCharacterReferenceName' : 'sea3',
+      'winCharacterReferenceName': 'sea3',
       'size': Vector2(10 * 1.3, 5 * 1.3),
     },
     {
       'source': 'characters/fish/1000x700_blue_fish.png',
-      'winCharacterReferenceName' : 'sea4',
+      'winCharacterReferenceName': 'sea4',
       'size': Vector2(10 * 1.2, 7 * 1.2),
     },
     {
       'source': 'characters/fish/1000x933_red_fish.png',
-      'winCharacterReferenceName' : 'sea5',
+      'winCharacterReferenceName': 'sea5',
       'size': Vector2(10 * 1.2, 9.33 * 1.2),
     },
     {
       'source': 'characters/fish/1300x928_octopus.png',
-      'winCharacterReferenceName' : 'sea6',
+      'winCharacterReferenceName': 'sea6',
       'size': Vector2(13, 9.28),
     },
   ],
-
 
   /// hoomy level
   /// hoomicy :D
   [
     {
       'source': 'characters/hoomy/1000x666/yellow_hoomy.png',
-      'winCharacterReferenceName' : 'hoomy0',
+      'winCharacterReferenceName': 'hoomy0',
       'size': Vector2(10 * 1.15, 8 * 1.15),
     },
     {
       'source': 'characters/hoomy/1000x666/psychedelic_hoomy.png',
-      'winCharacterReferenceName' : 'hoomy1',
+      'winCharacterReferenceName': 'hoomy1',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source': 'characters/hoomy/1000x1000/blue_happy_hoomy.png',
-      'winCharacterReferenceName' : 'hoomy2',
+      'winCharacterReferenceName': 'hoomy2',
       'size': Vector2(11, 11),
     },
     {
       'source': 'characters/hoomy/1000x666/pirate_hoomy.png',
-      'winCharacterReferenceName' : 'hoomy3',
+      'winCharacterReferenceName': 'hoomy3',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source':
           'characters/hoomy_with_weapon/1000x666/green_hoomy_with_football.png',
-      'winCharacterReferenceName' : 'hoomy4',
+      'winCharacterReferenceName': 'hoomy4',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source':
           'characters/hoomy_with_weapon/1000x666/pink_hoomy_with_flail.png',
-      'winCharacterReferenceName' : 'hoomy5',
+      'winCharacterReferenceName': 'hoomy5',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
     {
       'source':
           'characters/hoomy_with_weapon/1000x666/light_green_hoomy_with_knife.png',
-      'winCharacterReferenceName' : 'hoomy6',
+      'winCharacterReferenceName': 'hoomy6',
       'size': Vector2(10 * 1.3, 6.66 * 1.3),
     },
   ],
-
 
   /// CITY WORLD LEVEL
   /// city level charaktery :D
@@ -134,40 +132,39 @@ List<dynamic> imageSource = [
   [
     {
       'source': 'food/300x150/butter.png',
-      'winCharacterReferenceNameId' : 'city0',
+      'winCharacterReferenceNameId': 'city0',
       'size': Vector2(9 * 1.3, 4.5 * 1.3),
     },
     {
       'goal': 5,
       'source': 'food/150x275/pear.png',
-      'winCharacterReferenceNameId' : 'city1',
+      'winCharacterReferenceNameId': 'city1',
       'size': Vector2(1.5 * 4, 2.75 * 4),
     },
     {
       'goal': 2,
       'source': 'food/100x215/milk.png',
-      'winCharacterReferenceNameId' : 'city2',
+      'winCharacterReferenceNameId': 'city2',
       'size': Vector2(3 * 1.5, 6.45 * 1.5),
     },
     {
       'goal': 8,
       'source': 'food/300x275/mufin.png',
-      'winCharacterReferenceNameId' : 'city3',
+      'winCharacterReferenceNameId': 'city3',
       'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
     {
       'goal': 8,
       'source': 'food/300x215/hamburger.png',
-    'winCharacterReferenceNameId' : 'city4',
+      'winCharacterReferenceNameId': 'city4',
       'size': Vector2(3 * 3 * 1.3, 2.5 * 3 * 1.3),
     },
     {
       'source': 'food/300x250/chinese_soup.png',
-      'winCharacterReferenceNameId' : 'city5',
+      'winCharacterReferenceNameId': 'city5',
       'size': Vector2(3 * 3 * 1.3, 2.75 * 3 * 1.3),
     },
   ],
-
 
   /// BLUE WORLD LEVEL
   /// BLUE level charaktery :D
@@ -234,7 +231,6 @@ List<dynamic> imageSource = [
     },
   ],
 
-
   /// ALIEN
   /// BLUE level charaktery :D
 
@@ -257,12 +253,12 @@ List<dynamic> imageSource = [
     },
     {
       'source': 'characters/aliens/s/4_845x550xchobotnice1.png',
-      'size': Vector2(10, 10/1.53),
+      'size': Vector2(10, 10 / 1.53),
       'isAnimated': true,
       'animationAssets': [
         {
           'source': 'characters/aliens/s/4_845x550xchobotnice1.png',
-          'size': Vector2(10, 10/1.53),
+          'size': Vector2(10, 10 / 1.53),
         },
         {
           'source': 'characters/aliens/s/4_965x550xchobotnice2.png',
@@ -280,12 +276,17 @@ List<dynamic> imageSource = [
       'source': 'characters/aliens/s/6_400x800xyellow2.png',
       'size': Vector2(4 * 1.4, 8 * 1.4),
       'isAnimated': true,
-      'animationAssets' : [
-        {'source': 'characters/aliens/s/6_400x800xyellow2.png',
-          'size': Vector2(4 * 1.4, 8 * 1.4),},
-        {'source': 'characters/aliens/600x800xyellow1.png',
-          'size': Vector2(6 * 1.4, 8 * 1.4),},
-        ],},
+      'animationAssets': [
+        {
+          'source': 'characters/aliens/s/6_400x800xyellow2.png',
+          'size': Vector2(4 * 1.4, 8 * 1.4),
+        },
+        {
+          'source': 'characters/aliens/600x800xyellow1.png',
+          'size': Vector2(6 * 1.4, 8 * 1.4),
+        },
+      ],
+    },
     {
       'source': 'characters/aliens/s/7_1000x1628xgreen.png',
       'size': Vector2(10, 16.28),
@@ -316,7 +317,6 @@ List<dynamic> imageSource = [
       'size': Vector2(10, 10.68),
       'isAnimated': false,
     },
-
 
     //10
 ///////////
@@ -384,120 +384,145 @@ List<dynamic> imageSource = [
   ],
 ];
 
-Map<String, List<dynamic>> purpleWorldCharacters = {
-  "greenCar": [
-    {
-      'source': 'characters/400-270-cars/green/1.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/green/2.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/green/3.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/green/4.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/green/5.png',
+Map<String, dynamic> purpleWorldCharacters = {
+  "greenCar": {
+    '0': {
+      'source': 'cars/green/1.png',
       'size': Vector2(4 * 2.5, 2.7 * 2.5),
     },
-  ],"redCar": [
-    {
-      'source': 'characters/400-270-cars/red/1.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/red/2.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/red/3.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/red/4.png',
-      'size': Vector2(4 * 2.5, 2.7 * 2.5),
-    }, {
-      'source': 'characters/400-270-cars/red/5.png',
+    '1': {
+      'source': 'cars/green/2.png',
       'size': Vector2(4 * 2.5, 2.7 * 2.5),
     },
-  ],
-  "number": [
-    {
+    '2': {
+      'source': 'cars/green/3.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+    '3': {
+      'source': 'cars/green/4.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+    '4': {
+      'source': 'cars/green/5.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+  },
+  "redCar": {
+    '0': {
+      'source': 'cars/red/1.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+    '1': {
+      'source': 'cars/red/2.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+    '2': {
+      'source': 'cars/red/3.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+    '3': {
+      'source': 'cars/red/4.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+    '4': {
+      'source': 'cars/red/5.png',
+      'size': Vector2(4 * 2.5, 2.7 * 2.5),
+    },
+  },
+
+  /// number je vporadku
+  "number": {
+    '0': {
       'source': 'points/1.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
-    {
+    '1': {
       'source': 'points/2.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
-    {
+    '2': {
       'source': 'points/3.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
-    {
+    '3': {
       'source': 'points/4.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
-    {
+    '4': {
       'source': 'points/5.png',
       'size': Vector2(10 * 1.2, 8.69 * 1.2),
     },
-  ],
-  "faraon" : [
-    {
-      'source': 'characters/5-4-faraons/1.png',
+  },
+  "farrago": {
+    '0' :{
+      'source': 'faraons/1.png',
       'size': Vector2(5 * 2.2, 4 * 2.2),
     },
-    {
-      'source': 'characters/5-4-faraons/2.png',
-      'size': Vector2(5 * 2.2, 4 * 2.2),
-    }, {
-      'source': 'characters/5-4-faraons/3.png',
-      'size': Vector2(5 * 2.2, 4 * 2.2),
-    }, {
-      'source': 'characters/5-4-faraons/4.png',
-      'size': Vector2(5 * 2.2, 4 * 2.2),
-    }, {
-      'source': 'characters/5-4-faraons/5.png',
+    '1' :{
+      'source': 'faraons/2.png',
       'size': Vector2(5 * 2.2, 4 * 2.2),
     },
-  ],
-  "vacuum" : [
-    {
-      'source': 'characters/600-530-vacuum/red/1.png',
+    '2' :{
+      'source': 'faraons/3.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    },
+    '3' :{
+      'source': 'faraons/4.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    },
+    '4' : {
+      'source': 'faraons/5.png',
+      'size': Vector2(5 * 2.2, 4 * 2.2),
+    },
+  },
+
+  //// v poradku
+  "vacuum": {
+    '0': {
+      'source': 'vacuum/red/1.png',
       'size': Vector2(6 * 2.2, 5.3 * 2.2),
     },
-    {
-      'source': 'characters/600-530-vacuum/red/2.png',
-      'size': Vector2(6 * 2.2, 5.3 * 2.2),
-    }, {
-      'source': 'characters/600-530-vacuum/red/3.png',
-      'size': Vector2(6 * 2.2, 5.3 * 2.2),
-    }, {
-      'source': 'characters/600-530-vacuum/red/4.png',
-      'size': Vector2(6 * 2.2, 5.3 * 2.2),
-    }, {
-      'source': 'characters/600-530-vacuum/red/5.png',
+    '1': {
+      'source': 'vacuum/red/2.png',
       'size': Vector2(6 * 2.2, 5.3 * 2.2),
     },
-  ],
-  "cube" : [
-    {
-      'source' : 'characters/400-450-cube/1.png',
-      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
-    },{
-      'source' : 'characters/400-450-cube/2.png',
-      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
-    },{
-      'source' : 'characters/400-450-cube/3.png',
-      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
-    },{
-      'source' : 'characters/400-450-cube/4.png',
-      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
-    },{
-      'source' : 'characters/400-450-cube/5.png',
-      'size' : Vector2(4 * 2.4, 4.5 * 2.4),
+    '2': {
+      'source': 'vacuum/red/3.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    },
+    '3': {
+      'source': 'vacuum/red/4.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    },
+    '4': {
+      'source': 'vacuum/red/5.png',
+      'size': Vector2(6 * 2.2, 5.3 * 2.2),
+    },
+  },
+
+  /// vporadku
+  "cube": {
+    '0': {
+      'source': 'cube/1.png',
+      'size': Vector2(4 * 2.4, 4.5 * 2.4),
+    },
+    '1': {
+      'source': 'cube/2.png',
+      'size': Vector2(4 * 2.4, 4.5 * 2.4),
+    },
+    '2': {
+      'source': 'cube/3.png',
+      'size': Vector2(4 * 2.4, 4.5 * 2.4),
+    },
+    '3': {
+      'source': 'cube/4.png',
+      'size': Vector2(4 * 2.4, 4.5 * 2.4),
+    },
+    '4': {
+      'source': 'cube/5.png',
+      'size': Vector2(4 * 2.4, 4.5 * 2.4),
     }
-  ]
+  }
 };
 
 List cityFoods = [

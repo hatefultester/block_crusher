@@ -173,7 +173,7 @@ const gameLevels = [
 
   GameLevel(
     hasCountdown: true,
-    levelId: 30,
+    levelId: 31,
     characterId: 2,
     worldType: WorldType.purpleWorld,
     purpleMode: PurpleMode.counterToFive,

@@ -72,9 +72,6 @@ class BlockCrusherGame extends FlameGame
     mapPath = setMapBasedOnDifficulty();
     setVariablesBasedOnGameMode();
 
-
-
-
     await add(
       SpriteComponent(
         sprite: await loadSprite(mapPath),

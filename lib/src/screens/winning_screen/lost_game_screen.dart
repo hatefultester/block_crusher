@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:block_crusher/src/services/ads_controller.dart';
 import 'package:block_crusher/src/services/banner_ad_widget.dart';
 import 'package:block_crusher/src/services/in_app_purchase.dart';
@@ -10,7 +12,9 @@ import 'package:block_crusher/src/services/audio_controller.dart';
 import 'package:block_crusher/src/services/sounds.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/ads_ids.dart';
@@ -18,8 +22,9 @@ import '../../services/score.dart';
 import '../../utils/responsive_screen.dart';
 import '../play_session/game_play_statistics.dart';
 
-class LostGameScreen extends StatelessWidget {
+class LostGameScreen extends StatefulWidget {
   final GamePlayStatistics score;
+
 
   const LostGameScreen({
     super.key,
@@ -27,18 +32,22 @@ class LostGameScreen extends StatelessWidget {
   });
 
   @override
+  State<LostGameScreen> createState() => _LostGameScreenState();
+}
+
+class _LostGameScreenState extends State<LostGameScreen> {
+
+
+  @override
   Widget build(BuildContext context) {
+    final adsController = context.watch<AdsController?>();
     final adsControllerAvailable = context.watch<AdsController?>() != null;
     final adsRemoved =
         context.watch<InAppPurchaseController?>()?.adRemoval.active ?? false;
 
     const gap = SizedBox(height: 10);
 
-    if(adsControllerAvailable) {
-      // var adsController = AdsController(MobileAds.instance);
 
-      //adsController.takePreloadedAd();
-    }
 
     return Scaffold(
       body: Stack(
@@ -85,7 +94,7 @@ class LostGameScreen extends StatelessWidget {
                           ),
                           const Spacer(),
                           Text(
-                            score.formattedTime,
+                            widget.score.formattedTime,
                             style: const TextStyle(
                                 fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
                           ),
@@ -95,7 +104,7 @@ class LostGameScreen extends StatelessWidget {
                       ),
                       const SizedBox(height:15),
                       Visibility(
-                        visible: score.coinCount > 0,
+                        visible: widget.score.coinCount > 0,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -106,7 +115,7 @@ class LostGameScreen extends StatelessWidget {
                             ),
                             const Spacer(),
                             Text(
-                              score.coinCount.toString(),
+                              widget.score.coinCount.toString(),
                               style: const TextStyle(
                                   fontFamily: 'Quikhand', color: Colors.black, fontSize: 25),
                             ),
@@ -119,9 +128,19 @@ class LostGameScreen extends StatelessWidget {
                     ],),
                 ),
               ),
+              SizedBox(height: 10,),
+              if (adsControllerAvailable && !adsRemoved) ...[
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                      width: bannerAdSize.width.toDouble(),
+                      child: const BannerAdWidget()),
+                ),
+
+              ],
+
               Column(
                 children: [
-                  const SizedBox(height: 25),
                   Container(
                     padding: const EdgeInsets.all(10),
                     width: 300,
@@ -130,7 +149,8 @@ class LostGameScreen extends StatelessWidget {
                       onPressed: () {
                         final audio = context.read<AudioController>();
                         audio.playSfx(SfxType.buttonTap);
-                        GoRouter.of(context).go('/play/session/${score.level}/0');
+
+                        GoRouter.of(context).go('/play/session/${widget.score.level}/0');
                       },
                       child: const Text('Try again'),
                     ),
@@ -144,6 +164,10 @@ class LostGameScreen extends StatelessWidget {
                       onPressed: () {
                         final audio = context.read<AudioController>();
                         audio.playSfx(SfxType.buttonTap);
+
+
+                        adsController!.showFullscreenAd();
+
                         GoRouter.of(context).go('/play');
                       },
                       child: const Text('Back to levels'),
@@ -154,19 +178,29 @@ class LostGameScreen extends StatelessWidget {
               ),
             ],
           ),
-          if (adsControllerAvailable && !adsRemoved) ...[
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                  width: bannerAdSize.width.toDouble(),
-                  height: bannerAdSize.height.toDouble(),
-                  child: const BannerAdWidget()),
-            ),
 
-        ],
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+
+      final adsController = context.watch<AdsController?>();
+      final adsControllerAvailable = context.watch<AdsController?>() != null;
+      final adsRemoved =
+          context.watch<InAppPurchaseController?>()?.adRemoval.active ?? false;
+
+      if (adsControllerAvailable && adsRemoved) {
+        adsController!.showFullscreenAd();
+      }
+    });
   }
 }
 

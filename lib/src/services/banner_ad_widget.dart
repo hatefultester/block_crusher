@@ -71,7 +71,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
           _currentOrientation = orientation;
           _loadAd();
         }
-        return Container(width: bannerAdSize.width.toDouble(), height: bannerAdSize.height.toDouble(), color:Colors.red,);
+        return Container(width: bannerAdSize.width.toDouble(), height: bannerAdSize.height.toDouble(), color: kDebugMode ? Colors.red : Colors.transparent,);
       },
     );
   }

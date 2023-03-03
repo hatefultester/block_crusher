@@ -68,7 +68,8 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final bool isDefaultWorld = !isPurpleWorld && !isCityLand;
 
     var adsController = AdsController(MobileAds.instance);
-    adsController.preloadAd();
+    adsController.preloadBannerAd(AdType.winAd);
+    adsController.loadFullscreenAd();
 
     return WillPopScope(
       onWillPop: () async {

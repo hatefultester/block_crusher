@@ -6,6 +6,7 @@ import 'package:block_crusher/src/database/in_game_characters.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flutter/foundation.dart';
 
 import 'world_type.dart';
 import 'collector_game.dart';
@@ -39,6 +40,9 @@ class PurpleWorldComponent extends SpriteComponent
   PurpleWorldComponent? copy;
   Vector2? predefinedPosition;
 
+  double _incrementalScale = 1;
+  bool sizeSet = false;
+
   PurpleWorldComponent(this.characterId, this.type, {this.hasCopy = false});
 
   PurpleWorldComponent.copyFrom(this.copy, this.predefinedPosition, this.type, {this.hasCopy = true}) {
@@ -46,42 +50,95 @@ class PurpleWorldComponent extends SpriteComponent
   }
 
   _sprite() async {
-    if( type == TrippieCharacterType.number) {
-      if (purpleWorldCharacters['number']![characterId] != null) {
-        sprite = await gameRef
-            .loadSprite(purpleWorldCharacters['number']![characterId]['source']);
-        size = purpleWorldCharacters['number']![characterId]['size'] * _scale;
-      }}
+    if (type == TrippieCharacterType.number) {
+      print('is it nunll? ${purpleWorldCharacters['number']![characterId.toString()]['source'].toString()}');
+      if (purpleWorldCharacters['number']![characterId.toString()]['source'] != null) {
+        sprite = await gameRef.loadSprite(
+            purpleWorldCharacters['number']![characterId.toString()]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {
+          size = purpleWorldCharacters['number']![characterId.toString()]['size'] * _scale* _incrementalScale;
+
+
+        }
+      }
+    }
     if (type == TrippieCharacterType.vacuum) {
-      if (purpleWorldCharacters['vacuum']![characterId] != null) {
-        sprite = await gameRef
-            .loadSprite(purpleWorldCharacters['vacuum']![characterId]['source']);
-        size = purpleWorldCharacters['vacuum']![characterId]['size'] * _scale;
-      }}
+      print('is it nunll? ${purpleWorldCharacters['vacuum']![characterId.toString()]['source'].toString()}');
+      if (purpleWorldCharacters['vacuum']![characterId.toString()]['source'] != null) {
+        sprite = await gameRef.loadSprite(
+            purpleWorldCharacters['vacuum']![characterId.toString()]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {
+          size = purpleWorldCharacters['vacuum']![characterId.toString()]['size'] * _scale* _incrementalScale;_incrementalScale += 0.3;
+
+        }
+      }
+    }
     if (type == TrippieCharacterType.cube) {
-      if (purpleWorldCharacters['cube']![characterId] != null) {
+      print('is it nunll? ${purpleWorldCharacters['cube']![characterId.toString()]['source'].toString()}');
+      if (purpleWorldCharacters['cube']![characterId.toString()]['source'] != null) {
         sprite = await gameRef
-            .loadSprite(purpleWorldCharacters['cube']![characterId]['source']);
-        size = purpleWorldCharacters['cube']![characterId]['size'] * _scale;
-      }}
+            .loadSprite(purpleWorldCharacters['cube']![characterId.toString()]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {
+          size = purpleWorldCharacters['cube']![characterId.toString()]['size'] * _scale* _incrementalScale;_incrementalScale += 0.3;
+
+        }
+      }
+    }
     if (type == TrippieCharacterType.faraon) {
-      if (purpleWorldCharacters['faraon']![characterId] != null) {
-        sprite = await gameRef
-            .loadSprite(purpleWorldCharacters['faraon']![characterId]['source']);
-        size = purpleWorldCharacters['faraon']![characterId]['size'] * _scale;
-      }}
+      print('is it nunll? ${purpleWorldCharacters['farrago']![characterId.toString()]['source'].toString()}');
+      if (purpleWorldCharacters['farrago']![characterId.toString()]['source'] != null) {
+        sprite = await gameRef.loadSprite(
+            purpleWorldCharacters['farrago']![characterId.toString()]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {
+          size =
+              purpleWorldCharacters['farrago']![characterId.toString()]['size'] * _scale* _incrementalScale;
+
+
+        }
+      }
+    }
     if (type == TrippieCharacterType.redCar) {
-      if (purpleWorldCharacters['redCar']![characterId] != null) {
-        sprite = await gameRef
-            .loadSprite(purpleWorldCharacters['redCar']![characterId]['source']);
-        size = purpleWorldCharacters['redCar']![characterId]['size'] * _scale;
-      }}
+      print('is it nunll? ${purpleWorldCharacters['redCar']![characterId.toString()]['source'].toString()}');
+      if (purpleWorldCharacters['redCar']![characterId.toString()]['source'] != null) {
+        sprite = await gameRef.loadSprite(
+            purpleWorldCharacters['redCar']![characterId.toString()]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {
+          size = purpleWorldCharacters['redCar']![characterId.toString()]['size'] * _scale * _incrementalScale;
+
+        }
+      }
+    }
     if (type == TrippieCharacterType.greenCar) {
-      if (purpleWorldCharacters['greenCar']![characterId] != null) {
-        sprite = await gameRef
-            .loadSprite(purpleWorldCharacters['greenCar']![characterId]['source']);
-        size = purpleWorldCharacters['greenCar']![characterId]['size'] * _scale;
-      }}
+      print('is it nunll? ${purpleWorldCharacters['greenCar']![characterId.toString()]['source'].toString()}');
+      if (purpleWorldCharacters['greenCar']![characterId.toString()]['source'] != null) {
+        sprite = await gameRef.loadSprite(
+            purpleWorldCharacters['greenCar']![characterId.toString()]['source']);
+        if (sizeSet) {
+          size = size * 1.25;
+        } else {
+          size =
+              purpleWorldCharacters['greenCar']![characterId.toString()]['size'] * _scale * 1.3* _incrementalScale;
+
+
+        }
+      }
+    }
+
+    if (sprite == null) {
+      print('LOADING SPRITE FAILED !');
+      print('type was ${describeEnum(type)}');
+      print('character id was ${characterId.toString()}');
+    }
   }
 
   bool tapped = false;
