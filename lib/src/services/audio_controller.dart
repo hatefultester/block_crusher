@@ -88,7 +88,7 @@ class AudioController {
     settingsController.musicOn.addListener(_musicOnHandler);
     settingsController.soundsOn.addListener(_soundsOnHandler);
 
-    if (!settingsController.muted.value && settingsController.musicOn.value) {
+    if (!settingsController.muted.value && settingsController.musicOn.value && songs.isNotEmpty) {
       _startMusic();
     }
   }

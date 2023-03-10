@@ -35,6 +35,7 @@ class MainBackgroundGame extends FlameGame {
     _setCount++;
     _timer =
         dart_async.Timer.periodic(const Duration(seconds: 5), (timer) async {
+          if(AppLifecycleObserver.appState == AppLifecycleState.paused) return;
       await add(AnimatedCharacter(_setCount.toString()));
       _setCount++;
       if(_setCount == 7) _setCount = 0;

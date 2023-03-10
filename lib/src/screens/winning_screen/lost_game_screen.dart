@@ -47,8 +47,6 @@ class _LostGameScreenState extends State<LostGameScreen> {
 
     const gap = SizedBox(height: 10);
 
-
-
     return Scaffold(
       body: Stack(
         children: [

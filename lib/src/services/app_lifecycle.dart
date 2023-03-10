@@ -34,7 +34,7 @@ class AppLifecycleObserverState extends State<AppLifecycleObserver>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _log.info(() => 'didChangeAppLifecycleState: $state');
+    debugPrint('didChangeAppLifecycleState: $state');
     lifecycleListenable.value = state;
     AppLifecycleObserver.appState = state;
   }

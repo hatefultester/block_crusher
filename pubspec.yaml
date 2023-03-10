@@ -19,7 +19,6 @@ dependencies:
   audioplayers: ^1.1.1
   shared_preferences: ^2.0.15
   provider: ^6.0.5
-  logging: ^1.1.0
   go_router: ^6.0.0
   flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1

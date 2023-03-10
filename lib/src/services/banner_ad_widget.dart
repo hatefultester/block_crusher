@@ -108,18 +108,16 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   /// Load (another) ad, disposing of the current ad if there is one.
   Future<void> _loadAd() async {
     if (!mounted) return;
-    _log.info('_loadAd() called.');
+
+    final adsController = context.read<AdsController>();
 
     if (_adLoadingState == _LoadingState.loading ||
         _adLoadingState == _LoadingState.disposing) {
-      _log.info('An ad is already being loaded or disposed. Aborting.');
       return;
     }
 
     _adLoadingState = _LoadingState.disposing;
     await _bannerAd?.dispose();
-
-    _log.fine('_bannerAd disposed');
 
     if (!mounted) return;
 
@@ -128,58 +126,35 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       _adLoadingState = _LoadingState.loading;
     });
 
-    AdSize size;
-
-    if (useAnchoredAdaptiveSize) {
-      final AnchoredAdaptiveBannerAdSize? adaptiveSize =
-          await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-              MediaQuery.of(context).size.width.truncate());
-
-      if (adaptiveSize == null) {
-        _log.warning('Unable to get height of anchored banner.');
-        size = AdSize.banner;
-      } else {
-        size = adaptiveSize;
-      }
-    } else {
-      size = AdSize.mediumRectangle;
-    }
-
+    AdSize size = AdSize.banner;
+    String id = adsController.androidAppIds[AdType.banner]!;
 
     if (!mounted) return;
 
     assert(Platform.isAndroid || Platform.isIOS,
         'AdMob currently does not support ${Platform.operatingSystem}');
+
     _bannerAd = BannerAd(
-      // This is a test ad unit ID from
-      // https://developers.google.com/admob/android/test-ads. When ready,
-      // you replace this with your own, production ad unit ID,
-      // created in https://apps.admob.com/.
-      adUnitId:
-      Theme.of(context).platform == TargetPlatform.android
-          ? 'ca-app-pub-8632510784563928/8625493657'
-          : 'ca-app-pub-3940256099942544/2934735716',
+      adUnitId:id,
       size: size,
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          _log.info(() => 'Ad loaded: ${ad.responseInfo}');
+          debugPrint('Ad loaded: ${ad.responseInfo}');
           setState(() {
-            // When the ad is loaded, get the ad size and use it to set
-            // the height of the ad container.
             _bannerAd = ad as BannerAd;
             _adLoadingState = _LoadingState.loaded;
           });
         },
         onAdFailedToLoad: (ad, error) {
-          _log.warning('Banner failedToLoad: $error');
+          debugPrint('Banner failedToLoad: $error');
           ad.dispose();
         },
         onAdImpression: (ad) {
-          _log.info('Ad impression registered');
+          debugPrint('Ad impression registered');
         },
         onAdClicked: (ad) {
-          _log.info('Ad click registered');
+          debugPrint('Ad click registered');
         },
       ),
     );
