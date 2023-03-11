@@ -165,15 +165,15 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                           ),
                         ],),
                     ),
-                  ),if (adsControllerAvailable && !adsRemoved) ...[
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                          width: bannerAdSize.width.toDouble(),
-                        //  height: bannerAdSize.height.toDouble() + 300,
-                          child: const BannerAdWidget()),
-                    ),
-                  ],
+                  ),
+
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                        width: bannerAdSize.width.toDouble(),
+                        child: const BannerAdWidget()),
+                  ),
+
                   Column(
                     children: [
                       Visibility(
@@ -244,7 +244,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 300));
       setState(() {
-duringAnimation = true;
+        duringAnimation = true;
       });
     });
   }

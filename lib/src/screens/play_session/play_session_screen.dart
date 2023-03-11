@@ -16,11 +16,9 @@ import 'package:block_crusher/src/storage/game_achievements.dart';
 import 'package:block_crusher/src/storage/level_statistics.dart';
 import 'package:block_crusher/src/storage/settings.dart';
 import 'package:block_crusher/src/storage/treasure_counter.dart';
-import 'package:block_crusher/src/database/in_game_characters.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../../database/player_inventory_database.dart';
@@ -67,8 +65,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final bool isCityLand = widget.level.worldType == WorldType.cityLand;
     final bool isDefaultWorld = !isPurpleWorld && !isCityLand;
 
-    var adsController = AdsController(MobileAds.instance);
-    adsController.preloadBannerAd(AdType.winAd);
+    final adsController = context.read<AdsController>();
     adsController.loadFullscreenAd();
 
     return WillPopScope(
@@ -156,7 +153,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
                     : const SizedBox.shrink(),
 
                 Align(alignment: Alignment.bottomLeft, child: Visibility(visible:settings.cheatsOn,
-                child: ElevatedButton(child: Text('cheat'), onPressed: () {playerWon();},),
+                child: ElevatedButton(child: const Text('cheat'), onPressed: () {playerWon();},),
                 ),),
 
                 // Game Won widget
@@ -242,8 +239,12 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     levelStatistics.increaseTotalPlayTime(gamePlayStatistics.duration.inSeconds);
 
 
+    final adsController = context.read<AdsController>();
 
-    GoRouter.of(context).go('/play');
+    adsController.showFullscreenAd(afterIntent: () {
+      GoRouter.of(context).go('/play');
+    });
+
 
 
   }

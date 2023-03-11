@@ -42,7 +42,6 @@ class BannerAdWidget extends StatefulWidget {
 class _BannerAdWidgetState extends State<BannerAdWidget> {
   static final _log = Logger('BannerAdWidget');
 
-  static const useAnchoredAdaptiveSize = false;
   BannerAd? _bannerAd;
   _LoadingState _adLoadingState = _LoadingState.initial;
 
