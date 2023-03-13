@@ -33,7 +33,7 @@ class LostGameScreen extends StatefulWidget {
 class _LostGameScreenState extends State<LostGameScreen> {
   @override
   Widget build(BuildContext context) {
-    final adsController = context.watch<AdsController>();
+    final adsController = context.watch<AdsController?>();
 
     return Scaffold(
       body: Stack(
@@ -155,10 +155,15 @@ class _LostGameScreenState extends State<LostGameScreen> {
                         final audio = context.read<AudioController>();
                         audio.playSfx(SfxType.buttonTap);
 
-                        await adsController.showFullscreenAd(afterIntent: () {
+                        if(adsController !=null) {
+                          await adsController.showFullscreenAd(afterIntent: () {
+                            GoRouter.of(context)
+                                .go('/play/session/${widget.score.level}/0');
+                          });
+                        }else {
                           GoRouter.of(context)
                               .go('/play/session/${widget.score.level}/0');
-                        });
+                        }
 
 
                       },
@@ -174,9 +179,13 @@ class _LostGameScreenState extends State<LostGameScreen> {
                         final audio = context.read<AudioController>();
                         audio.playSfx(SfxType.buttonTap);
 
+                        if(adsController!=null) {
                         await adsController.showFullscreenAd(afterIntent: () {
                           GoRouter.of(context).go('/play');
-                        });
+                        });}
+                        else {
+                          GoRouter.of(context).go('/play');
+                        }
 
                       },
                       child: const Text('Back to levels'),
@@ -198,8 +207,8 @@ class _LostGameScreenState extends State<LostGameScreen> {
 
     const adsRemoved = false;
 
-    final adsController = context.read<AdsController>();
-    if (!adsRemoved) {
+    final adsController = context.read<AdsController?>();
+    if (!adsRemoved && adsController!=null) {
       adsController.loadFullscreenAd();
     }
 

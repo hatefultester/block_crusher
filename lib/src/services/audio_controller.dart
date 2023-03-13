@@ -193,6 +193,8 @@ class AudioController {
   }
 
   Future<void> _playFirstSongInPlaylist() async {
+    if (_playlist.isEmpty) return;
+    
     _log.info(() => 'Playing ${_playlist.first} now.');
     await _musicPlayer.play(AssetSource('music/${_playlist.first.filename}'));
   }

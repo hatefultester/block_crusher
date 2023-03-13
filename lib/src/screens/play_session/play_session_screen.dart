@@ -65,8 +65,12 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     final bool isCityLand = widget.level.worldType == WorldType.cityLand;
     final bool isDefaultWorld = !isPurpleWorld && !isCityLand;
 
-    final adsController = context.read<AdsController>();
-    adsController.loadFullscreenAd();
+    final AdsController? adsController = context.read<AdsController?>();
+
+    if (adsController != null ) {
+      adsController.loadFullscreenAd();
+    }
+
 
     return WillPopScope(
       onWillPop: () async {
@@ -239,11 +243,14 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     levelStatistics.increaseTotalPlayTime(gamePlayStatistics.duration.inSeconds);
 
 
-    final adsController = context.read<AdsController>();
+    final adsController = context.read<AdsController?>();
 
+    if (adsController != null) {
     adsController.showFullscreenAd(afterIntent: () {
       GoRouter.of(context).go('/play');
-    });
+    }); } else {
+      GoRouter.of(context).go('/play');
+    }
 
 
 

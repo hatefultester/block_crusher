@@ -92,72 +92,75 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   void initState() {
     super.initState();
 
-    final adsController = context.read<AdsController>();
-    final ad = adsController.takePreloadedAd();
+    final adsController = context.read<AdsController?>();
 
-    if (ad != null) {
-      _log.info("A preloaded banner was supplied. Using it.");
-      _showPreloadedAd(ad);
-    } else {
-      _loadAd();
+    if (adsController != null) {
+      final ad = adsController.takePreloadedAd();
+
+      if (ad != null) {
+        _log.info("A preloaded banner was supplied. Using it.");
+        _showPreloadedAd(ad);
+      } else {
+        _loadAd();
+      }
     }
-
   }
 
   /// Load (another) ad, disposing of the current ad if there is one.
   Future<void> _loadAd() async {
     if (!mounted) return;
 
-    final adsController = context.read<AdsController>();
+    final adsController = context.read<AdsController?>();
 
-    if (_adLoadingState == _LoadingState.loading ||
-        _adLoadingState == _LoadingState.disposing) {
-      return;
+    if(adsController !=null ) {
+      if (_adLoadingState == _LoadingState.loading ||
+          _adLoadingState == _LoadingState.disposing) {
+        return;
+      }
+
+      _adLoadingState = _LoadingState.disposing;
+      await _bannerAd?.dispose();
+
+      if (!mounted) return;
+
+      setState(() {
+        _bannerAd = null;
+        _adLoadingState = _LoadingState.loading;
+      });
+
+      AdSize size = AdSize.banner;
+      String id = adsController.androidAppIds[AdType.banner]!;
+      if (!mounted) return;
+
+      assert(Platform.isAndroid || Platform.isIOS,
+      'AdMob currently does not support ${Platform.operatingSystem}');
+
+      _bannerAd = BannerAd(
+        adUnitId: id,
+        size: size,
+        request: const AdRequest(),
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            debugPrint('Ad loaded: ${ad.responseInfo}');
+            setState(() {
+              _bannerAd = ad as BannerAd;
+              _adLoadingState = _LoadingState.loaded;
+            });
+          },
+          onAdFailedToLoad: (ad, error) {
+            debugPrint('Banner failedToLoad: $error');
+            ad.dispose();
+          },
+          onAdImpression: (ad) {
+            debugPrint('Ad impression registered');
+          },
+          onAdClicked: (ad) {
+            debugPrint('Ad click registered');
+          },
+        ),
+      );
+      return _bannerAd!.load();
     }
-
-    _adLoadingState = _LoadingState.disposing;
-    await _bannerAd?.dispose();
-
-    if (!mounted) return;
-
-    setState(() {
-      _bannerAd = null;
-      _adLoadingState = _LoadingState.loading;
-    });
-
-    AdSize size = AdSize.banner;
-    String id = adsController.androidAppIds[AdType.banner]!;
-
-    if (!mounted) return;
-
-    assert(Platform.isAndroid || Platform.isIOS,
-        'AdMob currently does not support ${Platform.operatingSystem}');
-
-    _bannerAd = BannerAd(
-      adUnitId:id,
-      size: size,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          debugPrint('Ad loaded: ${ad.responseInfo}');
-          setState(() {
-            _bannerAd = ad as BannerAd;
-            _adLoadingState = _LoadingState.loaded;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          debugPrint('Banner failedToLoad: $error');
-          ad.dispose();
-        },
-        onAdImpression: (ad) {
-          debugPrint('Ad impression registered');
-        },
-        onAdClicked: (ad) {
-          debugPrint('Ad click registered');
-        },
-      ),
-    );
-    return _bannerAd!.load();
   }
 
   Future<void> _showPreloadedAd(PreloadedBannerAd ad) async {
