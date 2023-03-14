@@ -45,7 +45,7 @@ class _MainMovingButtonState extends State<MainMovingButton> {
         height: 75,
         child: ElevatedButton(
           onPressed: () {
-            audioController.playSfx(SfxType.buttonTap);
+            audioController.playSfx(SfxType.buttonTapSound);
             GoRouter.of(context).go(widget.route);
           },
           child: Center(child: Text(widget.title.toUpperCase())),

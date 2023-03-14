@@ -161,7 +161,7 @@ class _LevelPageCloseLevelState
 
   _handleBuyButton() async {
     final audioController = context.read<AudioController>();
-    audioController.playSfx(SfxType.buttonTap);
+    audioController.playSfx(SfxType.buttonTapSound);
 
     if (_canBeAffordedByPlayer()) {
       widget.onBuy(_celebrationDuration + _preCelebrationDuration);

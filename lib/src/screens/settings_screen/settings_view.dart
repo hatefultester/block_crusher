@@ -35,7 +35,7 @@ class SettingsView extends StatelessWidget {
                   path: 'assets/images/in_app/note.png',
                   on: soundsOn,
                   onSelected: () {
-                    context.read<AudioController>().playSfx(SfxType.buttonTap);
+                    context.read<AudioController>().playSfx(SfxType.buttonTapSound);
                     showInfoMessageSnackBar(
                        soundsOn ? 'Sounds turned off' : 'Sounds turned on', 'Approved');
                     settings.toggleSoundsOn();
@@ -50,7 +50,7 @@ class SettingsView extends StatelessWidget {
                     path: 'assets/images/in_app/note.png',
                     on: musicOn,
                     onSelected: () {
-                      context.read<AudioController>().playSfx(SfxType.buttonTap);
+                      context.read<AudioController>().playSfx(SfxType.buttonTapSound);
                       showInfoMessageSnackBar(
                           musicOn ? 'Music turned off' : 'Music turned on', 'Approved');
                       settings.toggleMusicOn();
@@ -62,7 +62,7 @@ class SettingsView extends StatelessWidget {
                 title: 'Reset progress',
                 path: 'assets/images/in_app/trash.png',
                 onSelected: () {
-                  context.read<AudioController>().playSfx(SfxType.buttonTap);
+                  context.read<AudioController>().playSfx(SfxType.buttonTapSound);
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -109,7 +109,7 @@ class SettingsView extends StatelessWidget {
                   title: 'Give me money 5000',
                   path: 'assets/images/in_app/neutral_smile.png',
                   onSelected: () {
-                    context.read<AudioController>().playSfx(SfxType.buttonTap);
+                    context.read<AudioController>().playSfx(SfxType.buttonTapSound);
                     context.read<TreasureCounter>().incrementCoinCount(5000);
                     showInfoMessageSnackBar('You have 5000 more money', 'Cheater');
                     //`showAchievementSnackBar(GameAchievement.connectTwoPlayers);
@@ -122,7 +122,7 @@ class SettingsView extends StatelessWidget {
                   title: 'Unlock all levels',
                   path: 'assets/images/in_app/neutral_smile.png',
                   onSelected: () {
-                    context.read<AudioController>().playSfx(SfxType.buttonTap);
+                    context.read<AudioController>().playSfx(SfxType.buttonTapSound);
                     context.read<LevelStatistics>().cheat();
                     context.read<WorldUnlockManager>().cheat();
                     showInfoMessageSnackBar('Level set to 32', 'Cheater');

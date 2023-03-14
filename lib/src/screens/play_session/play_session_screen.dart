@@ -236,7 +236,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
         coinCount: coinIncrease, alreadyFinishedLevel: alreadyFinishedLevel
         , winningCharacter: widget.level.winningCharacterReference);
 
-    audioController.playSfx(SfxType.buttonTap);
+    audioController.playSfx(SfxType.buttonTapSound);
 
     treasureCounter.incrementCoinCount(gamePlayStatistics.coinCount);
 
@@ -289,7 +289,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
 
     await Future<void>.delayed(const Duration(milliseconds: 200));
 
-    audioController.playSfx(SfxType.lost);
+    audioController.playSfx(SfxType.lostGameSound);
 
     await Future<void>.delayed(celebrationDuration);
     if (!mounted) return;
@@ -335,7 +335,7 @@ class PlaySessionScreenState extends State<PlaySessionScreen> {
     });
 
     await Future<void>.delayed(const Duration(milliseconds: 200));
-    audioController.playSfx(SfxType.congrats);
+    audioController.playSfx(SfxType.congratulationSound);
 
     await Future<void>.delayed(celebrationDuration);
     if (!mounted) return;

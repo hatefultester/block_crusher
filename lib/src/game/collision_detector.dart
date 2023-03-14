@@ -12,7 +12,7 @@ import 'coin_animation_effect.dart';
 extension CollisionDetector on BlockCrusherGame {
 
   void collisionDetected(int level, Set<Vector2> intersectionPoints) {
-    audioController.playSfx(SfxType.wssh);
+    audioController.playSfx(SfxType.connectSound);
     final position = intersectionPoints.first;
 
     if (!gameAchievements.isAchievementOpen(GameAchievement.connectTwoPlayers)) {
@@ -55,7 +55,7 @@ extension CollisionDetector on BlockCrusherGame {
   }
 
   collectedToTray(int level) {
-    audioController.playSfx(SfxType.kosik);
+    audioController.playSfx(SfxType.collectToTraySound);
 
     state.collect(level);
     state.increaseCoinCount(level == 0 ? connectCoinCount : level * connectCoinCount);

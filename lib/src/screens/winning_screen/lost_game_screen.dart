@@ -153,7 +153,7 @@ class _LostGameScreenState extends State<LostGameScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         final audio = context.read<AudioController>();
-                        audio.playSfx(SfxType.buttonTap);
+                        audio.playSfx(SfxType.buttonTapSound);
 
                         if(adsController !=null) {
                           await adsController.showFullscreenAd(afterIntent: () {
@@ -177,7 +177,7 @@ class _LostGameScreenState extends State<LostGameScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         final audio = context.read<AudioController>();
-                        audio.playSfx(SfxType.buttonTap);
+                        audio.playSfx(SfxType.buttonTapSound);
 
                         if(adsController!=null) {
                         await adsController.showFullscreenAd(afterIntent: () {

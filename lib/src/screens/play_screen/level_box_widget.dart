@@ -91,7 +91,7 @@ class LevelBoxWidget extends StatelessWidget {
     bool enabled = highestScore >= level.levelId - 1;
 
     onTap() => {
-          audioController.playSfx(SfxType.buttonTap),
+          audioController.playSfx(SfxType.buttonTapSound),
           GoRouter.of(context).go('/play/session/${level.levelId}/0'),
         };
 

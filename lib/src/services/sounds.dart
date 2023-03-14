@@ -4,58 +4,29 @@
 
 List<String> soundTypeToFilename(SfxType type) {
   switch (type) {
-    case SfxType.huhsh:
-      return const [
-        'hash1.mp3',
-        'hash2.mp3',
-        'hash3.mp3',
-      ];
-    case SfxType.wssh:
+    case SfxType.connectSound:
       return const [
         'lea/collect1.mp3',
         'lea/collect1.mp3',
         'lea/collect1.mp3',
         'lea/collect1.mp3',
-
         'lea/collect_new_best.mp3',
-        // 'wssh1.mp3',
-        // 'wssh2.mp3',
-        // 'dsht1.mp3',
-        // 'ws1.mp3',
-        // 'spsh1.mp3',
-        // 'hh1.mp3',
-        // 'hh2.mp3',
-        // 'kss1.mp3',
       ];
-    case SfxType.buttonTap:
+    case SfxType.buttonTapSound:
       return const [
-        // 'knock1.mp3'
         'knock.m4a'
-        // 'k1.mp3',
-        // 'k2.mp3',
-        // 'p1.mp3',
-        // 'p2.mp3',
       ];
-    case SfxType.congrats:
-      return const ['lea/sound4.mp3'];
-    case SfxType.erase:
+    case SfxType.congratulationSound:
+      return const ['lea/congratulations.mp3'];
+    case SfxType.collectToTraySound:
       return const [
-        'fwfwfwfwfw1.mp3',
-        'fwfwfwfw1.mp3',
+        'lea/collect_to_tray_1.mp3',
+        'lea/collect_to_tray_2.mp3',
+        'lea/collect_to_tray_3.mp3',
+        'lea/collect_to_tray_4.mp3',
+        'lea/collect_to_tray_5.mp3',
       ];
-    case SfxType.swishSwish:
-      return const [
-        'swishswish1.mp3',
-      ];
-    case SfxType.kosik:
-      return const [
-        'lea/sound7.mp3',
-        'lea/sound8.mp3',
-        'lea/sound9.mp3',
-        'lea/sound10.mp3',
-        'lea/sound11.mp3',
-      ];
-    case SfxType.lost:
+    case SfxType.lostGameSound:
       return const [
         'lea/lose.mp3',
       ];
@@ -70,4 +41,4 @@ double soundTypeToVolume(SfxType type) {
   }
 }
 
-enum SfxType { huhsh, wssh, buttonTap, congrats, erase, swishSwish, kosik, lost }
+enum SfxType { connectSound, buttonTapSound, congratulationSound, collectToTraySound, lostGameSound }

@@ -185,7 +185,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                           child: ElevatedButton(
                             onPressed: () {
                               final audio = context.read<AudioController>();
-                              audio.playSfx(SfxType.buttonTap);
+                              audio.playSfx(SfxType.buttonTapSound);
                               GoRouter.of(context).go('/play/session/${widget.score.level+1}/0');
                             },
                             child: const Text('Continue playing', style: TextStyle(
@@ -201,7 +201,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                         child: ElevatedButton(
                           onPressed: () {
                             final audio = context.read<AudioController>();
-                            audio.playSfx(SfxType.buttonTap);
+                            audio.playSfx(SfxType.buttonTapSound);
                             GoRouter.of(context).go('/play');
                           },
                           child: const Text('Back to levels', style: TextStyle(
@@ -216,7 +216,7 @@ class _WinGameScreenState extends State<WinGameScreen> with SingleTickerProvider
                         child: ElevatedButton(
                           onPressed: () {
                             final audio = context.read<AudioController>();
-                            audio.playSfx(SfxType.buttonTap);
+                            audio.playSfx(SfxType.buttonTapSound);
                             GoRouter.of(context).pushReplacement('/play/profile_market');
                           },
                           child: const Text('Go to profile',style: TextStyle(

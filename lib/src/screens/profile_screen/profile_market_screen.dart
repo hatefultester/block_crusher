@@ -104,7 +104,7 @@ class ProfileStatisticsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(padding: const EdgeInsets.all(8), margin: const EdgeInsets.all(8),width: double.infinity, height: 60, child:
     ElevatedButton(onPressed: () {final audio = context.read<AudioController>();
-    audio.playSfx(SfxType.buttonTap);
+    audio.playSfx(SfxType.buttonTapSound);
     GoRouter.of(context).pushReplacement('/play/profile');  }, child: const Text('Game statistics'),
       
     ));

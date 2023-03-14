@@ -135,7 +135,7 @@ class _GameFinishedScreenState extends State<GameFinishedScreen> with SingleTick
                       child: ElevatedButton(
                         onPressed: () {
                           final audio = context.read<AudioController>();
-                          audio.playSfx(SfxType.buttonTap);
+                          audio.playSfx(SfxType.buttonTapSound);
                           GoRouter.of(context).go('/play');
                         },
                         child: const Text('Back to levels', style: TextStyle(
@@ -150,7 +150,7 @@ class _GameFinishedScreenState extends State<GameFinishedScreen> with SingleTick
                       child: ElevatedButton(
                         onPressed: () {
                           final audio = context.read<AudioController>();
-                          audio.playSfx(SfxType.buttonTap);
+                          audio.playSfx(SfxType.buttonTapSound);
                           GoRouter.of(context).pushReplacement('/play/profile_market');
                         },
                         child: const Text('Go to profile',style: TextStyle(

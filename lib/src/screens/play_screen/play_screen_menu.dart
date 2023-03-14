@@ -119,11 +119,11 @@ class LevelPageViewChildPopUpMenuButton extends StatelessWidget {
     final audioController = context.read<AudioController>();
 
     handleOpen() {
-      audioController.playSfx(SfxType.buttonTap);
+      audioController.playSfx(SfxType.buttonTapSound);
     }
 
     handleClose() {
-      audioController.playSfx(SfxType.buttonTap);
+      audioController.playSfx(SfxType.buttonTapSound);
     }
 
     handleSelectedItem(int value) {
